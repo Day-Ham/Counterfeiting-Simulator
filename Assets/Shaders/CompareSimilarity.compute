@@ -1,0 +1,26 @@
+﻿#pragma kernel GetSimilarity
+
+Texture2D _TextureA;
+Texture2D _TextureB;
+RWBuffer<int> _SimilarityOutputBuffer;
+
+bool IsSimilar(float4 pixelA, float4 pixelB)
+{
+    if (pixelA.a < 0.01f && pixelB.a < 0.01f)
+        return true;
+
+    float4 diff = pixelA - pixelB;
+    return dot(diff, diff) < 0.01f;
+}
+
+[numthreads(8, 8, 1)]
+void GetSimilarity(uint3 id : SV_DispatchThreadID)
+{
+    float4 pixelA = _TextureA[id.xy];
+    float4 pixelB = _TextureB[id.xy];
+
+    if (IsSimilar(pixelA, pixelB))
+    {
+        InterlockedAdd(_SimilarityOutputBuffer[0], 1);
+    }
+}

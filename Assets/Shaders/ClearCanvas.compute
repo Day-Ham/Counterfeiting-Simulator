@@ -1,0 +1,10 @@
+﻿#pragma kernel ClearCanvas
+
+RWTexture2D<float4> _CanvasTexture;
+float4 _ClearColor;
+
+[numthreads(8, 8, 1)]
+void ClearCanvas(uint3 id : SV_DispatchThreadID)
+{
+    _CanvasTexture[id.xy] = _ClearColor;
+}

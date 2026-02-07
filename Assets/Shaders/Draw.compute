@@ -1,0 +1,67 @@
+﻿#pragma kernel DrawUpdate
+#pragma kernel EraseUpdate
+
+RWTexture2D<float4> _CanvasTexture;
+Texture2D _BrushTexture;
+SamplerState sampler_BrushTexture;
+int2 _BrushTextureSize;
+float4 _BrushColor;
+float _BrushSize;
+
+float2 _PreviousTexelPosition;
+float2 _CurrentTexelPosition;
+
+// Accounts for when cursor is moved between ticks
+float2 GetDisplacementFromCursor(float2 p)
+{
+    const float2 displacement = _CurrentTexelPosition - _PreviousTexelPosition;
+    const float lenSqr = dot(displacement, displacement);
+
+    if (lenSqr == 0.0)
+        return _CurrentTexelPosition - p;
+
+    // Get displacement from projection of cursor onto line segment from _PreviousCursorPosition to _CurrentCursorPosition
+    const float t = max(0, min(1, dot(p - _PreviousTexelPosition, displacement) / lenSqr));
+    const float2 projection = _PreviousTexelPosition + displacement * t;
+    return projection - p;
+}
+
+[numthreads(8, 8, 1)]
+void DrawUpdate(uint3 id : SV_DispatchThreadID)
+{
+    float2 diff = GetDisplacementFromCursor(id.xy);
+
+    if (abs(diff.x) <= _BrushSize && abs(diff.y) <= _BrushSize)
+    {
+        float2 brushUv = (diff / _BrushSize + 1.0f) / 2.0f;
+        float4 brushSample = _BrushTexture.SampleLevel(sampler_BrushTexture, brushUv, 0);
+        float4 nextColor = brushSample * _BrushColor;
+        float4 prevColor = _CanvasTexture[id.xy];
+        float3 outColor = lerp(prevColor.rgb, nextColor.rgb, nextColor.a);
+        _CanvasTexture[id.xy] = float4(outColor, max(prevColor.a, nextColor.a));
+    }
+}
+
+[numthreads(8, 8, 1)]
+void EraseUpdate(uint3 id : SV_DispatchThreadID)
+{
+    float2 diff = GetDisplacementFromCursor(id.xy);
+
+    if (abs(diff.x) <= _BrushSize && abs(diff.y) <= _BrushSize)
+    {
+        float2 brushUv = (diff / _BrushSize + 1.0f) / 2.0f;
+        float4 brushSample = _BrushTexture.SampleLevel(sampler_BrushTexture, brushUv, 0);
+        float oneMinusBrushAlpha = 1.0f - brushSample.a; // OneMinus because we're erasing
+        float4 prevColor = _CanvasTexture[id.xy];
+        float nextAlpha = min(oneMinusBrushAlpha, prevColor.a);
+        
+        if (nextAlpha > 0.0001f)
+        {
+            _CanvasTexture[id.xy] = float4(prevColor.rgb, nextAlpha);
+        }
+        else
+        {
+            _CanvasTexture[id.xy] = float4(0.0f, 0.0f, 0.0f, 0.0f);
+        }
+    }
+}
