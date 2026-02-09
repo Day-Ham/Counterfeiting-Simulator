@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6340177924904291715}
   - component: {fileID: 2008307764072722078}
+  - component: {fileID: 524738013867065681}
   m_Layer: 5
   m_Name: NEW TOOL BAR
   m_TagString: Untagged
@@ -53,6 +54,20 @@ MonoBehaviour:
   ColorDataList: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
   ContentParent: {fileID: 2767286880668992158}
   CrayonUIPrefab: {fileID: 11400000, guid: 92924dc033e11cb49bf164a5410dd69d, type: 2}
+--- !u!114 &524738013867065681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142640588722523444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e551f2fde37c7c34daf6a799a844bf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Palette: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
+  CrayonParent: {fileID: 2767286880668992158}
 --- !u!1 &4072405176628716360
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +139,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2767286880668992158}
     m_Modifications:
+    - target: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 29750899942082492}
+    - target: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Select
+      objectReference: {fileID: 0}
+    - target: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.UI.Button, UnityEngine.UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094626232890481555, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_Color.b
+      value: 0.42352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094626232890481555, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_Color.g
+      value: 0.24705882
+      objectReference: {fileID: 0}
+    - target: {fileID: 2094626232890481555, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: m_Color.r
+      value: 0.08627451
+      objectReference: {fileID: 0}
     - target: {fileID: 2147373530383820558, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -204,6 +251,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6333836322193682454, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 5623089849790334514}
     - target: {fileID: 8103751345272570725, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
       propertyPath: m_Name
       value: CrayonPrefab
@@ -211,13 +262,54 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8103751345272570725, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5623089849790334514}
   m_SourcePrefab: {fileID: 100100000, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+--- !u!114 &29750899942082492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 112520114695391185, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+  m_PrefabInstance: {fileID: 136922438897926253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183107396367434504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2029842374914484067 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2147373530383820558, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
   m_PrefabInstance: {fileID: 136922438897926253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8183107396367434504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8103751345272570725, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}
+  m_PrefabInstance: {fileID: 136922438897926253}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5623089849790334514
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183107396367434504}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c696dba4cdfa7104ebc1bcaf314f1a58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &6572003401534591793
 PrefabInstance:
   m_ObjectHideFlags: 0
