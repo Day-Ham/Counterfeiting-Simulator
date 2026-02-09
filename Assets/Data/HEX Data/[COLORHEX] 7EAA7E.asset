@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f142249c1e6eabb44b0ea26af9a01c12, type: 3}
   m_Name: '[COLORHEX] 7EAA7E'
   m_EditorClassIdentifier: 
-  value: {r: 0.9647059, g: 0.9529412, b: 0.7019608, a: 0}
+  value: {r: 0.49411765, g: 0.6666667, b: 0.49411765, a: 0}
