@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f142249c1e6eabb44b0ea26af9a01c12, type: 3}
-  m_Name: '[COLORHEX] 4A7CAF'
+  m_Script: {fileID: 11500000, guid: 8015315ff3447244f991db4eef68544a, type: 3}
+  m_Name: '[GAMEOBJECT] CrayonPrefab'
   m_EditorClassIdentifier: 
-  value: {r: 0.2901961, g: 0.4862745, b: 0.6862745, a: 0}
+  value: {fileID: 8103751345272570725, guid: 7724f7bc2faa02e479fde63e22e3b759, type: 3}

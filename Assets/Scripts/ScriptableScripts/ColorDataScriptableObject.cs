@@ -4,5 +4,4 @@ using UnityEngine;
 public class ColorDataScriptableObject : ScriptableObject
 {
     public ColorPaletteValue Color;
-    public GameObjectValue GameObject;
 }
