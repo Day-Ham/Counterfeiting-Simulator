@@ -1,7 +1,6 @@
 using UnityEngine;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 
-//This Script is being used on the Canvas Section
 public class DrawingColorReceiver : MonoBehaviour
 {
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;

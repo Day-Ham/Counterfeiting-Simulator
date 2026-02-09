@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3964760756508438616}
   - component: {fileID: 112520114695391185}
   - component: {fileID: 6333836322193682454}
-  - component: {fileID: 6586356735090874859}
+  - component: {fileID: 6086580001995746814}
   m_Layer: 5
   m_Name: CrayonPrefab
   m_TagString: Untagged
@@ -122,19 +122,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3964760756508438616}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6333836322193682454}
-        m_TargetAssemblyTypeName: CrayonUIItem, Assembly-CSharp
-        m_MethodName: Select
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6333836322193682454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,10 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57478c95795bcc04aa24f21d79f67909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 112520114695391185}
   colorPreview: {fileID: 2094626232890481555}
-  anim: {fileID: 6586356735090874859}
+  anim: {fileID: 6086580001995746814}
   selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
---- !u!95 &6586356735090874859
+--- !u!95 &6086580001995746814
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -230,7 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.08627451, g: 0.24705882, b: 0.42352942, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
