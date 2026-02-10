@@ -8,12 +8,12 @@ public class CardBoardManager : MonoBehaviour
     [SerializeField] private List<CardBoardUI> cardboards = new List<CardBoardUI>();
 
     [Header("Selection Settings")]
-    [SerializeField] private float selectionInterval = 1f;
+    [SerializeField] private float selectionInterval = 3f;
 
     private CardBoardUI currentSelectedCardboard;
     private float timeSinceSelection = 0f;
 
-    [SerializeField] private float moveDuration = 1f;
+    [SerializeField] private float moveDuration = 3f;
     //private bool isSelecting = false;  
     void Start()
     {

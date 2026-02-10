@@ -4,19 +4,18 @@ using DG.Tweening;
 
 public class CardBoardUI : MonoBehaviour
 {
-    [Header("CardBoardUI Settings")]
-    [SerializeField] private float moveDuration = 1f;
-    [SerializeField] private float changeDirectionInterval = 1f;
+    [Header("Movement Settings")]
+    [SerializeField] private float changeDirectionInterval = 3f;
     [SerializeField] private float minYOffset = -50f;
     [SerializeField] private float maxYOffset = 50f;
-    [SerializeField] private Ease movementEaseType = Ease.InOutSine;
+    [SerializeField] private float moveDuration = 1f;
+    [SerializeField] private Ease movementEaseType = Ease.Linear;
 
     private RectTransform rectTransform;
     private float currentDirection = 1f;
     private float timeSinceLastChange = 0f;
     private float startYPosition;
-
-    [SerializeField] private bool isActive = false;
+    private bool isActive = false;
 
     [Header("Visual FeedBack")]
     [SerializeField] private Image cardBoardImage;
@@ -24,7 +23,6 @@ public class CardBoardUI : MonoBehaviour
     [SerializeField] private Color activeColor = Color.green;
     [SerializeField] private float colorTransitionDuration = 0.3f;
 
-    Sequence moveSequence = DOTween.Sequence();
     private Sequence currentMoveSequence;
 
     private void Awake()
@@ -32,9 +30,15 @@ public class CardBoardUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         startYPosition = rectTransform.anchoredPosition.y;
     }
+
     void Start()
     {
-        currentDirection = Random.value > 0.5f ? 1f : 1f;
+        currentDirection = 1f;
+
+        if (cardBoardImage != null)
+        {
+            cardBoardImage.color = normalColor;
+        }
     }
 
     void Update()
@@ -45,15 +49,14 @@ public class CardBoardUI : MonoBehaviour
         }
     }
 
-    public void HandleMovement ()
+    public void HandleMovement()
     {
         timeSinceLastChange += Time.deltaTime;
 
         if (timeSinceLastChange >= changeDirectionInterval)
         {
-            currentDirection = Random.value > 0.5f ? 1f : -1f;
+            currentDirection = 1f;
             timeSinceLastChange = 0f;
-
             MoveToDirection(currentDirection);
         }
     }
@@ -70,11 +73,20 @@ public class CardBoardUI : MonoBehaviour
         Vector2 upPos = new Vector2(rectTransform.anchoredPosition.x, upY);
         Vector2 downPos = new Vector2(rectTransform.anchoredPosition.x, downY);
 
-        Sequence moveSequence = DOTween.Sequence();
-        moveSequence.Append(rectTransform.DOAnchorPos(upPos, moveDuration * 0.5f).SetEase(movementEaseType));
-        moveSequence.Append(rectTransform.DOAnchorPos(downPos, moveDuration * 0.5f).SetEase(movementEaseType));
+        currentMoveSequence = DOTween.Sequence();
 
-        currentMoveSequence = moveSequence;
+        if (direction > 0)
+        {
+            currentMoveSequence.Append(rectTransform.DOAnchorPos(upPos, moveDuration).SetEase(movementEaseType));
+            currentMoveSequence.Append(rectTransform.DOAnchorPos(downPos, moveDuration).SetEase(movementEaseType));
+        }
+        else
+        {
+            currentMoveSequence.Append(rectTransform.DOAnchorPos(downPos, moveDuration).SetEase(movementEaseType));
+            currentMoveSequence.Append(rectTransform.DOAnchorPos(upPos, moveDuration).SetEase(movementEaseType));
+        }
+
+        currentMoveSequence.SetLoops(-1, LoopType.Restart);
     }
 
     public void SetActive(bool active)
@@ -89,7 +101,7 @@ public class CardBoardUI : MonoBehaviour
         if (active)
         {
             timeSinceLastChange = 0f;
-            currentDirection = Random.value > 0.5f ? 1f : -1f;
+            currentDirection = 1f;
             MoveToDirection(currentDirection);
         }
         else
@@ -104,7 +116,7 @@ public class CardBoardUI : MonoBehaviour
 
     void ResetPosition()
     {
-        Vector2 currentPos = rectTransform.anchoredPosition;
-        rectTransform.anchoredPosition = new Vector2 (currentPos.x, startYPosition);
+        Vector2 targetPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition);
+        rectTransform.DOAnchorPos(targetPos, 0.5f).SetEase(Ease.OutBack);
     }
 }
