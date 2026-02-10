@@ -5,7 +5,6 @@ public class CrayonUIItem : MonoBehaviour
 {
     [SerializeField] private Button Button;
     [SerializeField] private Image ColorPreview;
-    [SerializeField] private Animator Anim;
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     
     private Color color;
@@ -26,7 +25,6 @@ public class CrayonUIItem : MonoBehaviour
     {
         Debug.Log("Crayon clicked", this);
         
-        Anim?.Play("Selected");
         SelectColorEvent.Raise(color);
     }
 }
