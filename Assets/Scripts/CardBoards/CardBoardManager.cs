@@ -10,11 +10,11 @@ public class CardBoardManager : MonoBehaviour
     [Header("Selection Settings")]
     [SerializeField] private float selectionInterval = 3f;
 
+    [Header("Visual FeedBack")]
+
     private CardBoardUI currentSelectedCardboard;
     private float timeSinceSelection = 0f;
 
-    [SerializeField] private float moveDuration = 3f;
-    //private bool isSelecting = false;  
     void Start()
     {
         CardboardValidator();
@@ -27,12 +27,13 @@ public class CardBoardManager : MonoBehaviour
 
     void CardboardValidator()
     {
-        if (cardboards.Count >  0)
+        if (cardboards.Count > 0)
         {
             SelectRandomCardboard();
-        }else
+        }
+        else
         {
-            Debug.Log("No cardboard selected");
+            Debug.LogError("No cardboard assigned!");
         }
     }
 
@@ -51,7 +52,7 @@ public class CardBoardManager : MonoBehaviour
     {
         if (cardboards.Count == 0)
         {
-            Debug.LogError("List is empty");
+            Debug.LogError("List is empty!");
             return;
         }
 
@@ -68,29 +69,22 @@ public class CardBoardManager : MonoBehaviour
 
         int randomIndex;
         CardBoardUI newSelection;
+
         do
         {
             randomIndex = Random.Range(0, cardboards.Count);
             newSelection = cardboards[randomIndex];
         } while (newSelection == currentSelectedCardboard);
 
-        // Deactivate current, wait for animation, then activate new
         if (currentSelectedCardboard != null)
         {
             currentSelectedCardboard.SetActive(false);
+        }
 
-            // Wait for up-down animation to complete before moving to next
-            DOVirtual.DelayedCall(moveDuration, () => {
-                newSelection.SetActive(true);
-                currentSelectedCardboard = newSelection;
-                Debug.Log($"Selected Cardboard {randomIndex + 1}");
-            });
-        }
-        else
-        {
-            newSelection.SetActive(true);
-            currentSelectedCardboard = newSelection;
-        }
+        newSelection.SetActive(true);
+        currentSelectedCardboard = newSelection;
+
+        Debug.Log($"Selected Cardboard {randomIndex + 1}");
     }
 
     public void SelectCardboard(CardBoardUI cardboard)
@@ -100,9 +94,9 @@ public class CardBoardManager : MonoBehaviour
             return;
         }
 
-        foreach (CardBoardUI cb in cardboards)
+        if (currentSelectedCardboard != null)
         {
-            cb.SetActive(false);
+            currentSelectedCardboard.SetActive(false);
         }
 
         currentSelectedCardboard = cardboard;
@@ -110,7 +104,6 @@ public class CardBoardManager : MonoBehaviour
 
         timeSinceSelection = 0f;
 
-        Debug.Log($"Manualy Selected {cardboard.name}");
+        Debug.Log($"Manually Selected {cardboard.name}");
     }
-
 }

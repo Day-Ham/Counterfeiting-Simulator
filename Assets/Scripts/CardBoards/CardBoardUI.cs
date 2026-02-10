@@ -5,15 +5,19 @@ using DG.Tweening;
 public class CardBoardUI : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float changeDirectionInterval = 3f;
-    [SerializeField] private float minYOffset = -50f;
-    [SerializeField] private float maxYOffset = 50f;
-    [SerializeField] private float moveDuration = 1f;
-    [SerializeField] private Ease movementEaseType = Ease.Linear;
+    [SerializeField] private float maxYOffset = 30f;
+    [SerializeField] private float moveDuration = 0.8f;
+
+    [Header("Bounce Settings")]
+    [SerializeField] private float bounceAmount = 5f;
+    [SerializeField] private float bounceDuration = 0.2f;
+    [SerializeField] private int bounceCount = 2;
+
+    [Header("Pause Settings")]
+    [SerializeField] private float pauseAfterBounce = 0.3f;
+    [SerializeField] private float pauseAfterDown = 0.2f;
 
     private RectTransform rectTransform;
-    private float currentDirection = 1f;
-    private float timeSinceLastChange = 0f;
     private float startYPosition;
     private bool isActive = false;
 
@@ -33,58 +37,60 @@ public class CardBoardUI : MonoBehaviour
 
     void Start()
     {
-        currentDirection = 1f;
-
         if (cardBoardImage != null)
         {
             cardBoardImage.color = normalColor;
         }
     }
 
-    void Update()
+    void MoveToDirection()
     {
-        if (isActive)
+        if (currentMoveSequence != null)
         {
-            HandleMovement();
-        }
-    }
-
-    public void HandleMovement()
-    {
-        timeSinceLastChange += Time.deltaTime;
-
-        if (timeSinceLastChange >= changeDirectionInterval)
-        {
-            currentDirection = 1f;
-            timeSinceLastChange = 0f;
-            MoveToDirection(currentDirection);
-        }
-    }
-
-    void MoveToDirection(float direction)
-    {
-        if (currentMoveSequence != null && currentMoveSequence.IsActive())
-        {
-            currentMoveSequence.Kill();
+            currentMoveSequence.Kill(true);
         }
 
-        float upY = startYPosition + maxYOffset;
-        float downY = startYPosition + minYOffset;
-        Vector2 upPos = new Vector2(rectTransform.anchoredPosition.x, upY);
-        Vector2 downPos = new Vector2(rectTransform.anchoredPosition.x, downY);
+        rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, startYPosition);
+
+        Vector2 startPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition);
+        Vector2 topPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition + maxYOffset);
+
+        Vector2 topUpPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition + maxYOffset + bounceAmount);
+        Vector2 topDownPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition + maxYOffset - bounceAmount);
 
         currentMoveSequence = DOTween.Sequence();
 
-        if (direction > 0)
+        currentMoveSequence.Append(
+            rectTransform.DOAnchorPos(topPos, moveDuration)
+                .SetEase(Ease.OutQuad)
+        );
+
+        for (int i = 0; i < bounceCount; i++)
         {
-            currentMoveSequence.Append(rectTransform.DOAnchorPos(upPos, moveDuration).SetEase(movementEaseType));
-            currentMoveSequence.Append(rectTransform.DOAnchorPos(downPos, moveDuration).SetEase(movementEaseType));
+            currentMoveSequence.Append(
+                rectTransform.DOAnchorPos(topUpPos, bounceDuration)
+                    .SetEase(Ease.InOutSine)
+            );
+
+            currentMoveSequence.Append(
+                rectTransform.DOAnchorPos(topDownPos, bounceDuration)
+                    .SetEase(Ease.InOutSine)
+            );
         }
-        else
-        {
-            currentMoveSequence.Append(rectTransform.DOAnchorPos(downPos, moveDuration).SetEase(movementEaseType));
-            currentMoveSequence.Append(rectTransform.DOAnchorPos(upPos, moveDuration).SetEase(movementEaseType));
-        }
+
+        currentMoveSequence.Append(
+            rectTransform.DOAnchorPos(topPos, bounceDuration)
+                .SetEase(Ease.InOutSine)
+        );
+
+        currentMoveSequence.AppendInterval(pauseAfterBounce);
+
+        currentMoveSequence.Append(
+            rectTransform.DOAnchorPos(startPos, moveDuration)
+                .SetEase(Ease.InOutQuad)
+        );
+
+        currentMoveSequence.AppendInterval(pauseAfterDown);
 
         currentMoveSequence.SetLoops(-1, LoopType.Restart);
     }
@@ -100,15 +106,14 @@ public class CardBoardUI : MonoBehaviour
 
         if (active)
         {
-            timeSinceLastChange = 0f;
-            currentDirection = 1f;
-            MoveToDirection(currentDirection);
+            MoveToDirection();
         }
         else
         {
-            if (currentMoveSequence != null && currentMoveSequence.IsActive())
+            if (currentMoveSequence != null)
             {
-                currentMoveSequence.Kill();
+                currentMoveSequence.Kill(true);
+                currentMoveSequence = null;
             }
             ResetPosition();
         }
@@ -116,7 +121,17 @@ public class CardBoardUI : MonoBehaviour
 
     void ResetPosition()
     {
+        rectTransform.DOKill();
         Vector2 targetPos = new Vector2(rectTransform.anchoredPosition.x, startYPosition);
         rectTransform.DOAnchorPos(targetPos, 0.5f).SetEase(Ease.OutBack);
+    }
+
+    private void OnDestroy()
+    {
+        if (currentMoveSequence != null)
+        {
+            currentMoveSequence.Kill();
+        }
+        rectTransform.DOKill();
     }
 }
