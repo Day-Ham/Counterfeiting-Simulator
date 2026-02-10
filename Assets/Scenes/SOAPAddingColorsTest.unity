@@ -9859,10 +9859,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: NEW TOOL BAR
       objectReference: {fileID: 0}
-    - target: {fileID: 6197019780144738427, guid: c5f9a46873ed13c4cba3193dd1b45628, type: 3}
-      propertyPath: anim
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6340177924904291715, guid: c5f9a46873ed13c4cba3193dd1b45628, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9944,8 +9940,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8183107396367434504, guid: c5f9a46873ed13c4cba3193dd1b45628, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5f9a46873ed13c4cba3193dd1b45628, type: 3}

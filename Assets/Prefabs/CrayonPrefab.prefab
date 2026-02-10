@@ -135,10 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57478c95795bcc04aa24f21d79f67909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 112520114695391185}
-  colorPreview: {fileID: 2094626232890481555}
-  anim: {fileID: 6086580001995746814}
-  selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  Button: {fileID: 112520114695391185}
+  ColorPreview: {fileID: 2094626232890481555}
+  Anim: {fileID: 6086580001995746814}
+  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  IsEraser: 0
 --- !u!95 &6086580001995746814
 Animator:
   serializedVersion: 7

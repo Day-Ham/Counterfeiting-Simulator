@@ -10,11 +10,13 @@ public class DrawingColorReceiver : MonoBehaviour
     private void OnEnable()
     {
         SelectColorEvent.OnColorSelected += OnColorSelected;
+        SelectColorEvent.OnEraseSelected += OnEraseSelected;
     }
 
     private void OnDisable()
     {
         SelectColorEvent.OnColorSelected -= OnColorSelected;
+        SelectColorEvent.OnEraseSelected -= OnEraseSelected;
     }
 
     private void OnColorSelected(Color color)
@@ -24,7 +26,7 @@ public class DrawingColorReceiver : MonoBehaviour
         DrawController.SetDrawMode(CanvasDrawController.DrawMode.Draw);
     }
 
-    public void SetEraser()
+    private void OnEraseSelected()
     {
         DrawController.SetDrawMode(CanvasDrawController.DrawMode.Erase);
     }

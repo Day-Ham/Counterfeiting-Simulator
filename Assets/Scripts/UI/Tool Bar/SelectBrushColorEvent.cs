@@ -5,9 +5,15 @@ using System;
 public class SelectBrushColorEvent : ScriptableObject
 {
     public Action<Color> OnColorSelected;
+    public Action OnEraseSelected;
 
     public void Raise(Color color)
     {
         OnColorSelected?.Invoke(color);
+    }
+    
+    public void RaiseErase()
+    {
+        OnEraseSelected?.Invoke();
     }
 }

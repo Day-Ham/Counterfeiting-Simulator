@@ -3,22 +3,22 @@ using UnityEngine.UI;
 
 public class CrayonUIItem : MonoBehaviour
 {
-    [SerializeField] private Button button;
-    [SerializeField] private Image colorPreview;
-    [SerializeField] private Animator anim;
-    [SerializeField] private SelectBrushColorEvent selectColorEvent;
+    [SerializeField] private Button Button;
+    [SerializeField] private Image ColorPreview;
+    [SerializeField] private Animator Anim;
+    [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     
     private Color color;
     
     private void Awake()
     {
-        button.onClick.AddListener(Select);
+        Button.onClick.AddListener(Select);
     }
 
     public void Setup(Color newColor)
     {
         color = newColor;
-        colorPreview.color = color;
+        ColorPreview.color = color;
         Debug.Log(color);
     }
     
@@ -26,7 +26,7 @@ public class CrayonUIItem : MonoBehaviour
     {
         Debug.Log("Crayon clicked", this);
         
-        anim?.Play("Selected");
-        selectColorEvent.Raise(color);
+        Anim?.Play("Selected");
+        SelectColorEvent.Raise(color);
     }
 }

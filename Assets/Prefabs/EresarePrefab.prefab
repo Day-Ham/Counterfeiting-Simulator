@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 3545270674649606937}
   - component: {fileID: 2040016717788250409}
   - component: {fileID: 6638137919880990333}
+  - component: {fileID: 5816646984804993080}
   m_Layer: 5
   m_Name: EresarePrefab
   m_TagString: Untagged
@@ -196,3 +197,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5816646984804993080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543508016426070387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 6638137919880990333}
+  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
