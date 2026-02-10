@@ -4,7 +4,7 @@ public class PopulatCrayons : MonoBehaviour
 {
     [SerializeField] private ColorDataListValue ColorDataList;
     [SerializeField] private Transform ContentParent;
-    [SerializeField] private GameObjectValue CrayonUIPrefab;
+    [SerializeField] private GameObjectListValue ColorBlobVariants;
 
     private void Start()
     {
@@ -15,13 +15,27 @@ public class PopulatCrayons : MonoBehaviour
     {
         ClearChildren();
         
+        SpawnDifferentBlobs();
+    }
+
+    private void SpawnDifferentBlobs()
+    {
         foreach (var color in ColorDataList.Value)
         {
-            GameObject instance = Instantiate(CrayonUIPrefab.Value, ContentParent);
-            
-            CrayonUIItem uiItem = instance.GetComponent<CrayonUIItem>();
+            GameObject randomPrefab = ColorBlobVariants.Value[Random.Range(0, ColorBlobVariants.Value.Count)];
 
-            uiItem.Setup(color);
+            GameObject instance = Instantiate(randomPrefab, ContentParent);
+
+            CrayonUIItem uiItem = instance.GetComponent<CrayonUIItem>();
+            
+            if (uiItem != null)
+            {
+                uiItem.Setup(color);
+            }
+            else
+            {
+                Debug.LogWarning("CrayonUIItem missing on prefab", instance);
+            }
         }
     }
 

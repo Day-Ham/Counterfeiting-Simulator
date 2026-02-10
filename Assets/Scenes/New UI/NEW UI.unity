@@ -9194,7 +9194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ColorDataList: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
   ContentParent: {fileID: 6728479657172065200}
-  CrayonUIPrefab: {fileID: 11400000, guid: 92924dc033e11cb49bf164a5410dd69d, type: 2}
+  ColorBlobVariants: {fileID: 0}
 --- !u!114 &6998272608156757173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10419,6 +10419,6 @@ SceneRoots:
   - {fileID: 665053530}
   - {fileID: 607446822}
   - {fileID: 1511183671}
-  - {fileID: 6832141569712793718}
   - {fileID: 137966020}
   - {fileID: 790673827}
+  - {fileID: 6832141569712793718}
