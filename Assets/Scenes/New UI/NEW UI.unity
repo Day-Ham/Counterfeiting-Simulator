@@ -9009,6 +9009,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 809001019428969085, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809001019428969085, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 809001019428969085, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5103321500468152809, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_Pivot.x
       value: 0
