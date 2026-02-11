@@ -111,7 +111,7 @@ public class ComparingMechanic : MonoBehaviour
 
     private void CheckingSimilar()
     {
-        if (GameManager.allSimilarity * 100 < threshold)
+        if (GameManager.allSimilarity * 100 > threshold)
         {
             TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, PassedColor);
         }
