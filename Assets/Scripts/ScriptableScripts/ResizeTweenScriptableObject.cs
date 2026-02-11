@@ -17,7 +17,7 @@ public class ResizeTweenScriptableObject : ScriptableObject
     public void Expand(GameObject target = null)
     {
         RectTransform rect = GetRectTransform(target);
-        if (rect == null) return;
+        if (!rect) return;
 
         rect.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseType);
     }
