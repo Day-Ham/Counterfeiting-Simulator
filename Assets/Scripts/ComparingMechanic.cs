@@ -18,17 +18,15 @@ public class ComparingMechanic : MonoBehaviour
     public Ease PromptTween;
 
     public GameObject PercentageParent;
+    
+    [Header("Comparison ScriptableObject")]
+    public ComparisonRuleScriptableObject ComparisonRule;
 
     [Header("Main Text ScriptableObject")]
     public TMPListValue PercentageTextScriptableObject;
 
     [Header("Shadow Text ScriptableObject")]
     public TMPListValue PercentageTextShadowScriptableObject;
-    
-    [Header("Colors")]
-    public Color PassedColor;
-    public Color FailedColor;
-    public Color ShadowColor;
     
     public GameObject ResetButton;
     public GameManager GameManager;
@@ -37,7 +35,6 @@ public class ComparingMechanic : MonoBehaviour
     private float minorPercentageNumber;
     
     [SerializeField] private int duration = 100;
-    [SerializeField] private float threshold = 80;
     
     public Color InspectionColor;
     private bool OneShot = true;
@@ -46,8 +43,6 @@ public class ComparingMechanic : MonoBehaviour
     {
         PercentageParent.transform.localScale = Vector3.zero;
         ObjectToMove2.GetComponent<RawImage>().color = Color.white;
-        
-        TextFormattingUtility.SetColorList(PercentageTextShadowScriptableObject.Value, ShadowColor);
     }
     
     private void Update()
@@ -91,8 +86,8 @@ public class ComparingMechanic : MonoBehaviour
         }
         
         Debug.Log(GameManager.allSimilarity * 100);
-        Debug.Log(threshold);
-        Debug.Log(GameManager.allSimilarity * 100 > threshold);
+        Debug.Log(ComparisonRule.PercentRequirement);
+        Debug.Log(GameManager.allSimilarity * 100 > ComparisonRule.PercentRequirement);
         
         CheckingSimilar();
         
@@ -111,19 +106,13 @@ public class ComparingMechanic : MonoBehaviour
 
     private void CheckingSimilar()
     {
-        if (GameManager.allSimilarity * 100 > threshold)
-        {
-            TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, PassedColor);
-        }
-        else
-        {
-            TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, FailedColor);
-        }
+        Color resultColor = ComparisonRule.GetResultColor(GameManager.allSimilarity);
+        TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, resultColor);
     }
 
     private void Similar()
     {
-        if (GameManager.allSimilarity * 100 > threshold)
+        if (ComparisonRule.IsPassed(GameManager.allSimilarity))
         {
             sceneChanger.ShowNextButton();
         }
