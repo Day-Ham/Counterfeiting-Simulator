@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Core;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 using UnityEngine.UI;
 
 public class ComparingMechanic : MonoBehaviour
@@ -16,8 +14,10 @@ public class ComparingMechanic : MonoBehaviour
 
     public Ease EaseTween;
     public Ease PromptTween;
-
-    public GameObject PercentageParent;
+    
+    [Header("Comparison ScriptableObject")]
+    public GameObjectValue PercentageParent;
+    public ResizeTweenScriptableObject ResizeTween;
     
     [Header("Comparison ScriptableObject")]
     public ComparisonRuleScriptableObject ComparisonRule;
@@ -41,7 +41,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Start()
     {
-        PercentageParent.transform.localScale = Vector3.zero;
+        ResizeTween.Collapse(PercentageParent.Value);
         ObjectToMove2.GetComponent<RawImage>().color = Color.white;
     }
     
@@ -67,9 +67,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private IEnumerator ShowResult()
     {
-        PercentageParent.transform
-            .DOScale(Vector3.one, 1f)
-            .SetEase(PromptTween);
+        ResizeTween.Expand(PercentageParent.Value);
         
         for (int tick = 0; tick <= duration; tick++)
         { 

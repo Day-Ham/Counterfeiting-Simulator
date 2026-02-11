@@ -10,9 +10,9 @@ public class ComparisonRuleScriptableObject : ScriptableObject
     private Color FailedColor;
 
     private const string PASSEDCOLOR = "#8FFF86";
-    private const string FAILEDCOLOR = "#FF7575";
+    private const string FAILEDCOLOR = "#FF4040";
     
-    private void Awake()
+    private void OnEnable()
     {
         ColorUtility.TryParseHtmlString(PASSEDCOLOR, out PassedColor);
         ColorUtility.TryParseHtmlString(FAILEDCOLOR, out FailedColor);
@@ -27,11 +27,13 @@ public class ComparisonRuleScriptableObject : ScriptableObject
     {
         if (IsPassed(similarity))
         {
-            return PassedColor;
+            ColorUtility.TryParseHtmlString("#8FFF86", out var passColor);
+            return passColor;
         }
         else
         {
-            return FailedColor;
+            ColorUtility.TryParseHtmlString("#FF4040", out var failColor);
+            return failColor;
         }
     }
 }

@@ -441,7 +441,8 @@ MonoBehaviour:
   ObjectToMove2: {fileID: 950560998}
   EaseTween: 28
   PromptTween: 27
-  PercentageParent: {fileID: 784667347}
+  PercentageParent: {fileID: 11400000, guid: 434ce091a25094a43b09306353f686e6, type: 2}
+  ResizeTween: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
   ComparisonRule: {fileID: 11400000, guid: 116fab8d095c7cd49898789e84d7c370, type: 2}
   PercentageTextScriptableObject: {fileID: 11400000, guid: 35067641073b6d448a233df96febc2c3, type: 2}
   PercentageTextShadowScriptableObject: {fileID: 11400000, guid: f64fd4b163130c34c9ed059d53070062, type: 2}
@@ -519,11 +520,6 @@ MonoBehaviour:
   FirstTwoDigits: 0
   LastTwoDigits: 0
   GameIsPaused: 0
---- !u!1 &784667347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6255451021259343409, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &790673826
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +937,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 372781852494776639, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5514145747421770880, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
