@@ -47,7 +47,7 @@ public class ComparingMechanic : MonoBehaviour
         PercentageParent.transform.localScale = Vector3.zero;
         ObjectToMove2.GetComponent<RawImage>().color = Color.white;
         
-        SetColorList(PercentageTextShadowScriptableObject.Value, ShadowColor);
+        TextFormattingUtility.SetColorList(PercentageTextShadowScriptableObject.Value, ShadowColor);
     }
     
     private void Update()
@@ -103,58 +103,22 @@ public class ComparingMechanic : MonoBehaviour
     
     private void SetPercentageText(float major, float minor)
     {
-        string formatted = FormatPercentage(major, minor);
+        string formatted = TextFormattingUtility.FormatPercentage(major, minor);
 
-        SetTextList(PercentageTextScriptableObject.Value, formatted);
-        SetTextList(PercentageTextShadowScriptableObject.Value, formatted);
-    }
-    
-    private void SetTextList(List<TextMeshProUGUI> list, string numberText)
-    {
-        foreach (var text in list)
-        {
-            if (text)
-            {
-                text.SetText(numberText);
-            }
-        }
+        TextFormattingUtility.SetTextList(PercentageTextScriptableObject.Value, formatted);
+        TextFormattingUtility.SetTextList(PercentageTextShadowScriptableObject.Value, formatted);
     }
 
     private void CheckingSimilar()
     {
         if (GameManager.allSimilarity * 100 < threshold)
         {
-            SetColorList(PercentageTextScriptableObject.Value, PassedColor);
+            TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, PassedColor);
         }
         else
         {
-            SetColorList(PercentageTextScriptableObject.Value, FailedColor);
+            TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, FailedColor);
         }
-    }
-    
-    private void SetColorList(List<TextMeshProUGUI> list, Color colorPassFail)
-    {
-        foreach (var text in list)
-        {
-            if (text)
-            {
-                text.color = colorPassFail;
-            }
-        }
-    }
-    
-    private string FormatPercentage(float major, float minor, bool showPercent = true)
-    {
-        string minorText = minor.ToString("00");
-
-        string result = $"{major}<size=70%>.{minorText}</size>";
-
-        if (showPercent)
-        {
-            result += "<size=60%>%</size>";
-        }
-
-        return result;
     }
 
     private void Similar()
