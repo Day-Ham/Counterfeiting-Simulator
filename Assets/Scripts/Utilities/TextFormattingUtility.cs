@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class TextFormattingUtility
 {
-    public static string FormatPercentage(float major, float minor, bool showPercent = true)
+    private const string MAJOR_DIGIT_SIZE = "100%";
+    private const string MINOR_DIGIT_SIZE = "50%";
+    
+    public static string FormatPercentage(float majorDigits, float minorDigits, bool showPercent = true)
     {
-        string minorText = minor.ToString("00");
-        string result = $"{major}<size=70%>.{minorText}</size>";
+        string minorText = minorDigits.ToString("00");
+        string formatResult = $"<size={MAJOR_DIGIT_SIZE}>{majorDigits}</size>" +
+                              $"<size={MINOR_DIGIT_SIZE}>.{minorText}</size>";
 
         if (showPercent)
         {
-            result += "<size=60%>%</size>";
+            formatResult += $"<size={MAJOR_DIGIT_SIZE}>%</size>";
         }
 
-        return result;
+        return formatResult;
     }
     
     public static void SetTextList(List<TextMeshProUGUI> list, string text)
