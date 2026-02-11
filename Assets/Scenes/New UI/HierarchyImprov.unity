@@ -166,28 +166,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &210165479 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4019033285363924542, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &236086970 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5811123622875455488, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &425210395 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2372592589661760435, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
@@ -464,15 +442,15 @@ MonoBehaviour:
   EaseTween: 28
   PromptTween: 27
   PercentageParent: {fileID: 784667347}
-  percentageMajor: {fileID: 236086970}
-  percentageMinor: {fileID: 1622093095}
-  percent: {fileID: 210165479}
-  PassedColor: {r: 1, g: 0.4575472, b: 0.4575472, a: 1}
-  FailedColor: {r: 0.56016624, g: 1, b: 0.5235849, a: 1}
+  PercentageTextScriptableObject: {fileID: 11400000, guid: 35067641073b6d448a233df96febc2c3, type: 2}
+  PercentageTextShadowScriptableObject: {fileID: 11400000, guid: f64fd4b163130c34c9ed059d53070062, type: 2}
+  PassedColor: {r: 0.56078434, g: 1, b: 0.5254902, a: 1}
+  FailedColor: {r: 1, g: 0.45882353, b: 0.45882353, a: 1}
+  ShadowColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   ResetButton: {fileID: 6832141569712793719}
   GameManager: {fileID: 665053531}
   duration: 50
-  threshold: 95
+  threshold: 20
   InspectionColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0.5372549}
 --- !u!4 &607446822
 Transform:
@@ -792,17 +770,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1622093095 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1514828175311122370, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1785604296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3758369065962832123, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
@@ -979,6 +946,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5514145747421770880, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_Name
       value: CANVAS Drawing
@@ -988,7 +975,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 137966019}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5539848278783271577, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+    - {fileID: 3196387526303585011, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}

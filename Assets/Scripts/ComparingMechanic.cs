@@ -18,16 +18,23 @@ public class ComparingMechanic : MonoBehaviour
     public Ease PromptTween;
 
     public GameObject PercentageParent;
-    public TextMeshProUGUI percentageMajor;
-    public TextMeshProUGUI percentageMinor;
-    public TextMeshProUGUI percent;
+
+    [Header("Main Text ScriptableObject")]
+    public TMPListValue PercentageTextScriptableObject;
+
+    [Header("Shadow Text ScriptableObject")]
+    public TMPListValue PercentageTextShadowScriptableObject;
+    
+    [Header("Colors")]
     public Color PassedColor;
     public Color FailedColor;
+    public Color ShadowColor;
+    
     public GameObject ResetButton;
     public GameManager GameManager;
     
-    private float x;
-    private float y;
+    private float majorPercentageNumber;
+    private float minorPercentageNumber;
     
     [SerializeField] private int duration = 100;
     [SerializeField] private float threshold = 80;
@@ -39,6 +46,8 @@ public class ComparingMechanic : MonoBehaviour
     {
         PercentageParent.transform.localScale = Vector3.zero;
         ObjectToMove2.GetComponent<RawImage>().color = Color.white;
+        
+        SetColorList(PercentageTextShadowScriptableObject.Value, ShadowColor);
     }
     
     private void Update()
@@ -46,33 +55,39 @@ public class ComparingMechanic : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.Space) || !OneShot) return;
         
         GameManager.FinishGame();
-        ObjectToMove.transform.DOMove(TargetLocation.transform.position, 1f, false).SetEase(EaseTween).OnComplete(
-            () =>
-            {
-                StartCoroutine(ShowResult());
-            });
+        
+        ObjectToMove.transform
+            .DOMove(TargetLocation.transform.position, 1f, false)
+            .SetEase(EaseTween)
+            .OnComplete(() => { StartCoroutine(ShowResult()); });
         
         ObjectToMove2.GetComponent<RawImage>().color= InspectionColor;
-        ObjectToMove2.transform.DOMove(TargetLocation.transform.position, 1f, false).SetEase(EaseTween);
+        
+        ObjectToMove2.transform
+            .DOMove(TargetLocation.transform.position, 1f, false)
+            .SetEase(EaseTween);
+        
         OneShot =false;
     }
     
     private IEnumerator ShowResult()
     {
-        PercentageParent.transform.DOScale(Vector3.one, 1f).SetEase(PromptTween);
+        PercentageParent.transform
+            .DOScale(Vector3.one, 1f)
+            .SetEase(PromptTween);
         
         for (int tick = 0; tick <= duration; tick++)
         { 
             yield return new WaitForSeconds(0.02f);
-            x = Random.Range(1, 99);
-            y = Random.Range(1, 99);
-            percentageMajor.SetText(x.ToString());
-            percentageMinor.SetText("."+ y.ToString());
+            
+            majorPercentageNumber = Random.Range(1, 99);
+            minorPercentageNumber = Random.Range(1, 99);
+            
+            SetPercentageText(majorPercentageNumber, minorPercentageNumber);
             
             if (tick != duration) continue;
             
-            percentageMajor.SetText(((GameManager.FirstTwoDigits).ToString("F0")));
-            percentageMinor.SetText(("."+(GameManager.LastTwoDigits).ToString("F0")));
+            SetPercentageText(GameManager.FirstTwoDigits, GameManager.LastTwoDigits);
         }
         
         Debug.Log(GameManager.allSimilarity * 100);
@@ -85,21 +100,61 @@ public class ComparingMechanic : MonoBehaviour
         
         Similar();
     }
+    
+    private void SetPercentageText(float major, float minor)
+    {
+        string formatted = FormatPercentage(major, minor);
+
+        SetTextList(PercentageTextScriptableObject.Value, formatted);
+        SetTextList(PercentageTextShadowScriptableObject.Value, formatted);
+    }
+    
+    private void SetTextList(List<TextMeshProUGUI> list, string numberText)
+    {
+        foreach (var text in list)
+        {
+            if (text)
+            {
+                text.SetText(numberText);
+            }
+        }
+    }
 
     private void CheckingSimilar()
     {
         if (GameManager.allSimilarity * 100 < threshold)
         {
-            percentageMajor.color = PassedColor;
-            percentageMinor.color = PassedColor;
-            percent.color = PassedColor;
+            SetColorList(PercentageTextScriptableObject.Value, PassedColor);
         }
         else
         {
-            percentageMajor.color = FailedColor;
-            percentageMinor.color = FailedColor;
-            percent.color = FailedColor;
+            SetColorList(PercentageTextScriptableObject.Value, FailedColor);
         }
+    }
+    
+    private void SetColorList(List<TextMeshProUGUI> list, Color colorPassFail)
+    {
+        foreach (var text in list)
+        {
+            if (text)
+            {
+                text.color = colorPassFail;
+            }
+        }
+    }
+    
+    private string FormatPercentage(float major, float minor, bool showPercent = true)
+    {
+        string minorText = minor.ToString("00");
+
+        string result = $"{major}<size=70%>.{minorText}</size>";
+
+        if (showPercent)
+        {
+            result += "<size=60%>%</size>";
+        }
+
+        return result;
     }
 
     private void Similar()
