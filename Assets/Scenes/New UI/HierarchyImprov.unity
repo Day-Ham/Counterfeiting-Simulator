@@ -448,7 +448,6 @@ MonoBehaviour:
   ResetButton: {fileID: 6832141569712793719}
   GameManager: {fileID: 665053531}
   duration: 50
-  threshold: 90
   InspectionColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0.5372549}
 --- !u!4 &607446822
 Transform:
@@ -964,6 +963,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3364798885909967208, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4274710906558950406, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5514145747421770880, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_Name
       value: CANVAS Drawing
@@ -983,6 +990,10 @@ PrefabInstance:
     - target: {fileID: 5811123622875455488, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4284111450
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321352975838387423, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7501167257364627497, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
