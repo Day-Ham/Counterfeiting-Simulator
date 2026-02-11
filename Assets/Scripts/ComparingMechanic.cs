@@ -15,9 +15,13 @@ public class ComparingMechanic : MonoBehaviour
     public Ease EaseTween;
     public Ease PromptTween;
     
-    [Header("Comparison ScriptableObject")]
+    [Header("Percentage ScriptableObject")]
     public GameObjectValue PercentageParent;
-    public ResizeTweenScriptableObject ResizeTween;
+    public ResizeTweenScriptableObject PercentageResizeTween;
+    
+    [Header("Percentage ScriptableObject")]
+    public GameObjectValue ResetButtonUI;
+    public ResizeTweenScriptableObject ResetButtonUIResizeTween;
     
     [Header("Comparison ScriptableObject")]
     public ComparisonRuleScriptableObject ComparisonRule;
@@ -41,7 +45,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Start()
     {
-        ResizeTween.Collapse(PercentageParent.Value);
+        PercentageResizeTween.Collapse(PercentageParent.Value);
         ObjectToMove2.GetComponent<RawImage>().color = Color.white;
     }
     
@@ -67,7 +71,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private IEnumerator ShowResult()
     {
-        ResizeTween.Expand(PercentageParent.Value);
+        PercentageResizeTween.Expand(PercentageParent.Value);
         
         for (int tick = 0; tick <= duration; tick++)
         { 
@@ -121,12 +125,12 @@ public class ComparingMechanic : MonoBehaviour
     }
 
     private IEnumerator IndicateReset()
-    {
-        ResetButton.transform.DOScale(Vector3.one *1.25f, 1f).SetEase(PromptTween);
+    { 
+        ResetButtonUIResizeTween.Expand(ResetButtonUI.Value);
         
         yield return new WaitForSeconds(.75f);
         
-        ResetButton.transform.DOScale(Vector3.one, 1f).SetEase(PromptTween);
+        ResetButtonUIResizeTween.Collapse(ResetButtonUI.Value);
         
         yield return new WaitForSeconds(2f);
         

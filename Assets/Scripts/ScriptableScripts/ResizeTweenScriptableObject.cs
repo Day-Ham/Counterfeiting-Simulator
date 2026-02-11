@@ -8,7 +8,8 @@ public class ResizeTweenScriptableObject : ScriptableObject
 
     [Header("Tween Settings")] 
     public float Duration;
-    public Ease EaseType;
+    public Ease EaseIn;
+    public Ease EaseOut;
     
     [Header("Target Sizes")]
     public Vector2 ExpandedSize;
@@ -19,7 +20,7 @@ public class ResizeTweenScriptableObject : ScriptableObject
         RectTransform rect = GetRectTransform(target);
         if (!rect) return;
 
-        rect.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseType);
+        rect.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseIn);
     }
     
     public void Collapse(GameObject target = null)
@@ -28,7 +29,7 @@ public class ResizeTweenScriptableObject : ScriptableObject
         
         if (!rectTransform) return;
 
-        rectTransform.DOSizeDelta(CollapsedSize, Duration).SetEase(EaseType);
+        rectTransform.DOSizeDelta(CollapsedSize, Duration).SetEase(EaseOut);
     }
     
     private RectTransform GetRectTransform(GameObject target)
