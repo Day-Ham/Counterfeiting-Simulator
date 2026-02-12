@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631c94e482a868248a02554881c04818, type: 3}
   m_Name: TEST LEVEL 2
   m_EditorClassIdentifier: 
-  GoalTexture: {fileID: 11400000, guid: dbbda552a986d0242855e3adfcd51138, type: 2}
+  GoalTexture: {fileID: 2800000, guid: 2132f327d20eb1f4fb870d4a607fb4ac, type: 3}

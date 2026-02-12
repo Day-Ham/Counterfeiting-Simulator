@@ -53,14 +53,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         private void Start()
         {
             if (_levelConfig == null ||
-                _levelConfig.GoalTexture == null ||
-                _levelConfig.GoalTexture.Value == null)
+                _levelConfig.GoalTexture == null)
             {
                 Debug.LogError("Goal texture missing in LevelConfig!");
                 return;
             }
 
-            Texture goalTexture = _levelConfig.GoalTexture.Value;
+            Texture goalTexture = _levelConfig.GoalTexture;
 
             _canvasDrawController.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
@@ -134,7 +133,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                Texture goalTexture = _levelConfig.GoalTexture.Value;
+                Texture goalTexture = _levelConfig.GoalTexture;
 
                 float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 

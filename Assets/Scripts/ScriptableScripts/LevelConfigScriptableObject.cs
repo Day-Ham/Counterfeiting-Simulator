@@ -4,5 +4,5 @@ using UnityEngine;
 public class LevelConfigScriptableObject : ScriptableObject
 {
     [Header("Goal")]
-    public TextureValueWrapper GoalTexture;
+    public Texture GoalTexture;
 }
