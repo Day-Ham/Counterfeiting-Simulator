@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2736d7aa4deb3bd44bf01ba367b099f4, type: 3}
   m_Name: '[DATA] ComparisonRule'
   m_EditorClassIdentifier: 
-  PercentRequirement: 80
+  PercentRequirement: 20

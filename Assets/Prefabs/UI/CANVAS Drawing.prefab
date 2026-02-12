@@ -737,6 +737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8883866599569288691}
+  - component: {fileID: 4910503753986841933}
   m_Layer: 5
   m_Name: TargetImage
   m_TagString: Untagged
@@ -766,6 +767,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 1024, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4910503753986841933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758369065962832123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1fdc0deffadd7443be52e6480bf038a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelConfigRuntime: {fileID: 11400000, guid: c697a778a80dd324f903fc1c6146dd42, type: 2}
+  _rawImages:
+  - {fileID: 758492114677682061}
+  - {fileID: 7947398821498085356}
 --- !u!1 &3930309928529815388
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <size=100%>46</size><size=50%>.30</size><size=100%>%</size>
+  m_text: <size=100%>100</size><size=50%>.99</size><size=100%>%</size>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}
   m_sharedMaterial: {fileID: 2394976983258692724, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}
@@ -2396,7 +2413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <size=100%>46</size><size=50%>.30</size><size=100%>%</size>
+  m_text: <size=100%>100</size><size=50%>.99</size><size=100%>%</size>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}
   m_sharedMaterial: {fileID: 2394976983258692724, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}

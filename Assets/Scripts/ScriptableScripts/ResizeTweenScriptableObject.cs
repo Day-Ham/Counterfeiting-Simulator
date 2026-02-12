@@ -17,10 +17,10 @@ public class ResizeTweenScriptableObject : ScriptableObject
     
     public void Expand(GameObject target = null)
     {
-        RectTransform rect = GetRectTransform(target);
-        if (!rect) return;
+        RectTransform rectTransform = GetRectTransform(target);
+        if (!rectTransform) return;
 
-        rect.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseIn);
+        rectTransform.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseIn);
     }
     
     public void Collapse(GameObject target = null)
@@ -49,12 +49,11 @@ public class ResizeTweenScriptableObject : ScriptableObject
 
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
 
-        if (!rectTransform)
-        {
-            Debug.LogWarning("Target does not have a RectTransform!");
-            return null;
-        }
+        if (rectTransform) return rectTransform;
+        
+        Debug.LogWarning("Target does not have a RectTransform!");
+        
+        return null;
 
-        return rectTransform;
     }
 }
