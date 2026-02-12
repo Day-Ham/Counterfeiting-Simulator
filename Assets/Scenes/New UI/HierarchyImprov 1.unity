@@ -979,7 +979,7 @@ MonoBehaviour:
   _finalSpriteRenderer: {fileID: 1585221069}
   _finishGameRequestEvent: {fileID: 11400000, guid: a32c2442de9fdba4e8b5e42e9ec1aadd, type: 2}
   _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
-  _levelConfig: {fileID: 11400000, guid: 87bb456334e3ebc4381dcad177729c11, type: 2}
+  _levelConfig: {fileID: 11400000, guid: 34902e6b450c8d740bf6053e3c9e1bee, type: 2}
   _levelConfigRuntime: {fileID: 11400000, guid: c697a778a80dd324f903fc1c6146dd42, type: 2}
   _optionalStartingTexture: {fileID: 0}
   _finalSpritePivotPoint: {x: 0.5, y: 0.5}

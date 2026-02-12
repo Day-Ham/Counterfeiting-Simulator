@@ -17,9 +17,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] GameManagerEvents _finishGameRequestEvent;
         [SerializeField] ComparisonResultEvent _comparisonResultEvent;
 
-        [Header("Settings")]
+        [Header("Settings/LevelConfig")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
-        [SerializeField] Texture _goalTexture;
+        [SerializeField] private LevelConfigScriptableObject _levelConfig;
+        [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
+        
         [Tooltip("Optional. The texture that the player starts with.")]
         [SerializeField] Texture _optionalStartingTexture;
         [SerializeField] Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f); // Between (0, 0) and (1, 1)
@@ -42,19 +44,26 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
+            _levelConfigRuntime.Value = _levelConfig;
+            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
 
         private void Start()
         {
-            if (_goalTexture == null)
+            if (_levelConfig == null ||
+                _levelConfig.GoalTexture == null ||
+                _levelConfig.GoalTexture.Value == null)
             {
-                Debug.LogError("Failed to start game! Goal texture is null!");
+                Debug.LogError("Goal texture missing in LevelConfig!");
                 return;
             }
 
-            _canvasDrawController.OnStart(new Vector2Int(_goalTexture.width, _goalTexture.height));
+            Texture goalTexture = _levelConfig.GoalTexture.Value;
+
+            _canvasDrawController.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
+
             _canvasDrawController.SetBrushColorIndex(0);
 
             if (_optionalStartingTexture != null)
@@ -125,7 +134,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                float? similarity = _textureUtility.GetSimilarity(_goalTexture, playerTex);
+                Texture goalTexture = _levelConfig.GoalTexture.Value;
+
+                float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 
                 if (similarity.HasValue)
                 {
