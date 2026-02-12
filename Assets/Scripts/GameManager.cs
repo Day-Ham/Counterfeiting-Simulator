@@ -12,6 +12,10 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] ComputeShader _similarityComputeShader;
         [SerializeField] SpriteContainerRuntimeAsset _finalSpriteContainer;
         [SerializeField] SpriteRenderer _finalSpriteRenderer;
+        
+        [Header("GameManager Events")]
+        [SerializeField] GameManagerEvents _finishGameRequestEvent;
+        [SerializeField] ComparisonResultEvent _comparisonResultEvent;
 
         [Header("Settings")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
@@ -25,13 +29,24 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         public float FirstTwoDigits;
         public float LastTwoDigits;
         public bool GameIsPaused=false;
-        void Awake()
+        
+        private void OnEnable()
+        {
+            _finishGameRequestEvent.OnRaised += FinishGame;
+        }
+
+        private void OnDisable()
+        {
+            _finishGameRequestEvent.OnRaised -= FinishGame;
+        }
+        
+        private void Awake()
         {
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
 
-        void Start()
+        private void Start()
         {
             if (_goalTexture == null)
             {
@@ -48,7 +63,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (GameIsPaused == false)
             {
@@ -57,7 +72,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void UpdateFromUserInput()
+        private void UpdateFromUserInput()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -102,8 +117,10 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        public void FinishGame()
+        private void FinishGame()
         {
+            allSimilarity = 1f;
+            
             CanvasState playerCanvasState = _canvasDrawController.MainCanvasState;
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
@@ -129,9 +146,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             LastTwoDigits= (f * 1000 % 10) * 10;
             FirstTwoDigits = (f * 10000 - LastTwoDigits) / 100;
             Debug.Log(FirstTwoDigits + "." + (int)LastTwoDigits + "%");
+            
+            _comparisonResultEvent.Raise(allSimilarity, FirstTwoDigits, LastTwoDigits);
         }
 
-        void SaveFinalTextureToSprite(CanvasState playerCanvasState)
+        private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
         {
             Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], _finalSpritePivotPoint);
             _finalSpriteContainer.Sprite = finalSprite;
@@ -143,7 +162,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             _textureUtility?.Destroy();
         }

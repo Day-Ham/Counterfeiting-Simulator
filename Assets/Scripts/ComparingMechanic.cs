@@ -13,13 +13,12 @@ public class ComparingMechanic : MonoBehaviour
     public GameObject ObjectToMove2;
 
     public Ease EaseTween;
-    public Ease PromptTween;
     
     [Header("Percentage ScriptableObject")]
     public GameObjectValue PercentageParent;
     public ResizeTweenScriptableObject PercentageResizeTween;
     
-    [Header("Percentage ScriptableObject")]
+    [Header("ResetButton ScriptableObject")]
     public GameObjectValue ResetButtonUI;
     public ResizeTweenScriptableObject ResetButtonUIResizeTween;
     
@@ -32,8 +31,9 @@ public class ComparingMechanic : MonoBehaviour
     [Header("Shadow Text ScriptableObject")]
     public TMPListValue PercentageTextShadowScriptableObject;
     
-    public GameObject ResetButton;
-    public GameManager GameManager;
+    [Header("GameManager Events")]
+    public GameManagerEvents FinishGameRequestEvent;
+    public ComparisonResultEvent ComparisonResultEvent;
     
     private float majorPercentageNumber;
     private float minorPercentageNumber;
@@ -42,6 +42,27 @@ public class ComparingMechanic : MonoBehaviour
     
     public Color InspectionColor;
     private bool OneShot = true;
+    
+    private float gameManagerCachedSimilarity;
+    private float gameManagerCachedFirstTwo;
+    private float gameManagerCachedLastTwo;
+    
+    private void OnEnable()
+    {
+        ComparisonResultEvent.OnRaised += OnComparisonFinished;
+    }
+
+    private void OnDisable()
+    {
+        ComparisonResultEvent.OnRaised -= OnComparisonFinished;
+    }
+
+    private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
+    {
+        gameManagerCachedSimilarity = similarity;
+        gameManagerCachedFirstTwo = firstTwo;
+        gameManagerCachedLastTwo = lastTwo;
+    }
     
     private void Start()
     {
@@ -53,7 +74,7 @@ public class ComparingMechanic : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.Space) || !OneShot) return;
         
-        GameManager.FinishGame();
+        FinishGameRequestEvent.Raise();//Game Finish
         
         ObjectToMove.transform
             .DOMove(TargetLocation.transform.position, 1f, false)
@@ -84,12 +105,12 @@ public class ComparingMechanic : MonoBehaviour
             
             if (tick != duration) continue;
             
-            SetPercentageText(GameManager.FirstTwoDigits, GameManager.LastTwoDigits);
+            SetPercentageText(gameManagerCachedFirstTwo, gameManagerCachedLastTwo);
         }
         
-        Debug.Log(GameManager.allSimilarity * 100);
+        Debug.Log(gameManagerCachedSimilarity * 100);
         Debug.Log(ComparisonRule.PercentRequirement);
-        Debug.Log(GameManager.allSimilarity * 100 > ComparisonRule.PercentRequirement);
+        Debug.Log(gameManagerCachedSimilarity * 100 > ComparisonRule.PercentRequirement);
         
         CheckingSimilar();
         
@@ -108,13 +129,13 @@ public class ComparingMechanic : MonoBehaviour
 
     private void CheckingSimilar()
     {
-        Color resultColor = ComparisonRule.GetResultColor(GameManager.allSimilarity);
+        Color resultColor = ComparisonRule.GetResultColor(gameManagerCachedSimilarity);
         TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, resultColor);
     }
 
     private void Similar()
     {
-        if (ComparisonRule.IsPassed(GameManager.allSimilarity))
+        if (ComparisonRule.IsPassed(gameManagerCachedSimilarity))
         {
             sceneChanger.ShowNextButton();
         }

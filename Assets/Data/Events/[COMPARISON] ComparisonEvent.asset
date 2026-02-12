@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91cd526c58dc0864db27ce7bc0870161, type: 3}
-  m_Name: SelectBrushColorEvent
+  m_Script: {fileID: 11500000, guid: 5abd3899c49a480438cb99c838813ea3, type: 3}
+  m_Name: '[COMPARISON] ComparisonEvent'
   m_EditorClassIdentifier: 
