@@ -12,10 +12,16 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] ComputeShader _similarityComputeShader;
         [SerializeField] SpriteContainerRuntimeAsset _finalSpriteContainer;
         [SerializeField] SpriteRenderer _finalSpriteRenderer;
+        
+        [Header("GameManager Events")]
+        [SerializeField] GameManagerEvents _finishGameRequestEvent;
+        [SerializeField] ComparisonResultEvent _comparisonResultEvent;
 
-        [Header("Settings")]
+        [Header("Settings/LevelConfig")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
-        [SerializeField] Texture _goalTexture;
+        [SerializeField] private LevelConfigScriptableObject _levelConfig;
+        [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
+        
         [Tooltip("Optional. The texture that the player starts with.")]
         [SerializeField] Texture _optionalStartingTexture;
         [SerializeField] Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f); // Between (0, 0) and (1, 1)
@@ -25,21 +31,38 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         public float FirstTwoDigits;
         public float LastTwoDigits;
         public bool GameIsPaused=false;
-        void Awake()
+        
+        private void OnEnable()
         {
+            _finishGameRequestEvent.OnRaised += FinishGame;
+        }
+
+        private void OnDisable()
+        {
+            _finishGameRequestEvent.OnRaised -= FinishGame;
+        }
+        
+        private void Awake()
+        {
+            _levelConfigRuntime.Value = _levelConfig;
+            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
 
-        void Start()
+        private void Start()
         {
-            if (_goalTexture == null)
+            if (_levelConfig == null ||
+                _levelConfig.GoalTexture == null)
             {
-                Debug.LogError("Failed to start game! Goal texture is null!");
+                Debug.LogError("Goal texture missing in LevelConfig!");
                 return;
             }
 
-            _canvasDrawController.OnStart(new Vector2Int(_goalTexture.width, _goalTexture.height));
+            Texture goalTexture = _levelConfig.GoalTexture;
+
+            _canvasDrawController.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
+
             _canvasDrawController.SetBrushColorIndex(0);
 
             if (_optionalStartingTexture != null)
@@ -48,7 +71,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void Update()
+        private void Update()
         {
             if (GameIsPaused == false)
             {
@@ -57,7 +80,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void UpdateFromUserInput()
+        private void UpdateFromUserInput()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -102,13 +125,17 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        public void FinishGame()
+        private void FinishGame()
         {
+            allSimilarity = 1f;
+            
             CanvasState playerCanvasState = _canvasDrawController.MainCanvasState;
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                float? similarity = _textureUtility.GetSimilarity(_goalTexture, playerTex);
+                Texture goalTexture = _levelConfig.GoalTexture;
+
+                float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 
                 if (similarity.HasValue)
                 {
@@ -129,9 +156,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             LastTwoDigits= (f * 1000 % 10) * 10;
             FirstTwoDigits = (f * 10000 - LastTwoDigits) / 100;
             Debug.Log(FirstTwoDigits + "." + (int)LastTwoDigits + "%");
+            
+            _comparisonResultEvent.Raise(allSimilarity, FirstTwoDigits, LastTwoDigits);
         }
 
-        void SaveFinalTextureToSprite(CanvasState playerCanvasState)
+        private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
         {
             Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], _finalSpritePivotPoint);
             _finalSpriteContainer.Sprite = finalSprite;
@@ -143,7 +172,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             _textureUtility?.Destroy();
         }

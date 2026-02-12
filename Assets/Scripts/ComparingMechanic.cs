@@ -1,9 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Core;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 using UnityEngine.UI;
 
 public class ComparingMechanic : MonoBehaviour
@@ -15,98 +13,129 @@ public class ComparingMechanic : MonoBehaviour
     public GameObject ObjectToMove2;
 
     public Ease EaseTween;
-    public Ease PromptTween;
+    
+    [Header("Percentage ScriptableObject")]
+    public GameObjectValue PercentageParent;
+    public ResizeTweenScriptableObject PercentageResizeTween;
+    
+    [Header("ResetButton ScriptableObject")]
+    public GameObjectValue ResetButtonUI;
+    public ResizeTweenScriptableObject ResetButtonUIResizeTween;
+    
+    [Header("Comparison ScriptableObject")]
+    public ComparisonRuleScriptableObject ComparisonRule;
 
-    public GameObject PercentageParent;
-    public TextMeshProUGUI percentageMajor;
-    public TextMeshProUGUI percentageMinor;
-    public TextMeshProUGUI percentageMajorShadow;
-    public TextMeshProUGUI percentageMinorShadow;
-    public TextMeshProUGUI percent;
-    public TextMeshProUGUI percentShadow;
-    public Color PassedColor;
-    public Color PassedBGColor;
-    public Color FailedColor;
-    public Color FailedBGColor;
-    public GameObject ResetButton;
-    public GameManager gm;
-    float x;
-    float y;
-    [SerializeField] int duration=100;
-    [SerializeField] float threshold=80;
-        public Color InspectionColor;
+    [Header("Main Text ScriptableObject")]
+    public TMPListValue PercentageTextScriptableObject;
+
+    [Header("Shadow Text ScriptableObject")]
+    public TMPListValue PercentageTextShadowScriptableObject;
+    
+    [Header("GameManager Events")]
+    public GameManagerEvents FinishGameRequestEvent;
+    public ComparisonResultEvent ComparisonResultEvent;
+    
+    private float majorPercentageNumber;
+    private float minorPercentageNumber;
+    
+    [SerializeField] private int duration = 100;
+    
+    public Color InspectionColor;
     private bool OneShot = true;
-    // Start is called before the first frame update
-    void Start()
+    
+    private float gameManagerCachedSimilarity;
+    private float gameManagerCachedFirstTwo;
+    private float gameManagerCachedLastTwo;
+    
+    private void OnEnable()
     {
-        PercentageParent.transform.localScale = Vector3.zero;
-        ObjectToMove2.GetComponent<RawImage>().color = Color.white;
+        ComparisonResultEvent.OnRaised += OnComparisonFinished;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && OneShot)
-        {
-            gm.FinishGame();
-            ObjectToMove.transform.DOMove(TargetLocation.transform.position, 1f, false).SetEase(EaseTween).OnComplete(
-                () =>
-                {
-                    StartCoroutine(ShowResult());
+        ComparisonResultEvent.OnRaised -= OnComparisonFinished;
+    }
 
-                });
-            ObjectToMove2.GetComponent<RawImage>().color= InspectionColor;
-            ObjectToMove2.transform.DOMove(TargetLocation.transform.position, 1f, false).SetEase(EaseTween);
-            OneShot =false;
-        }
+    private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
+    {
+        gameManagerCachedSimilarity = similarity;
+        gameManagerCachedFirstTwo = firstTwo;
+        gameManagerCachedLastTwo = lastTwo;
     }
     
-    IEnumerator ShowResult()
+    private void Start()
     {
-        PercentageParent.transform.DOScale(Vector3.one, 1f).SetEase(PromptTween);
+        PercentageResizeTween.Collapse(PercentageParent.Value);
+        ObjectToMove2.GetComponent<RawImage>().color = Color.white;
+    }
+    
+    private void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.Space) || !OneShot) return;
         
-        for (int tick =0;tick<= duration; tick++)
+        FinishGameRequestEvent.Raise();//Game Finish
+        
+        ObjectToMove.transform
+            .DOMove(TargetLocation.transform.position, 1f, false)
+            .SetEase(EaseTween)
+            .OnComplete(() => { StartCoroutine(ShowResult()); });
+        
+        ObjectToMove2.GetComponent<RawImage>().color= InspectionColor;
+        
+        ObjectToMove2.transform
+            .DOMove(TargetLocation.transform.position, 1f, false)
+            .SetEase(EaseTween);
+        
+        OneShot =false;
+    }
+    
+    private IEnumerator ShowResult()
+    {
+        PercentageResizeTween.Expand(PercentageParent.Value);
+        
+        for (int tick = 0; tick <= duration; tick++)
         { 
             yield return new WaitForSeconds(0.02f);
-            x = Random.Range(1, 99);
-            y = Random.Range(1, 99);
-            percentageMajor.SetText(x.ToString());
-            percentageMinor.SetText("."+ y.ToString());
-            percentageMajorShadow.SetText(x.ToString());
-            percentageMinorShadow.SetText("."+ y.ToString());
-            if (tick == duration)
-            {
-                percentageMajor.SetText(((gm.FirstTwoDigits).ToString("F0")));
-                percentageMinor.SetText(("."+(gm.LastTwoDigits).ToString("F0")));
-                percentageMajorShadow.SetText(((gm.FirstTwoDigits).ToString("F0")));
-                percentageMinorShadow.SetText(("."+(gm.LastTwoDigits).ToString("F0")));
-
-               
-            }
+            
+            majorPercentageNumber = Random.Range(1, 99);
+            minorPercentageNumber = Random.Range(1, 99);
+            
+            SetPercentageText(majorPercentageNumber, minorPercentageNumber);
+            
+            if (tick != duration) continue;
+            
+            SetPercentageText(gameManagerCachedFirstTwo, gameManagerCachedLastTwo);
         }
-        Debug.Log(gm.allSimilarity * 100);
-        Debug.Log(threshold);
-        Debug.Log(gm.allSimilarity * 100 > threshold);
-        if (gm.allSimilarity * 100 < threshold)
-        {
-            percentageMajor.color = PassedColor;
-            percentageMinor.color = PassedColor;
-            percentageMajorShadow.color = PassedBGColor;
-            percentageMinorShadow.color = PassedBGColor;
-            percent.color = PassedColor;
-            percentShadow.color = PassedBGColor;
-        }
-        else
-        {
-            percentageMajor.color = FailedColor;
-            percentageMinor.color = FailedColor;
-            percentageMajorShadow.color = FailedBGColor;
-            percentageMinorShadow.color = FailedBGColor;
-            percent.color = FailedColor;
-            percentShadow.color = FailedBGColor;
-        }
+        
+        Debug.Log(gameManagerCachedSimilarity * 100);
+        Debug.Log(ComparisonRule.PercentRequirement);
+        Debug.Log(gameManagerCachedSimilarity * 100 > ComparisonRule.PercentRequirement);
+        
+        CheckingSimilar();
+        
         yield return new WaitForSeconds(1f);
-        if (gm.allSimilarity * 100 > threshold)
+        
+        Similar();
+    }
+    
+    private void SetPercentageText(float major, float minor)
+    {
+        string formatted = TextFormattingUtility.FormatPercentage(major, minor);
+
+        TextFormattingUtility.SetTextList(PercentageTextScriptableObject.Value, formatted);
+        TextFormattingUtility.SetTextList(PercentageTextShadowScriptableObject.Value, formatted);
+    }
+
+    private void CheckingSimilar()
+    {
+        Color resultColor = ComparisonRule.GetResultColor(gameManagerCachedSimilarity);
+        TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, resultColor);
+    }
+
+    private void Similar()
+    {
+        if (ComparisonRule.IsPassed(gameManagerCachedSimilarity))
         {
             sceneChanger.ShowNextButton();
         }
@@ -116,13 +145,16 @@ public class ComparingMechanic : MonoBehaviour
         }
     }
 
-    IEnumerator IndicateReset()
-    {
-      
-            ResetButton.transform.DOScale(Vector3.one *1.25f, 1f).SetEase(PromptTween);
-            yield return new WaitForSeconds(.75f);
-            ResetButton.transform.DOScale(Vector3.one, 1f).SetEase(PromptTween);
-            yield return new WaitForSeconds(2f);
-            StartCoroutine(IndicateReset());
+    private IEnumerator IndicateReset()
+    { 
+        ResetButtonUIResizeTween.Expand(ResetButtonUI.Value);
+        
+        yield return new WaitForSeconds(.75f);
+        
+        ResetButtonUIResizeTween.Collapse(ResetButtonUI.Value);
+        
+        yield return new WaitForSeconds(2f);
+        
+        StartCoroutine(IndicateReset());
     }
 }
