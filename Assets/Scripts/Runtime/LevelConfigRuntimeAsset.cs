@@ -4,11 +4,11 @@ using System;
 [CreateAssetMenu(menuName = "Runtime Assets/Level Config")]
 public class LevelConfigRuntimeAsset : ScriptableObject
 {
-    private LevelConfigScriptableObject runtimeValue;
+    private TargetTextureTemplate runtimeValue;
 
-    public event Action<LevelConfigScriptableObject> OnValueChanged;
+    public event Action<TargetTextureTemplate> OnValueChanged;
 
-    public LevelConfigScriptableObject Value
+    public TargetTextureTemplate Value
     {
         get => runtimeValue;
         set

@@ -19,8 +19,10 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         [Header("Settings/LevelConfig")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
-        [SerializeField] private LevelConfigScriptableObject _levelConfig;
+        [SerializeField] private TargetTextureTemplate _levelConfig;
         [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
+        
+        [SerializeField] private NewLevelConfigRuntimeAsset _newLevelConfigRuntime;
         
         [Tooltip("Optional. The texture that the player starts with.")]
         [SerializeField] Texture _optionalStartingTexture;

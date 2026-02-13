@@ -697,9 +697,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColorDataList: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
+  LevelConfigRuntimeSO: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   ContentParent: {fileID: 6309251540438875569}
-  ColorBlobVariants: {fileID: 11400000, guid: fafc0ad4a3558374bad9bd0823125ff1, type: 2}
   SetCrayonFunction: {fileID: 3017200829741889277}
 --- !u!114 &3017200829741889277
 MonoBehaviour:

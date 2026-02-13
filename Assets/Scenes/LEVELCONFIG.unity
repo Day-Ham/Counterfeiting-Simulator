@@ -172,11 +172,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4274710906558950406, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
   m_PrefabInstance: {fileID: 2861483923802464918}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &425210395 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2372592589661760435, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +456,7 @@ GameObject:
   - component: {fileID: 1006166791}
   - component: {fileID: 1006166792}
   m_Layer: 0
-  m_Name: LEVEL CONFIG
+  m_Name: LEVEL MANAGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -491,9 +486,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1006166790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05399ef798e9dfc4f9d16fc1f721a9c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 5af00d6dcd5d4ff4eb7eace0bac0c81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  LevelToLoad: {fileID: 11400000, guid: ed2556945f0400e4dbe6d3ebccc67182, type: 2}
 --- !u!1 &1456504796
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,17 +593,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1496660060 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7089502097430108252, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-  m_PrefabInstance: {fileID: 6832141569712793718}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1511183672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8684510562278149737, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
@@ -986,6 +972,7 @@ MonoBehaviour:
   _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
   _levelConfig: {fileID: 11400000, guid: 87bb456334e3ebc4381dcad177729c11, type: 2}
   _levelConfigRuntime: {fileID: 11400000, guid: c697a778a80dd324f903fc1c6146dd42, type: 2}
+  _newLevelConfigRuntime: {fileID: 0}
   _optionalStartingTexture: {fileID: 0}
   _finalSpritePivotPoint: {x: 0.5, y: 0.5}
   allSimilarity: 1
@@ -1051,10 +1038,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 3357956447395473153}
-    - target: {fileID: 3017200829741889277, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: PaletteSource
-      value: 
-      objectReference: {fileID: 6832141569712793719}
     - target: {fileID: 3432290959613107312, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1176,41 +1159,14 @@ PrefabInstance:
       value: CANVAS Tools
       objectReference: {fileID: 0}
     - target: {fileID: 8858661062056156554, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: Cursor
-      value: 
-      objectReference: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
-    - target: {fileID: 8858661062056156554, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 425210395}
-    - target: {fileID: 8858661062056156554, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: BrushController
       value: 
       objectReference: {fileID: 1511183672}
-    - target: {fileID: 8858661062056156554, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: brushController
-      value: 
-      objectReference: {fileID: 1511183672}
-    - target: {fileID: 8858661062056156554, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: BrushScaleSlider
-      value: 
-      objectReference: {fileID: 1496660060}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
---- !u!114 &6832141569712793719 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8853481776252872844, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-  m_PrefabInstance: {fileID: 6832141569712793718}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8907010688152907376
 MonoBehaviour:
   m_ObjectHideFlags: 0

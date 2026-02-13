@@ -27,7 +27,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
         }
     }
 
-    private void OnLevelConfigChanged(LevelConfigScriptableObject config)
+    private void OnLevelConfigChanged(TargetTextureTemplate config)
     {
         if (config == null) return;
 

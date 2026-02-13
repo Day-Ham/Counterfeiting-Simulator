@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
+  m_Name: '[LEVELTEMPLATE] Level 1'
+  m_EditorClassIdentifier: 
+  GoalTexture: {fileID: 0}
+  LevelColors: {fileID: 11400000, guid: 8ad589208d539b24092306b8bf6654e8, type: 2}
+  LevelColorBlobs: {fileID: 11400000, guid: fafc0ad4a3558374bad9bd0823125ff1, type: 2}
