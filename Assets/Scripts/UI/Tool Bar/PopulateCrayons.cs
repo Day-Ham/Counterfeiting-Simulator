@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PopulateCrayons : MonoBehaviour
 {
-    [SerializeField] private ColorDataListValue ColorDataList;
+    public ColorDataListValue ColorDataList;
+    
     [SerializeField] private Transform ContentParent;
     [SerializeField] private GameObjectListValue ColorBlobVariants;
     [SerializeField] private SetCrayonFunction SetCrayonFunction;

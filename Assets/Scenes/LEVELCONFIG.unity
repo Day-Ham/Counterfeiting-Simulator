@@ -459,6 +459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1006166791}
+  - component: {fileID: 1006166792}
   m_Layer: 0
   m_Name: LEVEL CONFIG
   m_TagString: Untagged
@@ -481,6 +482,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1006166792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006166790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05399ef798e9dfc4f9d16fc1f721a9c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1456504796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,6 +1051,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 3357956447395473153}
+    - target: {fileID: 3017200829741889277, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: PaletteSource
+      value: 
+      objectReference: {fileID: 6832141569712793719}
     - target: {fileID: 3432290959613107312, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1183,6 +1200,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+--- !u!114 &6832141569712793719 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8853481776252872844, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+  m_PrefabInstance: {fileID: 6832141569712793718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8907010688152907376
 MonoBehaviour:
   m_ObjectHideFlags: 0

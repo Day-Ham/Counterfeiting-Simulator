@@ -713,8 +713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e551f2fde37c7c34daf6a799a844bf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Palette: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
   CrayonParent: {fileID: 6309251540438875569}
+  PaletteSource: {fileID: 8853481776252872844}
 --- !u!1 &3329275029583576059
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,9 +937,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985f296330a6a394094d918c4159cbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 7089502097430108252}
-  brushController: {fileID: 0}
-  cursor: {fileID: 0}
+  BrushScaleSlider: {fileID: 7089502097430108252}
+  BrushController: {fileID: 0}
+  Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
   ReferenceNumber: 64
 --- !u!1 &4773014242309347353
 GameObject:
