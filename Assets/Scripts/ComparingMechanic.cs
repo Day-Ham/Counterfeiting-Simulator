@@ -13,7 +13,7 @@ public class ComparingMechanic : MonoBehaviour
     public GameObjectValue FrontSilhouette;
     
     [Header("Target Location")]
-    public GameObject TargetLocation;
+    public GameObjectValue TargetLocation;
     
     public Ease EaseTween;
     
@@ -79,15 +79,17 @@ public class ComparingMechanic : MonoBehaviour
         
         FinishGameRequestEvent.Raise();//Game Finish
         
+        Vector3 targetPosition = TargetLocation.Value.transform.position;
+        
         TargetImage.Value.transform
-            .DOMove(TargetLocation.transform.position, 1f, false)
+            .DOMove(targetPosition , 1f, false)
             .SetEase(EaseTween)
             .OnComplete(() => { StartCoroutine(ShowResult()); });
         
         FrontSilhouette.Value.GetComponent<RawImage>().color= InspectionColor;
         
         FrontSilhouette.Value.transform
-            .DOMove(TargetLocation.transform.position, 1f, false)
+            .DOMove(targetPosition , 1f, false)
             .SetEase(EaseTween);
         
         OneShot =false;
