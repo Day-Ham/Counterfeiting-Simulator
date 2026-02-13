@@ -2017,6 +2017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7612645929974769372}
+  - component: {fileID: 8510199175883837606}
   m_Layer: 5
   m_Name: CONTAINER Cursor
   m_TagString: Untagged
@@ -2045,6 +2046,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8510199175883837606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279131934942666071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectTarget: {fileID: 2372592589661760435}
+  GameObjectValue: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
 --- !u!1 &7579051866841174873
 GameObject:
   m_ObjectHideFlags: 0
