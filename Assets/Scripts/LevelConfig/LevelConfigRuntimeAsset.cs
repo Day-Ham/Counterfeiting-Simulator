@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Runtime Assets/New Level Config")]
-public class NewLevelConfigRuntimeAsset : ScriptableObject
+public class LevelConfigRuntimeAsset : ScriptableObject
 {
     private LevelConfig runtimeValue;
     public event Action<LevelConfig> OnValueChanged;

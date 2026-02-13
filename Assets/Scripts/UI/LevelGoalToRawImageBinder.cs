@@ -9,40 +9,32 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_levelConfigRuntime == null) return;
-
         _levelConfigRuntime.OnValueChanged += OnLevelConfigChanged;
 
-        if (_levelConfigRuntime.Value != null)
-        {
-            ApplyTexture(_levelConfigRuntime.Value.GoalTexture);
-        }
+        ApplyTexture(_levelConfigRuntime.Value.GoalTexture);
     }
 
     private void OnDisable()
     {
-        if (_levelConfigRuntime != null)
-        {
-            _levelConfigRuntime.OnValueChanged -= OnLevelConfigChanged;
-        }
+        _levelConfigRuntime.OnValueChanged -= OnLevelConfigChanged;
     }
 
-    private void OnLevelConfigChanged(TargetTextureTemplate config)
+    private void OnLevelConfigChanged(LevelConfig newConfig)
     {
-        if (config == null) return;
+        if (newConfig == null) return;
 
-        ApplyTexture(config.GoalTexture);
+        ApplyTexture(newConfig.GoalTexture);
     }
 
-    private void ApplyTexture(Texture texture)
+    private void ApplyTexture(TextureValueWrapper textureValue)
     {
-        if (texture == null) return;
+        if (textureValue == null) return;
 
         foreach (var rawImage in _rawImages)
         {
             if (rawImage != null)
             {
-                rawImage.texture = texture;
+                rawImage.texture = textureValue.Value;
             }
         }
     }

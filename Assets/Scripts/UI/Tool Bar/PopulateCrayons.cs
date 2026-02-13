@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PopulateCrayons : MonoBehaviour
 {
-    [SerializeField] private NewLevelConfigRuntimeAsset LevelConfigRuntimeSO;
+    [SerializeField] private LevelConfigRuntimeAsset LevelConfigRuntimeSO;
     [SerializeField] private Transform ContentParent;
     [SerializeField] private SetCrayonFunction SetCrayonFunction;
     

@@ -926,6 +926,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1772544198368381445, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2511050808693709626, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -970,9 +974,7 @@ MonoBehaviour:
   _finalSpriteRenderer: {fileID: 1585221069}
   _finishGameRequestEvent: {fileID: 11400000, guid: a32c2442de9fdba4e8b5e42e9ec1aadd, type: 2}
   _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
-  _levelConfig: {fileID: 11400000, guid: 87bb456334e3ebc4381dcad177729c11, type: 2}
-  _levelConfigRuntime: {fileID: 11400000, guid: c697a778a80dd324f903fc1c6146dd42, type: 2}
-  _newLevelConfigRuntime: {fileID: 0}
+  levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _optionalStartingTexture: {fileID: 0}
   _finalSpritePivotPoint: {x: 0.5, y: 0.5}
   allSimilarity: 1

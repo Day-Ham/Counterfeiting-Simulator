@@ -19,10 +19,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         [Header("Settings/LevelConfig")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
-        [SerializeField] private TargetTextureTemplate _levelConfig;
-        [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
-        
-        [SerializeField] private NewLevelConfigRuntimeAsset _newLevelConfigRuntime;
+        [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
         
         [Tooltip("Optional. The texture that the player starts with.")]
         [SerializeField] Texture _optionalStartingTexture;
@@ -46,22 +43,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
-            _levelConfigRuntime.Value = _levelConfig;
-            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
 
         private void Start()
         {
-            if (_levelConfig == null ||
-                _levelConfig.GoalTexture == null)
-            {
-                Debug.LogError("Goal texture missing in LevelConfig!");
-                return;
-            }
-
-            Texture goalTexture = _levelConfig.GoalTexture;
+            Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
             _canvasDrawController.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
@@ -135,7 +123,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                Texture goalTexture = _levelConfig.GoalTexture;
+                Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
                 float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 
