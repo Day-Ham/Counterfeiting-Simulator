@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34e754dd625493e4b999003829a01aba, type: 3}
-  m_Name: '[GAMEMANAGER] GameManager'
+  m_Script: {fileID: 11500000, guid: 8fc17a02d90241141bdbc9c044ffe2ae, type: 3}
+  m_Name: '[SCENECHANGER] ScenceChangerEvent'
   m_EditorClassIdentifier: 
-  value: {fileID: 0}

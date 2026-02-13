@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ComparingMechanic : MonoBehaviour
 {
-    public SceneChanger sceneChanger;
+    public VoidEvent SceneChangerEvent;
     
     [Header("GameObject to Move")]
     public GameObjectValue TargetImage;
@@ -155,7 +155,9 @@ public class ComparingMechanic : MonoBehaviour
     {
         if (ComparisonRule.IsPassed(_gameManagerCachedSimilarity))
         {
-            sceneChanger.ShowNextButton();
+            //sceneChanger.ShowNextButton();
+            
+            SceneChangerEvent.Raise();
         }
         else
         {

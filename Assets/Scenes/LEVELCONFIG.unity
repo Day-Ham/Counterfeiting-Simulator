@@ -148,8 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc96c4a229a2e4487aa269817f3397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CircleTransition: {fileID: 2032594497}
-  NextButton: {fileID: 841082430}
+  SceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
+  _circleTransition: {fileID: 2032594497}
+  _nextButton: {fileID: 841082430}
   EaseTween: 30
 --- !u!4 &137966020
 Transform:
@@ -875,6 +876,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2511050808693709626, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1143,7 +1164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344d013e7c121bf4d8cded7064a2a335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneChanger: {fileID: 137966019}
+  SceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
   TargetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
   FrontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
   TargetLocation: {fileID: 11400000, guid: f640237ccbf12d046883b778f5cfc574, type: 2}
