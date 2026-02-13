@@ -906,30 +906,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1772544198368381445, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2511050808693709626, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -968,7 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b2d6a6f11186e4ebab02778f790e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasDrawController: {fileID: 1511183672}
+  _canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
   _finalSpriteContainer: {fileID: 11400000, guid: ab6e0373907c4184b9fa9a107ad473cb, type: 2}
   _finalSpriteRenderer: {fileID: 1585221069}

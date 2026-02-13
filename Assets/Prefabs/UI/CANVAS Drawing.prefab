@@ -1555,6 +1555,7 @@ GameObject:
   - component: {fileID: 8684510562278149737}
   - component: {fileID: 1292542229617362275}
   - component: {fileID: 1259810382093725278}
+  - component: {fileID: 8832998042284386344}
   m_Layer: 5
   m_Name: CANVAS Drawing
   m_TagString: Untagged
@@ -1719,6 +1720,20 @@ MonoBehaviour:
   SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
   DrawController: {fileID: 8684510562278149737}
   LayerController: {fileID: 1572198178322869233}
+--- !u!114 &8832998042284386344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514145747421770880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f9be458abe47b749aa7a22c9487a7a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasDrawControllerTarget: {fileID: 8684510562278149737}
+  CanvasDrawControllerSO: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
 --- !u!1 &6255451021259343409
 GameObject:
   m_ObjectHideFlags: 0
