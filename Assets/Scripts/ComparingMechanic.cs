@@ -44,11 +44,24 @@ public class ComparingMechanic : MonoBehaviour
     [SerializeField] private int duration = 100;
     
     public Color InspectionColor;
-    private bool OneShot = true;
+    private bool _isOneShot = true;
     
-    private float gameManagerCachedSimilarity;
-    private float gameManagerCachedFirstTwo;
-    private float gameManagerCachedLastTwo;
+    private float _gameManagerCachedSimilarity;
+    private float _gameManagerCachedFirstTwo;
+    private float _gameManagerCachedLastTwo;
+    
+    private RectTransform _targetImageRect;
+    private RectTransform _frontRect;
+    private RectTransform _targetLocationRect;
+    private RawImage _frontRawImage;
+    
+    private void Awake()
+    {
+        _targetImageRect = TargetImage.Value.GetComponent<RectTransform>();
+        _frontRect = FrontSilhouette.Value.GetComponent<RectTransform>();
+        _targetLocationRect = TargetLocation.Value.GetComponent<RectTransform>();
+        _frontRawImage = FrontSilhouette.Value.GetComponent<RawImage>();
+    }
     
     private void OnEnable()
     {
@@ -62,9 +75,9 @@ public class ComparingMechanic : MonoBehaviour
 
     private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
     {
-        gameManagerCachedSimilarity = similarity;
-        gameManagerCachedFirstTwo = firstTwo;
-        gameManagerCachedLastTwo = lastTwo;
+        _gameManagerCachedSimilarity = similarity;
+        _gameManagerCachedFirstTwo = firstTwo;
+        _gameManagerCachedLastTwo = lastTwo;
     }
     
     private void Start()
@@ -75,24 +88,24 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || !OneShot) return;
+        if (!Input.GetKeyDown(KeyCode.Space) || !_isOneShot) return;
         
-        FinishGameRequestEvent.Raise();//Game Finish
+        FinishGameRequestEvent.Raise();
         
-        Vector3 targetPosition = TargetLocation.Value.transform.position;
+        Vector2 targetPosition = _targetLocationRect.anchoredPosition;
         
-        TargetImage.Value.transform
-            .DOMove(targetPosition , 1f, false)
+        _targetImageRect
+            .DOAnchorPos(targetPosition, 1f)
             .SetEase(EaseTween)
-            .OnComplete(() => { StartCoroutine(ShowResult()); });
-        
-        FrontSilhouette.Value.GetComponent<RawImage>().color= InspectionColor;
-        
-        FrontSilhouette.Value.transform
-            .DOMove(targetPosition , 1f, false)
+            .OnComplete(() => StartCoroutine(ShowResult()));
+
+        _frontRect
+            .DOAnchorPos(targetPosition, 1f)
             .SetEase(EaseTween);
+
+        _frontRawImage.color = InspectionColor;
         
-        OneShot =false;
+        _isOneShot =false;
     }
     
     private IEnumerator ShowResult()
@@ -110,12 +123,12 @@ public class ComparingMechanic : MonoBehaviour
             
             if (tick != duration) continue;
             
-            SetPercentageText(gameManagerCachedFirstTwo, gameManagerCachedLastTwo);
+            SetPercentageText(_gameManagerCachedFirstTwo, _gameManagerCachedLastTwo);
         }
         
-        Debug.Log(gameManagerCachedSimilarity * 100);
+        Debug.Log(_gameManagerCachedSimilarity * 100);
         Debug.Log(ComparisonRule.PercentRequirement);
-        Debug.Log(gameManagerCachedSimilarity * 100 > ComparisonRule.PercentRequirement);
+        Debug.Log(_gameManagerCachedSimilarity * 100 > ComparisonRule.PercentRequirement);
         
         CheckingSimilar();
         
@@ -134,13 +147,13 @@ public class ComparingMechanic : MonoBehaviour
 
     private void CheckingSimilar()
     {
-        Color resultColor = ComparisonRule.GetResultColor(gameManagerCachedSimilarity);
+        Color resultColor = ComparisonRule.GetResultColor(_gameManagerCachedSimilarity);
         TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, resultColor);
     }
 
     private void Similar()
     {
-        if (ComparisonRule.IsPassed(gameManagerCachedSimilarity))
+        if (ComparisonRule.IsPassed(_gameManagerCachedSimilarity))
         {
             sceneChanger.ShowNextButton();
         }
