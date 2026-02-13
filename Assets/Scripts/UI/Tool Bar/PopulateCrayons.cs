@@ -1,14 +1,16 @@
 using UnityEngine;
 
-public class PopulatCrayons : MonoBehaviour
+public class PopulateCrayons : MonoBehaviour
 {
     [SerializeField] private ColorDataListValue ColorDataList;
     [SerializeField] private Transform ContentParent;
     [SerializeField] private GameObjectListValue ColorBlobVariants;
+    [SerializeField] private SetCrayonFunction SetCrayonFunction;
 
     private void Start()
     {
         Populate();
+        SetCrayonFunction.SetupCrayons();
     }
 
     private void Populate()
@@ -20,22 +22,11 @@ public class PopulatCrayons : MonoBehaviour
 
     private void SpawnDifferentBlobs()
     {
-        foreach (var color in ColorDataList.Value)
+        for (int i = 0; i < ColorDataList.Value.Count; i++)
         {
             GameObject randomPrefab = ColorBlobVariants.Value[Random.Range(0, ColorBlobVariants.Value.Count)];
 
-            GameObject instance = Instantiate(randomPrefab, ContentParent);
-
-            CrayonUIItem uiItem = instance.GetComponent<CrayonUIItem>();
-            
-            if (uiItem != null)
-            {
-                uiItem.Setup(color);
-            }
-            else
-            {
-                Debug.LogWarning("CrayonUIItem missing on prefab", instance);
-            }
+            Instantiate(randomPrefab, ContentParent);
         }
     }
 

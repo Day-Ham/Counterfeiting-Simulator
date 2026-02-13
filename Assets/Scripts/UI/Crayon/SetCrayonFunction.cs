@@ -5,27 +5,25 @@ public class SetCrayonFunction : MonoBehaviour
     [SerializeField] private ColorDataListValue Palette;
     [SerializeField] private Transform CrayonParent;
     
-    private CrayonUIItem[] Crayons;
-    
-    private void OnValidate()
+    public void SetupCrayons()
     {
         if (Palette == null || Palette.Value == null || CrayonParent == null)
         {
             return;
         }
 
-        Crayons = CrayonParent.GetComponentsInChildren<CrayonUIItem>();
+        CrayonUIItem[] crayons = CrayonParent.GetComponentsInChildren<CrayonUIItem>();
 
-        int count = Mathf.Min(Palette.Value.Count, Crayons.Length);
+        int count = Mathf.Min(Palette.Value.Count, crayons.Length);
 
         for (int i = 0; i < count; i++)
         {
-            if (Crayons[i] == null)
+            if (crayons[i] == null)
             {
                 continue;
             }
 
-            Crayons[i].Setup(Palette.Value[i]);
+            crayons[i].Setup(Palette.Value[i]);
         }
     }
 }
