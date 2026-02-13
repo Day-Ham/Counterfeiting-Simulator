@@ -103,6 +103,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -738,6 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8883866599569288691}
   - component: {fileID: 4910503753986841933}
+  - component: {fileID: 7104957737934498511}
   m_Layer: 5
   m_Name: TargetImage
   m_TagString: Untagged
@@ -783,6 +785,20 @@ MonoBehaviour:
   _rawImages:
   - {fileID: 758492114677682061}
   - {fileID: 7947398821498085356}
+--- !u!114 &7104957737934498511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3758369065962832123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectTarget: {fileID: 3758369065962832123}
+  GameObjectValue: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
 --- !u!1 &3930309928529815388
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,6 +1015,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1135,6 +1152,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1748,6 +1766,7 @@ GameObject:
   - component: {fileID: 90717766132076595}
   - component: {fileID: 8761533997311394102}
   - component: {fileID: 7947398821498085356}
+  - component: {fileID: 8812785485212266695}
   m_Layer: 5
   m_Name: FrontShiloutte
   m_TagString: Untagged
@@ -1810,6 +1829,20 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &8812785485212266695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321352975838387423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameObjectTarget: {fileID: 6321352975838387423}
+  GameObjectValue: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
 --- !u!1 &6590920543012163613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,6 +2484,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

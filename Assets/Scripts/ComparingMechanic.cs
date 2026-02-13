@@ -6,12 +6,15 @@ using UnityEngine.UI;
 
 public class ComparingMechanic : MonoBehaviour
 {
-    public GameObject TargetLocation;
-
     public SceneChanger sceneChanger;
-    public GameObject ObjectToMove;
-    public GameObject ObjectToMove2;
-
+    
+    [Header("GameObject to Move")]
+    public GameObjectValue TargetImage;
+    public GameObjectValue FrontSilhouette;
+    
+    [Header("Target Location")]
+    public GameObject TargetLocation;
+    
     public Ease EaseTween;
     
     [Header("Percentage ScriptableObject")]
@@ -67,7 +70,7 @@ public class ComparingMechanic : MonoBehaviour
     private void Start()
     {
         PercentageResizeTween.Collapse(PercentageParent.Value);
-        ObjectToMove2.GetComponent<RawImage>().color = Color.white;
+        FrontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
     
     private void Update()
@@ -76,14 +79,14 @@ public class ComparingMechanic : MonoBehaviour
         
         FinishGameRequestEvent.Raise();//Game Finish
         
-        ObjectToMove.transform
+        TargetImage.Value.transform
             .DOMove(TargetLocation.transform.position, 1f, false)
             .SetEase(EaseTween)
             .OnComplete(() => { StartCoroutine(ShowResult()); });
         
-        ObjectToMove2.GetComponent<RawImage>().color= InspectionColor;
+        FrontSilhouette.Value.GetComponent<RawImage>().color= InspectionColor;
         
-        ObjectToMove2.transform
+        FrontSilhouette.Value.transform
             .DOMove(TargetLocation.transform.position, 1f, false)
             .SetEase(EaseTween);
         

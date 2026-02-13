@@ -449,11 +449,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7579051866841174873, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
   m_PrefabInstance: {fileID: 2861483923802464918}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &950560998 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6321352975838387423, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1456504796
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,11 +649,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1785604296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3758369065962832123, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 2861483923802464918}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1888651612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3364798885909967208, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
@@ -879,26 +869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1010875108215473492, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2511050808693709626, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -906,6 +876,10 @@ PrefabInstance:
     - target: {fileID: 5514145747421770880, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_Name
       value: CANVAS Drawing
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321352975838387423, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
+      propertyPath: m_Name
+      value: FrontSilhouette
       objectReference: {fileID: 0}
     - target: {fileID: 7501167257364627497, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1155,10 +1129,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344d013e7c121bf4d8cded7064a2a335, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetLocation: {fileID: 1888651612}
   sceneChanger: {fileID: 137966019}
-  ObjectToMove: {fileID: 1785604296}
-  ObjectToMove2: {fileID: 950560998}
+  TargetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
+  FrontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
+  TargetLocation: {fileID: 1888651612}
   EaseTween: 28
   PercentageParent: {fileID: 11400000, guid: 434ce091a25094a43b09306353f686e6, type: 2}
   PercentageResizeTween: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
