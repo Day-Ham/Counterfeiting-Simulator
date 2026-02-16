@@ -5,26 +5,22 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ScaleSlider : MonoBehaviour
 {
-    public Slider slider;
-    public CanvasDrawController brushController;
-    public GameObject cursor;
+    public Slider BrushScaleSlider;
+    public CanvasDrawControllerValue BrushController;
+    public GameObjectValue Cursor;
 
     public float ReferenceNumber = 64;
-    // Start is called before the first frame update
+
     void Start()
     {
-        brushController.SetBrushSize(slider.value * ReferenceNumber);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        BrushController.Value.SetBrushSize(BrushScaleSlider.value * ReferenceNumber);
     }
 
     public void SetSize()
     {
-        cursor.transform.localScale = new Vector3(slider.value, slider.value, slider.value);
-        brushController.SetBrushSize(slider.value * ReferenceNumber);
+        Transform cursorSize = Cursor.Value.transform;
+        
+        cursorSize.localScale = new Vector3(BrushScaleSlider.value, BrushScaleSlider.value, BrushScaleSlider.value);
+        BrushController.Value.SetBrushSize(BrushScaleSlider.value * ReferenceNumber);
     }
 }

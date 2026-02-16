@@ -7,36 +7,20 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
     [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
     [SerializeField] private List<RawImage> _rawImages;
 
-    private void OnEnable()
+    private void Start()
     {
-        if (_levelConfigRuntime == null) return;
+        if (_levelConfigRuntime == null || _levelConfigRuntime.Value == null)
+            return;
 
-        _levelConfigRuntime.OnValueChanged += OnLevelConfigChanged;
-
-        if (_levelConfigRuntime.Value != null)
-        {
-            ApplyTexture(_levelConfigRuntime.Value.GoalTexture);
-        }
+        ApplyTexture(_levelConfigRuntime.Value.GoalTexture);
     }
 
-    private void OnDisable()
+    private void ApplyTexture(TextureValueWrapper textureValue)
     {
-        if (_levelConfigRuntime != null)
-        {
-            _levelConfigRuntime.OnValueChanged -= OnLevelConfigChanged;
-        }
-    }
+        if (textureValue == null || textureValue.Value == null)
+            return;
 
-    private void OnLevelConfigChanged(LevelConfigScriptableObject config)
-    {
-        if (config == null) return;
-
-        ApplyTexture(config.GoalTexture);
-    }
-
-    private void ApplyTexture(Texture texture)
-    {
-        if (texture == null) return;
+        Texture texture = textureValue.Value;
 
         foreach (var rawImage in _rawImages)
         {

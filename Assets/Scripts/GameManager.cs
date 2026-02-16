@@ -8,7 +8,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
     public class GameManager : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] CanvasDrawController _canvasDrawController;
+        [SerializeField] CanvasDrawControllerValue _canvasDrawController;
         [SerializeField] ComputeShader _similarityComputeShader;
         [SerializeField] SpriteContainerRuntimeAsset _finalSpriteContainer;
         [SerializeField] SpriteRenderer _finalSpriteRenderer;
@@ -19,18 +19,18 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         [Header("Settings/LevelConfig")]
         [Tooltip("The texture that the player needs to draw and match exactly.")]
-        [SerializeField] private LevelConfigScriptableObject _levelConfig;
-        [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
+        [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
         
         [Tooltip("Optional. The texture that the player starts with.")]
         [SerializeField] Texture _optionalStartingTexture;
         [SerializeField] Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f); // Between (0, 0) and (1, 1)
 
         TextureUtility _textureUtility;
+        private CanvasDrawController _canvasDraw;
         public float allSimilarity = 1f;
         public float FirstTwoDigits;
         public float LastTwoDigits;
-        public bool GameIsPaused=false;
+        public bool GameIsPaused = false;
         
         private void OnEnable()
         {
@@ -44,7 +44,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
-            _levelConfigRuntime.Value = _levelConfig;
+            _canvasDraw = _canvasDrawController.Value;
+            
+            if (_canvasDraw == null)
+            {
+                Debug.LogError("CanvasDrawController not found.");
+                return;
+            }
             
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
@@ -52,22 +58,15 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         private void Start()
         {
-            if (_levelConfig == null ||
-                _levelConfig.GoalTexture == null)
-            {
-                Debug.LogError("Goal texture missing in LevelConfig!");
-                return;
-            }
+            Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
-            Texture goalTexture = _levelConfig.GoalTexture;
+            _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
-            _canvasDrawController.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
-
-            _canvasDrawController.SetBrushColorIndex(0);
+            _canvasDraw.SetBrushColorIndex(0);
 
             if (_optionalStartingTexture != null)
             {
-                _canvasDrawController.CopyTextureToCurrentLayer(_optionalStartingTexture);
+                _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
             }
         }
 
@@ -76,7 +75,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             if (GameIsPaused == false)
             {
                 UpdateFromUserInput();
-                _canvasDrawController.Tick();
+                _canvasDraw.Tick();
             }
         }
 
@@ -84,23 +83,23 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                _canvasDrawController.SetBrushColorIndex(0);
+                _canvasDraw.SetBrushColorIndex(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                _canvasDrawController.SetBrushColorIndex(1);
+                _canvasDraw.SetBrushColorIndex(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                _canvasDrawController.SetBrushColorIndex(2);
+                _canvasDraw.SetBrushColorIndex(2);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                _canvasDrawController.SetBrushColorIndex(3);
+                _canvasDraw.SetBrushColorIndex(3);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                _canvasDrawController.SetBrushColorIndex(4);
+                _canvasDraw.SetBrushColorIndex(4);
             }
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -109,19 +108,19 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             }
             else if (Input.GetKeyDown(KeyCode.Z))
             {
-                _canvasDrawController.UndoLastDraw();
+                _canvasDraw.UndoLastDraw();
             }
             else if (Input.GetKeyDown(KeyCode.C))
             {
-                _canvasDrawController.ClearCurrentLayer();
+                _canvasDraw.ClearCurrentLayer();
             }
             else if (Input.GetKeyDown(KeyCode.D))
             {
-                _canvasDrawController.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
+                _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
             }
             else if (Input.GetKeyDown(KeyCode.E))
             {
-                _canvasDrawController.CurrentDrawMode = CanvasDrawController.DrawMode.Erase;
+                _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Erase;
             }
         }
 
@@ -129,11 +128,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         {
             allSimilarity = 1f;
             
-            CanvasState playerCanvasState = _canvasDrawController.MainCanvasState;
+            CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                Texture goalTexture = _levelConfig.GoalTexture;
+                Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
                 float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 

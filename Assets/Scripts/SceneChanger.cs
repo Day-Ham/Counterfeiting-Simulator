@@ -7,15 +7,26 @@ using DG.Tweening;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] private GameObject CircleTransition;
-    [SerializeField] private GameObject NextButton;
+    [SerializeField] private VoidEvent SceneChangerEvent;
+    [SerializeField] private GameObject _circleTransition;
+    [SerializeField] private GameObject _nextButton;
     public Ease EaseTween;
+    
+    private void OnEnable()
+    {
+        SceneChangerEvent.OnRaised += ShowNextButton;
+    }
+
+    private void OnDisable()
+    {
+        SceneChangerEvent.OnRaised -= ShowNextButton;
+    }
 
     private void Start()
     {
-        CircleTransition.SetActive(true);
-        CircleTransition.transform.DOScale(Vector3.zero, 1f);
-        NextButton.transform.DOScale(Vector3.zero, 0f);
+        _circleTransition.SetActive(true);
+        _circleTransition.transform.DOScale(Vector3.zero, 1f);
+        _nextButton.transform.DOScale(Vector3.zero, 0f);
     }
 
     public void QuitApp()
@@ -25,7 +36,7 @@ public class SceneChanger : MonoBehaviour
 
     public void ResetScene()
     {
-        CircleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -35,7 +46,7 @@ public class SceneChanger : MonoBehaviour
     
     public void NextLevel()
     {
-        CircleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
@@ -43,14 +54,14 @@ public class SceneChanger : MonoBehaviour
         
     }
 
-    public void ShowNextButton()
+    private void ShowNextButton()
     {
-        NextButton.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
+        _nextButton.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
     }
     
-    public void PrevLevel()
+    private void PrevLevel()
     {
-        CircleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
