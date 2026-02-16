@@ -757,9 +757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelConfigRuntimeSO: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  ContentParent: {fileID: 349422539821324550}
-  SetCrayonFunction: {fileID: 5992371086225529748}
+  _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  _contentParent: {fileID: 349422539821324550}
+  _setCrayonFunction: {fileID: 5992371086225529748}
 --- !u!114 &5992371086225529748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,8 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e551f2fde37c7c34daf6a799a844bf69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CrayonParent: {fileID: 349422539821324550}
-  PaletteSource: {fileID: 1397177087112857161}
+  _crayonParent: {fileID: 349422539821324550}
 --- !u!1 &3919219594150000858
 GameObject:
   m_ObjectHideFlags: 0

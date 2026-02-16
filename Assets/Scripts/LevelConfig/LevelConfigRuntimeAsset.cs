@@ -1,21 +1,22 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Runtime Assets/New Level Config")]
 public class LevelConfigRuntimeAsset : ScriptableObject
 {
-    private LevelConfig runtimeValue;
+    private LevelConfig _runtimeValue;
     public event Action<LevelConfig> OnValueChanged;
 
     public LevelConfig Value
     {
-        get => runtimeValue;
+        get => _runtimeValue;
         set
         {
-            if (runtimeValue == value) return;
+            if (_runtimeValue == value) return;
 
-            runtimeValue = value;
-            OnValueChanged?.Invoke(runtimeValue);
+            _runtimeValue = value;
+            OnValueChanged?.Invoke(_runtimeValue);
         }
     }
 }

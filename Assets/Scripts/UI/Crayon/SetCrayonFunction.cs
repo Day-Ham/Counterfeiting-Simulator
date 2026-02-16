@@ -2,23 +2,21 @@ using UnityEngine;
 
 public class SetCrayonFunction : MonoBehaviour
 {
-    [SerializeField] private Transform CrayonParent;
-    [SerializeField] private PopulateCrayons PaletteSource;
+    [SerializeField] private Transform _crayonParent;
     
-    public void SetupCrayons()
+    public void SetupCrayons(ColorDataListValue colorDataListValue)
     {
-        int colorPaletteAmount = PaletteSource.ColorDataList.Value.Count;
-    
-        CrayonUIItem[] crayons = CrayonParent.GetComponentsInChildren<CrayonUIItem>();
-        
-        int count = Mathf.Min(colorPaletteAmount, crayons.Length);
+        if (colorDataListValue == null || colorDataListValue.Value == null) return;
+
+        var crayons = _crayonParent.GetComponentsInChildren<CrayonUIItem>();
+        int count = Mathf.Min(colorDataListValue.Value.Count, crayons.Length);
 
         for (int i = 0; i < count; i++)
         {
-            if (crayons[i] == null)
-                continue;
-
-            crayons[i].Setup(PaletteSource.ColorDataList.Value[i]);
+            if (crayons[i] != null)
+            {
+                crayons[i].Setup(colorDataListValue.Value[i]);
+            }
         }
     }
 }

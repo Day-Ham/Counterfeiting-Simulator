@@ -1,66 +1,55 @@
+using System;
+using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PopulateCrayons : MonoBehaviour
 {
-    [SerializeField] private LevelConfigRuntimeAsset LevelConfigRuntimeSO;
-    [SerializeField] private Transform ContentParent;
-    [SerializeField] private SetCrayonFunction SetCrayonFunction;
-    
-    public ColorDataListValue ColorDataList { get; private set; }
-    private GameObjectListValue _currentBlobs;
-    
-    private void OnEnable()
-    {
-        LevelConfigRuntimeSO.OnValueChanged += OnLevelConfigChanged;
-    }
+    [Header("Crayon Data")]
+    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
 
-    private void OnDisable()
-    {
-        LevelConfigRuntimeSO.OnValueChanged -= OnLevelConfigChanged;
-    }
+    [Header("UI References")]
+    [SerializeField] private Transform _contentParent;
+    [SerializeField] private SetCrayonFunction _setCrayonFunction;
+    
+    private LevelConfig _currentLevel;
 
     private void Start()
     {
-        if (LevelConfigRuntimeSO.Value != null)
-        {
-            OnLevelConfigChanged(LevelConfigRuntimeSO.Value);
-        }
-    }
-    
-    private void OnLevelConfigChanged(LevelConfig newConfig)
-    {
-        if (newConfig == null) return;
-
-        ColorDataList = newConfig.LevelColors;
-        _currentBlobs = newConfig.LevelColorBlobs;
-
+        _currentLevel = _levelConfigRuntimeAsset.Value;
+        
         Populate();
-        SetCrayonFunction.SetupCrayons();
+        _setCrayonFunction.SetupCrayons(_currentLevel.LevelColors);
     }
 
     private void Populate()
     {
         ClearChildren();
-        
         SpawnDifferentBlobs();
     }
 
     private void SpawnDifferentBlobs()
     {
-        if (_currentBlobs == null) return;
+        var colorsList = _currentLevel.LevelColors.Value;
+        var colorBlobsList = _currentLevel.LevelColorBlobs.Value;
 
-        for (int i = 0; i < ColorDataList.Value.Count; i++)
+        int colorCount = colorsList.Count;
+        int prefabCount = colorBlobsList.Count;
+
+        for (int i = 0; i < colorCount; i++)
         {
-            GameObject randomPrefab = _currentBlobs.Value[Random.Range(0, _currentBlobs.Value.Count)];
-            Instantiate(randomPrefab, ContentParent);
+            if (prefabCount == 0) break;
+
+            GameObject randomPrefab = colorBlobsList[Random.Range(0, prefabCount)];
+            Instantiate(randomPrefab, _contentParent);
         }
     }
 
     private void ClearChildren()
     {
-        for (int i = ContentParent.childCount - 1; i >= 0; i--)
+        for (int i = _contentParent.childCount - 1; i >= 0; i--)
         {
-            Destroy(ContentParent.GetChild(i).gameObject);
+            Destroy(_contentParent.GetChild(i).gameObject);
         }
     }
 }

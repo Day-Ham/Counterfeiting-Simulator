@@ -402,6 +402,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &629677922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5992371086225529748, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+  m_PrefabInstance: {fileID: 7081828905650203856}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e551f2fde37c7c34daf6a799a844bf69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &790673826
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +778,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!224 &1762776240 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 349422539821324550, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+  m_PrefabInstance: {fileID: 7081828905650203856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2056802116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,14 +1062,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9132120367430000280, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 137966019}
-    - target: {fileID: 9132120367430000280, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NextLevel
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1071,6 +1079,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 3357956447395473153}
+    - target: {fileID: 1397177087112857161, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: _contentParent
+      value: 
+      objectReference: {fileID: 1762776240}
+    - target: {fileID: 1397177087112857161, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: _setCrayonFunction
+      value: 
+      objectReference: {fileID: 629677922}
+    - target: {fileID: 1397177087112857161, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: _levelConfigRuntimeSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
     - target: {fileID: 2752668365154803274, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

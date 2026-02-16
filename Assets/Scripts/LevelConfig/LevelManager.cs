@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
-    [SerializeField] private LevelConfig LevelToLoad;
+    [Header("Level Settings")]
+    [SerializeField] private LevelConfig _levelToLoad;
+    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
 
     private void Awake()
     {
-        LevelRuntime.Value = LevelToLoad;
+        _levelConfigRuntimeAsset.Value = _levelToLoad;
     }
 }
