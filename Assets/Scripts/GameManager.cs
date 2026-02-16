@@ -46,6 +46,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         {
             _canvasDraw = _canvasDrawController.Value;
             
+            if (_canvasDraw == null)
+            {
+                Debug.LogError("CanvasDrawController not found.");
+                return;
+            }
+            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
