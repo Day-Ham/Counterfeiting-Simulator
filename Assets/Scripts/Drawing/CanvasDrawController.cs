@@ -187,6 +187,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void SetBrushSize(float brushSize)
         {
+            if (_layerDrawController == null)
+            {
+                Debug.LogWarning("_layerDrawController is null!");
+                return;
+            }
+            
             if (brushSize < 0f)
                 return;
 
