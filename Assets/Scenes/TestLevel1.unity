@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af00d6dcd5d4ff4eb7eace0bac0c81e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelToLoad: {fileID: 11400000, guid: 5c94731959da52b42a7a04d1fe30b87d, type: 2}
+  _levelToLoad: {fileID: 11400000, guid: ed2556945f0400e4dbe6d3ebccc67182, type: 2}
   _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
 --- !u!1 &1456504796
 GameObject:
