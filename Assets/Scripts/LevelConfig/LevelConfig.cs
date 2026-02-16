@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewLevelConfig", menuName = "Level/LevelConfig")]
 public class LevelConfig : ScriptableObject
 {
-    //public CanvasTemplateScriptableValue LevelTemplate;
+    public CanvasTemplateValue CanvasTemplate;
     public TextureValueWrapper GoalTexture;
     public ColorDataListValue LevelColors;
     public GameObjectListValue LevelColorBlobs;
