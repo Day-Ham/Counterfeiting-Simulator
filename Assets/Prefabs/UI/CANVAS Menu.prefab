@@ -843,6 +843,7 @@ GameObject:
   - component: {fileID: 3626265969167520309}
   - component: {fileID: 9198320867453464110}
   - component: {fileID: 3491695677675127417}
+  - component: {fileID: 6733987820402560736}
   m_Layer: 5
   m_Name: TransitionCircle
   m_TagString: Untagged
@@ -907,6 +908,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6733987820402560736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2999370826735164241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
 --- !u!1 &3002916153540712491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1283,7 @@ GameObject:
   - component: {fileID: 5316791532604041031}
   - component: {fileID: 3617827025592421779}
   - component: {fileID: 9132120367430000280}
+  - component: {fileID: 6012672298004405902}
   m_Layer: 5
   m_Name: BUTTON NextLevel
   m_TagString: Untagged
@@ -1390,6 +1405,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6012672298004405902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280453852818395517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _value: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
 --- !u!1 &6122546746556904061
 GameObject:
   m_ObjectHideFlags: 0

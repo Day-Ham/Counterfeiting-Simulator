@@ -8,11 +8,12 @@ using DG.Tweening;
 public class SceneChanger : MonoBehaviour
 {
     [SerializeField] private VoidEvent SceneChangerEvent;
-    [SerializeField] private GameObject _circleTransition;
+    [SerializeField] private GameObjectValue _circleTransition;
     [SerializeField] private GameObjectValue _nextButtonValue;
     public Ease EaseTween;
     
     private GameObject _nextButtonUI;
+    private GameObject _circleTransitionUI;
     
     private void OnEnable()
     {
@@ -27,9 +28,9 @@ public class SceneChanger : MonoBehaviour
     private void Start()
     {
         _nextButtonUI = _nextButtonValue.Value;
+        _circleTransitionUI = _circleTransition.Value;
         
-        _circleTransition.SetActive(true);
-        _circleTransition.transform.DOScale(Vector3.zero, 1f);
+        _circleTransitionUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
 
@@ -40,7 +41,7 @@ public class SceneChanger : MonoBehaviour
 
     public void ResetScene()
     {
-        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -50,7 +51,7 @@ public class SceneChanger : MonoBehaviour
     
     public void NextLevel()
     {
-        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
@@ -65,7 +66,7 @@ public class SceneChanger : MonoBehaviour
     
     private void PrevLevel()
     {
-        _circleTransition.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);

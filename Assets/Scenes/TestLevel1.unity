@@ -149,8 +149,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
-  _circleTransition: {fileID: 3390581357311927628}
-  _nextButton: {fileID: 3218546914315482558}
+  _circleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
+  _nextButtonValue: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   EaseTween: 30
 --- !u!4 &137966020
 Transform:
@@ -832,11 +832,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &3218546914315482558 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5280453852818395517, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-  m_PrefabInstance: {fileID: 6969471303858786992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3357956447395473153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,11 +857,6 @@ MonoBehaviour:
   FirstTwoDigits: 0
   LastTwoDigits: 0
   GameIsPaused: 0
---- !u!1 &3390581357311927628 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2999370826735164241, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-  m_PrefabInstance: {fileID: 6969471303858786992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5050618001935108616
 Transform:
   m_ObjectHideFlags: 0
@@ -972,26 +962,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2854688929936453541, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9132120367430000280, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
