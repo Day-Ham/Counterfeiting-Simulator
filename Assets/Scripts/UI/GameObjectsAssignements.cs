@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class GameObjectsAssignements : MonoBehaviour
 {
-    public GameObject GameObjectTarget;
-    
-    public GameObjectValue GameObjectValue;
+    [SerializeField] private GameObjectValue _value;
 
-    private void Awake()
+    private void OnEnable()
     {
-        GameObjectValue.Value = GameObjectTarget;
+        _value.Value = gameObject;
+    }
+
+    private void OnDisable()
+    {
+        if (_value.Value == gameObject)
+        {
+            _value.Value = null;
+        }
     }
 }

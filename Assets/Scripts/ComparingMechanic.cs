@@ -92,15 +92,15 @@ public class ComparingMechanic : MonoBehaviour
         
         FinishGameRequestEvent.Raise();
         
-        Vector2 targetPosition = _targetLocationRect.anchoredPosition;
-        
+        Vector3 targetPos = _targetLocationRect.position;
+
         _targetImageRect
-            .DOAnchorPos(targetPosition, 1f)
+            .DOMove(targetPos, 1f)
             .SetEase(EaseTween)
             .OnComplete(() => StartCoroutine(ShowResult()));
 
         _frontRect
-            .DOAnchorPos(targetPosition, 1f)
+            .DOMove(targetPos, 1f)
             .SetEase(EaseTween);
 
         _frontRawImage.color = InspectionColor;
