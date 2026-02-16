@@ -55,14 +55,6 @@ public class ComparingMechanic : MonoBehaviour
     private RectTransform _targetLocationRect;
     private RawImage _frontRawImage;
     
-    private void Awake()
-    {
-        _targetImageRect = TargetImage.Value.GetComponent<RectTransform>();
-        _frontRect = FrontSilhouette.Value.GetComponent<RectTransform>();
-        _targetLocationRect = TargetLocation.Value.GetComponent<RectTransform>();
-        _frontRawImage = FrontSilhouette.Value.GetComponent<RawImage>();
-    }
-    
     private void OnEnable()
     {
         ComparisonResultEvent.OnRaised += OnComparisonFinished;
@@ -82,6 +74,11 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Start()
     {
+        _targetImageRect = TargetImage.Value.GetComponent<RectTransform>();
+        _frontRect = FrontSilhouette.Value.GetComponent<RectTransform>();
+        _targetLocationRect = TargetLocation.Value.GetComponent<RectTransform>();
+        _frontRawImage = FrontSilhouette.Value.GetComponent<RawImage>();
+        
         PercentageResizeTween.Collapse(PercentageParent.Value);
         FrontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
@@ -155,8 +152,6 @@ public class ComparingMechanic : MonoBehaviour
     {
         if (ComparisonRule.IsPassed(_gameManagerCachedSimilarity))
         {
-            //sceneChanger.ShowNextButton();
-            
             SceneChangerEvent.Raise();
         }
         else

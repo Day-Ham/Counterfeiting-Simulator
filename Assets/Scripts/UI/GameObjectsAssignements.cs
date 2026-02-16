@@ -4,14 +4,17 @@ public class GameObjectsAssignements : MonoBehaviour
 {
     [SerializeField] private GameObjectValue _value;
 
-    private void OnEnable()
+    private void Awake()
     {
-        _value.Value = gameObject;
+        if (_value != null)
+        {
+            _value.Value = gameObject;
+        }
     }
 
     private void OnDisable()
     {
-        if (_value.Value == gameObject)
+        if (_value != null && _value.Value == gameObject)
         {
             _value.Value = null;
         }

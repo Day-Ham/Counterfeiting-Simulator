@@ -44,20 +44,21 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
-            _canvasDraw = _canvasDrawController.Value;
-            
-            if (_canvasDraw == null)
-            {
-                Debug.LogError("CanvasDrawController not found.");
-                return;
-            }
-            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
 
         private void Start()
         {
+            _canvasDraw = _canvasDrawController.Value;
+
+            if (_canvasDraw == null)
+            {
+                Debug.LogError("CanvasDrawController not found.");
+                enabled = false;
+                return;
+            }
+            
             Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
             _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));

@@ -49,23 +49,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         Vector2Int _canvasDimensions;
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
-        
-        private void OnEnable()
-        {
-            _canvasDrawControllerValue.Value = this;
-        }
-        
-        private void OnDisable()
-        {
-            if (_canvasDrawControllerValue.Value == this)
-            {
-                _canvasDrawControllerValue.Value = null;
-            }
-        }
 
         void Awake()
         {
             OnValidate();
+            
+            _canvasDrawControllerValue.Value = this;
         }
 
         public void OnStart(Vector2Int canvasDimensions)
