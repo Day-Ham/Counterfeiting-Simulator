@@ -9,8 +9,10 @@ public class SceneChanger : MonoBehaviour
 {
     [SerializeField] private VoidEvent SceneChangerEvent;
     [SerializeField] private GameObject _circleTransition;
-    [SerializeField] private GameObject _nextButton;
+    [SerializeField] private GameObjectValue _nextButtonValue;
     public Ease EaseTween;
+    
+    private GameObject _nextButtonUI;
     
     private void OnEnable()
     {
@@ -24,9 +26,11 @@ public class SceneChanger : MonoBehaviour
 
     private void Start()
     {
+        _nextButtonUI = _nextButtonValue.Value;
+        
         _circleTransition.SetActive(true);
         _circleTransition.transform.DOScale(Vector3.zero, 1f);
-        _nextButton.transform.DOScale(Vector3.zero, 0f);
+        _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
 
     public void QuitApp()
@@ -56,7 +60,7 @@ public class SceneChanger : MonoBehaviour
 
     private void ShowNextButton()
     {
-        _nextButton.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
+        _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
     }
     
     private void PrevLevel()
