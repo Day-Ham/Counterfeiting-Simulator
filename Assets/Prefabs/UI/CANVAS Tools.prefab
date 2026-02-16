@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BrushScaleSlider: {fileID: 321961871057230438}
-  BrushController: {fileID: 0}
+  BrushController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
   ReferenceNumber: 64
 --- !u!1 &5337282782688321994

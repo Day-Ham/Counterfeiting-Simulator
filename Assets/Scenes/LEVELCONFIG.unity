@@ -770,17 +770,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2376284840686822746 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5116722257932671009, guid: 362e7e60192c1bf4ca22dc3257a6b05c, type: 3}
-  m_PrefabInstance: {fileID: 3972407187105984109}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e0fdd3ea11441d1913475082e39a70f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2651039727627450465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,10 +1063,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 3357956447395473153}
-    - target: {fileID: 1001369381731643330, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-      propertyPath: BrushController
-      value: 
-      objectReference: {fileID: 2376284840686822746}
     - target: {fileID: 3085782536267974232, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_Name
       value: CANVAS Tools
