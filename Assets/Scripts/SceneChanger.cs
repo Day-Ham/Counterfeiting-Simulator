@@ -7,32 +7,38 @@ using DG.Tweening;
 
 public class SceneChanger : MonoBehaviour
 {
-    [SerializeField] private VoidEvent SceneChangerEvent;
+    public SceneChangerValue _sceneChangerValue;
+    [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _circleTransition;
     [SerializeField] private GameObjectValue _nextButtonValue;
     public Ease EaseTween;
     
     private GameObject _nextButtonUI;
-    private GameObject _circleTransitionUI;
+    
+    private GameObject CircleUI => _circleTransition.Value;
     
     private void OnEnable()
     {
-        SceneChangerEvent.OnRaised += ShowNextButton;
+        _sceneChangerEvent.OnRaised += ShowNextButton;
     }
 
     private void OnDisable()
     {
-        SceneChangerEvent.OnRaised -= ShowNextButton;
+        _sceneChangerEvent.OnRaised -= ShowNextButton;
+    }
+
+    private void Awake()
+    {
+        _sceneChangerValue.Value = this;
     }
 
     private void Start()
     {
         _nextButtonUI = _nextButtonValue.Value;
-        _circleTransitionUI = _circleTransition.Value;
         
-        _circleTransitionUI.SetActive(true);
+        CircleUI.SetActive(true);
         
-        _circleTransitionUI.transform.DOScale(Vector3.zero, 1f);
+        CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
 
@@ -43,17 +49,16 @@ public class SceneChanger : MonoBehaviour
 
     public void ResetScene()
     {
-        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             });;
-        
     }
     
     public void NextLevel()
     {
-        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
@@ -68,7 +73,7 @@ public class SceneChanger : MonoBehaviour
     
     private void PrevLevel()
     {
-        _circleTransitionUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
+        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
