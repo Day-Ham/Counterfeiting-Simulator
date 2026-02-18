@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToggleButton : MonoBehaviour
+public class ToggleGridButton : MonoBehaviour
 {
     [SerializeField] private Button _toggleButton;
     [SerializeField] private GameObjectValue[] _canvasGridGameObject;
