@@ -1,37 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class ToggleButton : MonoBehaviour
 {
-    [SerializeField] private UnityEvent ToggleEnable;
-    [SerializeField] private UnityEvent ToggleDisable;
+    [SerializeField] private Button _toggleButton;
+    [SerializeField] private GameObjectValue[] _canvasGridGameObject;
 
-    private bool toggle;
-    // Start is called before the first frame update
-    void Start()
+    private bool _isToggled;
+
+    private void Awake()
     {
-        
+        _toggleButton.onClick.AddListener(ApplyToggle);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void ApplyToggle()
     {
-        toggle = !toggle;
-        if (toggle)
+        _isToggled = !_isToggled;
+        
+        foreach (var value in _canvasGridGameObject)
         {
-            ToggleEnable.Invoke();
-        }
-        else
-        {
-            ToggleDisable.Invoke();
+            if (value != null && value.Value != null)
+            {
+                value.Value.SetActive(_isToggled);
+            }
         }
     }
 }
