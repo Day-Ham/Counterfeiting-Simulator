@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToggleGridButton : MonoBehaviour
+public class ToggleButton : MonoBehaviour
 {
     [SerializeField] private Button _toggleButton;
-    [SerializeField] private GameObjectValue[] _canvasGridGameObject;
+    [SerializeField] private GameObjectValue[] _listGameObject;
 
     private bool _isToggled;
 
@@ -17,7 +17,7 @@ public class ToggleGridButton : MonoBehaviour
     {
         _isToggled = !_isToggled;
         
-        foreach (var value in _canvasGridGameObject)
+        foreach (var value in _listGameObject)
         {
             if (value != null && value.Value != null)
             {
