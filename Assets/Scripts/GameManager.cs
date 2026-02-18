@@ -7,6 +7,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
+        [Header("Game Manager Value")]
+        [SerializeField] private GameManagerValue _gameManagerValue;
+        
         [Header("Dependencies")]
         [SerializeField] CanvasDrawControllerValue _canvasDrawController;
         [SerializeField] ComputeShader _similarityComputeShader;
@@ -44,6 +47,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
+            _gameManagerValue.Value = this;
+            
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
         }
