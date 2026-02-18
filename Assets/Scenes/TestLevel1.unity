@@ -964,26 +964,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9132120367430000280, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1005,6 +985,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 3357956447395473153}
+    - target: {fileID: 2752668365154803274, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752668365154803274, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752668365154803274, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2752668365154803274, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3085782536267974232, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_Name
       value: CANVAS Tools
@@ -1103,6 +1099,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5183055795191870665, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185738600303279861, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185738600303279861, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185738600303279861, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185738600303279861, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

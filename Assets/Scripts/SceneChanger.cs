@@ -30,6 +30,8 @@ public class SceneChanger : MonoBehaviour
         _nextButtonUI = _nextButtonValue.Value;
         _circleTransitionUI = _circleTransition.Value;
         
+        _circleTransitionUI.SetActive(true);
+        
         _circleTransitionUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
