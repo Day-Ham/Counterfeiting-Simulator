@@ -11,16 +11,18 @@ public class ScaleSlider : MonoBehaviour
 
     public float ReferenceNumber = 64;
 
-    void Start()
-    {
-        BrushController.Value.SetBrushSize(BrushScaleSlider.value * ReferenceNumber);
-    }
+    private CanvasDrawController CanvasDrawController => BrushController.Value;
 
     public void SetSize()
     {
+        if (CanvasDrawController == null || Cursor.Value == null)
+        {
+            return;
+        }
+        
         Transform cursorSize = Cursor.Value.transform;
         
         cursorSize.localScale = new Vector3(BrushScaleSlider.value, BrushScaleSlider.value, BrushScaleSlider.value);
-        BrushController.Value.SetBrushSize(BrushScaleSlider.value * ReferenceNumber);
+        CanvasDrawController.SetBrushSize(BrushScaleSlider.value * ReferenceNumber);
     }
 }
