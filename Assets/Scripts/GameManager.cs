@@ -64,7 +64,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
                 return;
             }
             
-            Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
+            Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
 
             _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
@@ -138,7 +138,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
             foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
             {
-                Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
+                Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
 
                 float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 

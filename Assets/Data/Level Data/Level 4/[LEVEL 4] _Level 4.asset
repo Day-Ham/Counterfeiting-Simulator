@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
-  m_Name: '[LEVEL 2] _Level 2'
+  m_Name: '[LEVEL 4] _Level 4'
   m_EditorClassIdentifier: 
-  CanvasTemplate: {fileID: 11400000, guid: 761a114cf2cc31940bcf4a0092e22635, type: 2}
-  ColorBlobs: {fileID: 11400000, guid: 61a42cd818d05ca419246491d4a8919f, type: 2}
-  ColorsToBeUsed: {fileID: 11400000, guid: 27266abcd1ffe9d4082a54320d1c054d, type: 2}
-  TargetTexture: {fileID: 11400000, guid: 0ef11080028d3fd45ae230eec4ec62c4, type: 2}
+  CanvasTemplate: {fileID: 11400000, guid: c92ae4315b9a3dd4f8d1bf313935920d, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 59fb9e6efe0212347b625eead6bdfe76, type: 2}
+  ColorsToBeUsed: {fileID: 11400000, guid: 047a0b5149a2ded4ab9a2a42d7b19c7e, type: 2}
+  TargetTexture: {fileID: 11400000, guid: b8c1ffe8313287e498e3a32753d5bdfe, type: 2}

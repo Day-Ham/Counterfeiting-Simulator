@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelConfig : ScriptableObject
 {
     public CanvasTemplateValue CanvasTemplate;
-    public TextureValueWrapper GoalTexture;
-    public ColorDataListValue LevelColors;
-    public GameObjectListValue LevelColorBlobs;
+    public GameObjectListValue ColorBlobs;
+    public ColorDataListValue ColorsToBeUsed;
+    public TextureValueWrapper TargetTexture;
 }
