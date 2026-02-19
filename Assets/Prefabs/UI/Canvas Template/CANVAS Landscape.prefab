@@ -446,6 +446,9 @@ MonoBehaviour:
   _rawImages:
   - {fileID: 8681999644420673123}
   - {fileID: 1582748024271213027}
+  _drawingBackground:
+  - {fileID: 5504037737531346822}
+  - {fileID: 1472591937254248471}
 --- !u!114 &1132202135603609810
 MonoBehaviour:
   m_ObjectHideFlags: 0
