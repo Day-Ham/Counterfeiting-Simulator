@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
+  m_Name: '[LEVEL 3] _Level 3'
+  m_EditorClassIdentifier: 
+  CanvasTemplate: {fileID: 11400000, guid: 825f48c18732d02498e06512b94d4f7d, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 13542af9c1b6a0645a321d14bbce5f93, type: 2}
+  ColorsToBeUsed: {fileID: 11400000, guid: c6e72c8e1c92034488e01050f363af57, type: 2}
+  TargetTexture: {fileID: 11400000, guid: be850893d938ae74ab55b8b6edcb63ad, type: 2}
