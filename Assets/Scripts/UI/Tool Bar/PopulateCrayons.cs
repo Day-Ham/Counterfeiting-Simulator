@@ -19,7 +19,7 @@ public class PopulateCrayons : MonoBehaviour
         _currentLevel = _levelConfigRuntimeAsset.Value;
         
         Populate();
-        _setCrayonFunction.SetupCrayons(_currentLevel.LevelColors);
+        _setCrayonFunction.SetupCrayons(_currentLevel.ColorsToBeUsed);
     }
 
     private void Populate()
@@ -30,8 +30,8 @@ public class PopulateCrayons : MonoBehaviour
 
     private void SpawnDifferentBlobs()
     {
-        var colorsList = _currentLevel.LevelColors.Value;
-        var colorBlobsList = _currentLevel.LevelColorBlobs.Value;
+        var colorsList = _currentLevel.ColorsToBeUsed.Value;
+        var colorBlobsList = _currentLevel.ColorBlobs.Value;
 
         int colorCount = colorsList.Count;
         int prefabCount = colorBlobsList.Count;

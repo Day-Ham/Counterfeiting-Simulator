@@ -12,7 +12,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
         if (_levelConfigRuntime == null || _levelConfigRuntime.Value == null)
             return;
 
-        ApplyTexture(_levelConfigRuntime.Value.GoalTexture);
+        ApplyTexture(_levelConfigRuntime.Value.TargetTexture);
     }
 
     private void ApplyTexture(TextureValueWrapper textureValue)
