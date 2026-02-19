@@ -14,6 +14,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
             return;
 
         ApplyTexture(_levelConfigRuntime.Value.TargetTexture);
+        ApplyBackgroundColor(_levelConfigRuntime.Value.ColorBackgroundDraw);
     }
 
     private void ApplyTexture(TextureValueWrapper textureValue)
@@ -28,6 +29,22 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
             if (rawImage != null)
             {
                 rawImage.texture = texture;
+            }
+        }
+    }
+
+    private void ApplyBackgroundColor(ColorDataValue colorData)
+    {
+        if(colorData == null ||  colorData.Value == null)
+            return;
+        
+        Color backgroundColor  = colorData.Value;
+
+        foreach (var drawingBackgroundImages in _drawingBackground)
+        {
+            if (drawingBackgroundImages != null)
+            {
+                drawingBackgroundImages.color = backgroundColor;
             }
         }
     }
