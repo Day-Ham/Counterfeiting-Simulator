@@ -17,25 +17,37 @@ public class PaintCursor : MonoBehaviour
 
     private void Awake()
     {
-        if (mouseCursors != null && mouseCursors.Length > 0)
+        if (mouseCursors == null || mouseCursors.Length <= 0)
         {
-            _cursorRects = new RectTransform[mouseCursors.Length];
-            for (int i = 0; i < mouseCursors.Length; i++)
-            {
-                if (mouseCursors[i] != null)
-                {
-                    _cursorRects[i] = mouseCursors[i].rectTransform;
-                }
-            }
+            return;
         }
         
-        _canvas = RuntimeCanvas.Value.CanvasTemplate.Value;
-        _canvasCamera = GetCanvasCamera(_canvas);
+        _cursorRects = new RectTransform[mouseCursors.Length];
+
+        for (int i = 0; i < mouseCursors.Length; i++)
+        {
+            if (mouseCursors[i] != null)
+            {
+                _cursorRects[i] = mouseCursors[i].rectTransform;
+            }
+        }
     }
 
     private void Start()
     {
         Cursor.visible = false;
+
+        if (RuntimeCanvas.Value == null)
+        {
+            return;
+        }
+
+        _canvas = RuntimeCanvas.Value.CanvasTemplate.Value;
+
+        if (_canvas != null)
+        {
+            _canvasCamera = GetCanvasCamera(_canvas);
+        };
     }
 
     private void Update()
