@@ -7,6 +7,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
     [DisallowMultipleComponent]
     public class GameManager : MonoBehaviour
     {
+        [Header("Game Manager Value")]
+        [SerializeField] private GameManagerValue _gameManagerValue;
+        
         [Header("Dependencies")]
         [SerializeField] CanvasDrawControllerValue _canvasDrawController;
         [SerializeField] ComputeShader _similarityComputeShader;
@@ -44,13 +47,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void Awake()
         {
-            _canvasDraw = _canvasDrawController.Value;
-            
-            if (_canvasDraw == null)
-            {
-                Debug.LogError("CanvasDrawController not found.");
-                return;
-            }
+            _gameManagerValue.Value = this;
             
             _textureUtility = new TextureUtility(_similarityComputeShader);
             _textureUtility.Create();
@@ -58,6 +55,15 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         private void Start()
         {
+            _canvasDraw = _canvasDrawController.Value;
+
+            if (_canvasDraw == null)
+            {
+                Debug.LogError("CanvasDrawController not found.");
+                enabled = false;
+                return;
+            }
+            
             Texture goalTexture = levelConfigRuntime.Value.GoalTexture.Value;
 
             _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));

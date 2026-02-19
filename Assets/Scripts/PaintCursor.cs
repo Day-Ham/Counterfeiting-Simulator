@@ -7,30 +7,57 @@ using Cursor = UnityEngine.Cursor;
 
 public class PaintCursor : MonoBehaviour
 {
-    public Canvas parentCanvas;
-    public RawImage mouseCursor;
+    [Header("Runtime References")]
+    public LevelConfigRuntimeAsset RuntimeCanvas;
+    public RawImage[] mouseCursors;
 
-    public void Start()
+    private static Canvas _canvas;
+    private static Camera _canvasCamera;
+    private RectTransform[] _cursorRects;
+
+    private void Awake()
+    {
+        if (mouseCursors != null && mouseCursors.Length > 0)
+        {
+            _cursorRects = new RectTransform[mouseCursors.Length];
+            for (int i = 0; i < mouseCursors.Length; i++)
+            {
+                if (mouseCursors[i] != null)
+                {
+                    _cursorRects[i] = mouseCursors[i].rectTransform;
+                }
+            }
+        }
+        
+        _canvas = RuntimeCanvas.Value.CanvasTemplate.Value;
+        _canvasCamera = GetCanvasCamera(_canvas);
+    }
+
+    private void Start()
     {
         Cursor.visible = false;
     }
 
-
-    public void Update()
+    private void Update()
     {
-        Vector2 movePos;
-
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            parentCanvas.transform as RectTransform,
-            Input.mousePosition, parentCanvas.worldCamera,
-            out movePos);
+            transform as RectTransform,
+            Input.mousePosition,
+            _canvasCamera,
+            out var localPoint
+        );
 
-        Vector3 mousePos = parentCanvas.transform.TransformPoint(movePos);
-
-        //Set fake mouse Cursor
-        mouseCursor.transform.position = mousePos;
-
-        //Move the Object/Panel
-        transform.position = mousePos;
+        foreach (var rect in _cursorRects)
+        {
+            if (rect)
+            {
+                rect.anchoredPosition = localPoint;
+            }
+        }
+    }
+    
+    private Camera GetCanvasCamera(Canvas canvas)
+    {
+        return canvas.renderMode == RenderMode.ScreenSpaceCamera ? canvas.worldCamera : null;
     }
 }
