@@ -882,6 +882,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 595858183129722024, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 137966019}
+    - target: {fileID: 595858183129722024, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitApp
+      objectReference: {fileID: 0}
     - target: {fileID: 2433383935729226853, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
       propertyPath: m_Name
       value: CANVAS Menu
@@ -965,6 +973,14 @@ PrefabInstance:
     - target: {fileID: 2854688929936453541, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633622909706147253, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3357956447395473153}
+    - target: {fileID: 4633622909706147253, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ResumeGame
       objectReference: {fileID: 0}
     - target: {fileID: 4910305340794926411, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
       propertyPath: m_AnchorMax.y
