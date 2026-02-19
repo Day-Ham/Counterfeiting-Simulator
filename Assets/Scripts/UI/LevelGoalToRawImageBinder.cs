@@ -35,7 +35,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
 
     private void ApplyBackgroundColor(ColorDataValue colorData)
     {
-        if(colorData == null ||  colorData.Value == null)
+        if(colorData == null)
             return;
         
         Color backgroundColor  = colorData.Value;
