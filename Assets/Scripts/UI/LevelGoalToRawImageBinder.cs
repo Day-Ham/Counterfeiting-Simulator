@@ -6,6 +6,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
 {
     [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
     [SerializeField] private List<RawImage> _rawImages;
+    [SerializeField] private List<Image> _drawingBackground; 
 
     private void Start()
     {
