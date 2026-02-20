@@ -387,6 +387,7 @@ GameObject:
   - component: {fileID: 6268994855037143325}
   - component: {fileID: 8886149592091899741}
   - component: {fileID: 595858183129722024}
+  - component: {fileID: 5111527506813360354}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -495,19 +496,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8886149592091899741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: QuitApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &5111527506813360354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364618058061938582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f1d9599496af647824d987c53d3026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 595858183129722024}
+  SceneChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
 --- !u!1 &2433383935729226853
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +627,7 @@ GameObject:
   - component: {fileID: 403217148200889886}
   - component: {fileID: 3132579986285402850}
   - component: {fileID: 4633622909706147253}
+  - component: {fileID: 6264618707832121670}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -732,32 +736,22 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3132579986285402850}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6122546746556904061}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DaeHanKim.ThisIsTotallyADollar.Core.GameManager,
-          Assembly-CSharp
-        m_MethodName: ResumeGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &6264618707832121670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2601005932480104888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1dbfcd4ec94e64ebeb92e7163dae68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 4633622909706147253}
+  GameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
+  PauseUIGameObject: {fileID: 6122546746556904061}
 --- !u!1 &2863346145043776249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,6 +1316,7 @@ GameObject:
   - component: {fileID: 3617827025592421779}
   - component: {fileID: 9132120367430000280}
   - component: {fileID: 6012672298004405902}
+  - component: {fileID: 6061189260691682728}
   m_Layer: 5
   m_Name: BUTTON NextLevel
   m_TagString: Untagged
@@ -1430,19 +1425,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6595960015681325208}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: NextLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6012672298004405902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1457,6 +1440,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   _overrideReference: {fileID: 0}
+--- !u!114 &6061189260691682728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280453852818395517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d311a461ed6abb4fa93cee1760e4554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 9132120367430000280}
+  SceneChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
 --- !u!1 &6122546746556904061
 GameObject:
   m_ObjectHideFlags: 0
