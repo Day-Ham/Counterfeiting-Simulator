@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,11 +18,11 @@ public class PercentageTextAssignments : MonoBehaviour
         PercentageTextShadowScriptableObject.Value = PercentageTextShadow;
     }
     
-    private void ClearTexts(params List<TextMeshProUGUI>[] lists)
+    private void ClearTexts(params List<TextMeshProUGUI>[] percentageUIList)
     {
-        foreach (var list in lists)
+        foreach (var percentageUIListTMP in percentageUIList)
         {
-            list.ForEach(textMeshProUGUI => { if (textMeshProUGUI != null) textMeshProUGUI.text = ""; });
+            percentageUIListTMP.ForEach(textMeshProUGUI => { if (textMeshProUGUI != null) textMeshProUGUI.text = ""; });
         }
     }
 }
