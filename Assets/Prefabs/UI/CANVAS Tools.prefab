@@ -1102,8 +1102,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: 9.710388}
+  m_SizeDelta: {x: 0, y: -22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5112057639487357991
 GameObject:
@@ -1159,7 +1159,6 @@ MonoBehaviour:
   BrushController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
   ReferenceNumber: 64
-  MinScale: 1
 --- !u!1 &5337282782688321994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,7 +1892,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: -10, z: 0, w: -10}
+  m_RaycastPadding: {x: 0, y: -15, z: 0, w: -15}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2292,7 +2291,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 0}
   m_HandleRect: {fileID: 4308864450237639170}
   m_Direction: 2
-  m_MinValue: 0
+  m_MinValue: 0.1
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 1
