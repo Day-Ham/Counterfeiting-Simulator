@@ -7,12 +7,16 @@ using DG.Tweening;
 
 public class SceneChanger : MonoBehaviour
 {
-    public SceneChangerValue _sceneChangerValue;
+    public SceneChangerValue SceneChangerValue;
     [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _circleTransition;
     [SerializeField] private GameObjectValue _nextButtonValue;
     public Ease EaseTween;
     
+    [Header("Scene Settings")]
+    [SerializeField] private LevelDatabase _levelDatabase;
+    
+    private int _currentLevelIndex;
     private GameObject _nextButtonUI;
     
     private GameObject CircleUI => _circleTransition.Value;
@@ -29,17 +33,32 @@ public class SceneChanger : MonoBehaviour
 
     private void Awake()
     {
-        _sceneChangerValue.Value = this;
+        SceneChangerValue.Value = this;
     }
 
     private void Start()
     {
+        DetectCurrentScene();
+        
         _nextButtonUI = _nextButtonValue.Value;
         
         CircleUI.SetActive(true);
         
         CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
+    }
+
+    private void DetectCurrentScene()
+    {
+        string activeSceneName = SceneManager.GetActiveScene().name;
+        
+        for (int i = 0; i < _levelDatabase.Levels.Count; i++)
+        {
+            if (_levelDatabase.Levels[i].sceneName != activeSceneName) continue;
+            
+            _currentLevelIndex = i;
+            break;
+        }
     }
 
     public void QuitApp()
@@ -58,6 +77,11 @@ public class SceneChanger : MonoBehaviour
     
     public void NextLevel()
     {
+        if (_currentLevelIndex >= _levelDatabase.Levels.Count - 1)
+        {
+            return;
+        }
+        
         CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
@@ -73,6 +97,11 @@ public class SceneChanger : MonoBehaviour
     
     private void PrevLevel()
     {
+        if (_currentLevelIndex <= 0)
+        {
+            return;
+        }
+        
         CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
             () =>
             {
