@@ -82,11 +82,10 @@ public class SceneChanger : MonoBehaviour
             return;
         }
         
-        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
-            () =>
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-            });;
+        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        {
+            SceneManager.LoadScene(_levelDatabase.Levels[_currentLevelIndex + 1].sceneName);
+        });
         
     }
 
@@ -102,11 +101,10 @@ public class SceneChanger : MonoBehaviour
             return;
         }
         
-        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
-            () =>
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex-1);
-            });;
+        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        {
+            SceneManager.LoadScene(_levelDatabase.Levels[_currentLevelIndex - 1].sceneName);
+        });
         
     }
     private void Update()

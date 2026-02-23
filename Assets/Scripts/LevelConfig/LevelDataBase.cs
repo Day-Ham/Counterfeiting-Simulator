@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "LevelDatabase", menuName = "Game/Level Database")]
+[CreateAssetMenu(fileName = "LevelDatabase", menuName = "Level/LevelSceneDatabase")]
 public class LevelDatabase : ScriptableObject
 {
     [System.Serializable]
