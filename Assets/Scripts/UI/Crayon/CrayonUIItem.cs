@@ -18,8 +18,6 @@ public class CrayonUIItem : MonoBehaviour
     {
         color = newColor;
         ColorPreview.color = color;
-        
-        Debug.Log(color);
     }
     
     private void Select()
