@@ -6,7 +6,7 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu(fileName = "LevelDatabase", menuName = "Game/Level Database")]
-public class LevelDataBase : ScriptableObject
+public class LevelDatabase : ScriptableObject
 {
     [System.Serializable]
     public class LevelEntry

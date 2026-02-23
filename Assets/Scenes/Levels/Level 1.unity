@@ -148,11 +148,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc96c4a229a2e4487aa269817f3397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
+  SceneChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
   _sceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
   _circleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
   _nextButtonValue: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   EaseTween: 30
+  _levelDatabase: {fileID: 0}
 --- !u!4 &137966020
 Transform:
   m_ObjectHideFlags: 0
