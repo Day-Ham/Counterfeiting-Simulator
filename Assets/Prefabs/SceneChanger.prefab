@@ -49,4 +49,5 @@ MonoBehaviour:
   _circleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
   _nextButtonValue: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   EaseTween: 30
-  _levelDatabase: {fileID: 11400000, guid: a824a39bcebd0254292fa223e2131c59, type: 2}
+  _multipleSceneReference: {fileID: 11400000, guid: a824a39bcebd0254292fa223e2131c59, type: 2}
+  _coreSceneReference: {fileID: 11400000, guid: e1bf4256d33921e4cb840ac5a25089da, type: 2}
