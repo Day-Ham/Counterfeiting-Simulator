@@ -5,26 +5,17 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "LevelDatabase", menuName = "Level/LevelSceneDatabase")]
-public class MultipleSceneReference : ScriptableObject
+[CreateAssetMenu(fileName = "MultipleSceneDatabase", menuName = "Scenes/MultipleSceneDatabase")]
+public class MultipleSceneReference : SceneReference
 {
-    [System.Serializable]
-    public class SceneEntry
-    {
-#if UNITY_EDITOR
-        public SceneAsset sceneAsset;
-#endif
-        public string sceneName;
-    }
+    [SerializeField] private List<SceneEntry> scenes = new List<SceneEntry>();
 
-    [SerializeField] private List<SceneEntry> levels = new List<SceneEntry>();
-
-    public IReadOnlyList<SceneEntry> Levels => levels;
+    public IReadOnlyList<SceneEntry> Scenes => scenes;
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        foreach (var level in levels)
+        foreach (var level in scenes)
         {
             if (level.sceneAsset != null)
             {

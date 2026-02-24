@@ -15,13 +15,13 @@ public class StartGame : MonoBehaviour
 
     private void GoToGame()
     {
-        if (_multipleSceneReference.Levels.Count == 0)
+        if (_multipleSceneReference.Scenes.Count == 0)
         {
             Debug.LogError("No levels in LevelDatabase!");
             return;
         }
 
-        string firstLevelName = _multipleSceneReference.Levels[0].sceneName;
+        string firstLevelName = _multipleSceneReference.Scenes[0].sceneName;
 
         // Ask SceneFlowManager to load the first level
         SceneFlowManager.Instance.LoadScene(firstLevelName);
