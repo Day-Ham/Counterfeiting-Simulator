@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelBootstrap : MonoBehaviour
+public class GameBootstrap : MonoBehaviour
 {
     private void Start()
     {
