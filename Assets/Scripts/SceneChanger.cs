@@ -68,23 +68,56 @@ public class SceneChanger : MonoBehaviour
 
     public void ResetScene()
     {
-        CircleUI.transform.DOScale(Vector3.one* 25f, 1f).OnComplete(
-            () =>
+        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        {
+            string currentLevel = SceneManager.GetActiveScene().name;
+
+            // Load same scene additively
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadScene(currentLevel, LoadSceneMode.Additive);
+
+            void OnSceneLoaded(Scene scene, LoadSceneMode mode)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            });;
+                if (scene.name == currentLevel)
+                {
+                    SceneManager.sceneLoaded -= OnSceneLoaded;
+                    SceneManager.SetActiveScene(scene);
+
+                    // Unload old scene instance (keep Core_Scene)
+                    if (currentLevel != "Core_Scene")
+                        SceneManager.UnloadSceneAsync(currentLevel);
+                }
+            }
+        });
     }
     
     public void NextLevel()
     {
-        if (_currentLevelIndex >= _levelDatabase.Levels.Count - 1)
-        {
-            return;
-        }
-        
+        if (_currentLevelIndex >= _levelDatabase.Levels.Count - 1) return;
+
+        string currentLevel = SceneManager.GetActiveScene().name;
+        string nextLevel = _levelDatabase.Levels[_currentLevelIndex + 1].sceneName;
+
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            SceneManager.LoadScene(_levelDatabase.Levels[_currentLevelIndex + 1].sceneName);
+            // Subscribe to sceneLoaded to safely set active
+            void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+            {
+                if (scene.name == nextLevel)
+                {
+                    SceneManager.sceneLoaded -= OnSceneLoaded;
+                    SceneManager.SetActiveScene(scene);
+
+                    // Unload previous level after next is fully loaded
+                    if (currentLevel != "Core_Scene")
+                        SceneManager.UnloadSceneAsync(currentLevel);
+                }
+            }
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            // Load next level additively
+            SceneManager.LoadScene(nextLevel, LoadSceneMode.Additive);
         });
         
     }
