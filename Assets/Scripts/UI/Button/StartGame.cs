@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StartGame : MonoBehaviour
 {
     public Button StartButton;
-    public LevelDatabase LevelDatabase;
+    public MultipleSceneReference _multipleSceneReference;
 
     private void Awake()
     {
@@ -15,13 +15,13 @@ public class StartGame : MonoBehaviour
 
     private void GoToGame()
     {
-        if (LevelDatabase.Levels.Count == 0)
+        if (_multipleSceneReference.Levels.Count == 0)
         {
             Debug.LogError("No levels in LevelDatabase!");
             return;
         }
 
-        string firstLevelName = LevelDatabase.Levels[0].sceneName;
+        string firstLevelName = _multipleSceneReference.Levels[0].sceneName;
 
         // Ask SceneFlowManager to load the first level
         SceneFlowManager.Instance.LoadScene(firstLevelName);

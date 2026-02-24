@@ -6,10 +6,10 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu(fileName = "LevelDatabase", menuName = "Level/LevelSceneDatabase")]
-public class LevelDatabase : ScriptableObject
+public class MultipleSceneReference : ScriptableObject
 {
     [System.Serializable]
-    public class LevelEntry
+    public class SceneEntry
     {
 #if UNITY_EDITOR
         public SceneAsset sceneAsset;
@@ -17,9 +17,9 @@ public class LevelDatabase : ScriptableObject
         public string sceneName;
     }
 
-    [SerializeField] private List<LevelEntry> levels = new List<LevelEntry>();
+    [SerializeField] private List<SceneEntry> levels = new List<SceneEntry>();
 
-    public IReadOnlyList<LevelEntry> Levels => levels;
+    public IReadOnlyList<SceneEntry> Levels => levels;
 
 #if UNITY_EDITOR
     private void OnValidate()

@@ -14,7 +14,7 @@ public class SceneChanger : MonoBehaviour
     public Ease EaseTween;
     
     [Header("Scene Settings")]
-    [SerializeField] private LevelDatabase _levelDatabase;
+    [SerializeField] private MultipleSceneReference _multipleSceneReference;
     
     private int _currentLevelIndex;
     private GameObject _nextButtonUI;
@@ -52,9 +52,9 @@ public class SceneChanger : MonoBehaviour
     {
         string activeSceneName = SceneManager.GetActiveScene().name;
         
-        for (int i = 0; i < _levelDatabase.Levels.Count; i++)
+        for (int i = 0; i < _multipleSceneReference.Levels.Count; i++)
         {
-            if (_levelDatabase.Levels[i].sceneName != activeSceneName) continue;
+            if (_multipleSceneReference.Levels[i].sceneName != activeSceneName) continue;
             
             _currentLevelIndex = i;
             break;
@@ -103,10 +103,10 @@ public class SceneChanger : MonoBehaviour
     
     public void NextLevel()
     {
-        if (_currentLevelIndex >= _levelDatabase.Levels.Count - 1) return;
+        if (_currentLevelIndex >= _multipleSceneReference.Levels.Count - 1) return;
 
         string currentScene = SceneManager.GetActiveScene().name;
-        string nextScene = _levelDatabase.Levels[_currentLevelIndex + 1].sceneName;
+        string nextScene = _multipleSceneReference.Levels[_currentLevelIndex + 1].sceneName;
 
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
@@ -135,7 +135,7 @@ public class SceneChanger : MonoBehaviour
         
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            SceneManager.LoadScene(_levelDatabase.Levels[_currentLevelIndex - 1].sceneName);
+            SceneManager.LoadScene(_multipleSceneReference.Levels[_currentLevelIndex - 1].sceneName);
         });
         
     }
