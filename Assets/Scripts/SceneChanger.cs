@@ -15,6 +15,7 @@ public class SceneChanger : MonoBehaviour
     
     [Header("Scene Settings")]
     [SerializeField] private MultipleSceneReference _multipleSceneReference;
+    [SerializeField] private SingleSceneReference _coreSceneReference;
     
     private int _currentLevelIndex;
     private GameObject _nextButtonUI;
@@ -76,8 +77,7 @@ public class SceneChanger : MonoBehaviour
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.SetActiveScene(scene);
-
-            // Callback with old and new scenes
+            
             onLoaded?.Invoke(scene, SceneManager.GetSceneByName(currentScene));
         }
 
@@ -93,7 +93,7 @@ public class SceneChanger : MonoBehaviour
         {
             LoadSceneAdditive(currentScene, (newScene, oldScene) =>
             {
-                if (currentScene != "Core_Scene")
+                if (currentScene != _coreSceneReference.sceneName)
                 {
                     SceneManager.UnloadSceneAsync(oldScene);
                 }
@@ -112,7 +112,7 @@ public class SceneChanger : MonoBehaviour
         {
             LoadSceneAdditive(nextScene, (newScene, oldScene) =>
             {
-                if (currentScene != "Core_Scene")
+                if (currentScene != _coreSceneReference.sceneName)
                 {
                     SceneManager.UnloadSceneAsync(oldScene);
                 }
