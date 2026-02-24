@@ -7,7 +7,7 @@ public class SingleSceneReference : SceneReference
 #if UNITY_EDITOR
     public SceneAsset sceneAsset;
 #endif
-    [SerializeField] private string sceneName;
+    public string sceneName;
     public string SceneName => sceneName;
 
 #if UNITY_EDITOR

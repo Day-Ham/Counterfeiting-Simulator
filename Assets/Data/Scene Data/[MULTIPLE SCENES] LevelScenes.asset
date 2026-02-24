@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0345310a60932664c9819520b14f8de9, type: 3}
-  m_Name: LevelDatabase
+  m_Name: '[MULTIPLE SCENES] LevelScenes'
   m_EditorClassIdentifier: 
-  levels:
+  scenes:
   - sceneAsset: {fileID: 102900000, guid: 749ac32e97be4bf44b2c0db03a18c089, type: 3}
     sceneName: Level 1
   - sceneAsset: {fileID: 102900000, guid: 78433ef2d9d34ad4db1e0408e7ce2bfd, type: 3}

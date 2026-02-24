@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class StartGame : MonoBehaviour
 {
     public Button StartButton;
-    public MultipleSceneReference _multipleSceneReference;
+    public SingleSceneReference Level1Scene;
+    public SingleSceneReference MainMenuScene;
 
     private void Awake()
     {
@@ -15,16 +16,10 @@ public class StartGame : MonoBehaviour
 
     private void GoToGame()
     {
-        if (_multipleSceneReference.Scenes.Count == 0)
-        {
-            Debug.LogError("No levels in LevelDatabase!");
-            return;
-        }
-
-        string firstLevelName = _multipleSceneReference.Scenes[0].sceneName;
-
-        // Ask SceneFlowManager to load the first level
-        SceneFlowManager.Instance.LoadScene(firstLevelName);
-        SceneManager.UnloadSceneAsync("MainMenu"); 
+        string level1SceneSceneName = Level1Scene.sceneName;
+        string mainMenuSceneName = MainMenuScene.sceneName;
+        
+        SceneFlowManager.Instance.LoadScene(level1SceneSceneName);
+        SceneManager.UnloadSceneAsync(mainMenuSceneName); 
     }
 }

@@ -595,7 +595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartButton: {fileID: 621824700}
-  LevelDatabase: {fileID: 11400000, guid: c200ef8da60031b4684e048835d4f79a, type: 2}
+  Level1Scene: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
+  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
 --- !u!1 &1293999010
 GameObject:
   m_ObjectHideFlags: 0

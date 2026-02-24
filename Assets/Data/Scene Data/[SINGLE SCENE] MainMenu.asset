@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0345310a60932664c9819520b14f8de9, type: 3}
-  m_Name: MenuToLevel
+  m_Script: {fileID: 11500000, guid: d18879097c98b064b9a470a4c29f55f4, type: 3}
+  m_Name: '[SINGLE SCENE] MainMenu'
   m_EditorClassIdentifier: 
-  levels:
-  - sceneAsset: {fileID: 102900000, guid: 749ac32e97be4bf44b2c0db03a18c089, type: 3}
-    sceneName: Level 1
+  sceneAsset: {fileID: 102900000, guid: 3ec65913040ef464a8cf1ce21c736ac2, type: 3}
+  sceneName: MainMenu
