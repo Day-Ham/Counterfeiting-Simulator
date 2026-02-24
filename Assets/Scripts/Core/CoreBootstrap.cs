@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class CoreBootstrap : MonoBehaviour
 {
-    [SerializeField] private string firstSceneToLoad = "MainMenu";
+    public SingleSceneReference MainMenuScene;
 
     private void Start()
     {
-        LoadScene(firstSceneToLoad);
+        LoadScene(MainMenuScene.sceneName);
     }
 
     private void LoadScene(string sceneName)

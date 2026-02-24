@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980971a242e75d545b97822cf3442aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSceneToLoad: MainMenu
+  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
 --- !u!81 &1388533826
 AudioListener:
   m_ObjectHideFlags: 0
