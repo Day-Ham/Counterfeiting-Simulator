@@ -19,11 +19,13 @@ public class CrayonUIItem : MonoBehaviour
     private void OnEnable()
     {
         SelectColorEvent.OnColorSelected += HandleColorSelected;
+        SelectColorEvent.OnEraseSelected += HandleEraseSelected;
     }
 
     private void OnDisable()
     {
         SelectColorEvent.OnColorSelected -= HandleColorSelected;
+        SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
     }
     
     private void HandleColorSelected(Color selected)
@@ -38,6 +40,12 @@ public class CrayonUIItem : MonoBehaviour
             CollapseSize();
             SetColorBlobLook.SetShadowColor(UnSelectedColor);
         }
+    }
+    
+    private void HandleEraseSelected()
+    {
+        CollapseSize();
+        SetColorBlobLook.SetShadowColor(UnSelectedColor);
     }
         
     private void Awake()

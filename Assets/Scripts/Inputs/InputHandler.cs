@@ -51,7 +51,7 @@ public class InputHandler : ScriptableObject
         _inputActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
-        _inputActions[KeyCode.E] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Erase;
+        _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
     }
 
     public void UpdateInput()
