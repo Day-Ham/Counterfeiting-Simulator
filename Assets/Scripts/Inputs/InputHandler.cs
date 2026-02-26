@@ -21,22 +21,31 @@ public class InputHandler : ScriptableObject
     
     private void BuildInputDictionary()
     {
-        _inputActions = new Dictionary<KeyCode, Action>
+        _inputActions = new Dictionary<KeyCode, Action>();
+        
+        if (_canvasDraw == null || _canvasDraw.LevelConfigRuntime == null || _canvasDraw.LevelConfigRuntime.Value == null)
         {
-            // Brush Colors
-            { KeyCode.Alpha1, () => _canvasDraw.SetBrushColorIndex(0) },
-            { KeyCode.Alpha2, () => _canvasDraw.SetBrushColorIndex(1) },
-            { KeyCode.Alpha3, () => _canvasDraw.SetBrushColorIndex(2) },
-            { KeyCode.Alpha4, () => _canvasDraw.SetBrushColorIndex(3) },
-            { KeyCode.Alpha5, () => _canvasDraw.SetBrushColorIndex(4) },
+            Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
+            return;
+        }
 
-            // Actions
-            { KeyCode.F, () => _finishGameCallback?.Invoke() },
-            { KeyCode.Z, () => _canvasDraw.UndoLastDraw() },
-            { KeyCode.C, () => _canvasDraw.ClearCurrentLayer() },
-            { KeyCode.D, () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw },
-            { KeyCode.E, () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Erase }
-        };
+        var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
+        int colorCount = colors?.Count ?? 0;
+
+        // Dynamically bind Alpha keys to available colors
+        for (int i = 0; i < colorCount; i++)
+        {
+            int index = i;
+            if (i >= 9) break; // Only Alpha1–Alpha9 keys exist
+            KeyCode key = KeyCode.Alpha1 + i;
+            _inputActions[key] = () => _canvasDraw.SetBrushColorIndex(index);
+        }
+        
+        _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
+        _inputActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
+        _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
+        _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
+        _inputActions[KeyCode.E] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Erase;
     }
 
     public void UpdateInput()
