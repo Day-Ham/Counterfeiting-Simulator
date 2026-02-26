@@ -22,6 +22,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [SerializeField] public CanvasDrawControllerValue _canvasDrawControllerValue;
 
         [Header("Local Dependencies")]
+        public LevelConfigRuntimeAsset LevelConfigRuntime;
         [SerializeField] GraphicRaycaster _graphicRaycaster;
         [SerializeField] CanvasLayerDrawController _layerDrawController;
         [SerializeField] CanvasStamper _canvasStamper;
@@ -49,6 +50,21 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         Vector2Int _canvasDimensions;
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
+        
+        private void OnEnable()
+        {
+                LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+        }
+
+        private void OnDisable()
+        {
+                LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+        }
+
+        private void OnLevelChanged(LevelConfig newLevel)
+        {
+            SetBrushColorIndex(0);
+        }
 
         void Awake()
         {
@@ -172,17 +188,38 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void SetBrushColorIndex(int index)
         {
-            if (index < 0)
+            if (LevelConfigRuntime == null || LevelConfigRuntime.Value == null)
+            {
+                Debug.LogWarning("LevelConfigRuntimeAsset not assigned!");
                 return;
-            if (index > 4)
+            }
+
+            LevelConfig level = LevelConfigRuntime.Value;
+            
+            if (level.ColorsToBeUsed == null || level.ColorsToBeUsed.Value == null)
+            {
+                Debug.LogWarning("Level has no ColorsToBeUsed assigned!");
                 return;
+            }
+            
+            var colors = level.ColorsToBeUsed.Value;
+            
+            if (colors.Count == 0)
+            {
+                Debug.LogWarning("ColorsToBeUsed list is empty!");
+                return;
+            }
+
+            if (index < 0 || index >= colors.Count)
+            {
+                Debug.LogWarning($"Invalid color index {index}. Max allowed: {colors.Count - 1}");
+                return;
+            }
 
             CurrentBrushSettings.BrushColorIndex = index;
 
-            if (CurrentBrushSettings.BrushColorIndex == 0)
-            {
-                _layerDrawController.SetBrushColor(_color0);
-            }
+            Color selectedColor = colors[index];
+            _layerDrawController.SetBrushColor(selectedColor);
         }
 
         public void SetBrushSize(float brushSize)

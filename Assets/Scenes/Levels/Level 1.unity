@@ -575,6 +575,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &362522835754140762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6742225746169833744}
+  - component: {fileID: 8416495495451859426}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &733658960895054489
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,56 +609,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &2651039727627450465
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5050618001935108616}
-  - component: {fileID: 3357956447395473153}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &3357956447395473153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2651039727627450465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b2d6a6f11186e4ebab02778f790e86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
-  _canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
-  _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
-  _finalSpriteContainer: {fileID: 11400000, guid: ab6e0373907c4184b9fa9a107ad473cb, type: 2}
-  _finalSpriteRenderer: {fileID: 1585221069}
-  _finishGameRequestEvent: {fileID: 11400000, guid: a32c2442de9fdba4e8b5e42e9ec1aadd, type: 2}
-  _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
-  levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _optionalStartingTexture: {fileID: 0}
-  _finalSpritePivotPoint: {x: 0.5, y: 0.5}
-  allSimilarity: 1
-  FirstTwoDigits: 0
-  LastTwoDigits: 0
-  GameIsPaused: 0
---- !u!4 &5050618001935108616
+--- !u!4 &6742225746169833744
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2651039727627450465}
+  m_GameObject: {fileID: 362522835754140762}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1062,6 +1036,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdfedcd02efc454448c349a8bdbf2cac, type: 3}
+--- !u!114 &8416495495451859426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 362522835754140762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b2d6a6f11186e4ebab02778f790e86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
+  _inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
+  _canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
+  _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
+  _finalSpriteContainer: {fileID: 11400000, guid: ab6e0373907c4184b9fa9a107ad473cb, type: 2}
+  _finalSpriteRenderer: {fileID: 1585221069}
+  _finishGameRequestEvent: {fileID: 11400000, guid: a32c2442de9fdba4e8b5e42e9ec1aadd, type: 2}
+  _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
+  levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  _optionalStartingTexture: {fileID: 0}
+  _finalSpritePivotPoint: {x: 0.5, y: 0.5}
+  allSimilarity: 1
+  FirstTwoDigits: 0
+  LastTwoDigits: 0
+  GameIsPaused: 0
 --- !u!114 &8907010688152907376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1096,7 +1097,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1006166791}
   - {fileID: 519420032}
-  - {fileID: 5050618001935108616}
+  - {fileID: 6742225746169833744}
   - {fileID: 303371083191895077}
   - {fileID: 1695942019}
   - {fileID: 8317045093764274829}

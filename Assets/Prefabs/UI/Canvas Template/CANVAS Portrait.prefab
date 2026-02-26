@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
+  LevelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _graphicRaycaster: {fileID: 4585805728788645504}
   _layerDrawController: {fileID: 3969123139997115803}
   _canvasStamper: {fileID: 4348080728486212878}
