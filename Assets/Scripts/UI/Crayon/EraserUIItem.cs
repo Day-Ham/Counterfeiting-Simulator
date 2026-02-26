@@ -7,13 +7,6 @@ public class EraserUIItem : MonoBehaviour
     [SerializeField] private Button Button;
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     
-    private void Awake()
-    {
-        Button.onClick.AddListener(OnClick);
-        
-        Collapse();
-    }
-    
     private void OnEnable()
     {
         SelectColorEvent.OnEraseSelected += OnEraserSelected;
@@ -24,6 +17,13 @@ public class EraserUIItem : MonoBehaviour
     {
         SelectColorEvent.OnEraseSelected -= OnEraserSelected;
         SelectColorEvent.OnColorSelected -= OnOtherColorSelected;
+    }
+    
+    private void Awake()
+    {
+        Button.onClick.AddListener(OnClick);
+        
+        Collapse();
     }
 
     private void OnClick()
