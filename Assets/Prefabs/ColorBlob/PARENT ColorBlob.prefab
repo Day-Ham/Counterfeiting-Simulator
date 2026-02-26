@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 6619709584715426218}
   - component: {fileID: 8466618251898914714}
   m_Layer: 5
-  m_Name: BUTTON ColorBlob
+  m_Name: BUTTON ColorBlobShadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,6 +190,9 @@ MonoBehaviour:
   Button: {fileID: 6619709584715426218}
   ColorPreview: {fileID: 8705097553555431597}
   SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  SetColorBlobLook: {fileID: 1595530708759805303}
+  SelectedColor: {r: 0, g: 0, b: 0, a: 0.7058824}
+  UnSelectedColor: {r: 0.39607844, g: 0.37254903, b: 0.33333334, a: 0.39215687}
 --- !u!1 &7707385205120908687
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +205,7 @@ GameObject:
   - component: {fileID: 2725759003567144751}
   - component: {fileID: 8705097553555431597}
   m_Layer: 5
-  m_Name: IMAGE ColorBlob
+  m_Name: IMAGE ColorBlobFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3, y: 0}
+  m_AnchoredPosition: {x: 5.5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2725759003567144751

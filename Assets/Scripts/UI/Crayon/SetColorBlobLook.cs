@@ -6,6 +6,8 @@ public class SetColorBlobLook : MonoBehaviour
     [SerializeField] private SpriteListValue blobLooksList;
     [SerializeField] private Image colorBlobShadow;
     [SerializeField] private Image colorBlobMain;
+    
+    public Image ColorBlobShadow => colorBlobShadow;
 
     private void Start()
     {
@@ -32,5 +34,13 @@ public class SetColorBlobLook : MonoBehaviour
 
         colorBlobShadow.sprite = selectedSprite;
         colorBlobMain.sprite = selectedSprite;
+    }
+    
+    public void SetShadowColor(Color color)
+    {
+        if (colorBlobShadow != null)
+        {
+            colorBlobShadow.color = color;
+        };
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: '[RESIZE TWEEN] ColorBlob'
   m_EditorClassIdentifier: 
   GameObject: {fileID: 0}
-  Duration: 0.5
+  Duration: 0.1
   EaseIn: 2
   EaseOut: 3
-  ExpandedSize: {x: 120, y: 120}
+  ExpandedSize: {x: 140, y: 140}
   CollapsedSize: {x: 100, y: 100}

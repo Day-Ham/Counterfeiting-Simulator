@@ -8,6 +8,10 @@ public class CrayonUIItem : MonoBehaviour
     [SerializeField] private Button Button;
     [SerializeField] private Image ColorPreview;
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
+    [SerializeField] private SetColorBlobLook SetColorBlobLook;
+    
+    [SerializeField] private Color SelectedColor;
+    [SerializeField] private Color UnSelectedColor;
     
     private Color color;
     private static CrayonUIItem currentSelected;
@@ -15,6 +19,8 @@ public class CrayonUIItem : MonoBehaviour
     private void Awake()
     {
         CollapseSize();
+        
+        SetColorBlobLook.SetShadowColor(UnSelectedColor);
         
         Button.onClick.AddListener(OnClick);
     }
@@ -31,15 +37,19 @@ public class CrayonUIItem : MonoBehaviour
         SelectColorEvent.Raise(color);
         Debug.Log($"Crayon clicked: {color}", this);
     }
-    
+
     private void SelectThisCrayon()
     {
         if (currentSelected != null && currentSelected != this)
         {
             currentSelected.CollapseSize();
-        };
-
+            
+            currentSelected.SetColorBlobLook.SetShadowColor(currentSelected.UnSelectedColor);
+        }
+        
         ExpandSize();
+        SetColorBlobLook.SetShadowColor(SelectedColor);
+
         currentSelected = this;
     }
 
