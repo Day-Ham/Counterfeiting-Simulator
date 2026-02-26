@@ -679,6 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
+  _inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
   _canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
   _finalSpriteContainer: {fileID: 11400000, guid: ab6e0373907c4184b9fa9a107ad473cb, type: 2}
