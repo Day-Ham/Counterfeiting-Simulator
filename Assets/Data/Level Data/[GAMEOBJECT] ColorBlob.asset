@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0599e1632d846b42a97ab10e98cef3a, type: 3}
+  m_Name: '[GAMEOBJECT] ColorBlob'
+  m_EditorClassIdentifier: 
+  value:
+  - {fileID: 2992408683762050185, guid: f75753e445cfc66469094b462ea6e396, type: 3}
