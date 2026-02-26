@@ -34,7 +34,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         public float allSimilarity = 1f;
         public float FirstTwoDigits;
         public float LastTwoDigits;
-        public bool GameIsPaused = false;
+        public bool GameIsPaused;
         
         private void OnEnable()
         {
@@ -81,11 +81,10 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         private void Update()
         {
-            if (GameIsPaused == false)
-            {
-                _inputHandler.UpdateInput();
-                _canvasDraw.Tick();
-            }
+            if (GameIsPaused) return;
+            
+            _inputHandler.UpdateInput();
+            _canvasDraw.Tick();
         }
 
         private void FinishGame()
