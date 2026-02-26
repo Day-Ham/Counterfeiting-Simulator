@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7adf8a4880c375a44bc291a57ce71f54, type: 3}
   m_Name: '[INPUT HANDLER] PlayerInputs'
   m_EditorClassIdentifier: 
+  SelectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class CrayonUIItem : MonoBehaviour
 {
@@ -10,11 +9,36 @@ public class CrayonUIItem : MonoBehaviour
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
     
+    [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
     [SerializeField] private Color UnSelectedColor;
     
     private Color color;
-    private static CrayonUIItem currentSelected;
+    private int colorIndex;
+    
+    private void OnEnable()
+    {
+        SelectColorEvent.OnColorSelected += HandleColorSelected;
+    }
+
+    private void OnDisable()
+    {
+        SelectColorEvent.OnColorSelected -= HandleColorSelected;
+    }
+    
+    private void HandleColorSelected(Color selected)
+    {
+        if (selected == color)
+        {
+            ExpandSize();
+            SetColorBlobLook.SetShadowColor(SelectedColor);
+        }
+        else
+        {
+            CollapseSize();
+            SetColorBlobLook.SetShadowColor(UnSelectedColor);
+        }
+    }
         
     private void Awake()
     {
@@ -33,24 +57,8 @@ public class CrayonUIItem : MonoBehaviour
     
     private void OnClick()
     {
-        SelectThisCrayon();
         SelectColorEvent.Raise(color);
         Debug.Log($"Crayon clicked: {color}", this);
-    }
-
-    private void SelectThisCrayon()
-    {
-        if (currentSelected != null && currentSelected != this)
-        {
-            currentSelected.CollapseSize();
-            
-            currentSelected.SetColorBlobLook.SetShadowColor(currentSelected.UnSelectedColor);
-        }
-        
-        ExpandSize();
-        SetColorBlobLook.SetShadowColor(SelectedColor);
-
-        currentSelected = this;
     }
 
     private void ExpandSize()
@@ -62,6 +70,4 @@ public class CrayonUIItem : MonoBehaviour
     {
         ResizeTweenScriptableObject.Collapse(this.gameObject);
     }
-    
-    
 }

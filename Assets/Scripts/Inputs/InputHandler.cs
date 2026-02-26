@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameInputHandler", menuName = "Settings/Input Handler")]
 public class InputHandler : ScriptableObject
 {
+    [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
+    
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
     
@@ -38,7 +40,11 @@ public class InputHandler : ScriptableObject
             int index = i;
             if (i >= 9) break; // Only Alpha1–Alpha9 keys exist
             KeyCode key = KeyCode.Alpha1 + i;
-            _inputActions[key] = () => _canvasDraw.SetBrushColorIndex(index);
+            _inputActions[key] = () =>
+            {
+                var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed.Value;
+                SelectBrushColorEvent.Raise(colors[index]);
+            };
         }
         
         _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
