@@ -14,9 +14,9 @@ public class CrayonUIItem : MonoBehaviour
         
     private void Awake()
     {
-        ResizeTweenScriptableObject.Collapse(this.gameObject);
+        CollapseSize();
         
-        Button.onClick.AddListener(Select);
+        Button.onClick.AddListener(OnClick);
     }
 
     public void Setup(Color newColor)
@@ -25,19 +25,33 @@ public class CrayonUIItem : MonoBehaviour
         ColorPreview.color = color;
     }
     
-    private void Select()
+    private void OnClick()
+    {
+        SelectThisCrayon();
+        SelectColorEvent.Raise(color);
+        Debug.Log($"Crayon clicked: {color}", this);
+    }
+    
+    private void SelectThisCrayon()
     {
         if (currentSelected != null && currentSelected != this)
         {
-            currentSelected.ResizeTweenScriptableObject.Collapse(currentSelected.gameObject);
-        }
+            currentSelected.CollapseSize();
+        };
 
-        ResizeTweenScriptableObject.Expand(this.gameObject);
-        
-        SelectColorEvent.Raise(color);
-        
+        ExpandSize();
         currentSelected = this;
-        
-        Debug.Log("Crayon clicked", this);
     }
+
+    private void ExpandSize()
+    {
+        ResizeTweenScriptableObject.Expand(this.gameObject);
+    }
+
+    private void CollapseSize()
+    {
+        ResizeTweenScriptableObject.Collapse(this.gameObject);
+    }
+    
+    
 }
