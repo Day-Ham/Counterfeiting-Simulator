@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adf8a4880c375a44bc291a57ce71f54, type: 3}
-  m_Name: '[INPUT HANDLER] PlayerInputs'
+  m_Script: {fileID: 11500000, guid: acd7252bd6c996e47bfd000407d8ae57, type: 3}
+  m_Name: '[RESIZE TWEEN] ColorBlob'
   m_EditorClassIdentifier: 
-  SelectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  GameObject: {fileID: 0}
+  Duration: 0.1
+  EaseIn: 2
+  EaseOut: 3
+  ExpandedSize: {x: 140, y: 140}
+  CollapsedSize: {x: 100, y: 100}

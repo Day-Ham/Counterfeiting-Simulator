@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanvasTemplate: {fileID: 11400000, guid: 228159bc7a548c84da3139046356ac0b, type: 2}
   ColorBackgroundDraw: {fileID: 11400000, guid: ac6062fa70d86d040bf26081acca8959, type: 2}
-  ColorBlobs: {fileID: 11400000, guid: fafc0ad4a3558374bad9bd0823125ff1, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
   ColorsToBeUsed: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
   TargetTexture: {fileID: 11400000, guid: 601da42efe5bf414999abd36faca9ec6, type: 2}

@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7adf8a4880c375a44bc291a57ce71f54, type: 3}
-  m_Name: '[INPUT HANDLER] PlayerInputs'
+  m_Script: {fileID: 11500000, guid: f0599e1632d846b42a97ab10e98cef3a, type: 3}
+  m_Name: '[GAMEOBJECT] ColorBlob'
   m_EditorClassIdentifier: 
-  SelectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  value:
+  - {fileID: 2992408683762050185, guid: f75753e445cfc66469094b462ea6e396, type: 3}
