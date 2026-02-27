@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67702ce33993ec746ba45cab96738405, type: 3}
   m_Name: '[LEVEL 4] ColorBackgroundDraw'
   m_EditorClassIdentifier: 
-  value: {r: 0.30980393, g: 1, b: 0.23137255, a: 1}
+  value: {r: 0.20784314, g: 0.8156863, b: 0.3529412, a: 1}
