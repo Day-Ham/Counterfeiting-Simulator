@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9818bd4255217a439735b430e74fbf6, type: 3}
   m_Name: '[LEVEL 2] CanvasTemplate'
   m_EditorClassIdentifier: 
-  value: {fileID: 5294900098001659280, guid: e3e815fd4abe4a6458062257e55f3e89, type: 3}
+  value: {fileID: 5294900098001659280, guid: 3eda4de57305ba9489c10f2710d7e838, type: 3}
