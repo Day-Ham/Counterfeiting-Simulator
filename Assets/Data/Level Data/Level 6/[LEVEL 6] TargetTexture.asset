@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d593a08e3aaa0a4bb3ab071d5dd7aeb, type: 3}
-  m_Name: '[LEVEL 4] ColorToBeUsed'
+  m_Script: {fileID: 11500000, guid: b3e77fde0715ed840a7372205da96d10, type: 3}
+  m_Name: '[LEVEL 6] TargetTexture'
   m_EditorClassIdentifier: 
-  value:
-  - {r: 0.023529414, g: 0.27450982, b: 0.20784315, a: 1}
+  value: {fileID: 2800000, guid: 038f16a5d230ac04d981396ab900cd24, type: 3}

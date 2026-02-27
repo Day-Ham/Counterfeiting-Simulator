@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d593a08e3aaa0a4bb3ab071d5dd7aeb, type: 3}
-  m_Name: '[LEVEL 4] ColorToBeUsed'
+  m_Script: {fileID: 11500000, guid: b9818bd4255217a439735b430e74fbf6, type: 3}
+  m_Name: '[LEVEL 6] CanvasTemplate'
   m_EditorClassIdentifier: 
-  value:
-  - {r: 0.023529414, g: 0.27450982, b: 0.20784315, a: 1}
+  value: {fileID: 5294900098001659280, guid: 3eda4de57305ba9489c10f2710d7e838, type: 3}
