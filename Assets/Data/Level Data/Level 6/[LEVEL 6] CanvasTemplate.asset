@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67702ce33993ec746ba45cab96738405, type: 3}
-  m_Name: '[LEVEL 4] ColorBackgroundDraw'
+  m_Script: {fileID: 11500000, guid: b9818bd4255217a439735b430e74fbf6, type: 3}
+  m_Name: '[LEVEL 6] CanvasTemplate'
   m_EditorClassIdentifier: 
-  value: {r: 0.20784314, g: 0.8156863, b: 0.3529412, a: 1}
+  value: {fileID: 5294900098001659280, guid: 3eda4de57305ba9489c10f2710d7e838, type: 3}
