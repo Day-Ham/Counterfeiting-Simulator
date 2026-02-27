@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e77fde0715ed840a7372205da96d10, type: 3}
   m_Name: '[LEVEL 1] TargetTexture'
   m_EditorClassIdentifier: 
-  value: {fileID: 2800000, guid: c9ac0048a74f54f47b8b3cf2248179cd, type: 3}
+  value: {fileID: 2800000, guid: 8d1d2cdce55f60c4aa748f7ad0ffa5d7, type: 3}
