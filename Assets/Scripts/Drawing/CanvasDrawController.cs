@@ -53,12 +53,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         
         private void OnEnable()
         {
-                LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+            LevelConfigRuntime.OnValueChanged += OnLevelChanged;
         }
 
         private void OnDisable()
         {
-                LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+            LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
         }
 
         private void OnLevelChanged(LevelConfig newLevel)

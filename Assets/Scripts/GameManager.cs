@@ -1,6 +1,9 @@
+using System;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 using DaeHanKim.ThisIsTotallyADollar.Utility;
 using UnityEngine;
+using ES3Internal;
+using System.IO;
 
 namespace DaeHanKim.ThisIsTotallyADollar.Core
 {
@@ -124,14 +127,40 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
         {
-            Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], _finalSpritePivotPoint);
-            _finalSpriteContainer.Sprite = finalSprite;
+            RenderTexture renderTexture = playerCanvasState.LayersRenderTextures[0];
 
-            // Optionally set a sprite renderer to use the final sprite
-            if (_finalSpriteRenderer != null)
+            // Convert to Texture2D
+            Texture2D finalTexture = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
+
+            RenderTexture.active = renderTexture;
+            finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            finalTexture.Apply();
+            RenderTexture.active = null;
+            
+            Sprite previewSprite = Sprite.Create(
+                finalTexture,
+                new Rect(0, 0, finalTexture.width, finalTexture.height),
+                _finalSpritePivotPoint
+            );
+
+            SetPreviewSprite(previewSprite);
+            
+            byte[] pngBytes = finalTexture.EncodeToPNG();
+            
+            string fileName = $"Drawing_{DateTime.Now:yyyyMMdd_HHmmss}.es3";
+            ES3Settings settings = new ES3Settings(fileName);
+            string key = "Drawing";
+            ES3.Save(key, pngBytes, settings);
+
+            Debug.Log($"Saved drawing under filename: {fileName}");
+        }
+        
+        private void SetPreviewSprite(Sprite sprite)
+        {
+            if (_finalSpriteRenderer)
             {
-                _finalSpriteRenderer.sprite = finalSprite;
-            }
+                _finalSpriteRenderer.sprite = sprite;
+            };
         }
 
         private void OnDestroy()
