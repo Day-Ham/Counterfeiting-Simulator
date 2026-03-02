@@ -52,6 +52,16 @@ public class InputHandler : ScriptableObject
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
         _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
+        _inputActions[KeyCode.B] = () => SelectColorAtIndex(0);
+    }
+    
+    private void SelectColorAtIndex(int index)
+    {
+        var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
+        if (colors != null && index < colors.Count)
+        {
+            SelectBrushColorEvent.Raise(colors[index]);
+        };
     }
 
     public void UpdateInput()
