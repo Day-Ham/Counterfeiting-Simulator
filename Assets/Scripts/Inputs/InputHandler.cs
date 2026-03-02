@@ -12,6 +12,7 @@ public class InputHandler : ScriptableObject
     private Action _finishGameCallback;
     
     private Dictionary<KeyCode, Action> _inputActions;
+    
 
     public void Initialize(CanvasDrawController canvasDraw, Action finishGameCallback)
     {
@@ -31,20 +32,15 @@ public class InputHandler : ScriptableObject
             return;
         }
 
-        var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
+        var levelConfig = _canvasDraw.LevelConfigRuntime?.Value;
+        var colors = levelConfig?.ColorsToBeUsed?.Value;
         int colorCount = colors?.Count ?? 0;
-
-        // Dynamically bind Alpha keys to available colors
-        for (int i = 0; i < colorCount; i++)
+        
+        for (int i = 0; i < Mathf.Min(colorCount, 9); i++)
         {
             int index = i;
-            if (i >= 9) break; // Only Alpha1–Alpha9 keys exist
             KeyCode key = KeyCode.Alpha1 + i;
-            _inputActions[key] = () =>
-            {
-                var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed.Value;
-                SelectBrushColorEvent.Raise(colors[index]);
-            };
+            _inputActions[key] = () => SelectColor(index);
         }
         
         _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
@@ -52,12 +48,14 @@ public class InputHandler : ScriptableObject
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
         _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
-        _inputActions[KeyCode.B] = () => SelectColorAtIndex(0);
+        _inputActions[KeyCode.B] = () => SelectColor(0);
     }
     
-    private void SelectColorAtIndex(int index)
+    private void SelectColor(int index)
     {
-        var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
+        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
+        var colors = levelConfig.ColorsToBeUsed?.Value;
+        
         if (colors != null && index < colors.Count)
         {
             SelectBrushColorEvent.Raise(colors[index]);
