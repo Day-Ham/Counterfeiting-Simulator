@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public class ScaleSlider : MonoBehaviour
 {
     public Slider BrushScaleSlider;

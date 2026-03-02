@@ -348,6 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
+  _drawingBoardZoom: {fileID: 8791108562884700898}
   LevelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _graphicRaycaster: {fileID: 4585805728788645504}
   _layerDrawController: {fileID: 3969123139997115803}
@@ -561,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawingBoard: {fileID: 7864948328430326532}
   zoomSpeed: 0.1
+  zoomSmoothness: 10
   minSize: {x: 765, y: 380}
   maxSize: {x: 1530, y: 760}
 --- !u!1 &3487568899593019836

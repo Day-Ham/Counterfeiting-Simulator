@@ -19,7 +19,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         static readonly Vector3[] LAYER_CORNER_POSITIONS = new Vector3[4];
 
-        [SerializeField] public CanvasDrawControllerValue _canvasDrawControllerValue;
+        public CanvasDrawControllerValue _canvasDrawControllerValue;
+        public DrawingBoardZoom _drawingBoardZoom;
 
         [Header("Local Dependencies")]
         public LevelConfigRuntimeAsset LevelConfigRuntime;
@@ -155,6 +156,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         {
             if (_queuedCanvasOperation == null)
             {
+                ApplyZoomCorrectedBrushSize();
                 UpdateDrawController(Input.mousePosition);
             }
             else
@@ -162,6 +164,14 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 _queuedCanvasOperation?.Execute();
                 _queuedCanvasOperation = null;
             }
+        }
+        
+        void ApplyZoomCorrectedBrushSize()
+        {
+            if (CurrentBrushSettings == null) return;
+
+            float zoomRatio = _drawingBoardZoom ? _drawingBoardZoom.ZoomRatio : 1f;
+            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
         }
 
         void UpdateDrawController(Vector2 cursorScreenPosition)
@@ -235,7 +245,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             CurrentBrushSettings.BrushSize = brushSize;
 
-            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize);
+            float zoomRatio = _drawingBoardZoom != null ? _drawingBoardZoom.ZoomRatio : 1f;
+            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
         }
 
         public void ClearCurrentLayer()

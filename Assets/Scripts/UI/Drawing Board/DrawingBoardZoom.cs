@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DrawingBoardZoom : MonoBehaviour
@@ -16,6 +17,8 @@ public class DrawingBoardZoom : MonoBehaviour
     private Vector2 originalPosition;
     private float targetPosY;
     
+    public float ZoomRatio => drawingBoard.sizeDelta.x / originalSize.x;
+
     private void Start()
     {
         if (drawingBoard == null)
