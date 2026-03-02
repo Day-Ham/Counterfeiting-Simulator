@@ -24,34 +24,60 @@ public class InputHandler : ScriptableObject
     private void BuildInputDictionary()
     {
         _inputActions = new Dictionary<KeyCode, Action>();
-        
-        if (_canvasDraw == null || _canvasDraw.LevelConfigRuntime == null || _canvasDraw.LevelConfigRuntime.Value == null)
-        {
-            Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
-            return;
-        }
 
+        if (!IsValidCanvasDraw())
+        {
+            return;
+        };
+
+        BindColorKeys();
+        BindToolKeys();
+    }
+    
+    private bool IsValidCanvasDraw()
+    {
+        if (_canvasDraw?.LevelConfigRuntime?.Value != null)
+        {
+            return true;
+        };
+        
+        Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
+        return false;
+    }
+    
+    private void BindColorKeys()
+    {
         var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
         int colorCount = colors?.Count ?? 0;
 
-        // Dynamically bind Alpha keys to available colors
-        for (int i = 0; i < colorCount; i++)
+        for (int i = 0; i < Mathf.Min(colorCount, 9); i++)
         {
-            int index = i;
-            if (i >= 9) break; // Only Alpha1–Alpha9 keys exist
+            int colorIndex = i;
             KeyCode key = KeyCode.Alpha1 + i;
-            _inputActions[key] = () =>
-            {
-                var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed.Value;
-                SelectBrushColorEvent.Raise(colors[index]);
-            };
+            _inputActions[key] = () => SelectColor(colorIndex);
         }
         
+        _inputActions[KeyCode.B] = () => SelectColor(0);
+    }
+    
+    private void BindToolKeys()
+    {
         _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
         _inputActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
         _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
+    }
+    
+    private void SelectColor(int index)
+    {
+        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
+        var colors = levelConfig.ColorsToBeUsed?.Value;
+        
+        if (colors != null && index < colors.Count)
+        {
+            SelectBrushColorEvent.Raise(colors[index]);
+        };
     }
 
     public void UpdateInput()
