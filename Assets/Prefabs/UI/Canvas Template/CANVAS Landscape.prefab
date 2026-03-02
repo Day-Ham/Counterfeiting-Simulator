@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 396741118517391926}
   - component: {fileID: 4585805728788645504}
   - component: {fileID: 8791108562884700898}
+  - component: {fileID: 7103236292113755081}
   m_Layer: 5
   m_Name: Drawing
   m_TagString: Untagged
@@ -565,6 +566,19 @@ MonoBehaviour:
   zoomSmoothness: 10
   minSize: {x: 765, y: 380}
   maxSize: {x: 1530, y: 760}
+--- !u!114 &7103236292113755081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248957169323806648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d3d2ada722ca04098e29a23f83c0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawingBoard: {fileID: 7864948328430326532}
 --- !u!1 &3487568899593019836
 GameObject:
   m_ObjectHideFlags: 0
