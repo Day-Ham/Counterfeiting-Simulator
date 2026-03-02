@@ -30,40 +30,36 @@ public class DrawingBoardZoom : MonoBehaviour
 
         originalSize = drawingBoard.sizeDelta;
         targetSize = originalSize;
-
-        originalPosition = drawingBoard.anchoredPosition;
-        targetPosY = originalPosition.y;
     }
-    
+
     private void Update()
     {
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl)) return;
-        
+        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
+        {
+            return;
+        };
+
         float scroll = Input.mouseScrollDelta.y;
         if (scroll != 0)
         {
             ApplyZoom(scroll);
         }
-        
-        drawingBoard.sizeDelta = Vector2.Lerp(drawingBoard.sizeDelta, targetSize, Time.deltaTime * zoomSmoothness);
-        
-        Vector2 pos = drawingBoard.anchoredPosition;
-        pos.y = Mathf.Lerp(pos.y, targetPosY, Time.deltaTime * zoomSmoothness);
-        drawingBoard.anchoredPosition = pos;
+
+        // Smooth zoom
+        drawingBoard.sizeDelta = Vector2.Lerp(
+            drawingBoard.sizeDelta,
+            targetSize,
+            Time.deltaTime * zoomSmoothness
+        );
     }
 
     private void ApplyZoom(float scrollAmount)
     {
         float factor = 1 + scrollAmount * zoomSpeed;
-        
-        targetSize = targetSize * factor;
-        
+
+        targetSize *= factor;
+
         targetSize.x = Mathf.Clamp(targetSize.x, minSize.x, maxSize.x);
         targetSize.y = Mathf.Clamp(targetSize.y, minSize.y, maxSize.y);
-        
-        float zoomPercent = (targetSize.y - originalSize.y) / (maxSize.y - originalSize.y);
-        zoomPercent = Mathf.Clamp01(zoomPercent);
-        
-        targetPosY = Mathf.Lerp(originalPosition.y, 0f, zoomPercent);
     }
 }
