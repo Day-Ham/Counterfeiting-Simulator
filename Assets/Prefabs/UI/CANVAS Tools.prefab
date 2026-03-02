@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1159,7 +1159,10 @@ MonoBehaviour:
   BrushScaleSlider: {fileID: 321961871057230438}
   BrushController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
+  SliderRect: {fileID: 741624882637638312}
+  ParentCanvas: {fileID: 6784983380279885428}
   ReferenceNumber: 64
+  ScrollSensitivity: 0.1
 --- !u!1 &5337282782688321994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1893,7 +1896,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: -15, z: 0, w: -15}
+  m_RaycastPadding: {x: 0, y: -10, z: 0, w: -10}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
