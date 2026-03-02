@@ -34,7 +34,7 @@ public class DrawingBoardZoom : MonoBehaviour
 
     private void Update()
     {
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
+        if (!InputUtility.IsCtrlHeld)
         {
             return;
         };

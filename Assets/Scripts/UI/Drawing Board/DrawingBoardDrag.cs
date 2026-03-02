@@ -11,9 +11,7 @@ public class DrawingBoardDrag : MonoBehaviour
 
     private void Update()
     {
-        // Only allow drag if Ctrl is held
-        bool ctrlHeld = Input.GetKey(KeyCode.LeftControl) || 
-                        Input.GetKey(KeyCode.RightControl);
+        bool ctrlHeld = InputUtility.IsCtrlHeld;
 
         if (ctrlHeld && Input.GetMouseButtonDown(0))
         {
