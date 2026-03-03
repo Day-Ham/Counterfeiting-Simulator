@@ -90,6 +90,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         private void FinishGame()
         {
             allSimilarity = 1f;
+
+            _canvasDraw.IsCanDraw = false;
             
             CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 
