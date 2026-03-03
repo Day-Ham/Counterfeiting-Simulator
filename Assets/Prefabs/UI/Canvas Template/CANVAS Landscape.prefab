@@ -248,8 +248,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7864948328430326532}
   - {fileID: 2382131091363728981}
+  - {fileID: 7864948328430326532}
   - {fileID: 7096433258330602841}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -401,6 +401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2382131091363728981}
+  - component: {fileID: 3862160744188098095}
   - component: {fileID: 4089402077394801992}
   - component: {fileID: 1132202135603609810}
   m_Layer: 5
@@ -432,6 +433,29 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 200}
   m_SizeDelta: {x: 765, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &3862160744188098095
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2466815981192243548}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 2
+  m_TargetDisplay: 0
 --- !u!114 &4089402077394801992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,7 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasOverrideSorting: {fileID: 396741118517391926}
+  targetImageCanvas: {fileID: 3862160744188098095}
+  drawingCanvas: {fileID: 396741118517391926}
   compareStartedEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
   drawingBoard: {fileID: 7864948328430326532}
   snapSmoothness: 10

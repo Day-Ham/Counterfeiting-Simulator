@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class DrawingBoardController : MonoBehaviour
 {
-    [SerializeField] private Canvas canvasOverrideSorting;
+    [SerializeField] private Canvas targetImageCanvas;
+    [SerializeField] private Canvas drawingCanvas;
     [SerializeField] private VoidEvent compareStartedEvent;
     
     public RectTransform drawingBoard;
@@ -12,7 +13,8 @@ public class DrawingBoardController : MonoBehaviour
     private Vector2 originalPosition;
 
     private bool isSnapRequested;
-    private int initialSortingOrder = 1;
+    private int initialDrawingCanvasSortingOrder = 1;
+    private int initialTragetImageCanvasSortingOrder = 2;
 
     public Vector2 OriginalSize => originalSize;
     public Vector2 OriginalPosition => originalPosition;
@@ -34,8 +36,11 @@ public class DrawingBoardController : MonoBehaviour
 
     private void InitializedCanvas()
     {
-        canvasOverrideSorting.overrideSorting = true;
-        canvasOverrideSorting.sortingOrder = initialSortingOrder;
+        targetImageCanvas.overrideSorting = true;
+        targetImageCanvas.sortingOrder = initialTragetImageCanvasSortingOrder;
+        
+        drawingCanvas.overrideSorting = true;
+        drawingCanvas.sortingOrder = initialDrawingCanvasSortingOrder;
         
         originalSize = drawingBoard.sizeDelta;
         originalPosition = drawingBoard.anchoredPosition;
@@ -68,7 +73,8 @@ public class DrawingBoardController : MonoBehaviour
 
     private void SnapToOriginal()
     {
-        canvasOverrideSorting.overrideSorting = false;
+        targetImageCanvas.overrideSorting = false;
+        drawingCanvas.overrideSorting = false;
         isSnapRequested = true;
     }
 }
