@@ -17,6 +17,7 @@ public class DrawingBoardDrag : MonoBehaviour
 
     private void Update()
     {
+        if (!IsCanInteract()) return;
         if (!InputUtility.IsCtrlHeld) return;
 
         HandleMouseDown();
@@ -49,5 +50,10 @@ public class DrawingBoardDrag : MonoBehaviour
 
         DrawBoardRectTransform.anchoredPosition += delta * dragSpeed;
         lastMousePosition = currentMousePos;
+    }
+    
+    private bool IsCanInteract()
+    {
+        return boardController && boardController.IsCanInteract;
     }
 }

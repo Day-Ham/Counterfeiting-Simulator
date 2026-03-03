@@ -36,7 +36,7 @@ public class ComparingMechanic : MonoBehaviour
     public TMPListValue PercentageTextShadowScriptableObject;
     
     [Header("GameManager Events")]
-    public GameManagerEvents FinishGameRequestEvent;
+    public VoidEvent FinishGameRequestEvent;
     public ComparisonResultEvent ComparisonResultEvent;
     
     private float majorPercentageNumber;
