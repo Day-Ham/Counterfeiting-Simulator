@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ComparingMechanic : MonoBehaviour
 {
     public VoidEvent SceneChangerEvent;
+    public VoidEvent DrawingBoardControllerEvent;
     
     [Header("GameObject to Move")]
     public GameObjectValue TargetImage;
@@ -86,6 +87,8 @@ public class ComparingMechanic : MonoBehaviour
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Space) || !_isOneShot) return;
+        
+        DrawingBoardControllerEvent.Raise();
         
         FinishGameRequestEvent.Raise();
         

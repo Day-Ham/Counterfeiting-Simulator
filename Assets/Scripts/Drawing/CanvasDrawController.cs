@@ -19,7 +19,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         static readonly Vector3[] LAYER_CORNER_POSITIONS = new Vector3[4];
 
-        [SerializeField] public CanvasDrawControllerValue _canvasDrawControllerValue;
+        public CanvasDrawControllerValue _canvasDrawControllerValue;
+        public DrawingBoardZoom _drawingBoardZoom;
 
         [Header("Local Dependencies")]
         public LevelConfigRuntimeAsset LevelConfigRuntime;
@@ -66,7 +67,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             SetBrushColorIndex(0);
         }
 
-        void Awake()
+        private void Awake()
         {
             OnValidate();
             
@@ -93,17 +94,16 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             RefreshCurrentBrushSettings();
         }
 
-        void RefreshCurrentBrushSettings()
+        private void RefreshCurrentBrushSettings()
         {
-            if (CurrentBrushSettings == null)
-                return;
+            if (CurrentBrushSettings == null) return;
 
             _layerDrawController.SetBrushTexture(CurrentBrushSettings.BrushTexture);
             SetBrushColorIndex(CurrentBrushSettings.BrushColorIndex);
             SetBrushSize(CurrentBrushSettings.BrushSize);
         }
 
-        void InitializeAllCanvasStates()
+        private void InitializeAllCanvasStates()
         {
             MainCanvasState = CreateCanvasState();
             CanvasStateHistory = new CanvasState[HistorySize];
@@ -117,7 +117,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             CurrentCanvasStateHistoryCount = 1;
         }
 
-        CanvasState CreateCanvasState()
+        private CanvasState CreateCanvasState()
         {
             RenderTexture[] layersRenderTextures = new RenderTexture[_layersCount];
 
@@ -129,7 +129,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             return new CanvasState(layersRenderTextures);
         }
 
-        RenderTexture CreateLayerRenderTexture()
+        private RenderTexture CreateLayerRenderTexture()
         {
             RenderTexture tex = new(_canvasDimensions.x, _canvasDimensions.y, 0);
             tex.filterMode = FilterMode.Point;
@@ -153,8 +153,19 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void Tick()
         {
+            if (InputUtility.IsCtrlHeld)
+            {
+                if (IsUpdating)
+                {
+                    StopDrawing();
+                };
+
+                return;
+            }
+            
             if (_queuedCanvasOperation == null)
             {
+                ApplyZoomCorrectedBrushSize();
                 UpdateDrawController(Input.mousePosition);
             }
             else
@@ -163,14 +174,22 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 _queuedCanvasOperation = null;
             }
         }
+        
+        private void ApplyZoomCorrectedBrushSize()
+        {
+            if (CurrentBrushSettings == null) return;
 
-        void UpdateDrawController(Vector2 cursorScreenPosition)
+            float zoomRatio = _drawingBoardZoom ? _drawingBoardZoom.ZoomRatio : 1f;
+            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
+        }
+
+        private void UpdateDrawController(Vector2 cursorScreenPosition)
         {
             Vector2 texelPos = GetScreenToTexelPosition(cursorScreenPosition);
             _layerDrawController.Tick(IsUpdating, CurrentDrawMode, texelPos);
         }
 
-        Vector2 GetScreenToTexelPosition(Vector2 cursorScreenPosition)
+        private Vector2 GetScreenToTexelPosition(Vector2 cursorScreenPosition)
         {
             RectTransform rectTransform = (RectTransform) _drawView.transform;
             rectTransform.GetWorldCorners(LAYER_CORNER_POSITIONS);
@@ -230,12 +249,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 return;
             }
             
-            if (brushSize < 0f)
-                return;
+            if (brushSize < 0f) return;
 
             CurrentBrushSettings.BrushSize = brushSize;
 
-            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize);
+            float zoomRatio = _drawingBoardZoom != null ? _drawingBoardZoom.ZoomRatio : 1f;
+            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
         }
 
         public void ClearCurrentLayer()
@@ -246,10 +265,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void UndoLastDraw()
         {
-            if (_queuedCanvasOperation != null)
-                return;
-            if (CurrentCanvasStateHistoryCount <= 1)
-                return;
+            if (_queuedCanvasOperation != null) return;
+            if (CurrentCanvasStateHistoryCount <= 1) return;
 
             StopDrawing();
             _queuedCanvasOperation = new UndoLastDrawCanvasOperation(this);
@@ -260,10 +277,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             StartDrawing();
         }
 
-        void StartDrawing()
+        private void StartDrawing()
         {
-            if (IsUpdating)
-                return;
+            // Block drawing if Ctrl is being held
+            if (InputUtility.IsCtrlHeld) return;
+            
+            if (IsUpdating) return;
 
             IsUpdating = true;
         }
@@ -273,16 +292,15 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             StopDrawing();
         }
 
-        void StopDrawing()
+        private void StopDrawing()
         {
-            if (!IsUpdating)
-                return;
+            if (!IsUpdating) return;
 
             IsUpdating = false;
             _queuedCanvasOperation ??= new SnapshotCurrentCanvasOperation(this);
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             foreach (CanvasState canvasState in CanvasStateHistory)
             {
@@ -292,13 +310,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             MainCanvasState.Destroy();
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             RetrieveDependencies();
             RefreshCurrentBrushSettings();
         }
 
-        void RetrieveDependencies()
+        private void RetrieveDependencies()
         {
             if (_layerDrawController == null)
             {

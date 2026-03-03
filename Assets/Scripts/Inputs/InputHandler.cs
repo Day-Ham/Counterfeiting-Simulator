@@ -7,9 +7,11 @@ using UnityEngine;
 public class InputHandler : ScriptableObject
 {
     [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
+    [SerializeField] private VoidEvent ResetDrawingBoardPositionEvent;
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
+    private Action _snapBoardCallback;
     
     private Dictionary<KeyCode, Action> _inputActions;
 
@@ -67,6 +69,7 @@ public class InputHandler : ScriptableObject
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
         _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
+        _inputActions[KeyCode.Q] = () => ResetDrawingBoardPositionEvent.Raise();
     }
     
     private void SelectColor(int index)
@@ -100,6 +103,7 @@ public class InputHandler : ScriptableObject
     {
         _canvasDraw = null;
         _finishGameCallback = null;
+        _snapBoardCallback = null;
         _inputActions?.Clear();
     }
 }

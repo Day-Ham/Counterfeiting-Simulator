@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public class ScaleSlider : MonoBehaviour
 {
     public Slider BrushScaleSlider;
@@ -42,7 +40,7 @@ public class ScaleSlider : MonoBehaviour
             return;
         };
         
-        float scroll = Input.mouseScrollDelta.y;
+        float scroll = InputUtility.MouseWheelDelta;
 
         if (Mathf.Abs(scroll) > 0.01f)
         {

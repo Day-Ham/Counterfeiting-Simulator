@@ -24,12 +24,12 @@ public class SceneChanger : MonoBehaviour
     
     private void OnEnable()
     {
-        _sceneChangerEvent.OnRaised += ShowNextButton;
+        _sceneChangerEvent.Register(ShowNextButton);
     }
 
     private void OnDisable()
     {
-        _sceneChangerEvent.OnRaised -= ShowNextButton;
+        _sceneChangerEvent.Unregister(ShowNextButton);
     }
 
     private void Awake()
