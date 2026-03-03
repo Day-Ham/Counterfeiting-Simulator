@@ -92,6 +92,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             allSimilarity = 1f;
 
             _canvasDraw.IsCanDraw = false;
+            _inputHandler.BlockInput();
             
             CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 
