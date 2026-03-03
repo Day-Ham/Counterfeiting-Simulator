@@ -8,12 +8,26 @@ public class DrawingBoardDrag : MonoBehaviour
 
     private bool isDragging;
     private Vector2 lastMousePosition;
+    private Vector2 startingPosition;
+
+    private void Start()
+    {
+        startingPosition = drawingBoard.anchoredPosition;
+    }
 
     private void Update()
     {
-        bool ctrlHeld = InputUtility.IsCtrlHeld;
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            drawingBoard.anchoredPosition = startingPosition;
+        }
+        
+        if (!InputUtility.IsCtrlHeld)
+        {
+            return;
+        };
 
-        if (ctrlHeld && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
             lastMousePosition = Input.mousePosition;
@@ -24,14 +38,13 @@ public class DrawingBoardDrag : MonoBehaviour
             isDragging = false;
         }
 
-        if (isDragging)
-        {
-            Vector2 currentMousePos = Input.mousePosition;
-            Vector2 delta = currentMousePos - lastMousePosition;
+        if (!isDragging) return;
+        
+        Vector2 currentMousePos = Input.mousePosition;
+        Vector2 delta = currentMousePos - lastMousePosition;
 
-            drawingBoard.anchoredPosition += delta * dragSpeed;
+        drawingBoard.anchoredPosition += delta * dragSpeed;
 
-            lastMousePosition = currentMousePos;
-        }
+        lastMousePosition = currentMousePos;
     }
 }

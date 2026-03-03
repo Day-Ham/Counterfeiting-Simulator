@@ -34,6 +34,12 @@ public class DrawingBoardZoom : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            targetSize = originalSize;
+            drawingBoard.sizeDelta = originalSize;
+        }
+        
         if (!InputUtility.IsCtrlHeld)
         {
             return;
