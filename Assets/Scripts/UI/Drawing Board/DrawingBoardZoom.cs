@@ -34,11 +34,13 @@ public class DrawingBoardZoom : MonoBehaviour
 
     private void HandleScrollZoom()
     {
-        float scroll = Input.mouseScrollDelta.y;
-        if (Mathf.Abs(scroll) > 0f)
+        float scroll = InputUtility.MouseWheelDelta;
+        if (InputUtility.IsCtrlHeld && Mathf.Abs(scroll) > 0f)
         {
             ApplyZoom(scroll);
         }
+        
+        SmoothZoom();
     }
 
     private void SmoothZoom()
@@ -56,5 +58,10 @@ public class DrawingBoardZoom : MonoBehaviour
 
         _targetSize.x = Mathf.Clamp(_targetSize.x, minSize.x, maxSize.x);
         _targetSize.y = Mathf.Clamp(_targetSize.y, minSize.y, maxSize.y);
+    }
+    
+    public void SetTargetSize(Vector2 size)
+    {
+        _targetSize = size;
     }
 }

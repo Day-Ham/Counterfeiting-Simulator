@@ -5,6 +5,7 @@ public class DrawingBoardController : MonoBehaviour
     [SerializeField] private Canvas targetImageCanvas;
     [SerializeField] private Canvas drawingCanvas;
     [SerializeField] private VoidEvent compareStartedEvent;
+    [SerializeField] private DrawingBoardZoom drawingBoardZoom;
     
     public RectTransform drawingBoard;
     public float snapSmoothness = 10f;
@@ -86,7 +87,7 @@ public class DrawingBoardController : MonoBehaviour
     {
         targetImageCanvas.overrideSorting = false;
         drawingCanvas.overrideSorting = false;
-        isSnapRequested = true;
+        ResetToOriginalSize();
     }
 
     /// <summary>
@@ -94,6 +95,12 @@ public class DrawingBoardController : MonoBehaviour
     /// </summary>
     private void SnapToOriginalPositionOnly()
     {
+        ResetToOriginalSize();
+    }
+
+    private void ResetToOriginalSize()
+    {
         isSnapRequested = true;
+        drawingBoardZoom.SetTargetSize(OriginalSize);
     }
 }
