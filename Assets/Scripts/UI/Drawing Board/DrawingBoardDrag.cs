@@ -13,33 +13,41 @@ public class DrawingBoardDrag : MonoBehaviour
     private Vector2 lastMousePosition;
     
     //Properties//
-    private RectTransform DrawBoardPosition => boardController.drawingBoard;
+    private RectTransform DrawBoardRectTransform => boardController.drawingBoard;
 
     private void Update()
     {
-        if (!InputUtility.IsCtrlHeld)
-        {
-            return;
-        };
+        if (!InputUtility.IsCtrlHeld) return;
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDragging = true;
-            lastMousePosition = Input.mousePosition;
-        }
+        HandleMouseDown();
+        HandleMouseUp();
+        HandleDrag();
+    }
 
+    private void HandleMouseDown()
+    {
+        if (!Input.GetMouseButtonDown(0)) return;
+        
+        isDragging = true;
+        lastMousePosition = Input.mousePosition;
+    }
+
+    private void HandleMouseUp()
+    {
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
         }
+    }
 
+    private void HandleDrag()
+    {
         if (!isDragging) return;
-        
+
         Vector2 currentMousePos = Input.mousePosition;
         Vector2 delta = currentMousePos - lastMousePosition;
 
-        DrawBoardPosition.anchoredPosition += delta * dragSpeed;
-
+        DrawBoardRectTransform.anchoredPosition += delta * dragSpeed;
         lastMousePosition = currentMousePos;
     }
 }
