@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DrawingBoardController : MonoBehaviour
 {
     [SerializeField] private Canvas targetImageCanvas;
     [SerializeField] private Canvas drawingCanvas;
+    [SerializeField] private InputHandler inputHandler;
     [SerializeField] private VoidEvent compareStartedEvent;
+    [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
     [SerializeField] private DrawingBoardZoom drawingBoardZoom;
     
     public RectTransform drawingBoard;
@@ -23,11 +26,13 @@ public class DrawingBoardController : MonoBehaviour
     private void OnEnable()
     {
         compareStartedEvent.Register(SnapToOriginalWithSortingReset);
+        resetDrawingBoardPositionEvent.Register(SnapToOriginalPositionOnly);
     }
 
     private void OnDisable()
     {
         compareStartedEvent.Unregister(SnapToOriginalWithSortingReset);
+        resetDrawingBoardPositionEvent.Unregister(SnapToOriginalPositionOnly);
     }
 
     private void Awake()
@@ -49,16 +54,7 @@ public class DrawingBoardController : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
         UpdateSnap();
-    }
-    
-    private void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SnapToOriginalPositionOnly();
-        }
     }
     
     private void UpdateSnap()

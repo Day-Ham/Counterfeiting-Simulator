@@ -588,7 +588,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetImageCanvas: {fileID: 3862160744188098095}
   drawingCanvas: {fileID: 396741118517391926}
+  inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
   compareStartedEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
+  resetDrawingBoardPositionEvent: {fileID: 11400000, guid: fcffd111151352b4782fae24695b83d4, type: 2}
   drawingBoardZoom: {fileID: 8791108562884700898}
   drawingBoard: {fileID: 7864948328430326532}
   snapSmoothness: 10

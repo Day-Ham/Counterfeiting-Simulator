@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: '[INPUT HANDLER] PlayerInputs'
   m_EditorClassIdentifier: 
   SelectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  ResetDrawingBoardPositionEvent: {fileID: 11400000, guid: fcffd111151352b4782fae24695b83d4, type: 2}
