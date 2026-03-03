@@ -3,25 +3,20 @@ using UnityEngine.EventSystems;
 
 public class DrawingBoardDrag : MonoBehaviour
 {
-    public RectTransform drawingBoard;
+    [Header("References")]
+    [SerializeField] private DrawingBoardController boardController;
+
+    [Header("Drag Settings")]
     public float dragSpeed = 1f;
 
     private bool isDragging;
     private Vector2 lastMousePosition;
-    private Vector2 startingPosition;
-
-    private void Start()
-    {
-        startingPosition = drawingBoard.anchoredPosition;
-    }
+    
+    //Properties//
+    private RectTransform DrawBoardPosition => boardController.drawingBoard;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            drawingBoard.anchoredPosition = startingPosition;
-        }
-        
         if (!InputUtility.IsCtrlHeld)
         {
             return;
@@ -43,7 +38,7 @@ public class DrawingBoardDrag : MonoBehaviour
         Vector2 currentMousePos = Input.mousePosition;
         Vector2 delta = currentMousePos - lastMousePosition;
 
-        drawingBoard.anchoredPosition += delta * dragSpeed;
+        DrawBoardPosition.anchoredPosition += delta * dragSpeed;
 
         lastMousePosition = currentMousePos;
     }

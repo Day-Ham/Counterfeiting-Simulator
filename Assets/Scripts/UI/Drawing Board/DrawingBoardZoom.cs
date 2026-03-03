@@ -3,43 +3,29 @@ using UnityEngine;
 
 public class DrawingBoardZoom : MonoBehaviour
 {
+    [Header("References")]
+    [SerializeField] private DrawingBoardController boardController;
+
     [Header("Zoom Settings")]
-    public RectTransform drawingBoard;
     public float zoomSpeed = 0.1f;
-    
-    [Tooltip("Higher = faster, lower = smoother")]
     public float zoomSmoothness = 10f;
     public Vector2 minSize = new Vector2(200, 200);
     public Vector2 maxSize = new Vector2(2000, 2000);
     
-    private Vector2 originalSize;
-    private Vector2 targetSize;
-    private Vector2 originalPosition;
-    private float targetPosY;
+    private Vector2 _targetSize;
     
-    public float ZoomRatio => drawingBoard.sizeDelta.x / originalSize.x;
-
+    //Properties//
+    private RectTransform DrawBoardRectTransform => boardController.drawingBoard;
+    private Vector2 DrawBoardOriginalSize => boardController.OriginalSize;
+    public float ZoomRatio => DrawBoardRectTransform.sizeDelta.x / DrawBoardOriginalSize.x;
+    
     private void Start()
     {
-        if (drawingBoard == null)
-        {
-            Debug.LogError("Assign the DrawingBoard RectTransform!");
-            enabled = false;
-            return;
-        }
-
-        originalSize = drawingBoard.sizeDelta;
-        targetSize = originalSize;
+        _targetSize = DrawBoardRectTransform.sizeDelta;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            targetSize = originalSize;
-            drawingBoard.sizeDelta = originalSize;
-        }
-        
         if (!InputUtility.IsCtrlHeld)
         {
             return;
@@ -50,22 +36,24 @@ public class DrawingBoardZoom : MonoBehaviour
         {
             ApplyZoom(scroll);
         }
-
-        // Smooth zoom
-        drawingBoard.sizeDelta = Vector2.Lerp(
-            drawingBoard.sizeDelta,
-            targetSize,
-            Time.deltaTime * zoomSmoothness
-        );
+        
+        if (Vector2.Distance(DrawBoardRectTransform.sizeDelta, _targetSize) > 0.01f)
+        {
+            DrawBoardRectTransform.sizeDelta = Vector2.Lerp(
+                DrawBoardRectTransform.sizeDelta,
+                _targetSize,
+                Time.deltaTime * zoomSmoothness
+            );
+        }
     }
 
     private void ApplyZoom(float scrollAmount)
     {
         float factor = 1 + scrollAmount * zoomSpeed;
 
-        targetSize *= factor;
+        _targetSize *= factor;
 
-        targetSize.x = Mathf.Clamp(targetSize.x, minSize.x, maxSize.x);
-        targetSize.y = Mathf.Clamp(targetSize.y, minSize.y, maxSize.y);
+        _targetSize.x = Mathf.Clamp(_targetSize.x, minSize.x, maxSize.x);
+        _targetSize.y = Mathf.Clamp(_targetSize.y, minSize.y, maxSize.y);
     }
 }
