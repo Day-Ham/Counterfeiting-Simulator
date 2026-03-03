@@ -21,12 +21,12 @@ public class DrawingBoardController : MonoBehaviour
     
     private void OnEnable()
     {
-        compareStartedEvent.Register(SnapToOriginal);
+        compareStartedEvent.Register(SnapToOriginalWithSortingReset);
     }
 
     private void OnDisable()
     {
-        compareStartedEvent.Unregister(SnapToOriginal);
+        compareStartedEvent.Unregister(SnapToOriginalWithSortingReset);
     }
 
     private void Awake()
@@ -48,33 +48,52 @@ public class DrawingBoardController : MonoBehaviour
 
     private void Update()
     {
-        if (!isSnapRequested) return;
-
-        drawingBoard.sizeDelta = Vector2.Lerp(
-            drawingBoard.sizeDelta,
-            originalSize,
-            Time.deltaTime * snapSmoothness
-        );
-
-        drawingBoard.anchoredPosition = Vector2.Lerp(
-            drawingBoard.anchoredPosition,
-            originalPosition,
-            Time.deltaTime * snapSmoothness
-        );
-
-        if (Vector2.Distance(drawingBoard.sizeDelta, originalSize) < 0.1f &&
-            Vector2.Distance(drawingBoard.anchoredPosition, originalPosition) < 0.1f)
+        HandleInput();
+        UpdateSnap();
+    }
+    
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            drawingBoard.sizeDelta = originalSize;
-            drawingBoard.anchoredPosition = originalPosition;
-            isSnapRequested = false;
+            SnapToOriginalPositionOnly();
         }
     }
+    
+    private void UpdateSnap()
+    {
+        if (!isSnapRequested) return;
+        
+        drawingBoard.sizeDelta = Vector2.Lerp(drawingBoard.sizeDelta, originalSize, Time.deltaTime * snapSmoothness);
+        drawingBoard.anchoredPosition = Vector2.Lerp(drawingBoard.anchoredPosition, originalPosition, Time.deltaTime * snapSmoothness);
+        
+        if (!IsSnapComplete()) return;
+        
+        drawingBoard.sizeDelta = originalSize;
+        drawingBoard.anchoredPosition = originalPosition;
+        isSnapRequested = false;
+    }
+    
+    private bool IsSnapComplete()
+    {
+        return Vector2.Distance(drawingBoard.sizeDelta, originalSize) < 0.1f && Vector2.Distance(drawingBoard.anchoredPosition, originalPosition) < 0.1f;
+    }
 
-    private void SnapToOriginal()
+    /// <summary>
+    /// Snap to original and reset sorting (called by Compare Event)
+    /// </summary>
+    private void SnapToOriginalWithSortingReset()
     {
         targetImageCanvas.overrideSorting = false;
         drawingCanvas.overrideSorting = false;
+        isSnapRequested = true;
+    }
+
+    /// <summary>
+    /// Snap to original position/size only (called by Q key)
+    /// </summary>
+    private void SnapToOriginalPositionOnly()
+    {
         isSnapRequested = true;
     }
 }
