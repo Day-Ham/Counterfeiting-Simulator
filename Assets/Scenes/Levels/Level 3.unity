@@ -326,14 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelToLoad: {fileID: 11400000, guid: 413094bc70e4f5849b5a28fc8f6d8b11, type: 2}
   _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _prefabsToSpawn:
-  - {fileID: 4671942890938587298, guid: cdfedcd02efc454448c349a8bdbf2cac, type: 3}
-  - {fileID: 2433383935729226853, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
-  - {fileID: 4041418509026358389, guid: b13d59a77e56f324992b3797c6d097f6, type: 3}
-  - {fileID: 3085782536267974232, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
-  - {fileID: 1266475553892893057, guid: dfcbf5e30da32c6459cc73424502f0a2, type: 3}
-  - {fileID: 1988790528041721999, guid: 3340e7ae22bce1f4a98a522d7e9cf9d0, type: 3}
-  - {fileID: 6898610493201983226, guid: f3863b1252e61da49befa98104e8be99, type: 3}
+  _gameObjectListValueToSpawn: {fileID: 11400000, guid: 53fa46cfdbcf7894babe3feab9b9c63d, type: 2}
 --- !u!1 &1456504796
 GameObject:
   m_ObjectHideFlags: 0
