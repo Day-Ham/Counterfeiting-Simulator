@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
     
     [Header("Prefabs to Instantiate")]
-    [SerializeField] private List<GameObject> _prefabsToSpawn;
+    [SerializeField] private GameObjectListValue _gameObjectListValueToSpawn;
 
     private void Awake()
     {
@@ -18,9 +18,9 @@ public class LevelManager : MonoBehaviour
     
     private void SpawnPrefabs()
     {
-        foreach (GameObject prefab in _prefabsToSpawn)
+        foreach (GameObject listGameObject in _gameObjectListValueToSpawn.Value)
         {
-            Instantiate(prefab);
+            Instantiate(listGameObject);
         }
     }
 }
