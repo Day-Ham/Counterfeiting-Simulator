@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1266475553892893057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6256499983948027018}
+  - component: {fileID: 4758743871752530207}
+  m_Layer: 0
+  m_Name: Compare Inspector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6256499983948027018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266475553892893057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4758743871752530207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266475553892893057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344d013e7c121bf4d8cded7064a2a335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
+  DrawingBoardControllerEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
+  TargetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
+  FrontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
+  TargetLocation: {fileID: 11400000, guid: f640237ccbf12d046883b778f5cfc574, type: 2}
+  EaseTween: 28
+  PercentageParent: {fileID: 11400000, guid: 434ce091a25094a43b09306353f686e6, type: 2}
+  PercentageResizeTween: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
+  ResetButtonUI: {fileID: 11400000, guid: 30f526a45f1b35d428b69a6f59ac0a43, type: 2}
+  ResetButtonUIResizeTween: {fileID: 11400000, guid: 5ca8fee53056b524fb337b55c12673f6, type: 2}
+  ComparisonRule: {fileID: 11400000, guid: 116fab8d095c7cd49898789e84d7c370, type: 2}
+  PercentageTextScriptableObject: {fileID: 11400000, guid: 35067641073b6d448a233df96febc2c3, type: 2}
+  PercentageTextShadowScriptableObject: {fileID: 11400000, guid: f64fd4b163130c34c9ed059d53070062, type: 2}
+  FinishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
+  ComparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
+  duration: 50
+  InspectionColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 0.5372549}
