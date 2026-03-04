@@ -11,7 +11,6 @@ public class InputHandler : ScriptableObject
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
-    private Action _snapBoardCallback;
     private bool _isBlockInput = false;
     
     private Dictionary<KeyCode, Action> _inputActions;
@@ -109,7 +108,6 @@ public class InputHandler : ScriptableObject
     {
         _canvasDraw = null;
         _finishGameCallback = null;
-        _snapBoardCallback = null;
         _inputActions?.Clear();
     }
 }
