@@ -8,6 +8,7 @@ public class DrawingBoardController : MonoBehaviour
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private VoidEvent compareStartedEvent;
     [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
+    [SerializeField] private VoidEvent finishGameEvent;
     [SerializeField] private DrawingBoardZoom drawingBoardZoom;
     
     public RectTransform drawingBoard;
@@ -17,22 +18,26 @@ public class DrawingBoardController : MonoBehaviour
     private Vector2 originalPosition;
 
     private bool isSnapRequested;
+    private bool _isCanInteract = true;
     private int initialDrawingCanvasSortingOrder = 1;
     private int initialTragetImageCanvasSortingOrder = 2;
 
     public Vector2 OriginalSize => originalSize;
     public Vector2 OriginalPosition => originalPosition;
+    public bool IsCanInteract => _isCanInteract;
     
     private void OnEnable()
     {
         compareStartedEvent.Register(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Register(SnapToOriginalPositionOnly);
+        finishGameEvent.Register(DisableBoardInteraction);
     }
 
     private void OnDisable()
     {
         compareStartedEvent.Unregister(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Unregister(SnapToOriginalPositionOnly);
+        finishGameEvent.Unregister(DisableBoardInteraction);
     }
 
     private void Awake()
@@ -98,5 +103,10 @@ public class DrawingBoardController : MonoBehaviour
     {
         isSnapRequested = true;
         drawingBoardZoom.SetTargetSize(OriginalSize);
+    }
+    
+    private void DisableBoardInteraction()
+    {
+        _isCanInteract = false; // stops drag or zoom
     }
 }

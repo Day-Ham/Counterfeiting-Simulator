@@ -18,7 +18,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] SpriteRenderer _finalSpriteRenderer;
         
         [Header("GameManager Events")]
-        [SerializeField] GameManagerEvents _finishGameRequestEvent;
+        [SerializeField] VoidEvent _finishGameRequestEvent;
         [SerializeField] ComparisonResultEvent _comparisonResultEvent;
 
         [Header("Settings/LevelConfig")]
@@ -38,12 +38,12 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         
         private void OnEnable()
         {
-            _finishGameRequestEvent.OnRaised += FinishGame;
+            _finishGameRequestEvent.Register(FinishGame);
         }
 
         private void OnDisable()
         {
-            _finishGameRequestEvent.OnRaised -= FinishGame;
+            _finishGameRequestEvent.Unregister(FinishGame);
         }
         
         private void Awake()
@@ -90,6 +90,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         private void FinishGame()
         {
             allSimilarity = 1f;
+
+            _canvasDraw.IsCanDraw = false;
+            _inputHandler.BlockInput();
             
             CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 

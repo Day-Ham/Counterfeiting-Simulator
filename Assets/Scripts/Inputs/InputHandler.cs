@@ -11,7 +11,7 @@ public class InputHandler : ScriptableObject
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
-    private Action _snapBoardCallback;
+    private bool _isBlockInput;
     
     private Dictionary<KeyCode, Action> _inputActions;
 
@@ -19,6 +19,8 @@ public class InputHandler : ScriptableObject
     {
         _canvasDraw = canvasDraw;
         _finishGameCallback = finishGameCallback;
+        
+        _isBlockInput = false;
         
         BuildInputDictionary();
     }
@@ -85,11 +87,11 @@ public class InputHandler : ScriptableObject
 
     public void UpdateInput()
     {
-        if (!_canvasDraw || _inputActions == null)
+        if (!_canvasDraw || _inputActions == null || _isBlockInput)
         {
-            return;
-        };
-
+            return; // <-- ignore all input if blocked
+        }
+        
         foreach (var input in _inputActions)
         {
             if (Input.GetKeyDown(input.Key))
@@ -98,12 +100,16 @@ public class InputHandler : ScriptableObject
             }
         }
     }
+    
+    public void BlockInput()
+    {
+        _isBlockInput = true;
+    }
 
     private void OnDisable()
     {
         _canvasDraw = null;
         _finishGameCallback = null;
-        _snapBoardCallback = null;
         _inputActions?.Clear();
     }
 }

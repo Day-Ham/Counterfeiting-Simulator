@@ -46,6 +46,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [NonSerialized] public int CurrentCanvasStateHistoryCount;
         [NonSerialized] public int OldestCanvasStateHistoryIndex;
         [NonSerialized] public int LatestCanvasStateHistoryIndex;
+        [NonSerialized] public bool IsCanDraw = true;
 
         CanvasOperation _queuedCanvasOperation;
         Vector2Int _canvasDimensions;
@@ -153,13 +154,14 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void Tick()
         {
+            if(!IsCanDraw) return;
+            
             if (InputUtility.IsCtrlHeld)
             {
                 if (IsUpdating)
                 {
                     StopDrawing();
                 };
-
                 return;
             }
             
@@ -281,8 +283,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         {
             // Block drawing if Ctrl is being held
             if (InputUtility.IsCtrlHeld) return;
-            
             if (IsUpdating) return;
+            if (!IsCanDraw) return;
 
             IsUpdating = true;
         }
