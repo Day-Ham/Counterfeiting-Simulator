@@ -11,7 +11,7 @@ public class InputHandler : ScriptableObject
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
-    private bool _isBlockInput = false;
+    private bool _isBlockInput;
     
     private Dictionary<KeyCode, Action> _inputActions;
 
@@ -19,6 +19,8 @@ public class InputHandler : ScriptableObject
     {
         _canvasDraw = canvasDraw;
         _finishGameCallback = finishGameCallback;
+        
+        _isBlockInput = false;
         
         BuildInputDictionary();
     }
