@@ -151,6 +151,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             ES3Settings settings = new ES3Settings(fileName);
             string key = "Drawing";
             ES3.Save(key, pngBytes, settings);
+            ES3.Save("LastDrawingFile", fileName);
 
             Debug.Log($"Saved drawing under filename: {fileName}");
         }
