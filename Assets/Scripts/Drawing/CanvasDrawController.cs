@@ -207,7 +207,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             _layerDrawController.CopyTextureToCurrentLayer(copyTexture);
         }
 
-        public void SetBrushColorIndex(int index)
+        public void SetBrushColorIndex(int colorIndex)
         {
             if (LevelConfigRuntime == null || LevelConfigRuntime.Value == null)
             {
@@ -231,15 +231,17 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 return;
             }
 
-            if (index < 0 || index >= colors.Count)
+            if (colorIndex < 0 || colorIndex >= colors.Count)
             {
-                Debug.LogWarning($"Invalid color index {index}. Max allowed: {colors.Count - 1}");
+                Debug.LogWarning($"Invalid color index {colorIndex}. Max allowed: {colors.Count - 1}");
                 return;
             }
 
-            CurrentBrushSettings.BrushColorIndex = index;
+            CurrentBrushSettings.BrushColorIndex = colorIndex;
 
-            Color selectedColor = colors[index];
+            bool isColorPickerMode = level.GameMode == ColorGameMode.ColorPicker;
+            Color selectedColor = isColorPickerMode ? Color.white : colors[colorIndex];
+            
             _layerDrawController.SetBrushColor(selectedColor);
         }
 
