@@ -8,6 +8,7 @@ public class LevelConfig : ScriptableObject
     public ColorDataValue ColorBackgroundDraw;
     public GameObjectListValue ColorBlobs;
     public ColorDataListValue ColorsToBeUsed;
+    public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
     
     public LevelGameMode GameMode => LevelGameMode;

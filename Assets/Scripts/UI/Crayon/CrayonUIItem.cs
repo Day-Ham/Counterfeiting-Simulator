@@ -66,7 +66,6 @@ public class CrayonUIItem : MonoBehaviour
     private void OnClick()
     {
         SelectColorEvent.Raise(color);
-        Debug.Log($"Crayon clicked: {color}", this);
     }
 
     private void ExpandSize()
