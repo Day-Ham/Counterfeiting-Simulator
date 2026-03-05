@@ -19,7 +19,7 @@ public class PopulateCrayons : MonoBehaviour
         _currentLevel = _levelConfigRuntimeAsset.Value;
         
         Populate();
-        _setCrayonFunction.SetupCrayons(_currentLevel.ColorsToBeUsed);
+        _setCrayonFunction.SetupCrayons(_currentLevel.ColorsToBeUsed, _levelConfigRuntimeAsset);
     }
 
     private void Populate()

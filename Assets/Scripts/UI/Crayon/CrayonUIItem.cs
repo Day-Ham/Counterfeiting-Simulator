@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CrayonUIItem : MonoBehaviour
+public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
     [SerializeField] private Button Button;
@@ -13,6 +14,7 @@ public class CrayonUIItem : MonoBehaviour
     [SerializeField] private Color SelectedColor;
     [SerializeField] private Color UnSelectedColor;
     
+    private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
     private Color color;
     private int colorIndex;
     
@@ -57,10 +59,11 @@ public class CrayonUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(Color newColor)
+    public void Setup(Color newColor, LevelConfigRuntimeAsset levelConfig)
     {
         color = newColor;
         ColorPreview.color = color;
+        _levelConfigRuntimeAsset = levelConfig;
     }
     
     private void OnClick()
@@ -76,5 +79,26 @@ public class CrayonUIItem : MonoBehaviour
     private void CollapseSize()
     {
         ResizeTweenScriptableObject.Collapse(this.gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            HandleRightClick();
+        }
+    }
+    
+    private void HandleRightClick()
+    {
+        if (_levelConfigRuntimeAsset == null) return;
+
+        var levelConfig = _levelConfigRuntimeAsset.Value;
+        if (levelConfig == null) return;
+
+        if (levelConfig.GameMode == ColorGameMode.ColorPicker)
+        {
+            Debug.Log("Show ColorPicker UI");
+        }
     }
 }
