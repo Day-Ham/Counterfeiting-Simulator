@@ -64,6 +64,11 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         color = newColor;
         ColorPreview.color = color;
         _levelConfigRuntimeAsset = levelConfig;
+        
+        if (_levelConfigRuntimeAsset.Value.GameMode == ColorGameMode.ColorPicker)
+        {
+            SetColorBlobLook.SetMainColor(Color.white);
+        }
     }
     
     private void OnClick()

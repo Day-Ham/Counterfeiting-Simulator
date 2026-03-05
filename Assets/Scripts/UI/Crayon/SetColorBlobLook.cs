@@ -43,4 +43,12 @@ public class SetColorBlobLook : MonoBehaviour
             colorBlobShadow.color = color;
         };
     }
+    
+    public void SetMainColor(Color color)
+    {
+        if (colorBlobMain != null)
+        {
+            colorBlobMain.color = color;
+        };
+    }
 }
