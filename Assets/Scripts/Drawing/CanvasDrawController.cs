@@ -217,17 +217,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             LevelConfig level = LevelConfigRuntime.Value;
             
-            if (level.ColorsToBeUsed == null || level.ColorsToBeUsed.Value == null)
+            var colors = level.GetActiveColors()?.Value;
+
+            if (colors == null || colors.Count == 0)
             {
-                Debug.LogWarning("Level has no ColorsToBeUsed assigned!");
-                return;
-            }
-            
-            var colors = level.ColorsToBeUsed.Value;
-            
-            if (colors.Count == 0)
-            {
-                Debug.LogWarning("ColorsToBeUsed list is empty!");
+                Debug.LogWarning("Active color list is empty!");
                 return;
             }
 

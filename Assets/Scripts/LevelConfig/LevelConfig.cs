@@ -15,9 +15,12 @@ public class LevelConfig : ScriptableObject
     
     public ColorDataListValue GetActiveColors()
     {
-        return LevelGameMode == LevelGameMode.ColorPicker
-            ? WhiteColors
-            : ColorsToBeUsed;
+        if (LevelGameMode == LevelGameMode.ColorPicker)
+        {
+            return WhiteColors;
+        };
+
+        return ColorsToBeUsed;
     }
 }
 
