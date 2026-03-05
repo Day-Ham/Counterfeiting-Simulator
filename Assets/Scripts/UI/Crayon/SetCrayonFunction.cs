@@ -15,7 +15,7 @@ public class SetCrayonFunction : MonoBehaviour
         {
             if (crayons[i] != null)
             {
-                crayons[i].Setup(colorDataListValue.Value[i]);
+                crayons[i].Setup(colorDataListValue.Value[i], i);
             }
         }
     }

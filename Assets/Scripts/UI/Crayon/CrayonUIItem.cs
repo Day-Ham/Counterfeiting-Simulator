@@ -28,9 +28,9 @@ public class CrayonUIItem : MonoBehaviour
         SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
     }
     
-    private void HandleColorSelected(Color selected)
+    private void HandleColorSelected(int selectedColorIndex)
     {
-        if (selected == color)
+        if (selectedColorIndex == colorIndex)
         {
             ExpandSize();
             SetColorBlobLook.SetShadowColor(SelectedColor);
@@ -57,15 +57,16 @@ public class CrayonUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(Color newColor)
+    public void Setup(Color newColor, int index)
     {
         color = newColor;
+        colorIndex = index;
         ColorPreview.color = color;
     }
     
     private void OnClick()
     {
-        SelectColorEvent.Raise(color);
+        SelectColorEvent.Raise(colorIndex);
     }
 
     private void ExpandSize()

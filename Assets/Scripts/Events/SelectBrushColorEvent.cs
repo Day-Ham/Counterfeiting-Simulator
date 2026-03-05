@@ -4,12 +4,12 @@ using System;
 [CreateAssetMenu(menuName = "Events/Select Brush Color Event")]
 public class SelectBrushColorEvent : ScriptableObject
 {
-    public Action<Color> OnColorSelected;
+    public event Action<int> OnColorSelected;
     public Action OnEraseSelected;
 
-    public void Raise(Color color)
+    public void Raise(int colorIndex)
     {
-        OnColorSelected?.Invoke(color);
+        OnColorSelected?.Invoke(colorIndex);
     }
     
     public void RaiseErase()

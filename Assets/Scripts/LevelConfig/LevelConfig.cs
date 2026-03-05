@@ -12,4 +12,17 @@ public class LevelConfig : ScriptableObject
     public TextureValueWrapper TargetTexture;
     
     public LevelGameMode GameMode => LevelGameMode;
+    
+    public ColorDataListValue GetActiveColors()
+    {
+        return LevelGameMode == LevelGameMode.ColorPicker
+            ? WhiteColors
+            : ColorsToBeUsed;
+    }
+}
+
+public enum LevelGameMode
+{
+    Standard,
+    ColorPicker
 }

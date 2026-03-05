@@ -6,6 +6,15 @@ public class DrawingColorReceiver : MonoBehaviour
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     [SerializeField] private CanvasDrawController DrawController;
     [SerializeField] private CanvasLayerDrawController LayerController;
+    [SerializeField] private LevelConfigRuntimeAsset LevelConfigRuntimeAsset;
+    
+    private LevelConfig _currentLevel;
+    
+    private void Awake()
+    {
+        _currentLevel = LevelConfigRuntimeAsset.Value;
+    }
+
 
     private void OnEnable()
     {
@@ -19,10 +28,16 @@ public class DrawingColorReceiver : MonoBehaviour
         SelectColorEvent.OnEraseSelected -= OnEraseSelected;
     }
 
-    private void OnColorSelected(Color color)
+    private void OnColorSelected(int index)
     {
-        LayerController.SetBrushColor(color);
-        
+        var colors = _currentLevel.GetActiveColors()?.Value;
+
+        if (colors == null || index < 0 || index >= colors.Count) return;
+
+        Color selectedColor = colors[index];
+
+        LayerController.SetBrushColor(selectedColor);
+
         DrawController.SetDrawMode(CanvasDrawController.DrawMode.Draw);
     }
 

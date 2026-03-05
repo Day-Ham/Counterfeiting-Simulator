@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
   m_Name: '[COLOR PICKER TEST] _TestColorPicker'
   m_EditorClassIdentifier: 
-  LevelGameMode: 0
+  LevelGameMode: 1
   CanvasTemplate: {fileID: 11400000, guid: 60d3082b31e740542aa697e5cd2ad9f6, type: 2}
   ColorBackgroundDraw: {fileID: 11400000, guid: 866aefa396460f44699e845df8f71260, type: 2}
   ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
