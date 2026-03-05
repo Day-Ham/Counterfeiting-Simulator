@@ -21,10 +21,7 @@ public class DrawingColorReceiver : MonoBehaviour
 
     private void OnColorSelected(Color color)
     {
-        bool isColorPickerMode = DrawController.LevelConfigRuntime.Value.GameMode == ColorGameMode.ColorPicker;
-        Color brushColor = isColorPickerMode ? Color.white : color;
-        
-        LayerController.SetBrushColor(brushColor);
+        LayerController.SetBrushColor(color);
         DrawController.SetDrawMode(CanvasDrawController.DrawMode.Draw);
     }
 

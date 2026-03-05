@@ -4,7 +4,7 @@ public class SetCrayonFunction : MonoBehaviour
 {
     [SerializeField] private Transform _crayonParent;
     
-    public void SetupCrayons(ColorDataListValue colorDataListValue, LevelConfigRuntimeAsset levelConfigRuntimeAsset)
+    public void SetupCrayons(ColorDataListValue colorDataListValue)
     {
         if (colorDataListValue == null || colorDataListValue.Value == null) return;
 
@@ -15,7 +15,7 @@ public class SetCrayonFunction : MonoBehaviour
         {
             if (crayons[i] != null)
             {
-                crayons[i].Setup(colorDataListValue.Value[i], levelConfigRuntimeAsset);
+                crayons[i].Setup(colorDataListValue.Value[i]);
             }
         }
     }

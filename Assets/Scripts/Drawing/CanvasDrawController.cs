@@ -239,9 +239,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             CurrentBrushSettings.BrushColorIndex = colorIndex;
 
-            bool isColorPickerMode = level.GameMode == ColorGameMode.ColorPicker;
-            Color selectedColor = isColorPickerMode ? Color.white : colors[colorIndex];
-            
+            Color selectedColor = colors[colorIndex];
             _layerDrawController.SetBrushColor(selectedColor);
         }
 
