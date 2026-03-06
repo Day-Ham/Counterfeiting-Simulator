@@ -191,6 +191,8 @@ MonoBehaviour:
   ColorPreview: {fileID: 8705097553555431597}
   SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
   SetColorBlobLook: {fileID: 1595530708759805303}
+  ColorPickedEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
+  LevelRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   SelectedColor: {r: 0, g: 0, b: 0, a: 0.7058824}
   UnSelectedColor: {r: 0.39607844, g: 0.37254903, b: 0.33333334, a: 0.39215687}
 --- !u!1 &7707385205120908687

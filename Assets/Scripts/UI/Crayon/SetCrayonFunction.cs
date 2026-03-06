@@ -3,7 +3,6 @@ using UnityEngine;
 public class SetCrayonFunction : MonoBehaviour
 {
     [SerializeField] private Transform _crayonParent;
-    [SerializeField] private ColorPickerUI _colorPickerUI;
     
     public void SetupCrayons(ColorDataListValue colorDataListValue)
     {
@@ -16,7 +15,7 @@ public class SetCrayonFunction : MonoBehaviour
         {
             if (crayons[i] != null)
             {
-                crayons[i].Setup(colorDataListValue.Value[i], i, _colorPickerUI);
+                crayons[i].Setup(colorDataListValue.Value[i], i);
             }
         }
     }

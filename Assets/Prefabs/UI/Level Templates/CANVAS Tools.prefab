@@ -1155,9 +1155,8 @@ MonoBehaviour:
   - {fileID: 4678038465761740887}
   - {fileID: 6952800046322620403}
   colorPreview: {fileID: 8653223237122001729}
-  OnColorChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  _colorPickedEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
+  _selectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
 --- !u!1 &3085782536267974232
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1542,6 @@ MonoBehaviour:
   _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _contentParent: {fileID: 349422539821324550}
   _setCrayonFunction: {fileID: 5992371086225529748}
-  _colorPickerUI: {fileID: 6222017160206045477}
 --- !u!114 &5992371086225529748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1557,7 +1555,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crayonParent: {fileID: 349422539821324550}
-  _colorPickerUI: {fileID: 6222017160206045477}
 --- !u!1 &3919219594150000858
 GameObject:
   m_ObjectHideFlags: 0

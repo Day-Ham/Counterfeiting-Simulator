@@ -12,8 +12,6 @@ public class PopulateCrayons : MonoBehaviour
     [SerializeField] private Transform _contentParent;
     [SerializeField] private SetCrayonFunction _setCrayonFunction;
     
-    [SerializeField] private ColorPickerUI _colorPickerUI;
-    
     private LevelConfig _currentLevel;
 
     private void Start()
@@ -49,7 +47,7 @@ public class PopulateCrayons : MonoBehaviour
             CrayonUIItem crayonItem = instance.GetComponent<CrayonUIItem>();
             if (crayonItem != null)
             {
-                crayonItem.Setup(colorsList[i], i, _colorPickerUI);
+                crayonItem.Setup(colorsList[i], i);
             }
         }
     }

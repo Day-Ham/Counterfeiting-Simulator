@@ -21,6 +21,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public CanvasDrawControllerValue _canvasDrawControllerValue;
         public DrawingBoardZoom _drawingBoardZoom;
+        [SerializeField] private ColorPickedEvent _colorPickedEvent;
 
         [Header("Local Dependencies")]
         public LevelConfigRuntimeAsset LevelConfigRuntime;
@@ -53,19 +54,33 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
         
+        public int CurrentBrushColorIndex { get; private set; } = 0;
+        
         private void OnEnable()
         {
             LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+            _colorPickedEvent.OnColorPicked += OnColorPicked;
         }
 
         private void OnDisable()
         {
             LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+            _colorPickedEvent.OnColorPicked -= OnColorPicked;
         }
 
         private void OnLevelChanged(LevelConfig newLevel)
         {
             SetBrushColorIndex(0);
+        }
+        
+        private void OnColorPicked(int index, Color newColor)
+        {
+            if (CurrentBrushSettings == null) return;
+            
+            if (CurrentBrushSettings.BrushColorIndex == index)
+            {
+                _layerDrawController.SetBrushColor(newColor);
+            }
         }
 
         private void Awake()

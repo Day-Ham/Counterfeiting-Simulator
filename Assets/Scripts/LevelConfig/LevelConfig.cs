@@ -12,15 +12,30 @@ public class LevelConfig : ScriptableObject
     public TextureValueWrapper TargetTexture;
     
     public LevelGameMode GameMode => LevelGameMode;
-    
+
     public ColorDataListValue GetActiveColors()
     {
-        if (LevelGameMode == LevelGameMode.ColorPicker)
-        {
-            return WhiteColors;
-        };
+        return LevelGameMode == LevelGameMode.ColorPicker ? WhiteColors : ColorsToBeUsed;
+    }
 
-        return ColorsToBeUsed;
+    public void SetWhiteColor(int index, Color newColor)
+    {
+        if (WhiteColors != null && index >= 0 && index < WhiteColors.Value.Count)
+        {
+            WhiteColors.Value[index] = newColor;
+        }
+    }
+
+    // Reset all white colors to pure white
+    public void ResetWhiteColors()
+    {
+        if (WhiteColors != null)
+        {
+            for (int i = 0; i < WhiteColors.Value.Count; i++)
+            {
+                WhiteColors.Value[i] = Color.white;
+            }
+        }
     }
 }
 

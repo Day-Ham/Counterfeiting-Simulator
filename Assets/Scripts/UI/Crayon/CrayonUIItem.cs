@@ -8,6 +8,8 @@ public class CrayonUIItem : MonoBehaviour
     [SerializeField] private Image ColorPreview;
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
+    [SerializeField] private ColorPickedEvent ColorPickedEvent;
+    [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -22,17 +24,14 @@ public class CrayonUIItem : MonoBehaviour
     {
         SelectColorEvent.OnColorSelected += HandleColorSelected;
         SelectColorEvent.OnEraseSelected += HandleEraseSelected;
+        ColorPickedEvent.OnColorPicked += HandleColorPicked;
     }
 
     private void OnDisable()
     {
         SelectColorEvent.OnColorSelected -= HandleColorSelected;
         SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
-        
-        if (colorPickerUI != null)
-        {
-            colorPickerUI.OnColorChanged.RemoveListener(UpdateColorFromPicker);
-        };
+        ColorPickedEvent.OnColorPicked -= HandleColorPicked;
     }
     
     private void HandleColorSelected(int selectedColorIndex)
@@ -64,25 +63,29 @@ public class CrayonUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(Color newColor, int index, ColorPickerUI pickerUI)
+    public void Setup(Color newColor, int index)
     {
         color = newColor;
         colorIndex = index;
-        ColorPreview.color = color;
 
-        if (pickerUI == null) return;
-        
-        colorPickerUI = pickerUI;
-            
-        colorPickerUI.OnColorChanged.AddListener(UpdateColorFromPicker);
+        ColorPreview.color = color;
     }
     
-    private void UpdateColorFromPicker(Color newColor)
+    private void HandleColorPicked(int index, Color newColor)
     {
-        if (SelectColorEvent.CurrentSelectedIndex != colorIndex) return;
-        
+        // Only update THIS crayon
+        if (index != colorIndex) return;
+
         color = newColor;
-        ColorPreview.color = color;
+        ColorPreview.color = newColor;
+
+        // Update runtime WhiteColors so painting uses the new color
+        if (LevelRuntime != null && 
+            LevelRuntime.Value != null && 
+            LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
+        {
+            LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
+        }
     }
     
     private void OnClick()

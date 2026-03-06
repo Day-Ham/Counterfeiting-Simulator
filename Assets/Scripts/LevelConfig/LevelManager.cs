@@ -13,6 +13,13 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         _levelConfigRuntimeAsset.Value = _levelToLoad;
+        
+        ColorDataListValue runtimeWhiteColors = ScriptableObject.CreateInstance<ColorDataListValue>();
+        runtimeWhiteColors.Value = new List<Color>(_levelToLoad.WhiteColors.Value);
+
+        LevelConfig runtimeLevel = ScriptableObject.CreateInstance<LevelConfig>();
+        runtimeLevel.WhiteColors = runtimeWhiteColors;
+        
         SpawnPrefabs();
     }
     
