@@ -68,5 +68,7 @@ public class ColorPickerUI : MonoBehaviour
         if (index < 0) return;
 
         _colorPickedEvent.Raise(index, newColor);
+        
+        _selectBrushColorEvent.Raise(index);
     }
 }
