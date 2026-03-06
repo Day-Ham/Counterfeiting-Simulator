@@ -12,6 +12,8 @@ public class PopulateCrayons : MonoBehaviour
     [SerializeField] private Transform _contentParent;
     [SerializeField] private SetCrayonFunction _setCrayonFunction;
     
+    [SerializeField] private ColorPickerUI _colorPickerUI;
+    
     private LevelConfig _currentLevel;
 
     private void Start()
@@ -42,7 +44,13 @@ public class PopulateCrayons : MonoBehaviour
             if (prefabCount == 0) break;
 
             GameObject randomPrefab = colorBlobsList[Random.Range(0, prefabCount)];
-            Instantiate(randomPrefab, _contentParent);
+            GameObject instance = Instantiate(randomPrefab, _contentParent);
+            
+            CrayonUIItem crayonItem = instance.GetComponent<CrayonUIItem>();
+            if (crayonItem != null)
+            {
+                crayonItem.Setup(colorsList[i], i, _colorPickerUI);
+            }
         }
     }
 

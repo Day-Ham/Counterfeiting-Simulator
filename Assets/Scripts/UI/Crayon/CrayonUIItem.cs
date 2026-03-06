@@ -16,6 +16,8 @@ public class CrayonUIItem : MonoBehaviour
     private Color color;
     private int colorIndex;
     
+    private ColorPickerUI colorPickerUI;
+    
     private void OnEnable()
     {
         SelectColorEvent.OnColorSelected += HandleColorSelected;
@@ -26,6 +28,11 @@ public class CrayonUIItem : MonoBehaviour
     {
         SelectColorEvent.OnColorSelected -= HandleColorSelected;
         SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
+        
+        if (colorPickerUI != null)
+        {
+            colorPickerUI.OnColorChanged.RemoveListener(UpdateColorFromPicker);
+        };
     }
     
     private void HandleColorSelected(int selectedColorIndex)
@@ -57,10 +64,24 @@ public class CrayonUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(Color newColor, int index)
+    public void Setup(Color newColor, int index, ColorPickerUI pickerUI)
     {
         color = newColor;
         colorIndex = index;
+        ColorPreview.color = color;
+
+        if (pickerUI == null) return;
+        
+        colorPickerUI = pickerUI;
+            
+        colorPickerUI.OnColorChanged.AddListener(UpdateColorFromPicker);
+    }
+    
+    private void UpdateColorFromPicker(Color newColor)
+    {
+        if (SelectColorEvent.CurrentSelectedIndex != colorIndex) return;
+        
+        color = newColor;
         ColorPreview.color = color;
     }
     
