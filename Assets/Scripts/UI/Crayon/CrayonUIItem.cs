@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CrayonUIItem : MonoBehaviour
+public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
     [SerializeField] private Button Button;
@@ -10,6 +11,7 @@ public class CrayonUIItem : MonoBehaviour
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
     [SerializeField] private ColorPickedEvent ColorPickedEvent;
     [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
+    [SerializeField] private GameObjectValue RGBSliderUI;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -101,5 +103,33 @@ public class CrayonUIItem : MonoBehaviour
     private void CollapseSize()
     {
         ResizeTweenScriptableObject.Collapse(this.gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            TryExpandAndShowRGB();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnClick(); // Normal click
+            RGBSliderUI.Value.SetActive(false);
+        }
+    }
+    
+    private void TryExpandAndShowRGB()
+    {
+        if (LevelRuntime == null || LevelRuntime.Value == null) return;
+        
+        if (LevelRuntime.Value.LevelGameMode != LevelGameMode.ColorPicker) return;
+        
+        ExpandSize();
+        SetColorBlobLook.SetShadowColor(SelectedColor);
+        
+        RGBSliderUI.Value.SetActive(true);
+
+        // Auto-select this crayon for brushing
+        SelectColorEvent.Raise(colorIndex);
     }
 }
