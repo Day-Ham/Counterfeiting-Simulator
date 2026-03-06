@@ -128,26 +128,33 @@ public class SceneChanger : MonoBehaviour
     
     private void PrevLevel()
     {
-        if (_currentLevelIndex <= 0)
-        {
-            return;
-        }
-        
+        if (_currentLevelIndex <= 0) return;
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        string prevScene = _multipleSceneReference.Scenes[_currentLevelIndex - 1].sceneName;
+
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            SceneManager.LoadScene(_multipleSceneReference.Scenes[_currentLevelIndex - 1].sceneName);
+            LoadSceneAdditive(prevScene, (newScene, oldScene) =>
+            {
+                if (currentScene != _coreSceneReference.sceneName)
+                {
+                    SceneManager.UnloadSceneAsync(oldScene);
+                }
+                _currentLevelIndex--;
+            });
         });
         
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftBracket))
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
             PrevLevel();
         }
-        if (Input.GetKey(KeyCode.RightBracket))
+        if (Input.GetKeyDown(KeyCode.RightBracket))
         {
             NextLevel();
-        } 
+        }
     }
 }
