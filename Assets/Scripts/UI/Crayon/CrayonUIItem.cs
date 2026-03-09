@@ -82,14 +82,19 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         // Only update THIS crayon
         if (index != colorIndex) return;
 
-        color = newColor;
-        ColorPreview.color = newColor;
-
-        // Update runtime WhiteColors so painting uses the new color
         if (LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
         {
             LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
+
+            // GET the snapped color back
+            color = LevelRuntime.Value.GetActiveColors()[colorIndex];
         }
+        else
+        {
+            color = newColor;
+        }
+
+        ColorPreview.color = color;
     }
     
     private void OnClick()
