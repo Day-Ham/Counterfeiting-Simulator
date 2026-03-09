@@ -26,8 +26,6 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     private Color color;
     private int colorIndex;
     
-    private ColorPickerUI colorPickerUI;
-    
     private void OnEnable()
     {
         _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
