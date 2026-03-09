@@ -9,13 +9,22 @@ public class ColorPickerUI : MonoBehaviour
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<Slider> RGBSliders = new();
     [SerializeField] private List<TMP_Text> RGBNumberTexts = new();
+    [SerializeField] private List<RectTransform> SliderRects = new();
+    [SerializeField] private Canvas ParentCanvas;
+    
+    [Header("Scroll Settings")]
+    [Range(0.01f, 1f)]
+    [SerializeField] private float ScrollSensitivity;
 
+    [Header("Color Preview")]
     [SerializeField] private Image colorPreview;
 
     [Header("Events")]
     [SerializeField] private SelectedColorEvent _selectedColorEvent;
     [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
+    
+    private Slider hoveredSlider;
     
     private void OnEnable()
     {
@@ -37,12 +46,35 @@ public class ColorPickerUI : MonoBehaviour
 
         UpdateColorPreview();
     }
+    
+    private void Update()
+    {
+        for (int i = 0; i < RGBSliders.Count; i++)
+        {
+            if (i >= SliderRects.Count) continue;
+
+            // Only adjust if mouse is inside the slider rect
+            if (!RectTransformUtility.RectangleContainsScreenPoint(SliderRects[i], Input.mousePosition, ParentCanvas.worldCamera)) continue;
+
+            float scroll = Input.mouseScrollDelta.y;
+            if (Mathf.Abs(scroll) <= 0.01f) continue;
+
+            float newColorValue = RGBSliders[i].value + scroll * ScrollSensitivity;
+            newColorValue = Mathf.Clamp(newColorValue, RGBSliders[i].minValue, RGBSliders[i].maxValue);
+            
+            // Snap to nearest 1/255
+            newColorValue = Mathf.Round(newColorValue * 255f) / 255f;
+            
+            RGBSliders[i].SetValueWithoutNotify(newColorValue);
+            
+            RGBSliders[i].onValueChanged.Invoke(newColorValue);
+        }
+    }
 
     private void UpdateColorPreview()
     {
         if (RGBSliders.Count < 3)
         {
-            Debug.LogWarning("RGBColorPicker: Need exactly 3 sliders in the list!");
             return;
         }
 
@@ -53,7 +85,7 @@ public class ColorPickerUI : MonoBehaviour
         );
 
         // Update preview
-        if (colorPreview != null)
+        if (colorPreview)
         {
             colorPreview.color = newColor;
         }
@@ -61,7 +93,7 @@ public class ColorPickerUI : MonoBehaviour
         // Update integer texts (0-255)
         for (int i = 0; i < RGBNumberTexts.Count && i < RGBSliders.Count; i++)
         {
-            if (RGBNumberTexts[i] != null)
+            if (RGBNumberTexts[i])
             {
                 RGBNumberTexts[i].text = Mathf.RoundToInt(RGBSliders[i].value * 255).ToString();
             }
