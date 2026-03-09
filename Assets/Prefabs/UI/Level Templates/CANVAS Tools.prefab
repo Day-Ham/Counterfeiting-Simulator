@@ -760,7 +760,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 545, y: 0}
-  m_SizeDelta: {x: 500, y: 400}
+  m_SizeDelta: {x: 500, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5025767217218040268
 Canvas:
@@ -814,18 +814,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665349d5a12d4314db857f87ba88d38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RGBSliders:
-  - {fileID: 6772195765251164296}
-  - {fileID: 2039942731888143159}
-  - {fileID: 9161204178060771563}
-  RGBInputFields:
-  - {fileID: 8462301426262153080}
-  - {fileID: 3802405321495114951}
-  - {fileID: 6316488470830472987}
-  SliderRects:
-  - {fileID: 6257642196752924033}
-  - {fileID: 1685302139390631486}
-  - {fileID: 8362923854949234146}
+  RGBChannels:
+  - Slider: {fileID: 6772195765251164296}
+    InputField: {fileID: 8462301426262153080}
+    Rect: {fileID: 6257642196752924033}
+  - Slider: {fileID: 2039942731888143159}
+    InputField: {fileID: 3802405321495114951}
+    Rect: {fileID: 1685302139390631486}
+  - Slider: {fileID: 9161204178060771563}
+    InputField: {fileID: 6316488470830472987}
+    Rect: {fileID: 8362923854949234146}
   ParentCanvas: {fileID: 6784983380279885428}
   ScrollSensitivity: 0.01
   colorPreview: {fileID: 8653223237122001729}
@@ -1341,7 +1339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -356}
+  m_AnchoredPosition: {x: 260, y: -383.25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6172406502976412230
@@ -1440,7 +1438,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 2
+  m_Spacing: 5.5
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
@@ -2746,11 +2744,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730055363905358443, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 80
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 2730055363905358443, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 3704258497556577774, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2767,6 +2765,14 @@ PrefabInstance:
     - target: {fileID: 3704258497556577774, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270217489286812135, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
+      propertyPath: m_Name
+      value: Slider Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183706933782625159, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
+      propertyPath: m_Name
+      value: InputField Blue (TMP)
       objectReference: {fileID: 0}
     - target: {fileID: 7421124889372163084, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2782,7 +2788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7421124889372163084, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 7957780560264418854, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_Pivot.x
@@ -2850,7 +2856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7957780560264418854, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -254
+      value: -277.75
       objectReference: {fileID: 0}
     - target: {fileID: 7957780560264418854, guid: 1dd979a6001013f498ff912a4d792018, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2935,11 +2941,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 13461788877284534, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 80
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 13461788877284534, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 500442617009918419, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_Name
@@ -2960,6 +2966,10 @@ PrefabInstance:
     - target: {fileID: 1631678508281107251, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2201721053295755066, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
+      propertyPath: m_Name
+      value: Slider Green
       objectReference: {fileID: 0}
     - target: {fileID: 3476552562865601175, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2983,7 +2993,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4841906486684586705, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 5450339399587412219, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_Pivot.x
@@ -3051,7 +3061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5450339399587412219, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -152
+      value: -172.25
       objectReference: {fileID: 0}
     - target: {fileID: 5450339399587412219, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3080,6 +3090,10 @@ PrefabInstance:
     - target: {fileID: 6511369250051443257, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078394773831112026, guid: 3136f5e669e06fd48a25801f59236304, type: 3}
+      propertyPath: m_Name
+      value: InputField Green (TMP)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3126,6 +3140,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5410374691523568233}
     m_Modifications:
+    - target: {fileID: 1387553347784279131, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
+      propertyPath: m_Name
+      value: InputField Red (TMP)
+      objectReference: {fileID: 0}
     - target: {fileID: 2336318302898078672, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -3140,7 +3158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2336318302898078672, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 2954031070317406714, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_Pivot.x
@@ -3208,7 +3226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2954031070317406714, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -66.75
       objectReference: {fileID: 0}
     - target: {fileID: 2954031070317406714, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3256,11 +3274,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7165928740513854903, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 80
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7165928740513854903, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 7326301875682312402, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_Name
@@ -3281,6 +3299,10 @@ PrefabInstance:
     - target: {fileID: 8500913322965156402, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066793833143234107, guid: f406f8a78dcb2c745819fbe49ca2dd01, type: 3}
+      propertyPath: m_Name
+      value: Slider Red
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
