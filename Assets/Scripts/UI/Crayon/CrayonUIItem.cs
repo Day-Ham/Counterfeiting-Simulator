@@ -15,9 +15,9 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image ColorPreview;
     
     [Header("Events")]
-    [SerializeField] private OpenColorPickerEvent OpenColorPickerEvent;
-    [SerializeField] private SelectedColorEvent selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
+    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
+    [SerializeField] private SelectedColorEvent _selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -30,16 +30,16 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnEnable()
     {
-        SelectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
-        SelectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
-        selectedColorEvent.OnColorPicked += HandleSelectedColor;
+        _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
+        _selectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
+        _selectedColorEvent.OnColorPicked += HandleSelectedColor;
     }
 
     private void OnDisable()
     {
-        SelectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
-        SelectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
-        selectedColorEvent.OnColorPicked -= HandleSelectedColor;
+        _selectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
+        _selectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
+        _selectedColorEvent.OnColorPicked -= HandleSelectedColor;
     }
     
     private void HandleBrushColorSelected(int selectedColorIndex)
@@ -96,7 +96,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnClick()
     {
-        SelectBrushColorEvent.Raise(colorIndex);
+        _selectBrushColorEvent.Raise(colorIndex);
     }
 
     private void ExpandSize()
@@ -134,6 +134,9 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         RGBSliderUI.Value.SetActive(true);
 
         // Auto-select this crayon for brushing
-        SelectBrushColorEvent.Raise(colorIndex);
+        _selectBrushColorEvent.Raise(colorIndex);
+        
+        // Tells ColorPickerUI to load this color
+        _openColorPickerEvent.Raise(color);
     }
 }

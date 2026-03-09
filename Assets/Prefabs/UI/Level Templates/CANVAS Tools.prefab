@@ -1156,8 +1156,9 @@ MonoBehaviour:
   - {fileID: 4678038465761740887}
   - {fileID: 6952800046322620403}
   colorPreview: {fileID: 8653223237122001729}
-  _colorPickedEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
+  _selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   _selectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  _openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
 --- !u!114 &5547110144778333888
 MonoBehaviour:
   m_ObjectHideFlags: 0
