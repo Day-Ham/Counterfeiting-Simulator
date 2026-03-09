@@ -110,7 +110,7 @@ public class ColorPickerUI : MonoBehaviour
             if (LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
             {
                 // Snap color
-                Color snapped = LevelRuntime.Value.ColorMatcher.SnapPerChannel(color, LevelRuntime.Value.ColorsToBeUsed.Value);
+                Color snapped = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value);
 
                 // **Set sliders without triggering events**
                 SetSliderValue(0, snapped.r * 255);
@@ -167,7 +167,7 @@ public class ColorPickerUI : MonoBehaviour
         // Snap new color to ColorsToBeUsed
         if (LevelRuntimeExists() && LevelRuntime.Value.ColorMatcher != null)
         {
-            newColor = LevelRuntime.Value.ColorMatcher.SnapPerChannel(newColor, LevelRuntime.Value.ColorsToBeUsed.Value);
+            newColor = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value);
         }
         
         SetSliderValue(0, Mathf.RoundToInt(newColor.r * 255f));

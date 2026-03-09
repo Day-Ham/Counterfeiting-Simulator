@@ -40,7 +40,7 @@ public class LevelConfig : ScriptableObject
 
         if (colorMatcher)
         {
-            newColor = colorMatcher.SnapPerChannel(newColor, ColorsToBeUsed.Value);
+            newColor = colorMatcher.SnapPerChannelClosest(newColor, ColorsToBeUsed.Value);
         }
 
         _runtimeWhiteColors[index] = newColor;
