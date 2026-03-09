@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ColorPickerUI : MonoBehaviour
 {
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<Slider> RGBSliders = new();
-    [SerializeField] private List<TMP_Text> RGBNumberTexts = new();
+    [SerializeField] private List<TMP_InputField> RGBInputFields = new();
     [SerializeField] private List<RectTransform> SliderRects = new();
     [SerializeField] private Canvas ParentCanvas;
     
@@ -24,7 +23,7 @@ public class ColorPickerUI : MonoBehaviour
     [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
     
-    private Slider hoveredSlider;
+    private const int RGBMAX = 255;
     
     private void OnEnable()
     {
@@ -38,79 +37,114 @@ public class ColorPickerUI : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < RGBSliders.Count; i++)
-        {
-            int index = i; // local copy for closure
-            RGBSliders[i].onValueChanged.AddListener(_ => UpdateColorPreview());
-        }
-
+        SetupSliders();
+        SetupInputFields();
         UpdateColorPreview();
+    }
+    
+    private void SetupSliders()
+    {
+        foreach (var rgbSlider in RGBSliders)
+        {
+            rgbSlider.onValueChanged.AddListener(_ => UpdateColorPreview());
+        }
+    }
+    
+    private void SetupInputFields()
+    {
+        for (int i = 0; i < RGBInputFields.Count; i++)
+        {
+            int index = i;
+
+            RGBInputFields[i].onEndEdit.AddListener(input =>
+            {
+                if (!int.TryParse(input, out int value)) return;
+
+                value = Mathf.Clamp(value, 0, RGBMAX);
+
+                SetSliderValue(index, value / (float)RGBMAX);
+                UpdateColorPreview();
+            });
+        }
     }
     
     private void Update()
     {
+        float scroll = Input.mouseScrollDelta.y;
+        if (Mathf.Abs(scroll) <= 0.01f) return;
+
         for (int i = 0; i < RGBSliders.Count; i++)
         {
-            if (i >= SliderRects.Count) continue;
+            if (!IsMouseOverSlider(i)) continue;
 
-            // Only adjust if mouse is inside the slider rect
-            if (!RectTransformUtility.RectangleContainsScreenPoint(SliderRects[i], Input.mousePosition, ParentCanvas.worldCamera)) continue;
+            float newValue = RGBSliders[i].value + scroll * ScrollSensitivity;
+            newValue = Mathf.Clamp(newValue, RGBSliders[i].minValue, RGBSliders[i].maxValue);
 
-            float scroll = Input.mouseScrollDelta.y;
-            if (Mathf.Abs(scroll) <= 0.01f) continue;
-
-            float newColorValue = RGBSliders[i].value + scroll * ScrollSensitivity;
-            newColorValue = Mathf.Clamp(newColorValue, RGBSliders[i].minValue, RGBSliders[i].maxValue);
-            
-            // Snap to nearest 1/255
-            newColorValue = Mathf.Round(newColorValue * 255f) / 255f;
-            
-            RGBSliders[i].SetValueWithoutNotify(newColorValue);
-            
-            RGBSliders[i].onValueChanged.Invoke(newColorValue);
+            SetSliderValue(i, newValue);
         }
+    }
+    
+    private bool IsMouseOverSlider(int index)
+    {
+        if (index >= SliderRects.Count) return false;
+
+        return RectTransformUtility.RectangleContainsScreenPoint(
+            SliderRects[index],
+            Input.mousePosition,
+            ParentCanvas.worldCamera
+        );
+    }
+    
+    private void SetSliderValue(int index, float value)
+    {
+        RGBSliders[index].SetValueWithoutNotify(value);
+        RGBSliders[index].onValueChanged.Invoke(value);
     }
 
     private void UpdateColorPreview()
     {
-        if (RGBSliders.Count < 3)
-        {
-            return;
-        }
+        if (RGBSliders.Count < 3) return;
 
-        Color newColor = new Color(
-            RGBSliders[0].value,
-            RGBSliders[1].value,
-            RGBSliders[2].value
-        );
+        Color newColor = GetCurrentColor();
 
-        // Update preview
         if (colorPreview)
         {
             colorPreview.color = newColor;
         }
 
-        // Update integer texts (0-255)
-        for (int i = 0; i < RGBNumberTexts.Count && i < RGBSliders.Count; i++)
-        {
-            if (RGBNumberTexts[i])
-            {
-                RGBNumberTexts[i].text = Mathf.RoundToInt(RGBSliders[i].value * 255).ToString();
-            }
-        }
-
+        UpdateInputFields();
         RaiseColorPicked(newColor);
+    }
+    
+    private Color GetCurrentColor()
+    {
+        return new Color(
+            RGBSliders[0].value,
+            RGBSliders[1].value,
+            RGBSliders[2].value
+        );
+    }
+    
+    private void UpdateInputFields()
+    {
+        for (int i = 0; i < RGBInputFields.Count && i < RGBSliders.Count; i++)
+        {
+            TMP_InputField rgbInputField = RGBInputFields[i];
+            if (!rgbInputField || rgbInputField.isFocused) continue;
+
+            int value = Mathf.RoundToInt(RGBSliders[i].value * RGBMAX);
+            rgbInputField.SetTextWithoutNotify(value.ToString());
+        }
     }
     
     private void RaiseColorPicked(Color newColor)
     {
-        int index = _selectBrushColorEvent.CurrentSelectedIndex;
+        int selectedIndex = _selectBrushColorEvent.CurrentSelectedIndex;
 
-        if (index < 0) return;
+        if (selectedIndex < 0) return;
 
-        _selectedColorEvent.Raise(index, newColor);
-        
-        _selectBrushColorEvent.Raise(index);
+        _selectedColorEvent.Raise(selectedIndex, newColor);
+        _selectBrushColorEvent.Raise(selectedIndex);
     }
     
     private void SetColor(Color newColor)
