@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewLevelConfig", menuName = "Level/LevelConfig")]
@@ -12,29 +13,28 @@ public class LevelConfig : ScriptableObject
     public TextureValueWrapper TargetTexture;
     
     public LevelGameMode GameMode => LevelGameMode;
-
-    public ColorDataListValue GetActiveColors()
+    
+    private List<Color> _runtimeWhiteColors;
+    
+    public void InitializeRuntimeWhiteColors()
     {
-        return LevelGameMode == LevelGameMode.ColorPicker ? WhiteColors : ColorsToBeUsed;
+        _runtimeWhiteColors = new List<Color>(WhiteColors.Value);
+    }
+
+    public List<Color> GetActiveColors()
+    {
+        if (LevelGameMode == LevelGameMode.ColorPicker) return _runtimeWhiteColors;
+
+        return ColorsToBeUsed.Value;
     }
 
     public void SetWhiteColor(int index, Color newColor)
     {
-        if (WhiteColors != null && index >= 0 && index < WhiteColors.Value.Count)
+        if (_runtimeWhiteColors == null) return;
+        
+        if (index >= 0 && index < _runtimeWhiteColors.Count)
         {
-            WhiteColors.Value[index] = newColor;
-        }
-    }
-
-    // Reset all white colors to pure white
-    public void ResetWhiteColors()
-    {
-        if (WhiteColors != null)
-        {
-            for (int i = 0; i < WhiteColors.Value.Count; i++)
-            {
-                WhiteColors.Value[i] = Color.white;
-            }
+            _runtimeWhiteColors[index] = newColor;
         }
     }
 }

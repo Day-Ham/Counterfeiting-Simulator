@@ -51,7 +51,9 @@ public class InputHandler : ScriptableObject
     
     private void BindColorKeys()
     {
-        var colors = _canvasDraw.LevelConfigRuntime.Value.GetActiveColors()?.Value;
+        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
+        var colors = levelConfig.GetActiveColors();
+        
         int colorCount = colors?.Count ?? 0;
 
         for (int i = 0; i < Mathf.Min(colorCount, 9); i++)
@@ -77,7 +79,7 @@ public class InputHandler : ScriptableObject
     private void SelectColor(int index)
     {
         var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
-        var colors = levelConfig.GetActiveColors()?.Value;
+        var colors = levelConfig.GetActiveColors();
         
         if (colors != null && index < colors.Count)
         {

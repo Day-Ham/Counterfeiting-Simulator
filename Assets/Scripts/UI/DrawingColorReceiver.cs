@@ -30,7 +30,7 @@ public class DrawingColorReceiver : MonoBehaviour
 
     private void OnColorSelected(int index)
     {
-        var colors = _currentLevel.GetActiveColors()?.Value;
+        var colors = _currentLevel.GetActiveColors();
 
         if (colors == null || index < 0 || index >= colors.Count) return;
 

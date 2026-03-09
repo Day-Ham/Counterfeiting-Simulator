@@ -232,7 +232,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             LevelConfig level = LevelConfigRuntime.Value;
             
-            var colors = level.GetActiveColors()?.Value;
+            var colors = level.GetActiveColors();
 
             if (colors == null || colors.Count == 0)
             {
