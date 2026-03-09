@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class ColorPickerUI : MonoBehaviour
 {
     [Header("RGB Sliders In-Order")]
-    [SerializeField] private List<Slider> RGBSliders = new();
-    [SerializeField] private List<TMP_InputField> RGBInputFields = new();
-    [SerializeField] private List<RectTransform> SliderRects = new();
+    [SerializeField] private List<RGBChannel> RGBChannels = new();
     [SerializeField] private Canvas ParentCanvas;
     
     [Header("Scroll Settings")]
@@ -23,7 +21,7 @@ public class ColorPickerUI : MonoBehaviour
     [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
     
-    private const int RGBMAX = 255;
+    private const int RGB_MAX = 255;
     
     private void OnEnable()
     {
@@ -37,32 +35,26 @@ public class ColorPickerUI : MonoBehaviour
 
     private void Awake()
     {
-        SetupSliders();
-        SetupInputFields();
+        SetupRGBChannels();
         UpdateColorPreview();
     }
     
-    private void SetupSliders()
+    private void SetupRGBChannels()
     {
-        foreach (var rgbSlider in RGBSliders)
-        {
-            rgbSlider.onValueChanged.AddListener(_ => UpdateColorPreview());
-        }
-    }
-    
-    private void SetupInputFields()
-    {
-        for (int i = 0; i < RGBInputFields.Count; i++)
+        for (int i = 0; i < RGBChannels.Count; i++)
         {
             int index = i;
+            var rgbChannel = RGBChannels[i];
 
-            RGBInputFields[i].onEndEdit.AddListener(input =>
+            rgbChannel.Slider.onValueChanged.AddListener(_ => UpdateColorPreview());
+
+            rgbChannel.InputField.onEndEdit.AddListener(input =>
             {
                 if (!int.TryParse(input, out int value)) return;
 
-                value = Mathf.Clamp(value, 0, RGBMAX);
+                value = Mathf.Clamp(value, 0, 255);
 
-                SetSliderValue(index, value / (float)RGBMAX);
+                SetSliderValue(index, value / 255f);
                 UpdateColorPreview();
             });
         }
@@ -71,25 +63,28 @@ public class ColorPickerUI : MonoBehaviour
     private void Update()
     {
         float scroll = Input.mouseScrollDelta.y;
+
         if (Mathf.Abs(scroll) <= 0.01f) return;
 
-        for (int i = 0; i < RGBSliders.Count; i++)
+        for (int i = 0; i < RGBChannels.Count; i++)
         {
-            if (!IsMouseOverSlider(i)) continue;
+            if (!IsMouseOverChannel(i)) continue;
 
-            float newValue = RGBSliders[i].value + scroll * ScrollSensitivity;
-            newValue = Mathf.Clamp(newValue, RGBSliders[i].minValue, RGBSliders[i].maxValue);
+            var slider = RGBChannels[i].Slider;
 
-            SetSliderValue(i, newValue);
+            float value = slider.value + scroll * ScrollSensitivity;
+            value = Mathf.Clamp(value, slider.minValue, slider.maxValue);
+
+            SetSliderValue(i, value);
         }
     }
     
-    private bool IsMouseOverSlider(int index)
+    private bool IsMouseOverChannel(int index)
     {
-        if (index >= SliderRects.Count) return false;
+        var rect = RGBChannels[index].Rect;
 
         return RectTransformUtility.RectangleContainsScreenPoint(
-            SliderRects[index],
+            rect,
             Input.mousePosition,
             ParentCanvas.worldCamera
         );
@@ -97,17 +92,21 @@ public class ColorPickerUI : MonoBehaviour
     
     private void SetSliderValue(int index, float value)
     {
-        RGBSliders[index].SetValueWithoutNotify(value);
-        RGBSliders[index].onValueChanged.Invoke(value);
+        var rgbSliders = RGBChannels[index].Slider;
+
+        if (!rgbSliders) return;
+
+        rgbSliders.SetValueWithoutNotify(value);
+        rgbSliders.onValueChanged.Invoke(value);
     }
 
     private void UpdateColorPreview()
     {
-        if (RGBSliders.Count < 3) return;
+        if (RGBChannels.Count < 3) return;
 
         Color newColor = GetCurrentColor();
 
-        if (colorPreview)
+        if (colorPreview != null)
         {
             colorPreview.color = newColor;
         }
@@ -119,21 +118,20 @@ public class ColorPickerUI : MonoBehaviour
     private Color GetCurrentColor()
     {
         return new Color(
-            RGBSliders[0].value,
-            RGBSliders[1].value,
-            RGBSliders[2].value
+            RGBChannels[0].Slider.value,
+            RGBChannels[1].Slider.value,
+            RGBChannels[2].Slider.value
         );
     }
     
     private void UpdateInputFields()
     {
-        for (int i = 0; i < RGBInputFields.Count && i < RGBSliders.Count; i++)
+        foreach (var channel in RGBChannels)
         {
-            TMP_InputField rgbInputField = RGBInputFields[i];
-            if (!rgbInputField || rgbInputField.isFocused) continue;
+            if (channel.InputField == null || channel.InputField.isFocused) continue;
 
-            int value = Mathf.RoundToInt(RGBSliders[i].value * RGBMAX);
-            rgbInputField.SetTextWithoutNotify(value.ToString());
+            int value = Mathf.RoundToInt(channel.Slider.value * RGB_MAX);
+            channel.InputField.SetTextWithoutNotify(value.ToString());
         }
     }
     
@@ -149,11 +147,11 @@ public class ColorPickerUI : MonoBehaviour
     
     private void SetColor(Color newColor)
     {
-        if (RGBSliders.Count < 3) return;
+        if (RGBChannels.Count < 3) return;
 
-        RGBSliders[0].SetValueWithoutNotify(newColor.r);
-        RGBSliders[1].SetValueWithoutNotify(newColor.g);
-        RGBSliders[2].SetValueWithoutNotify(newColor.b);
+        SetSliderValue(0, newColor.r);
+        SetSliderValue(1, newColor.g);
+        SetSliderValue(2, newColor.b);
 
         UpdateColorPreview();
     }
