@@ -4,14 +4,20 @@ using UnityEngine.UI;
 
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
+    [Header("References")]
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
-    [SerializeField] private Button Button;
-    [SerializeField] private Image ColorPreview;
-    [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
-    [SerializeField] private ColorPickedEvent ColorPickedEvent;
     [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
     [SerializeField] private GameObjectValue RGBSliderUI;
+    
+    [Header("UI")]
+    [SerializeField] private Button Button;
+    [SerializeField] private Image ColorPreview;
+    
+    [Header("Events")]
+    [SerializeField] private OpenColorPickerEvent OpenColorPickerEvent;
+    [SerializeField] private SelectedColorEvent selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -24,19 +30,19 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnEnable()
     {
-        SelectColorEvent.OnColorSelected += HandleColorSelected;
-        SelectColorEvent.OnEraseSelected += HandleEraseSelected;
-        ColorPickedEvent.OnColorPicked += HandleColorPicked;
+        SelectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
+        SelectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
+        selectedColorEvent.OnColorPicked += HandleSelectedColor;
     }
 
     private void OnDisable()
     {
-        SelectColorEvent.OnColorSelected -= HandleColorSelected;
-        SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
-        ColorPickedEvent.OnColorPicked -= HandleColorPicked;
+        SelectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
+        SelectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
+        selectedColorEvent.OnColorPicked -= HandleSelectedColor;
     }
     
-    private void HandleColorSelected(int selectedColorIndex)
+    private void HandleBrushColorSelected(int selectedColorIndex)
     {
         if (selectedColorIndex == colorIndex)
         {
@@ -73,7 +79,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         ColorPreview.color = color;
     }
     
-    private void HandleColorPicked(int index, Color newColor)
+    private void HandleSelectedColor(int index, Color newColor)
     {
         // Only update THIS crayon
         if (index != colorIndex) return;
@@ -82,9 +88,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         ColorPreview.color = newColor;
 
         // Update runtime WhiteColors so painting uses the new color
-        if (LevelRuntime != null && 
-            LevelRuntime.Value != null && 
-            LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
+        if (LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
         {
             LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
         }
@@ -92,7 +96,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnClick()
     {
-        SelectColorEvent.Raise(colorIndex);
+        SelectBrushColorEvent.Raise(colorIndex);
     }
 
     private void ExpandSize()
@@ -130,6 +134,6 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         RGBSliderUI.Value.SetActive(true);
 
         // Auto-select this crayon for brushing
-        SelectColorEvent.Raise(colorIndex);
+        SelectBrushColorEvent.Raise(colorIndex);
     }
 }

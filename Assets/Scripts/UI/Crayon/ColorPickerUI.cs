@@ -13,7 +13,7 @@ public class ColorPickerUI : MonoBehaviour
     [SerializeField] private Image colorPreview;
 
     [Header("Events")]
-    [SerializeField] private ColorPickedEvent _colorPickedEvent;
+    [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
 
     private void Awake()
@@ -61,14 +61,25 @@ public class ColorPickerUI : MonoBehaviour
     
     private void RaiseColorPicked(Color newColor)
     {
-        if (_colorPickedEvent == null || _selectBrushColorEvent == null) return;
+        if (selectedColorEvent == null || _selectBrushColorEvent == null) return;
 
         int index = _selectBrushColorEvent.CurrentSelectedIndex;
 
         if (index < 0) return;
 
-        _colorPickedEvent.Raise(index, newColor);
+        selectedColorEvent.Raise(index, newColor);
         
         _selectBrushColorEvent.Raise(index);
+    }
+    
+    public void SetColor(Color newColor)
+    {
+        if (RGBSliders.Count < 3) return;
+
+        RGBSliders[0].SetValueWithoutNotify(newColor.r);
+        RGBSliders[1].SetValueWithoutNotify(newColor.g);
+        RGBSliders[2].SetValueWithoutNotify(newColor.b);
+
+        UpdateColorPreview();
     }
 }

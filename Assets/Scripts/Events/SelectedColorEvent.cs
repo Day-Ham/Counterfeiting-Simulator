@@ -2,8 +2,8 @@ using System;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Events/Color Picked Event")]
-public class ColorPickedEvent : ScriptableObject
+[CreateAssetMenu(menuName = "Events/Selected Color Event")]
+public class SelectedColorEvent : ScriptableObject
 {
     public event Action<int, Color> OnColorPicked;
 
