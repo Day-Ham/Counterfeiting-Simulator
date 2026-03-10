@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
   m_Name: '[COLOR PICKER TEST] _TestColorPicker'
   m_EditorClassIdentifier: 
-  LevelGameMode: 1
+  GameMode: 1
   CanvasTemplate: {fileID: 11400000, guid: 60d3082b31e740542aa697e5cd2ad9f6, type: 2}
   ColorBackgroundDraw: {fileID: 11400000, guid: 866aefa396460f44699e845df8f71260, type: 2}
-  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
   ColorsToBeUsed: {fileID: 11400000, guid: 92273a0adbcd775459d0a54483e6975d, type: 2}
   WhiteColors: {fileID: 11400000, guid: 981296cb4df981b408b18615e0411903, type: 2}
   TargetTexture: {fileID: 11400000, guid: a7e019518aa1a6640a0ee7cae1a7700f, type: 2}
-  colorMatcher: {fileID: 11400000, guid: 17a39eed11335ce4c9b9c2371722539b, type: 2}
+  ColorMatcher: {fileID: 11400000, guid: 17a39eed11335ce4c9b9c2371722539b, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}

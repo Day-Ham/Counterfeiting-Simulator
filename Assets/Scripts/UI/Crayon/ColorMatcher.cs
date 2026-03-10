@@ -5,10 +5,10 @@ using UnityEngine;
 public class ColorMatcher : ScriptableObject
 {
     [Range(0,50)]
-    public int tolerance = 10;
+    public int Tolerance = 10;
 
     public Color SnapPerChannelClosest(Color playerColor, List<Color> targets)
     {
-        return ColorMatchUtils.SnapPerChannelClosest(playerColor, targets, tolerance);
+        return ColorMatchUtils.SnapPerChannelClosest(playerColor, targets, Tolerance);
     }
 }

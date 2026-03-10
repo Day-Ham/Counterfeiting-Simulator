@@ -49,7 +49,7 @@ public class ColorPickerUI : MonoBehaviour
     // Cache whether we're in ColorPicker mode so we don't re-check it every preview update
     private void CacheGameModeState()
     {
-        _isColorPickerMode = LevelRuntimeExists() && LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker;
+        _isColorPickerMode = LevelRuntimeExists() && LevelRuntime.Value.GameMode == LevelGameMode.ColorPicker;
     }
     
     private void SetupRGBChannels()
@@ -120,7 +120,7 @@ public class ColorPickerUI : MonoBehaviour
 
         if (_cachedSelectedIndex >= 0 && _isColorPickerMode && LevelRuntimeExists())
         {
-            Color snapped = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value);
+            Color snapped = ColorMatchUtils.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.ColorMatcherData.Tolerance);
 
             // Only update sliders/runtime if the snapped color actually changed
             if (snapped != color)
@@ -150,10 +150,10 @@ public class ColorPickerUI : MonoBehaviour
     
     private Color GetCurrentColor()
     {
-        return new Color(
-            RGBChannels[0].Slider.value / 255f,
-            RGBChannels[1].Slider.value / 255f,
-            RGBChannels[2].Slider.value / 255f
+        return ColorUtils.FromRGB(
+            Mathf.RoundToInt(RGBChannels[0].Slider.value),
+            Mathf.RoundToInt(RGBChannels[1].Slider.value),
+            Mathf.RoundToInt(RGBChannels[2].Slider.value)
         );
     }
     
@@ -178,9 +178,9 @@ public class ColorPickerUI : MonoBehaviour
         if (RGBChannels.Count < 3) return;
 
         // Snap new color to ColorsToBeUsed
-        if (LevelRuntimeExists() && LevelRuntime.Value.ColorMatcher != null)
+        if (LevelRuntimeExists() && LevelRuntime.Value.ColorMatcherData != null)
         {
-            newColor = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value);
+            newColor = ColorMatchUtils.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.ColorMatcherData.Tolerance);
         }
         
         SetSliderValue(0, Mathf.RoundToInt(newColor.r * 255f));

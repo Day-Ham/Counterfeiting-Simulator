@@ -90,7 +90,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6410402552819848254, guid: 28442374a48abbc4cb6926824a51c117, type: 3}
       propertyPath: m_Name
-      value: CONTAINTER Slider
+      value: CONTAINTER Slider Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498657684696540009, guid: 28442374a48abbc4cb6926824a51c117, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7942252846195523450, guid: 28442374a48abbc4cb6926824a51c117, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

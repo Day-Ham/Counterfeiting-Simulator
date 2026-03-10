@@ -4,56 +4,47 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewLevelConfig", menuName = "Level/LevelConfig")]
 public class LevelConfig : ScriptableObject
 {
-    public LevelGameMode LevelGameMode;
+    [Header("Core Level Data")]
+    public LevelGameMode GameMode;
     public CanvasTemplateValue CanvasTemplate;
     public ColorDataValue ColorBackgroundDraw;
-    public GameObjectListValue ColorBlobs;
     public ColorDataListValue ColorsToBeUsed;
     public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
     
-    [Header("Other Configs")]
-    [SerializeField] private ColorMatcher colorMatcher;
-    public ColorMatcher ColorMatcher => colorMatcher;
+    [Header("Universal Data")]
+    public ColorMatcher ColorMatcher;
+    public GameObjectListValue ColorBlobs;
     
-    public LevelGameMode GameMode => LevelGameMode;
+    public ColorMatcher ColorMatcherData => ColorMatcher;
     
     private List<Color> _runtimeWhiteColors;
     
     public void InitializeRuntimeWhiteColors()
     {
-        _runtimeWhiteColors = new List<Color>(WhiteColors.Value);
+        _runtimeWhiteColors = new List<Color>(WhiteColors?.Value ?? new List<Color>());
     }
 
     public List<Color> GetActiveColors()
     {
-        if (LevelGameMode == LevelGameMode.ColorPicker) return _runtimeWhiteColors;
-
-        return ColorsToBeUsed.Value;
+        return GameMode == LevelGameMode.ColorPicker ? _runtimeWhiteColors : ColorsToBeUsed?.Value;
     }
 
     public void SetWhiteColor(int index, Color newColor)
     {
-        if (_runtimeWhiteColors == null) return;
+        if (_runtimeWhiteColors == null || index < 0 || index >= _runtimeWhiteColors.Count) return;
 
-        if (index < 0 || index >= _runtimeWhiteColors.Count) return;
-
-        if (colorMatcher)
+        _runtimeWhiteColors[index] = SnapColorIfNeeded(newColor);
+    }
+    
+    private Color SnapColorIfNeeded(Color color)
+    {
+        if (ColorMatcher != null && ColorsToBeUsed?.Value != null)
         {
-            newColor = colorMatcher.SnapPerChannelClosest(newColor, ColorsToBeUsed.Value);
+            return ColorMatchUtils.SnapPerChannelClosest(color, ColorsToBeUsed.Value, ColorMatcher.Tolerance);
         }
 
-        _runtimeWhiteColors[index] = newColor;
-        
-        int r = Mathf.RoundToInt(newColor.r * 255f);
-        int g = Mathf.RoundToInt(newColor.g * 255f);
-        int b = Mathf.RoundToInt(newColor.b * 255f);
-
-        int sr = Mathf.RoundToInt(_runtimeWhiteColors[index].r * 255f);
-        int sg = Mathf.RoundToInt(_runtimeWhiteColors[index].g * 255f);
-        int sb = Mathf.RoundToInt(_runtimeWhiteColors[index].b * 255f);
-
-        Debug.Log($"PlayerColor: RGB({r}, {g}, {b}) → Snapped: RGB({sr}, {sg}, {sb})");
+        return color;
     }
 }
 

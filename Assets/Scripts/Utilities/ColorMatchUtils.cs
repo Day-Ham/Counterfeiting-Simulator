@@ -9,43 +9,21 @@ public class ColorMatchUtils
     /// </summary>
     public static Color SnapPerChannelClosest(Color playerColor, List<Color> targets, int tolerance)
     {
-        float red = playerColor.r;
-        float green = playerColor.g;
-        float blue = playerColor.b;
+        int playerR = ColorUtils.Red(playerColor);
+        int playerG = ColorUtils.Green(playerColor);
+        int playerB = ColorUtils.Blue(playerColor);
 
-        int playerR = Mathf.RoundToInt(playerColor.r * 255f);
-        int playerG = Mathf.RoundToInt(playerColor.g * 255f);
-        int playerB = Mathf.RoundToInt(playerColor.b * 255f);
+        var redState = new ChannelStateStruct(playerColor.r);
+        var greenState = new ChannelStateStruct(playerColor.g);
+        var blueState = new ChannelStateStruct(playerColor.b);
 
-        int closestRedDifference = tolerance + 1;
-        int closestGreenDifference = tolerance + 1;
-        int closestBDifference = tolerance + 1;
-
-        foreach (var colorTarget in targets)
+        foreach (var target in targets)
         {
-            int targetRed = Mathf.RoundToInt(colorTarget.r * 255f);
-            int targetGreen = Mathf.RoundToInt(colorTarget.g * 255f);
-            int targetBlue = Mathf.RoundToInt(colorTarget.b * 255f);
-
-            red = SnapChannel(playerR, targetRed, colorTarget.r, tolerance, ref closestRedDifference, red);
-            green = SnapChannel(playerG, targetGreen, colorTarget.g, tolerance, ref closestGreenDifference, green);
-            blue = SnapChannel(playerB, targetBlue, colorTarget.b, tolerance, ref closestBDifference, blue);
+            redState.TrySnap(playerR, ColorUtils.Red(target), target.r, tolerance);
+            greenState.TrySnap(playerG, ColorUtils.Green(target), target.g, tolerance);
+            blueState.TrySnap(playerB, ColorUtils.Blue(target), target.b, tolerance);
         }
 
-        return new Color(red, green, blue);
-    }
-
-    /// <summary>
-    /// Snaps a single channel to target if it is closer and within tolerance.
-    /// </summary>
-    private static float SnapChannel(int playerValue, int targetValue, float targetNormalized, int tolerance, ref int closestDifference, float currentChannel)
-    {
-        int diff = Mathf.Abs(playerValue - targetValue);
-        if (diff <= tolerance && diff < closestDifference)
-        {
-            closestDifference = diff;
-            return targetNormalized;
-        }
-        return currentChannel;
+        return new Color(redState.CurrentValue, greenState.CurrentValue, blueState.CurrentValue);
     }
 }

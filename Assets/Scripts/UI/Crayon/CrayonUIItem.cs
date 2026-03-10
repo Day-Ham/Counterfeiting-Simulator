@@ -79,14 +79,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleSelectedColor(int index, Color newColor)
     {
-        // Only update THIS crayon
         if (index != colorIndex) return;
 
-        if (LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
+        if (LevelRuntime.Value.GameMode == LevelGameMode.ColorPicker)
         {
             LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
-
-            // GET the snapped color back
+            
             color = LevelRuntime.Value.GetActiveColors()[colorIndex];
         }
         else
@@ -129,7 +127,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     {
         if (LevelRuntime == null || LevelRuntime.Value == null) return;
         
-        if (LevelRuntime.Value.LevelGameMode != LevelGameMode.ColorPicker) return;
+        if (LevelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
         
         ExpandSize();
         SetColorBlobLook.SetShadowColor(SelectedColor);
