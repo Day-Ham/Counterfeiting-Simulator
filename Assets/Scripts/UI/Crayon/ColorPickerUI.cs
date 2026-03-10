@@ -120,7 +120,7 @@ public class ColorPickerUI : MonoBehaviour
 
         if (_cachedSelectedIndex >= 0 && _isColorPickerMode && LevelRuntimeExists())
         {
-            Color snapped = ColorMatchUtils.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.ColorMatcherData.Tolerance);
+            Color snapped = ColorMatchUtils.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.Tolerance);
 
             // Only update sliders/runtime if the snapped color actually changed
             if (snapped != color)
@@ -178,9 +178,9 @@ public class ColorPickerUI : MonoBehaviour
         if (RGBChannels.Count < 3) return;
 
         // Snap new color to ColorsToBeUsed
-        if (LevelRuntimeExists() && LevelRuntime.Value.ColorMatcherData != null)
+        if (LevelRuntimeExists())
         {
-            newColor = ColorMatchUtils.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.ColorMatcherData.Tolerance);
+            newColor = ColorMatchUtils.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.Tolerance);
         }
         
         SetSliderValue(0, Mathf.RoundToInt(newColor.r * 255f));

@@ -11,12 +11,10 @@ public class LevelConfig : ScriptableObject
     public ColorDataListValue ColorsToBeUsed;
     public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
-    
-    [Header("Universal Data")]
-    public ColorMatcher ColorMatcher;
+
+    [Header("Universal Data")] 
+    public int Tolerance;
     public GameObjectListValue ColorBlobs;
-    
-    public ColorMatcher ColorMatcherData => ColorMatcher;
     
     private List<Color> _runtimeWhiteColors;
     
@@ -39,9 +37,9 @@ public class LevelConfig : ScriptableObject
     
     private Color SnapColorIfNeeded(Color color)
     {
-        if (ColorMatcher != null && ColorsToBeUsed?.Value != null)
+        if (ColorsToBeUsed?.Value != null)
         {
-            return ColorMatchUtils.SnapPerChannelClosest(color, ColorsToBeUsed.Value, ColorMatcher.Tolerance);
+            return ColorMatchUtils.SnapPerChannelClosest(color, ColorsToBeUsed.Value, Tolerance);
         }
 
         return color;

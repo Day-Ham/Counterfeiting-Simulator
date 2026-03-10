@@ -18,5 +18,5 @@ MonoBehaviour:
   ColorsToBeUsed: {fileID: 11400000, guid: 4c3a948ee91be624090fc722024fc566, type: 2}
   WhiteColors: {fileID: 0}
   TargetTexture: {fileID: 11400000, guid: 601da42efe5bf414999abd36faca9ec6, type: 2}
-  ColorMatcher: {fileID: 11400000, guid: 17a39eed11335ce4c9b9c2371722539b, type: 2}
+  Tolerance: 0
   ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
