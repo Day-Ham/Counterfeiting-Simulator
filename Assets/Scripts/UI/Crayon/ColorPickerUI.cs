@@ -25,9 +25,14 @@ public class ColorPickerUI : MonoBehaviour
     private const int MIN_RGB = 0;
     private const int MAX_RGB = 255;
     
+    // Cached to avoid recomputing every frame
+    private bool _isColorPickerMode;
+    private int _cachedSelectedIndex = -1;
+    
     private void OnEnable()
     {
         _openColorPickerEvent.OnColorPickerOpened += SetColor;
+        CacheGameModeState();
     }
 
     private void OnDisable()
@@ -39,6 +44,12 @@ public class ColorPickerUI : MonoBehaviour
     {
         SetupRGBChannels();
         UpdateColorPreview(GetCurrentColor());
+    }
+    
+    // Cache whether we're in ColorPicker mode so we don't re-check it every preview update
+    private void CacheGameModeState()
+    {
+        _isColorPickerMode = LevelRuntimeExists() && LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker;
     }
     
     private void SetupRGBChannels()
@@ -74,10 +85,11 @@ public class ColorPickerUI : MonoBehaviour
 
             var slider = RGBChannels[i].Slider;
             float value = Mathf.Clamp(slider.value + scroll * ScrollSensitivity, slider.minValue, slider.maxValue);
+            int rounded = Mathf.RoundToInt(value);
             
-            slider.SetValueWithoutNotify(Mathf.RoundToInt(value));
+            slider.value = rounded;
             
-            UpdateColorPreview(GetCurrentColor());
+            break;
         }
     }
     
@@ -98,46 +110,42 @@ public class ColorPickerUI : MonoBehaviour
         
         RGBChannels[index].Slider.SetValueWithoutNotify(value);
         
-        RGBChannels[index].InputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
+        int rounded = Mathf.RoundToInt(value);
+        RGBChannels[index].InputField.SetTextWithoutNotify(rounded.ToString());
     }
 
     private void UpdateColorPreview(Color color)
     {
-        // Snap color if in ColorPicker mode
-        int selectedIndex = _selectBrushColorEvent.CurrentSelectedIndex;
-        if (selectedIndex >= 0 && LevelRuntimeExists())
-        {
-            if (LevelRuntime.Value.LevelGameMode == LevelGameMode.ColorPicker)
-            {
-                // Snap color
-                Color snapped = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value);
+        _cachedSelectedIndex = _selectBrushColorEvent.CurrentSelectedIndex;
 
-                // **Set sliders without triggering events**
+        if (_cachedSelectedIndex >= 0 && _isColorPickerMode && LevelRuntimeExists())
+        {
+            Color snapped = LevelRuntime.Value.ColorMatcher.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value);
+
+            // Only update sliders/runtime if the snapped color actually changed
+            if (snapped != color)
+            {
                 SetSliderValue(0, snapped.r * 255);
                 SetSliderValue(1, snapped.g * 255);
                 SetSliderValue(2, snapped.b * 255);
 
-                // Update runtime color
-                LevelRuntime.Value.SetWhiteColor(selectedIndex, snapped);
+                LevelRuntime.Value.SetWhiteColor(_cachedSelectedIndex, snapped);
 
                 color = snapped;
             }
         }
 
-        // Update preview image
         if (colorPreview)
         {
             colorPreview.color = color;
         }
-
-        // Update InputFields
+        
         UpdateInputFields();
 
-        // Raise events
-        if (selectedIndex < 0) return;
+        if (_cachedSelectedIndex < 0) return;
         
-        _selectedColorEvent.Raise(selectedIndex, color);
-        _selectBrushColorEvent.Raise(selectedIndex);
+        _selectedColorEvent.Raise(_cachedSelectedIndex, color);
+        _selectBrushColorEvent.Raise(_cachedSelectedIndex);
     }
     
     private Color GetCurrentColor()
@@ -156,7 +164,12 @@ public class ColorPickerUI : MonoBehaviour
             if (!channel.InputField || channel.InputField.isFocused) continue;
 
             int value = Mathf.RoundToInt(channel.Slider.value);
-            channel.InputField.SetTextWithoutNotify(value.ToString());
+            string newText = value.ToString();
+            
+            if (channel.InputField.text != newText)
+            {
+                channel.InputField.SetTextWithoutNotify(newText);
+            }
         }
     }
     
