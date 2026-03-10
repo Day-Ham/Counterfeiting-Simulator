@@ -18,8 +18,16 @@ public class PopulateCrayons : MonoBehaviour
     {
         _currentLevel = _levelConfigRuntimeAsset.Value;
         
+        _currentLevel.InitializeRuntimeWhiteColors();
+
         Populate();
-        _setCrayonFunction.SetupCrayons(_currentLevel.ColorsToBeUsed);
+
+        Setup();
+    }
+    
+    private void Setup()
+    {
+        _setCrayonFunction.SetupCrayons(_currentLevel.GetActiveColors());
     }
 
     private void Populate()
@@ -30,7 +38,7 @@ public class PopulateCrayons : MonoBehaviour
 
     private void SpawnDifferentBlobs()
     {
-        var colorsList = _currentLevel.ColorsToBeUsed.Value;
+        var colorsList = _currentLevel.GetActiveColors();
         var colorBlobsList = _currentLevel.ColorBlobs.Value;
 
         int colorCount = colorsList.Count;
@@ -41,7 +49,13 @@ public class PopulateCrayons : MonoBehaviour
             if (prefabCount == 0) break;
 
             GameObject randomPrefab = colorBlobsList[Random.Range(0, prefabCount)];
-            Instantiate(randomPrefab, _contentParent);
+            GameObject instance = Instantiate(randomPrefab, _contentParent);
+            
+            CrayonUIItem crayonItem = instance.GetComponent<CrayonUIItem>();
+            if (crayonItem != null)
+            {
+                crayonItem.Setup(colorsList[i], i);
+            }
         }
     }
 
