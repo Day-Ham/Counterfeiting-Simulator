@@ -14,11 +14,16 @@ public class LevelManager : MonoBehaviour
     {
         _levelConfigRuntimeAsset.Value = _levelToLoad;
         
-        ColorDataListValue runtimeWhiteColors = ScriptableObject.CreateInstance<ColorDataListValue>();
-        runtimeWhiteColors.Value = new List<Color>(_levelToLoad.WhiteColors.Value);
+        if (_levelToLoad.WhiteColors != null && _levelToLoad.WhiteColors.Value.Count > 0)
+        {
+            var runtimeWhiteColors = ScriptableObject.CreateInstance<ColorDataListValue>();
+            runtimeWhiteColors.Value = new List<Color>(_levelToLoad.WhiteColors.Value);
+            
+            var runtimeLevel = ScriptableObject.CreateInstance<LevelConfig>();
+            runtimeLevel.WhiteColors = runtimeWhiteColors;
 
-        LevelConfig runtimeLevel = ScriptableObject.CreateInstance<LevelConfig>();
-        runtimeLevel.WhiteColors = runtimeWhiteColors;
+            _levelConfigRuntimeAsset.Value = runtimeLevel;
+        }
         
         SpawnPrefabs();
     }
