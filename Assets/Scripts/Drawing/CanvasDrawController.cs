@@ -169,7 +169,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void Tick()
         {
-            if(!IsCanDraw) return;
+            if(!CanDraw()) return;
             
             if (InputUtility.IsCtrlHeld)
             {
@@ -293,7 +293,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             // Block drawing if Ctrl is being held
             if (InputUtility.IsCtrlHeld) return;
             if (IsUpdating) return;
-            if (!IsCanDraw) return;
+            if(!CanDraw()) return;
 
             IsUpdating = true;
         }
@@ -343,6 +343,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         public void SetDrawMode(DrawMode desiredMode)
         {
             CurrentDrawMode = desiredMode;
+        }
+        
+        private bool CanDraw()
+        {
+            return IsCanDraw && _drawingBoardController && _drawingBoardController.IsCanInteract;
         }
     }
 }
