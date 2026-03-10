@@ -21,6 +21,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public CanvasDrawControllerValue _canvasDrawControllerValue;
         public DrawingBoardZoom _drawingBoardZoom;
+        public DrawingBoardController _drawingBoardController;
         [SerializeField] private SelectedColorEvent selectedColorEvent;
 
         [Header("Local Dependencies")]
