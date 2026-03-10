@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     
     [Header("Prefabs to Instantiate")]
     [SerializeField] private GameObjectListValue _gameObjectListValueToSpawn;
+    
+    private RuntimeWhiteColorData _runtimeWhiteLevel;
 
     private void Awake()
     {
@@ -16,13 +18,12 @@ public class LevelManager : MonoBehaviour
         
         if (_levelToLoad.WhiteColors != null && _levelToLoad.WhiteColors.Value.Count > 0)
         {
-            var runtimeWhiteColors = ScriptableObject.CreateInstance<ColorDataListValue>();
-            runtimeWhiteColors.Value = new List<Color>(_levelToLoad.WhiteColors.Value);
-            
-            var runtimeLevel = ScriptableObject.CreateInstance<LevelConfig>();
-            runtimeLevel.WhiteColors = runtimeWhiteColors;
+            _runtimeWhiteLevel= new RuntimeWhiteColorData();
 
-            _levelConfigRuntimeAsset.Value = runtimeLevel;
+            if (_levelToLoad.WhiteColors != null)
+            {
+                _runtimeWhiteLevel.WhiteColors = new List<Color>(_levelToLoad.WhiteColors.Value);
+            }
         }
         
         SpawnPrefabs();
