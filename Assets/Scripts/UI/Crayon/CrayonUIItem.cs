@@ -1,13 +1,23 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CrayonUIItem : MonoBehaviour
+public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
+    [Header("References")]
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
+    [SerializeField] private SetColorBlobLook SetColorBlobLook;
+    [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
+    [SerializeField] private GameObjectValue RGBSliderUI;
+    
+    [Header("UI")]
     [SerializeField] private Button Button;
     [SerializeField] private Image ColorPreview;
-    [SerializeField] private SelectBrushColorEvent SelectColorEvent;
-    [SerializeField] private SetColorBlobLook SetColorBlobLook;
+    
+    [Header("Events")]
+    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
+    [SerializeField] private SelectedColorEvent _selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -18,19 +28,21 @@ public class CrayonUIItem : MonoBehaviour
     
     private void OnEnable()
     {
-        SelectColorEvent.OnColorSelected += HandleColorSelected;
-        SelectColorEvent.OnEraseSelected += HandleEraseSelected;
+        _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
+        _selectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
+        _selectedColorEvent.OnColorPicked += HandleSelectedColor;
     }
 
     private void OnDisable()
     {
-        SelectColorEvent.OnColorSelected -= HandleColorSelected;
-        SelectColorEvent.OnEraseSelected -= HandleEraseSelected;
+        _selectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
+        _selectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
+        _selectedColorEvent.OnColorPicked -= HandleSelectedColor;
     }
     
-    private void HandleColorSelected(Color selected)
+    private void HandleBrushColorSelected(int selectedColorIndex)
     {
-        if (selected == color)
+        if (selectedColorIndex == colorIndex)
         {
             ExpandSize();
             SetColorBlobLook.SetShadowColor(SelectedColor);
@@ -57,16 +69,35 @@ public class CrayonUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
     }
 
-    public void Setup(Color newColor)
+    public void Setup(Color newColor, int index)
     {
         color = newColor;
+        colorIndex = index;
+
+        ColorPreview.color = color;
+    }
+    
+    private void HandleSelectedColor(int index, Color newColor)
+    {
+        if (index != colorIndex) return;
+
+        if (LevelRuntime.Value.GameMode == LevelGameMode.ColorPicker)
+        {
+            LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
+            
+            color = LevelRuntime.Value.GetActiveColors()[colorIndex];
+        }
+        else
+        {
+            color = newColor;
+        }
+
         ColorPreview.color = color;
     }
     
     private void OnClick()
     {
-        SelectColorEvent.Raise(color);
-        Debug.Log($"Crayon clicked: {color}", this);
+        _selectBrushColorEvent.Raise(colorIndex);
     }
 
     private void ExpandSize()
@@ -77,5 +108,36 @@ public class CrayonUIItem : MonoBehaviour
     private void CollapseSize()
     {
         ResizeTweenScriptableObject.Collapse(this.gameObject);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            TryExpandAndShowRGB();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnClick(); // Normal click
+            RGBSliderUI.Value.SetActive(false);
+        }
+    }
+    
+    private void TryExpandAndShowRGB()
+    {
+        if (LevelRuntime == null || LevelRuntime.Value == null) return;
+        
+        if (LevelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
+        
+        ExpandSize();
+        SetColorBlobLook.SetShadowColor(SelectedColor);
+        
+        RGBSliderUI.Value.SetActive(true);
+
+        // Auto-select this crayon for brushing
+        _selectBrushColorEvent.Raise(colorIndex);
+        
+        // Tells ColorPickerUI to load this color
+        _openColorPickerEvent.Raise(color);
     }
 }

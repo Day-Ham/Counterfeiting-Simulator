@@ -21,6 +21,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public CanvasDrawControllerValue _canvasDrawControllerValue;
         public DrawingBoardZoom _drawingBoardZoom;
+        [SerializeField] private SelectedColorEvent selectedColorEvent;
 
         [Header("Local Dependencies")]
         public LevelConfigRuntimeAsset LevelConfigRuntime;
@@ -53,19 +54,33 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
         
+        public int CurrentBrushColorIndex { get; private set; } = 0;
+        
         private void OnEnable()
         {
             LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+            selectedColorEvent.OnColorPicked += OnSelectedColor;
         }
 
         private void OnDisable()
         {
             LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+            selectedColorEvent.OnColorPicked -= OnSelectedColor;
         }
 
         private void OnLevelChanged(LevelConfig newLevel)
         {
             SetBrushColorIndex(0);
+        }
+        
+        private void OnSelectedColor(int index, Color newColor)
+        {
+            if (CurrentBrushSettings == null) return;
+            
+            if (CurrentBrushSettings.BrushColorIndex == index)
+            {
+                _layerDrawController.SetBrushColor(newColor);
+            }
         }
 
         private void Awake()
@@ -217,17 +232,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             LevelConfig level = LevelConfigRuntime.Value;
             
-            if (level.ColorsToBeUsed == null || level.ColorsToBeUsed.Value == null)
+            var colors = level.GetActiveColors();
+
+            if (colors == null || colors.Count == 0)
             {
-                Debug.LogWarning("Level has no ColorsToBeUsed assigned!");
-                return;
-            }
-            
-            var colors = level.ColorsToBeUsed.Value;
-            
-            if (colors.Count == 0)
-            {
-                Debug.LogWarning("ColorsToBeUsed list is empty!");
+                Debug.LogWarning("Active color list is empty!");
                 return;
             }
 
