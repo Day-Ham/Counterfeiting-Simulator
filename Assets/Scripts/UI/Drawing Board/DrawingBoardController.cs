@@ -12,7 +12,7 @@ public class DrawingBoardController : MonoBehaviour
     [SerializeField] private DrawingBoardZoom drawingBoardZoom;
     
     public RectTransform drawingBoard;
-    public float snapSmoothness = 10f;
+    public float snapSmoothness;
 
     private Vector2 originalSize;
     private Vector2 originalPosition;
@@ -74,6 +74,8 @@ public class DrawingBoardController : MonoBehaviour
         drawingBoard.sizeDelta = originalSize;
         drawingBoard.anchoredPosition = originalPosition;
         isSnapRequested = false;
+        
+        _isCanInteract = true;
     }
     
     private bool IsSnapComplete()
@@ -102,6 +104,7 @@ public class DrawingBoardController : MonoBehaviour
     private void ResetToOriginalSize()
     {
         isSnapRequested = true;
+        DisableBoardInteraction();
         drawingBoardZoom.SetTargetSize(OriginalSize);
     }
     
