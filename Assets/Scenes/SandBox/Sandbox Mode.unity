@@ -119,127 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &519417918
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 519417920}
-  - component: {fileID: 519417919}
-  - component: {fileID: 519417921}
-  m_Layer: 0
-  m_Name: Directional Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!108 &519417919
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519417918}
-  m_Enabled: 1
-  serializedVersion: 11
-  m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
-  m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_UseViewFrustumForShadowCasterCull: 1
-  m_ForceVisible: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_LightUnit: 1
-  m_LuxAtDistance: 1
-  m_EnableSpotReflector: 1
---- !u!4 &519417920
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519417918}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &519417921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519417918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
-  m_SoftShadowQuality: 0
 --- !u!1 &601158766
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 601158768}
-  - component: {fileID: 601158767}
+  - component: {fileID: 601158769}
   m_Layer: 0
   m_Name: SANDBOX MANAGER
   m_TagString: Untagged
@@ -257,21 +136,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &601158767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601158766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af00d6dcd5d4ff4eb7eace0bac0c81e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _levelToLoad: {fileID: 11400000, guid: c4cb91039bea616488b47659487f8d50, type: 2}
-  _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _gameObjectListValueToSpawn: {fileID: 0}
 --- !u!4 &601158768
 Transform:
   m_ObjectHideFlags: 0
@@ -287,6 +151,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &601158769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601158766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6293fbe981c89f4896378500c79af95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sandboxConfig: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
+  _runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
 --- !u!1 &889150146
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +201,7 @@ Camera:
   m_GameObject: {fileID: 889150146}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -569,23 +447,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &81347895538836238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6212670087102678612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4101ab675b007174483f7de5960cfa94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardController: {fileID: 8655153883482137548}
-  zoomSpeed: 0.1
-  zoomSmoothness: 10
-  minSize: {x: 765, y: 380}
-  maxSize: {x: 1530, y: 760}
 --- !u!114 &116965445230817603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2028,20 +1889,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1851692025601597989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6212670087102678612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46d3d2ada722ca04098e29a23f83c0c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardController: {fileID: 8655153883482137548}
-  dragSpeed: 1
 --- !u!222 &1866814244100074693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5378,9 +5225,6 @@ GameObject:
   - component: {fileID: 1586572216459729640}
   - component: {fileID: 9124515093461564378}
   - component: {fileID: 4937429327228981100}
-  - component: {fileID: 8655153883482137548}
-  - component: {fileID: 81347895538836238}
-  - component: {fileID: 1851692025601597989}
   m_Layer: 5
   m_Name: Drawing
   m_TagString: Untagged
@@ -6977,27 +6821,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389831281828169490}
   m_CullTransparentMesh: 1
---- !u!114 &8655153883482137548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6212670087102678612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetImageCanvas: {fileID: 0}
-  drawingCanvas: {fileID: 9124515093461564378}
-  inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
-  compareStartedEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
-  resetDrawingBoardPositionEvent: {fileID: 11400000, guid: fcffd111151352b4782fae24695b83d4, type: 2}
-  finishGameEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
-  drawingBoardZoom: {fileID: 81347895538836238}
-  drawingBoard: {fileID: 1586572216459729640}
-  snapSmoothness: 10
 --- !u!114 &8677092358178503282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7313,8 +7136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
-  _drawingBoardZoom: {fileID: 81347895538836238}
-  _drawingBoardController: {fileID: 8655153883482137548}
+  _drawingBoardZoom: {fileID: 0}
+  _drawingBoardController: {fileID: 0}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   LevelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _graphicRaycaster: {fileID: 4937429327228981100}
@@ -7657,7 +7480,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 889150149}
-  - {fileID: 519417920}
   - {fileID: 601158768}
   - {fileID: 8191296037563991434}
   - {fileID: 4939519461399674975}
