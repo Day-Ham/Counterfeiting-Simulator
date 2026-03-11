@@ -358,7 +358,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         
         private bool CanDraw()
         {
-            return IsCanDraw && _drawingBoardController && _drawingBoardController.IsCanInteract;
+            return IsCanDraw && (_drawingBoardController == null || _drawingBoardController.IsCanInteract);
         }
     }
 }
