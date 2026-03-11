@@ -4052,7 +4052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4882351881017364588
 GameObject:
   m_ObjectHideFlags: 0
@@ -4439,7 +4439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  _crayonSourceSO: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
   _contentParent: {fileID: 6833382069169416761}
   _setCrayonFunction: {fileID: 659008763713693867}
 --- !u!1 &5305226585789129108

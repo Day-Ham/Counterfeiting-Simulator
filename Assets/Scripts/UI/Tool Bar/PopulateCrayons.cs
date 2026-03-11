@@ -6,29 +6,38 @@ using Random = UnityEngine.Random;
 public class PopulateCrayons : MonoBehaviour
 {
     [Header("Crayon Data")]
-    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
+    [SerializeField] private ScriptableObject _crayonSourceSO; // Either LevelConfig or SandboxModeConfig
+
+    private ICrayonSource _crayonSource;
 
     [Header("UI References")]
     [SerializeField] private Transform _contentParent;
     [SerializeField] private SetCrayonFunction _setCrayonFunction;
     
-    private LevelConfig _currentLevel;
-
     private void Start()
     {
-        _currentLevel = _levelConfigRuntimeAsset.Value;
-        
-        _currentLevel.InitializeRuntimeWhiteColors();
+        // Detect which adapter to use
+        if (_crayonSourceSO is LevelConfigRuntimeAsset lvlAsset)
+        {
+            _crayonSource = new LevelConfigCrayonSource(lvlAsset);
+        }
+        else if (_crayonSourceSO is SandboxModeConfig sandbox)
+        {
+            _crayonSource = new SandboxCrayonSource(sandbox);
+        }
+        else
+        {
+            Debug.LogError("Unsupported crayon source!");
+            return;
+        }
+
+        _crayonSource.InitializeColors();
 
         Populate();
-
         Setup();
     }
     
-    private void Setup()
-    {
-        _setCrayonFunction.SetupCrayons(_currentLevel.GetActiveColors());
-    }
+    private void Setup() => _setCrayonFunction.SetupCrayons(_crayonSource.GetActiveColors());
 
     private void Populate()
     {
@@ -38,8 +47,8 @@ public class PopulateCrayons : MonoBehaviour
 
     private void SpawnDifferentBlobs()
     {
-        var colorsList = _currentLevel.GetActiveColors();
-        var colorBlobsList = _currentLevel.ColorBlobs.Value;
+        var colorsList = _crayonSource.GetActiveColors();
+        var colorBlobsList = _crayonSource.GetColorBlobs().Value;
 
         int colorCount = colorsList.Count;
         int prefabCount = colorBlobsList.Count;
@@ -50,9 +59,8 @@ public class PopulateCrayons : MonoBehaviour
 
             GameObject randomPrefab = colorBlobsList[Random.Range(0, prefabCount)];
             GameObject instance = Instantiate(randomPrefab, _contentParent);
-            
-            CrayonUIItem crayonItem = instance.GetComponent<CrayonUIItem>();
-            if (crayonItem != null)
+
+            if (instance.TryGetComponent<CrayonUIItem>(out var crayonItem))
             {
                 crayonItem.Setup(colorsList[i], i);
             }
