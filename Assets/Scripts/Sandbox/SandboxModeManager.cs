@@ -8,6 +8,9 @@ public class SandboxModeManager : MonoBehaviour
 
     [Header("Runtime Data")]
     [SerializeField] private SandboxConfigRuntimeAsset _runtimeAsset;
+    
+    [Header("Prefabs to Instantiate")]
+    [SerializeField] private GameObjectListValue _gameObjectListValueToSpawn;
 
     private void Awake()
     {
@@ -31,15 +34,15 @@ public class SandboxModeManager : MonoBehaviour
         _runtimeAsset.Value = _sandboxConfig;
         
         _runtimeAsset.Value.InitializeRuntimeColors();
+        
+        SpawnPrefabs();
     }
 
-    public List<Color> GetActiveColors()
+    private void SpawnPrefabs()
     {
-        return _runtimeAsset.Value.GetActiveColors();
-    }
-
-    public void SetColor(int index, Color newColor)
-    {
-        _runtimeAsset.Value.SetColor(index, newColor);
+        foreach (GameObject listGameObject in _gameObjectListValueToSpawn.Value)
+        {
+            Instantiate(listGameObject);
+        }
     }
 }
