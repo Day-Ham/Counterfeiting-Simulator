@@ -21,37 +21,39 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] VoidEvent _finishGameRequestEvent;
         [SerializeField] ComparisonResultEvent _comparisonResultEvent;
 
-        [Header("Settings/LevelConfig")]
-        [Tooltip("The texture that the player needs to draw and match exactly.")]
+        [Header("MainGame Settings")]
         [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
-        
-        [Tooltip("Optional. The texture that the player starts with.")]
-        [SerializeField] Texture _optionalStartingTexture;
-        [SerializeField] Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f); // Between (0, 0) and (1, 1)
+        [SerializeField] private Texture _optionalStartingTexture;
+        [SerializeField] private Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f);
 
-        TextureUtility _textureUtility;
+        [Header("Sandbox Settings")]
+        [SerializeField] private bool IsSandboxMode = false;
+        [SerializeField] private SandboxConfigRuntimeAsset sandboxRuntime;
+        [SerializeField] private Vector2Int SandboxCanvasSize = new Vector2Int(1024, 1024);
+
+        private TextureUtility _textureUtility;
         private CanvasDrawController _canvasDraw;
         public float allSimilarity = 1f;
         public float FirstTwoDigits;
         public float LastTwoDigits;
         public bool GameIsPaused;
         
+        private void Awake()
+        {
+            _gameManagerValue.Value = this;
+
+            _textureUtility = new TextureUtility(_similarityComputeShader);
+            _textureUtility.Create();
+        }
+
         private void OnEnable()
         {
-            _finishGameRequestEvent.Register(FinishGame);
+            _finishGameRequestEvent?.Register(FinishGame);
         }
 
         private void OnDisable()
         {
-            _finishGameRequestEvent.Unregister(FinishGame);
-        }
-        
-        private void Awake()
-        {
-            _gameManagerValue.Value = this;
-            
-            _textureUtility = new TextureUtility(_similarityComputeShader);
-            _textureUtility.Create();
+            _finishGameRequestEvent?.Unregister(FinishGame);
         }
 
         private void Start()
@@ -65,26 +67,70 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
                 return;
             }
             
-            _inputHandler.Initialize(_canvasDraw, FinishGame);
+            _inputHandler?.Initialize(_canvasDraw, FinishGame);
             
-            Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
-
-            _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
-
-            _canvasDraw.SetBrushColorIndex(0);
-
-            if (_optionalStartingTexture != null)
+            if (IsSandboxMode)
             {
-                _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
+                InitializeSandboxMode();
+            }
+            else
+            {
+                InitializeMainGameMode();
             }
         }
 
         private void Update()
         {
             if (GameIsPaused) return;
+
+            _inputHandler?.UpdateInput();
+            _canvasDraw?.Tick();
+        }
+        
+        private void OnDestroy()
+        {
+            _textureUtility?.Destroy();
+        }
+
+        private void InitializeMainGameMode()
+        {
+            if (levelConfigRuntime == null || levelConfigRuntime.Value.TargetTexture == null)
+            {
+                Debug.LogError("LevelConfigRuntime or TargetTexture missing!");
+                return;
+            }
+
+            Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
             
-            _inputHandler.UpdateInput();
-            _canvasDraw.Tick();
+            _canvasDraw.RuntimeAsset = levelConfigRuntime;
+
+            _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
+            
+            _canvasDraw.SetBrushColorIndex(0);
+            
+            if (_optionalStartingTexture != null)
+            {
+                _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
+            }
+            
+            _canvasDraw.IsCanDraw = true;
+        }
+        
+        private void InitializeSandboxMode()
+        {
+            if (sandboxRuntime == null || sandboxRuntime.Value == null)
+            {
+                Debug.LogError("SandboxRuntimeAsset not assigned!");
+                return;
+            }
+            
+            _canvasDraw.RuntimeAsset = sandboxRuntime;
+            
+            _canvasDraw.OnStart(SandboxCanvasSize);
+            
+            _canvasDraw.SetBrushColorIndex(0);
+            
+            _canvasDraw.IsCanDraw = true;
         }
 
         private void FinishGame()
@@ -135,11 +181,6 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
             {
                 _finalSpriteRenderer.sprite = finalSprite;
             }
-        }
-
-        private void OnDestroy()
-        {
-            _textureUtility?.Destroy();
         }
 
         public void PauseGame()
