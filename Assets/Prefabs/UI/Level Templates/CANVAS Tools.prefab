@@ -1853,6 +1853,7 @@ GameObject:
   - component: {fileID: 7400649727585632394}
   - component: {fileID: 3493861276271193448}
   - component: {fileID: 1103177745870067235}
+  - component: {fileID: 4615385405106914672}
   m_Layer: 5
   m_Name: BUTTON InspectShadow
   m_TagString: Untagged
@@ -1962,6 +1963,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4615385405106914672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6402260360547442644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78eddc36a6d407746ab4cc9a9ea82560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _compareButton: {fileID: 1103177745870067235}
+  _startCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
 --- !u!1 &6447050605554475546
 GameObject:
   m_ObjectHideFlags: 0
