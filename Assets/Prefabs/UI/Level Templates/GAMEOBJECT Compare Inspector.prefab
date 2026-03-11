@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
   DrawingBoardControllerEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
+  StartCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
   TargetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
   FrontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
   TargetLocation: {fileID: 11400000, guid: f640237ccbf12d046883b778f5cfc574, type: 2}
