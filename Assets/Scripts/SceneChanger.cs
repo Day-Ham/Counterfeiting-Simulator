@@ -133,9 +133,19 @@ public class SceneChanger : MonoBehaviour
             return;
         }
         
+        string currentScene = SceneManager.GetActiveScene().name;
+        string prevScene = _multipleSceneReference.Scenes[_currentLevelIndex - 1].sceneName;
+
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            SceneManager.LoadScene(_multipleSceneReference.Scenes[_currentLevelIndex - 1].sceneName);
+            LoadSceneAdditive(prevScene, (newScene, oldScene) =>
+            {
+                if (currentScene != _coreSceneReference.sceneName)
+                {
+                    SceneManager.UnloadSceneAsync(oldScene);
+                }
+                _currentLevelIndex--;
+            });
         });
         
     }
