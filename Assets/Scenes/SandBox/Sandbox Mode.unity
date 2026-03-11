@@ -3670,7 +3670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 485, y: -1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4058540982932561292
@@ -4439,7 +4439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crayonSourceSO: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
+  _crayonSource: {fileID: 11400000, guid: 0c3242a67309bbd40abefcddbadd38ae, type: 2}
   _contentParent: {fileID: 6833382069169416761}
   _setCrayonFunction: {fileID: 659008763713693867}
 --- !u!1 &5305226585789129108
