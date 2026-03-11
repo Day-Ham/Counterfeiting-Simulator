@@ -25,7 +25,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [SerializeField] private SelectedColorEvent selectedColorEvent;
 
         [Header("Local Dependencies")]
-        public LevelConfigRuntimeAsset LevelConfigRuntime;
+        public ConfigRuntime RuntimeAsset;
         [SerializeField] GraphicRaycaster _graphicRaycaster;
         [SerializeField] CanvasLayerDrawController _layerDrawController;
         [SerializeField] CanvasStamper _canvasStamper;
@@ -59,17 +59,29 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         
         private void OnEnable()
         {
-            LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+            if (RuntimeAsset != null)
+            {
+                RuntimeAsset.OnValueChanged += OnRuntimeChanged;
+
+                if (RuntimeAsset.HasValue)
+                {
+                    OnRuntimeChanged();
+                }
+            }
+            
             selectedColorEvent.OnColorPicked += OnSelectedColor;
         }
 
         private void OnDisable()
         {
-            LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+            if (RuntimeAsset != null)
+            {
+                RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
+            }
             selectedColorEvent.OnColorPicked -= OnSelectedColor;
         }
 
-        private void OnLevelChanged(LevelConfig newLevel)
+        private void OnRuntimeChanged()
         {
             SetBrushColorIndex(0);
         }
@@ -225,15 +237,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void SetBrushColorIndex(int index)
         {
-            if (LevelConfigRuntime == null || LevelConfigRuntime.Value == null)
+            if (RuntimeAsset == null)
             {
-                Debug.LogWarning("LevelConfigRuntimeAsset not assigned!");
+                Debug.LogWarning("RuntimeAsset not assigned!");
                 return;
             }
-
-            LevelConfig level = LevelConfigRuntime.Value;
             
-            var colors = level.GetActiveColors();
+            var colors = RuntimeAsset.GetActiveColors();
 
             if (colors == null || colors.Count == 0)
             {

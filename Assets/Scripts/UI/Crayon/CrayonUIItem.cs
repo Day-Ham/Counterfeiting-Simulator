@@ -7,7 +7,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [Header("References")]
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
-    [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
+    [SerializeField] private ConfigRuntime RuntimeAsset;
     [SerializeField] private GameObjectValue RGBSliderUI;
     
     [Header("UI")]
@@ -79,19 +79,15 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleSelectedColor(int index, Color newColor)
     {
-        if (index != colorIndex) return;
+         if (index != colorIndex) return;
 
-        if (LevelRuntime.Value.GameMode == LevelGameMode.ColorPicker)
-        {
-            LevelRuntime.Value.SetWhiteColor(colorIndex, newColor);
-            
-            color = LevelRuntime.Value.GetActiveColors()[colorIndex];
-        }
-        else
-        {
-            color = newColor;
-        }
+        if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
+        var colors = RuntimeAsset.GetActiveColors();
+
+        if (colors == null || colorIndex < 0 || colorIndex >= colors.Count) return;
+
+        color = colors[colorIndex];
         ColorPreview.color = color;
     }
     
@@ -125,9 +121,13 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void TryExpandAndShowRGB()
     {
-        if (LevelRuntime == null || LevelRuntime.Value == null) return;
-        
-        if (LevelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
+        if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
+
+        var colors = RuntimeAsset.GetActiveColors();
+        if (colors == null || colorIndex >= colors.Count) return;
+
+        // Only allow in ColorPicker mode if the runtime exposes it
+        if (RuntimeAsset is LevelConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
         
         ExpandSize();
         SetColorBlobLook.SetShadowColor(SelectedColor);

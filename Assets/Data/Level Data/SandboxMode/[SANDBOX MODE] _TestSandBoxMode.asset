@@ -15,4 +15,4 @@ MonoBehaviour:
   CanvasTemplate: {fileID: 11400000, guid: d36ae6cadcae0e24db75235026bd008f, type: 2}
   ColorBackgroundDraw: {fileID: 11400000, guid: b7b639ce00917e140b0563c2ae2b40ae, type: 2}
   ColorsToBeUsed: {fileID: 11400000, guid: 962a4f0782bea41478fc194d6d77493a, type: 2}
-  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 62a324df6df955847b8ed6faaef94a18, type: 2}

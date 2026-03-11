@@ -462,7 +462,7 @@ MonoBehaviour:
   SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
   DrawController: {fileID: 8902375206529394474}
   LayerController: {fileID: 5491123404603780215}
-  LevelConfigRuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  RuntimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
 --- !u!1 &129894473658896207
 GameObject:
   m_ObjectHideFlags: 0
@@ -7139,7 +7139,7 @@ MonoBehaviour:
   _drawingBoardZoom: {fileID: 0}
   _drawingBoardController: {fileID: 0}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
-  LevelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  RuntimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
   _graphicRaycaster: {fileID: 4937429327228981100}
   _layerDrawController: {fileID: 5491123404603780215}
   _canvasStamper: {fileID: 5149364459111070946}
