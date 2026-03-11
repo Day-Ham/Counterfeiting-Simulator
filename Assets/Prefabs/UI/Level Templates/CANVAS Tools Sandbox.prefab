@@ -863,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5bbe25baa683d24baabecdd446fcd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _crayonSource: {fileID: 11400000, guid: 86bc15da1230b1041a7448f71c51761e, type: 2}
+  _crayonSource: {fileID: 11400000, guid: 0c3242a67309bbd40abefcddbadd38ae, type: 2}
   _contentParent: {fileID: 5725928350140760591}
   _setCrayonFunction: {fileID: 1679555037951441540}
 --- !u!114 &1679555037951441540
@@ -1376,7 +1376,7 @@ GameObject:
   - component: {fileID: 7694755513831163732}
   - component: {fileID: 4281746149288592726}
   m_Layer: 5
-  m_Name: CANVAS Tools
+  m_Name: CANVAS Tools Sandbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
