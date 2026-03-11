@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4d59084bbaaa144b5e2ca56cb8cf35, type: 3}
+  m_Name: '[SANDBOX MODE] _TestSandBoxMode'
+  m_EditorClassIdentifier: 
+  CanvasTemplate: {fileID: 11400000, guid: d36ae6cadcae0e24db75235026bd008f, type: 2}
+  ColorBackgroundDraw: {fileID: 11400000, guid: b7b639ce00917e140b0563c2ae2b40ae, type: 2}
+  ColorsToBeUsed: {fileID: 11400000, guid: 962a4f0782bea41478fc194d6d77493a, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
