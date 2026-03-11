@@ -7,13 +7,13 @@ public class SandboxModeManager : MonoBehaviour
     [SerializeField] private SandboxModeConfig _sandboxConfig;
 
     [Header("Runtime Data")]
-    [SerializeField] private LevelConfigRuntimeAsset _runtimeAsset;
+    [SerializeField] private SandboxConfigRuntimeAsset _runtimeAsset;
 
     private void Awake()
     {
         InitializeSandbox();
     }
-    
+
     private void InitializeSandbox()
     {
         if (_sandboxConfig == null)
@@ -24,27 +24,22 @@ public class SandboxModeManager : MonoBehaviour
 
         if (_runtimeAsset == null)
         {
-            Debug.LogError("RuntimeAsset not assigned!");
+            Debug.LogError("SandboxRuntimeAsset not assigned!");
             return;
         }
+
+        _runtimeAsset.Value = _sandboxConfig;
         
-        _runtimeAsset.SandboxValue = _sandboxConfig;
-        
-        _runtimeAsset.InitializeSandboxColors();
-        
-        if (_sandboxConfig.CanvasTemplate != null)
-        {
-            _sandboxConfig.CanvasTemplate.Value.gameObject.SetActive(true);
-        }
+        _runtimeAsset.Value.InitializeRuntimeColors();
     }
-    
+
     public List<Color> GetActiveColors()
     {
-        return _runtimeAsset.GetActiveSandboxColors();
+        return _runtimeAsset.Value.GetActiveColors();
     }
-    
+
     public void SetColor(int index, Color newColor)
     {
-        _runtimeAsset.SetSandboxColor(index, newColor);
+        _runtimeAsset.Value.SetColor(index, newColor);
     }
 }

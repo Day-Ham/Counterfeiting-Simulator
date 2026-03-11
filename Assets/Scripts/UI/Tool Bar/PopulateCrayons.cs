@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 public class PopulateCrayons : MonoBehaviour
 {
     [Header("Crayon Data")]
-    [SerializeField] private GameModeCrayon _crayonSource; // Assign via inspector
+    [SerializeField] private GameModeCrayon _crayonSource;
 
     [Header("UI References")]
     [SerializeField] private Transform _contentParent;

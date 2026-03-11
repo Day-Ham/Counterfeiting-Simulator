@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743b7026dc9a2f641b3dc226a5e66048, type: 3}
-  m_Name: SandboxCrayonAdapter
+  m_Script: {fileID: 11500000, guid: 486e3e70dd38b5c41993cb65c4127040, type: 3}
+  m_Name: '[ADAPTER] LevelCrayonAdapter'
   m_EditorClassIdentifier: 
-  _sandboxConfig: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
+  _runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}

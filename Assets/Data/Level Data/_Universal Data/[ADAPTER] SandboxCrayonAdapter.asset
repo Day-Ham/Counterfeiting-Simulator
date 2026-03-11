@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2988bcf16c8f15f4788f14556b116bf8, type: 3}
-  m_Name: '[CONFIG] RuntimeData'
+  m_Script: {fileID: 11500000, guid: 743b7026dc9a2f641b3dc226a5e66048, type: 3}
+  m_Name: '[ADAPTER] SandboxCrayonAdapter'
   m_EditorClassIdentifier: 
+  _runtimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}

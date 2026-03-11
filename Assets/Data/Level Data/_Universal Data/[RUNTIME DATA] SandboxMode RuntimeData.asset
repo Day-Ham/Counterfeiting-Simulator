@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 486e3e70dd38b5c41993cb65c4127040, type: 3}
-  m_Name: LevelCrayonAdapter
+  m_Script: {fileID: 11500000, guid: be084a46a07bdbb488df16d6d41bb725, type: 3}
+  m_Name: '[RUNTIME DATA] SandboxMode RuntimeData'
   m_EditorClassIdentifier: 
-  _runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
