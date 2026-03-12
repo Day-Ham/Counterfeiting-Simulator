@@ -63,7 +63,7 @@ public class SceneChanger : MonoBehaviour
     {
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            LevelManager.ReloadScene();
+            LevelManager.ReloadLevel();
         });
     }
 
