@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class QuitButton : SceneChangerUnitButton
+public class QuitButton : MonoBehaviour
 {
+    public Button Button;
+    
     private void Awake()
     {
         Button.onClick.AddListener(QuitGame);
@@ -9,6 +12,6 @@ public class QuitButton : SceneChangerUnitButton
 
     private void QuitGame()
     {
-        SceneChanger.QuitApp();
+        Application.Quit();
     }
 }

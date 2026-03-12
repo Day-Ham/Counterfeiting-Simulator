@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c25e02cddcba147a3ade2774b8d895, type: 3}
+  m_Name: '[LEVEL CONFIG LIST] Challenge Levels'
+  m_EditorClassIdentifier: 
+  value:
+  - {fileID: 11400000, guid: ed2556945f0400e4dbe6d3ebccc67182, type: 2}
+  - {fileID: 11400000, guid: 5c94731959da52b42a7a04d1fe30b87d, type: 2}
+  - {fileID: 11400000, guid: 413094bc70e4f5849b5a28fc8f6d8b11, type: 2}
+  - {fileID: 11400000, guid: 7d8f5d5f1bff1ab42bf951aacbf502e0, type: 2}
+  - {fileID: 11400000, guid: 90aa6fcc112865846ac0a07964cd7c56, type: 2}
+  - {fileID: 11400000, guid: e4137ee20cf0356469f55720dd01e455, type: 2}
+  - {fileID: 11400000, guid: 3a67226d354e4eb4dbbb5363dfd68b00, type: 2}
+  - {fileID: 11400000, guid: 5085f35e5dc82534d845de9f123eccb2, type: 2}

@@ -3042,7 +3042,7 @@ MonoBehaviour:
     InputField: {fileID: 3368078249208923726}
     Rect: {fileID: 2932030441726549575}
   ParentCanvas: {fileID: 8433173067774485455}
-  LevelRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  RuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   ScrollSensitivity: 0.01
   colorPreview: {fileID: 5500588221694078085}
   _selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
