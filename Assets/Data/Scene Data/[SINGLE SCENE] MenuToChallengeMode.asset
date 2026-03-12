@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d18879097c98b064b9a470a4c29f55f4, type: 3}
-  m_Name: '[SINGLE SCENE] MenuToLevel1'
+  m_Name: '[SINGLE SCENE] MenuToChallengeMode'
   m_EditorClassIdentifier: 
   sceneAsset: {fileID: 102900000, guid: 749ac32e97be4bf44b2c0db03a18c089, type: 3}
   sceneName: Level 1
