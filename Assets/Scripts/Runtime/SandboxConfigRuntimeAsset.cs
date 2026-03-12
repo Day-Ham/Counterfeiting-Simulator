@@ -28,4 +28,6 @@ public class SandboxConfigRuntimeAsset : ConfigRuntime
         if (_runtimeValue == null) return null;
         return _runtimeValue.GetActiveColors();
     }
+    
+    public override int UndoLimit => 0;
 }

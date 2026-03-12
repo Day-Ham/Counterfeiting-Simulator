@@ -52,8 +52,10 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         CanvasOperation _queuedCanvasOperation;
         Vector2Int _canvasDimensions;
+        int _remainingUndo;
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
+        public int RemainingUndo => _remainingUndo;
         
         public int CurrentBrushColorIndex { get; private set; } = 0;
         
@@ -121,6 +123,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             };
 
             RefreshCurrentBrushSettings();
+            InitializeUndoLimit();
         }
 
         private void RefreshCurrentBrushSettings()
@@ -289,9 +292,21 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         {
             if (_queuedCanvasOperation != null) return;
             if (CurrentCanvasStateHistoryCount <= 1) return;
+            
+            if (_remainingUndo == 0 && RuntimeAsset.UndoLimit > 0)
+            {
+                Debug.Log("Undo limit reached.");
+                return;
+            }
 
             StopDrawing();
+            
             _queuedCanvasOperation = new UndoLastDrawCanvasOperation(this);
+            
+            if (_remainingUndo > 0)
+            {
+                _remainingUndo--;
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -356,9 +371,20 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             CurrentDrawMode = desiredMode;
         }
         
+        private void InitializeUndoLimit()
+        {
+            if (RuntimeAsset == null || !RuntimeAsset.HasValue)
+            {
+                _remainingUndo = 0;
+                return;
+            }
+
+            _remainingUndo = RuntimeAsset.UndoLimit;
+        }
+        
         private bool CanDraw()
         {
-            return IsCanDraw && (_drawingBoardController == null || _drawingBoardController.IsCanInteract);
+            return IsCanDraw && (!_drawingBoardController || _drawingBoardController.IsCanInteract);
         }
     }
 }
