@@ -7,5 +7,5 @@ public class GameManagerUIButton : MonoBehaviour
     public Button Button;
     public GameManagerValue GameManagerValue;
     
-    protected GameManager GameManager  => GameManagerValue.Value;
+    protected GameManagerUnit GameManagerUnit  => GameManagerValue.Value;
 }
