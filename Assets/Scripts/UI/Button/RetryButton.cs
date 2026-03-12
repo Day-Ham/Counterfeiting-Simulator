@@ -9,6 +9,6 @@ public class RetryButton : SceneChangerUnitButton
 
     private void RetryGame()
     {
-        SceneChanger.ResetScene();
+        SceneChanger.ResetLevel();
     }
 }
