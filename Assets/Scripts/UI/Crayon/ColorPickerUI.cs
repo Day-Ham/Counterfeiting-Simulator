@@ -8,7 +8,7 @@ public class ColorPickerUI : MonoBehaviour
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<RGBChannel> RGBChannels = new();
     [SerializeField] private Canvas ParentCanvas;
-    [SerializeField] private LevelConfigRuntimeAsset LevelRuntime;
+    [SerializeField] private ConfigRuntime RuntimeAsset;
     
     [Header("Scroll Settings")]
     [Range(0.01f, 1f)]
@@ -32,12 +32,15 @@ public class ColorPickerUI : MonoBehaviour
     private void OnEnable()
     {
         _openColorPickerEvent.OnColorPickerOpened += SetColor;
-        CacheGameModeState();
+        if (RuntimeAsset != null)
+            RuntimeAsset.OnValueChanged += OnRuntimeChanged;
     }
 
     private void OnDisable()
     {
         _openColorPickerEvent.OnColorPickerOpened -= SetColor;
+        if (RuntimeAsset != null)
+            RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
     }
 
     private void Awake()
@@ -46,10 +49,9 @@ public class ColorPickerUI : MonoBehaviour
         UpdateColorPreview(GetCurrentColor());
     }
     
-    // Cache whether we're in ColorPicker mode so we don't re-check it every preview update
-    private void CacheGameModeState()
+    private void OnRuntimeChanged()
     {
-        _isColorPickerMode = LevelRuntimeExists() && LevelRuntime.Value.GameMode == LevelGameMode.ColorPicker;
+        UpdateColorPreview(GetCurrentColor());
     }
     
     private void SetupRGBChannels()
@@ -118,21 +120,28 @@ public class ColorPickerUI : MonoBehaviour
     {
         _cachedSelectedIndex = _selectBrushColorEvent.CurrentSelectedIndex;
 
-        if (_cachedSelectedIndex >= 0 && _isColorPickerMode && LevelRuntimeExists())
+        if (_cachedSelectedIndex >= 0 && RuntimeAsset != null && RuntimeAsset.HasValue)
         {
-            Color snapped = ColorMatchUtils.SnapPerChannelClosest(color, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.Tolerance);
+            var activeColors = RuntimeAsset.GetActiveColors();
+            
+            if (activeColors != null)
+            {
+                color = ColorMatchUtils.SnapPerChannelClosest(color, activeColors, 10); // use default tolerance or provide one
+            }
 
             // Only update sliders/runtime if the snapped color actually changed
-            if (snapped != color)
+            if (RuntimeAsset is LevelConfigRuntimeAsset levelRuntime)
             {
-                SetSliderValue(0, snapped.r * 255);
-                SetSliderValue(1, snapped.g * 255);
-                SetSliderValue(2, snapped.b * 255);
-
-                LevelRuntime.Value.SetWhiteColor(_cachedSelectedIndex, snapped);
-
-                color = snapped;
+                levelRuntime.Value.SetWhiteColor(_cachedSelectedIndex, color);
             }
+            else if (RuntimeAsset is SandboxConfigRuntimeAsset sandboxRuntime)
+            {
+                sandboxRuntime.Value.SetColor(_cachedSelectedIndex, color);
+            }
+            
+            SetSliderValue(0, color.r * 255);
+            SetSliderValue(1, color.g * 255);
+            SetSliderValue(2, color.b * 255);
         }
 
         if (colorPreview)
@@ -175,23 +184,10 @@ public class ColorPickerUI : MonoBehaviour
     
     private void SetColor(Color newColor)
     {
-        if (RGBChannels.Count < 3) return;
-
-        // Snap new color to ColorsToBeUsed
-        if (LevelRuntimeExists())
-        {
-            newColor = ColorMatchUtils.SnapPerChannelClosest(newColor, LevelRuntime.Value.ColorsToBeUsed.Value, LevelRuntime.Value.Tolerance);
-        }
-        
-        SetSliderValue(0, Mathf.RoundToInt(newColor.r * 255f));
-        SetSliderValue(1, Mathf.RoundToInt(newColor.g * 255f));
-        SetSliderValue(2, Mathf.RoundToInt(newColor.b * 255f));
+        SetSliderValue(0, newColor.r * 255f);
+        SetSliderValue(1, newColor.g * 255f);
+        SetSliderValue(2, newColor.b * 255f);
 
         UpdateColorPreview(GetCurrentColor());
-    }
-    
-    private bool LevelRuntimeExists()
-    {
-        return LevelRuntime && LevelRuntime.Value;
     }
 }

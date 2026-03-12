@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0599e1632d846b42a97ab10e98cef3a, type: 3}
-  m_Name: '[GAMEOBJECT LIST] To Instantiate'
+  m_Name: '[GAMEOBJECT LIST] To Instantiate MainGameMode'
   m_EditorClassIdentifier: 
   value:
-  - {fileID: 4671942890938587298, guid: cdfedcd02efc454448c349a8bdbf2cac, type: 3}
-  - {fileID: 2433383935729226853, guid: 650b82cb9760e734caf32bdc71009143, type: 3}
+  - {fileID: 4568442566982977465, guid: 80af9810d1eba8e479b8fb753ec33001, type: 3}
+  - {fileID: 2433383935729226853, guid: 217078191bc75e64fae3b39d29330420, type: 3}
   - {fileID: 4041418509026358389, guid: b13d59a77e56f324992b3797c6d097f6, type: 3}
-  - {fileID: 3085782536267974232, guid: 6d8b119b48a03b946b3095960b53b966, type: 3}
+  - {fileID: 2956368941683941917, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
   - {fileID: 1266475553892893057, guid: dfcbf5e30da32c6459cc73424502f0a2, type: 3}
-  - {fileID: 1988790528041721999, guid: 3340e7ae22bce1f4a98a522d7e9cf9d0, type: 3}
+  - {fileID: 1755437427120616689, guid: 0653fed2dccf1e34b8ef7ddc961f3344, type: 3}
   - {fileID: 6898610493201983226, guid: f3863b1252e61da49befa98104e8be99, type: 3}

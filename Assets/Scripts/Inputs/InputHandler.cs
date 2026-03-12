@@ -40,10 +40,10 @@ public class InputHandler : ScriptableObject
     
     private bool IsValidCanvasDraw()
     {
-        if (_canvasDraw?.LevelConfigRuntime?.Value != null)
+        if (_canvasDraw.RuntimeAsset.HasValue)
         {
             return true;
-        };
+        }
         
         Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
         return false;
@@ -51,8 +51,7 @@ public class InputHandler : ScriptableObject
     
     private void BindColorKeys()
     {
-        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
-        var colors = levelConfig.GetActiveColors();
+        var colors = _canvasDraw.RuntimeAsset.GetActiveColors();
         
         int colorCount = colors?.Count ?? 0;
 
@@ -78,8 +77,7 @@ public class InputHandler : ScriptableObject
     
     private void SelectColor(int index)
     {
-        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
-        var colors = levelConfig.GetActiveColors();
+        var colors = _canvasDraw.RuntimeAsset.GetActiveColors();
         
         if (colors != null && index < colors.Count)
         {

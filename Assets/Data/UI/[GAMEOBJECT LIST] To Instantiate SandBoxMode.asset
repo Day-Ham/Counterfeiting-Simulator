@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0599e1632d846b42a97ab10e98cef3a, type: 3}
+  m_Name: '[GAMEOBJECT LIST] To Instantiate SandBoxMode'
+  m_EditorClassIdentifier: 
+  value:
+  - {fileID: 4568442566982977465, guid: 80af9810d1eba8e479b8fb753ec33001, type: 3}
+  - {fileID: 2433383935729226853, guid: 44be7d0545d63f14ca9f626357afa25f, type: 3}
+  - {fileID: 2637768449395452482, guid: 95690cae33726904a8c212760e08ff69, type: 3}
+  - {fileID: 2956368941683941917, guid: 3460fa7788c49f645bfe57ebfff3c31d, type: 3}
+  - {fileID: 1755437427120616689, guid: 679366347e41c4a499a22a83e9e928c2, type: 3}

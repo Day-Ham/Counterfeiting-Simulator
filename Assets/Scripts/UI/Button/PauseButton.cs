@@ -11,6 +11,6 @@ public class PauseButton : GameManagerUIButton
 
     private void PauseGame()
     {
-        GameManager.PauseGame();
+        GameManagerUnit.PauseGame();
     }
 }

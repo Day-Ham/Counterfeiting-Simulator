@@ -12,6 +12,6 @@ public class ResumeButton : GameManagerUIButton
     private void ResumeGame()
     {
         PauseUIGameObject.SetActive(false);
-        GameManager.ResumeGame();
+        GameManagerUnit.ResumeGame();
     }
 }
