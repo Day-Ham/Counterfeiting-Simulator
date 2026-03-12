@@ -28,4 +28,15 @@ public class LevelConfigRuntimeAsset : ConfigRuntime
         if (_runtimeValue == null) return null;
         return _runtimeValue.GetActiveColors();
     }
+    
+    public override int UndoLimit
+    {
+        get
+        {
+            if (_runtimeValue == null || _runtimeValue.UndoLimit == null)
+                return 0;
+
+            return _runtimeValue.UndoLimit.Value;
+        }
+    }
 }

@@ -11,9 +11,12 @@ public class LevelConfig : ScriptableObject
     public ColorDataListValue ColorsToBeUsed;
     public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
+    
+    [Header("Gameplay Limits")]
+    public IntValue UndoLimit;
+    public IntValue SnapTolerance;
 
     [Header("Universal Data")] 
-    public int Tolerance;
     public GameObjectListValue ColorBlobs;
     
     private List<Color> _runtimeWhiteColors;
@@ -39,7 +42,7 @@ public class LevelConfig : ScriptableObject
     {
         if (ColorsToBeUsed?.Value != null)
         {
-            return ColorMatchUtils.SnapPerChannelClosest(color, ColorsToBeUsed.Value, Tolerance);
+            return ColorMatchUtils.SnapPerChannelClosest(color, ColorsToBeUsed.Value, SnapTolerance.Value);
         }
 
         return color;
