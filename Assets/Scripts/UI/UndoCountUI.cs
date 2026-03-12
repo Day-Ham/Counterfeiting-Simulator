@@ -6,6 +6,8 @@ public class UndoCountUI : MonoBehaviour
     public CanvasDrawControllerValue CanvasDrawControllerValue;
     public TMP_Text UndoCountText;
     
+    private const string UNDO_REMAINING = "Undo remaining: ";
+    
     private void Start()
     {
         UpdateUndoText();
@@ -21,6 +23,6 @@ public class UndoCountUI : MonoBehaviour
         if (!CanvasDrawControllerValue || !CanvasDrawControllerValue.Value) return;
 
         int remainingUndo = CanvasDrawControllerValue.Value.RemainingUndo;
-        UndoCountText.text = $"{remainingUndo}";
+        UndoCountText.text = UNDO_REMAINING + remainingUndo;
     }
 }
