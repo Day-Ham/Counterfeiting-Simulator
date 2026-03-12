@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d593a08e3aaa0a4bb3ab071d5dd7aeb, type: 3}
+  m_Name: '[LEVEL 9] ColorToBeUsed'
+  m_EditorClassIdentifier: 
+  value:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.9568628, g: 0.92549026, b: 0.83921576, a: 1}
+  - {r: 0.72156864, g: 0.7568628, b: 0.33333334, a: 1}
+  - {r: 0.63529414, g: 0.70980394, b: 0.38823533, a: 1}
+  - {r: 0.38823533, g: 0.43921572, b: 0.2784314, a: 1}
+  - {r: 0.93725497, g: 0.73333335, b: 0.47450984, a: 1}
+  - {r: 0.86274517, g: 0.63529414, b: 0.3019608, a: 1}
+  - {r: 0.9568628, g: 0.70980394, b: 0.3647059, a: 1}
+  - {r: 0.9921569, g: 0.77647066, b: 0.654902, a: 1}
+  - {r: 0.30980393, g: 0.09411766, b: 0, a: 1}

@@ -29,3 +29,5 @@ MonoBehaviour:
     sceneName: Level 7
   - sceneAsset: {fileID: 102900000, guid: b85eb33055d57604a8f0231149aa98aa, type: 3}
     sceneName: Level 8
+  - sceneAsset: {fileID: 102900000, guid: 501b601cbd7e4d34c9f5f4ecfece1bd0, type: 3}
+    sceneName: Level 9
