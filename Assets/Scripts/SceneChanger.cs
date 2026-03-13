@@ -33,7 +33,7 @@ public class SceneChanger : MonoBehaviour
     {
         _nextButtonUI = _nextButtonValue.Value;
         
-        CircleUI.SetActive(true);
+        //CircleUI.SetActive(true);
         
         CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);

@@ -512,6 +512,7 @@ MonoBehaviour:
   StartButton: {fileID: 595858183129722024}
   SceneToGo: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
   SceneToUnload: {fileID: 11400000, guid: a59376860a302484c92d62ff00b00bfd, type: 2}
+  CircleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
 --- !u!1 &2433383935729226853
 GameObject:
   m_ObjectHideFlags: 0

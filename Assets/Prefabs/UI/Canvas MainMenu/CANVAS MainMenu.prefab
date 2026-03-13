@@ -204,6 +204,7 @@ MonoBehaviour:
   StartButton: {fileID: 1900725855482394023}
   SceneToGo: {fileID: 11400000, guid: a59376860a302484c92d62ff00b00bfd, type: 2}
   SceneToUnload: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
+  CircleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
 --- !u!1 &1126449822413741079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1199,6 +1200,7 @@ GameObject:
   - component: {fileID: 2486784966490269559}
   - component: {fileID: 4383172522625103153}
   - component: {fileID: 345257844301844831}
+  - component: {fileID: 5317929515328754739}
   m_Layer: 5
   m_Name: PANEL
   m_TagString: Untagged
@@ -1263,6 +1265,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5317929515328754739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7712111108383367236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781cf4ce551feab4a98edb32e31cf0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CircleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
 --- !u!1 &8094323816941450597
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,3 +1596,4 @@ MonoBehaviour:
   StartButton: {fileID: 9066056971942578393}
   SceneToGo: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
   SceneToUnload: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
+  CircleTransition: {fileID: 11400000, guid: 2fa2cbb8a1da9ab4a8354c33d88dff7b, type: 2}
