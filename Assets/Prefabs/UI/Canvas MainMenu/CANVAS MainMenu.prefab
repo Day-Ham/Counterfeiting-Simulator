@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 5685276723488588473}
   - component: {fileID: 5450986605448878057}
   - component: {fileID: 1900725855482394023}
+  - component: {fileID: 4302706218376229688}
   m_Layer: 5
   m_Name: BUTTON Auction
   m_TagString: Untagged
@@ -183,11 +184,26 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 5450986605448878057}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4302706218376229688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044165701552440901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80df07d4a1bdd7f43a1f84959026d175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartButton: {fileID: 1900725855482394023}
+  SceneToGo: {fileID: 11400000, guid: 13330ed97f27be64393d49ed09a5eac0, type: 2}
+  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
 --- !u!1 &1126449822413741079
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,6 +440,7 @@ GameObject:
   - component: {fileID: 1470083324794083644}
   - component: {fileID: 4884299879755669450}
   - component: {fileID: 8021719793833402633}
+  - component: {fileID: 6092826237989868305}
   m_Layer: 5
   m_Name: BUTTON QuitGame
   m_TagString: Untagged
@@ -533,6 +550,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6092826237989868305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409840740926426688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f1d9599496af647824d987c53d3026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 8021719793833402633}
 --- !u!1 &2850937120455372638
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +704,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Auction
+  m_text: Sandbox
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1504,5 +1534,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartButton: {fileID: 9066056971942578393}
-  Level1Scene: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
+  SceneToGo: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
   MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StartGame : MonoBehaviour
 {
     public Button StartButton;
-    public SingleSceneReference Level1Scene;
+    public SingleSceneReference SceneToGo;
     public SingleSceneReference MainMenuScene;
 
     private void Awake()
@@ -16,7 +16,7 @@ public class StartGame : MonoBehaviour
 
     private void GoToGame()
     {
-        string level1SceneSceneName = Level1Scene.sceneName;
+        string level1SceneSceneName = SceneToGo.sceneName;
         string mainMenuSceneName = MainMenuScene.sceneName;
         
         SceneFlowManager.Instance.LoadScene(level1SceneSceneName);
