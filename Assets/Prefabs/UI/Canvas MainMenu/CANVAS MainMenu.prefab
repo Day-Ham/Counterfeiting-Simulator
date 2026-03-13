@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartButton: {fileID: 1900725855482394023}
   SceneToGo: {fileID: 11400000, guid: a59376860a302484c92d62ff00b00bfd, type: 2}
-  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
+  SceneToUnload: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
 --- !u!1 &1126449822413741079
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,6 +358,7 @@ RectTransform:
   m_Children:
   - {fileID: 2486784966490269559}
   - {fileID: 8330644338270195302}
+  - {fileID: 8059849203530547738}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1262,6 +1263,50 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8094323816941450597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8059849203530547738}
+  - component: {fileID: 8360536336735246235}
+  m_Layer: 0
+  m_Name: Activate Cursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8059849203530547738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094323816941450597}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9069248427933250477}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8360536336735246235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094323816941450597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa8298f8e13a9242924a3e1d2c45d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8422874377742979784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,4 +1580,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartButton: {fileID: 9066056971942578393}
   SceneToGo: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
-  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
+  SceneToUnload: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}

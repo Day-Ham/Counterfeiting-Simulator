@@ -7,7 +7,7 @@ public class StartGame : MonoBehaviour
 {
     public Button StartButton;
     public SingleSceneReference SceneToGo;
-    public SingleSceneReference MainMenuScene;
+    public SingleSceneReference SceneToUnload;
 
     private void Awake()
     {
@@ -17,9 +17,9 @@ public class StartGame : MonoBehaviour
     private void GoToGame()
     {
         string sceneToGoName = SceneToGo.sceneName;
-        string mainMenuSceneName = MainMenuScene.sceneName;
+        string sceneToUnload = SceneToUnload.sceneName;
         
         SceneFlowManager.Instance.LoadScene(sceneToGoName);
-        SceneManager.UnloadSceneAsync(mainMenuSceneName); 
+        SceneManager.UnloadSceneAsync(sceneToUnload); 
     }
 }
