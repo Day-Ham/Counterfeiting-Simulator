@@ -38,4 +38,25 @@ public class SceneFlowManager : MonoBehaviour
 
         _currentLoadedScene = sceneName;
     }
+    
+    public void ReloadCurrentScene()
+    {
+        if (string.IsNullOrEmpty(_currentLoadedScene)) return;
+
+        StartCoroutine(ReloadSceneRoutine());
+    }
+
+    private IEnumerator ReloadSceneRoutine()
+    {
+        string sceneName = _currentLoadedScene;
+
+        yield return SceneManager.UnloadSceneAsync(sceneName);
+
+        yield return null;
+
+        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        Scene newScene = SceneManager.GetSceneByName(sceneName);
+        SceneManager.SetActiveScene(newScene);
+    }
 }

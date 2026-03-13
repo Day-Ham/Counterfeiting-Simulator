@@ -16,10 +16,10 @@ public class StartGame : MonoBehaviour
 
     private void GoToGame()
     {
-        string level1SceneSceneName = SceneToGo.sceneName;
+        string sceneToGoName = SceneToGo.sceneName;
         string mainMenuSceneName = MainMenuScene.sceneName;
         
-        SceneFlowManager.Instance.LoadScene(level1SceneSceneName);
+        SceneFlowManager.Instance.LoadScene(sceneToGoName);
         SceneManager.UnloadSceneAsync(mainMenuSceneName); 
     }
 }
