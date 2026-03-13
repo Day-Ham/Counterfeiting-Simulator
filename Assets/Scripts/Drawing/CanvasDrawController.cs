@@ -167,6 +167,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             tex.filterMode = FilterMode.Point;
             tex.enableRandomWrite = true;
             tex.Create();
+            
+            // Clear the texture immediately
+            RenderTexture active = RenderTexture.active;
+            RenderTexture.active = tex;
+            GL.Clear(true, true, _clearColor);
+            RenderTexture.active = active;
+            
             return tex;
         }
 
