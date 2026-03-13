@@ -329,6 +329,7 @@ MonoBehaviour:
   _levelManagerValue: {fileID: 11400000, guid: c521fc3a9cd96b34d890dbe9478795fa, type: 2}
   _currentLevelIndex: {fileID: 11400000, guid: ff5648224d9b0d64f8d13af3ca859b0a, type: 2}
   _prefabsToSpawn: {fileID: 11400000, guid: 53fa46cfdbcf7894babe3feab9b9c63d, type: 2}
+  _challengeScene: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
 --- !u!1 &1456504796
 GameObject:
   m_ObjectHideFlags: 0
