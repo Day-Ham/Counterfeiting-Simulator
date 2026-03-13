@@ -28,7 +28,9 @@ public class SceneFlowManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(_currentLoadedScene))
         {
-            yield return SceneManager.UnloadSceneAsync(_currentLoadedScene);
+            Scene prevScene = SceneManager.GetSceneByName(_currentLoadedScene);
+            if (prevScene.isLoaded)
+                yield return SceneManager.UnloadSceneAsync(_currentLoadedScene);
         }
 
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -50,9 +52,10 @@ public class SceneFlowManager : MonoBehaviour
     {
         string sceneName = _currentLoadedScene;
 
-        yield return SceneManager.UnloadSceneAsync(sceneName);
-
-        yield return null;
+        if (!string.IsNullOrEmpty(sceneName) && SceneManager.GetSceneByName(sceneName).isLoaded)
+        {
+            yield return SceneManager.UnloadSceneAsync(sceneName);
+        }
 
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 

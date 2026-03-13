@@ -20,6 +20,7 @@ public class SceneChanger : MonoBehaviour
     private LevelManager LevelManager => _levelManagerValue.Value;
     private GameObject _nextButtonUI;
     private GameObject CircleUI => _circleTransition.Value;
+    private bool isTransitioning;
     
     private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
     private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
@@ -37,25 +38,36 @@ public class SceneChanger : MonoBehaviour
         
         CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
+        OnLevelLoaded();
     }
     
     public void NextLevel()
     {
-        if (LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1) return;
+        if (LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1)
+        {
+            OnLevelLoaded(); // make sure we reset
+            return;
+        }
 
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
             LevelManager.LoadNextLevel();
+            OnLevelLoaded();
         });
     }
     
     private void PrevLevel()
     {
-        if (LevelManager.CurrentLevelIndex <= 0) return;
+        if (LevelManager.CurrentLevelIndex <= 0)
+        {
+            OnLevelLoaded(); // make sure we reset
+            return;
+        }
 
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
             LevelManager.LoadPrevLevel();
+            OnLevelLoaded();
         });
     }
     
@@ -64,6 +76,7 @@ public class SceneChanger : MonoBehaviour
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
             LevelManager.ReloadLevel();
+            OnLevelLoaded();
         });
     }
 
@@ -74,14 +87,23 @@ public class SceneChanger : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftBracket))
+        if (isTransitioning) return;
+
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
         {
+            isTransitioning = true;
             PrevLevel();
         }
-        
-        if (Input.GetKey(KeyCode.RightBracket))
+
+        if (Input.GetKeyDown(KeyCode.RightBracket))
         {
+            isTransitioning = true;
             NextLevel();
-        } 
+        }
+    }
+    
+    private void OnLevelLoaded()
+    {
+        isTransitioning = false;
     }
 }
