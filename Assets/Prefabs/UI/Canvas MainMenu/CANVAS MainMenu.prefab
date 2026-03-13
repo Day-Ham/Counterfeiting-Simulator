@@ -79,8 +79,9 @@ GameObject:
   - component: {fileID: 5685276723488588473}
   - component: {fileID: 5450986605448878057}
   - component: {fileID: 1900725855482394023}
+  - component: {fileID: 3179427134933235467}
   m_Layer: 5
-  m_Name: BUTTON Auction
+  m_Name: BUTTON Sandbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,11 +184,25 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 5450986605448878057}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3179427134933235467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044165701552440901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80df07d4a1bdd7f43a1f84959026d175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartButton: {fileID: 1900725855482394023}
+  SceneToGo: {fileID: 11400000, guid: 9f48809220edb7343b66b1289793f78b, type: 2}
 --- !u!1 &1126449822413741079
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +689,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Auction
+  m_text: Sandbox
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1504,5 +1519,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartButton: {fileID: 9066056971942578393}
-  Level1Scene: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
-  MainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
+  SceneToGo: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}

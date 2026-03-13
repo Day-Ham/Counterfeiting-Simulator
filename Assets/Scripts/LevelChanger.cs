@@ -5,10 +5,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class SceneChanger : MonoBehaviour
+public class LevelChanger : MonoBehaviour
 {
     [Header("References")]
-    public SceneChangerValue SceneChangerValue;
+    public LevelChangerValue levelChangerValue;
     [SerializeField] private LevelManagerValue _levelManagerValue;
     [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _circleTransition;
@@ -26,7 +26,7 @@ public class SceneChanger : MonoBehaviour
 
     private void Awake()
     {
-        SceneChangerValue.Value = this;
+        levelChangerValue.Value = this;
     }
 
     private void Start()

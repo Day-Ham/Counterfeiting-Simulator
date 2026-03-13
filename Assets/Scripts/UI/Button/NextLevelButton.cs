@@ -9,6 +9,6 @@ public class NextLevelButton : SceneChangerUnitButton
 
     private void NextLevel()
     {
-        SceneChanger.NextLevel();
+        LevelChanger.NextLevel();
     }
 }
