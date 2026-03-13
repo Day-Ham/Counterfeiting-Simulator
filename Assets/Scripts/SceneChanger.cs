@@ -7,30 +7,22 @@ using DG.Tweening;
 
 public class SceneChanger : MonoBehaviour
 {
+    [Header("References")]
     public SceneChangerValue SceneChangerValue;
+    [SerializeField] private LevelManagerValue _levelManagerValue;
     [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _circleTransition;
     [SerializeField] private GameObjectValue _nextButtonValue;
-    public Ease EaseTween;
-    
-    [Header("Scene Settings")]
-    [SerializeField] private MultipleSceneReference _multipleSceneReference;
-    [SerializeField] private SingleSceneReference _coreSceneReference;
-    
-    private int _currentLevelIndex;
+
+    [Header("Tween Settings")]
+    public Ease EaseTween = Ease.OutBounce;
+
+    private LevelManager LevelManager => _levelManagerValue.Value;
     private GameObject _nextButtonUI;
-    
     private GameObject CircleUI => _circleTransition.Value;
     
-    private void OnEnable()
-    {
-        _sceneChangerEvent.Register(ShowNextButton);
-    }
-
-    private void OnDisable()
-    {
-        _sceneChangerEvent.Unregister(ShowNextButton);
-    }
+    private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
+    private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
 
     private void Awake()
     {
@@ -39,8 +31,6 @@ public class SceneChanger : MonoBehaviour
 
     private void Start()
     {
-        DetectCurrentScene();
-        
         _nextButtonUI = _nextButtonValue.Value;
         
         CircleUI.SetActive(true);
@@ -48,76 +38,32 @@ public class SceneChanger : MonoBehaviour
         CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
-
-    private void DetectCurrentScene()
-    {
-        string activeSceneName = SceneManager.GetActiveScene().name;
-        
-        for (int i = 0; i < _multipleSceneReference.Scenes.Count; i++)
-        {
-            if (_multipleSceneReference.Scenes[i].sceneName != activeSceneName) continue;
-            
-            _currentLevelIndex = i;
-            break;
-        }
-    }
-
-    public void QuitApp()
-    {
-        Application.Quit();
-    }
-    
-    private void LoadSceneAdditive(string targetScene, Action<Scene, Scene> onLoaded)
-    {
-        string currentScene = SceneManager.GetActiveScene().name;
-
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (scene.name != targetScene) return;
-
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-            SceneManager.SetActiveScene(scene);
-            
-            onLoaded?.Invoke(scene, SceneManager.GetSceneByName(currentScene));
-        }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene(targetScene, LoadSceneMode.Additive);
-    }
-
-    public void ResetScene()
-    {
-        string currentScene = SceneManager.GetActiveScene().name;
-
-        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
-        {
-            LoadSceneAdditive(currentScene, (newScene, oldScene) =>
-            {
-                if (currentScene != _coreSceneReference.sceneName)
-                {
-                    SceneManager.UnloadSceneAsync(oldScene);
-                }
-            });
-        });
-    }
     
     public void NextLevel()
     {
-        if (_currentLevelIndex >= _multipleSceneReference.Scenes.Count - 1) return;
-
-        string currentScene = SceneManager.GetActiveScene().name;
-        string nextScene = _multipleSceneReference.Scenes[_currentLevelIndex + 1].sceneName;
+        if (LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1) return;
 
         CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
         {
-            LoadSceneAdditive(nextScene, (newScene, oldScene) =>
-            {
-                if (currentScene != _coreSceneReference.sceneName)
-                {
-                    SceneManager.UnloadSceneAsync(oldScene);
-                }
-                _currentLevelIndex++;
-            });
+            LevelManager.LoadNextLevel();
+        });
+    }
+    
+    private void PrevLevel()
+    {
+        if (LevelManager.CurrentLevelIndex <= 0) return;
+
+        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        {
+            LevelManager.LoadPrevLevel();
+        });
+    }
+    
+    public void ResetLevel()
+    {
+        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        {
+            LevelManager.ReloadLevel();
         });
     }
 
@@ -126,25 +72,13 @@ public class SceneChanger : MonoBehaviour
         _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
     }
     
-    private void PrevLevel()
-    {
-        if (_currentLevelIndex <= 0)
-        {
-            return;
-        }
-        
-        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
-        {
-            SceneManager.LoadScene(_multipleSceneReference.Scenes[_currentLevelIndex - 1].sceneName);
-        });
-        
-    }
     private void Update()
     {
         if (Input.GetKey(KeyCode.LeftBracket))
         {
             PrevLevel();
         }
+        
         if (Input.GetKey(KeyCode.RightBracket))
         {
             NextLevel();

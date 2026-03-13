@@ -6,20 +6,30 @@ using Random = UnityEngine.Random;
 public class PopulateCrayons : MonoBehaviour
 {
     [Header("Crayon Data")]
-    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
+    [SerializeField] private GameModeCrayon _crayonSource;
 
     [Header("UI References")]
     [SerializeField] private Transform _contentParent;
     [SerializeField] private SetCrayonFunction _setCrayonFunction;
-    
-    private LevelConfig _currentLevel;
 
     private void Start()
     {
-        _currentLevel = _levelConfigRuntimeAsset.Value;
-        
+        if (_crayonSource == null)
+        {
+            Debug.LogError("No crayon source assigned!");
+            return;
+        }
+
+        _crayonSource.InitializeColors();
+
         Populate();
-        _setCrayonFunction.SetupCrayons(_currentLevel.ColorsToBeUsed);
+
+        Setup();
+    }
+    
+    private void Setup()
+    {
+        _setCrayonFunction.SetupCrayons(_crayonSource.GetActiveColors());
     }
 
     private void Populate()
@@ -30,18 +40,21 @@ public class PopulateCrayons : MonoBehaviour
 
     private void SpawnDifferentBlobs()
     {
-        var colorsList = _currentLevel.ColorsToBeUsed.Value;
-        var colorBlobsList = _currentLevel.ColorBlobs.Value;
+        var colors = _crayonSource.GetActiveColors();
+        var blobs = _crayonSource.GetColorBlobs().Value;
 
-        int colorCount = colorsList.Count;
-        int prefabCount = colorBlobsList.Count;
-
-        for (int i = 0; i < colorCount; i++)
+        int prefabCount = blobs.Count;
+        for (int i = 0; i < colors.Count; i++)
         {
             if (prefabCount == 0) break;
 
-            GameObject randomPrefab = colorBlobsList[Random.Range(0, prefabCount)];
-            Instantiate(randomPrefab, _contentParent);
+            GameObject prefab = blobs[Random.Range(0, prefabCount)];
+            GameObject instance = Instantiate(prefab, _contentParent);
+
+            if (instance.TryGetComponent<CrayonUIItem>(out var crayonItem))
+            {
+                crayonItem.Setup(colors[i], i);
+            }
         }
     }
 

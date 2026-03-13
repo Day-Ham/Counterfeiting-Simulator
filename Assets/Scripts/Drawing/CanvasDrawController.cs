@@ -21,9 +21,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public CanvasDrawControllerValue _canvasDrawControllerValue;
         public DrawingBoardZoom _drawingBoardZoom;
+        public DrawingBoardController _drawingBoardController;
+        [SerializeField] private SelectedColorEvent selectedColorEvent;
 
         [Header("Local Dependencies")]
-        public LevelConfigRuntimeAsset LevelConfigRuntime;
+        public ConfigRuntime RuntimeAsset;
         [SerializeField] GraphicRaycaster _graphicRaycaster;
         [SerializeField] CanvasLayerDrawController _layerDrawController;
         [SerializeField] CanvasStamper _canvasStamper;
@@ -46,25 +48,54 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [NonSerialized] public int CurrentCanvasStateHistoryCount;
         [NonSerialized] public int OldestCanvasStateHistoryIndex;
         [NonSerialized] public int LatestCanvasStateHistoryIndex;
+        [NonSerialized] public bool IsCanDraw = true;
 
         CanvasOperation _queuedCanvasOperation;
         Vector2Int _canvasDimensions;
+        int _remainingUndo;
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
+        public int RemainingUndo => _remainingUndo;
+        
+        public int CurrentBrushColorIndex { get; private set; } = 0;
         
         private void OnEnable()
         {
-            LevelConfigRuntime.OnValueChanged += OnLevelChanged;
+            if (RuntimeAsset != null)
+            {
+                RuntimeAsset.OnValueChanged += OnRuntimeChanged;
+
+                if (RuntimeAsset.HasValue)
+                {
+                    OnRuntimeChanged();
+                }
+            }
+            
+            selectedColorEvent.OnColorPicked += OnSelectedColor;
         }
 
         private void OnDisable()
         {
-            LevelConfigRuntime.OnValueChanged -= OnLevelChanged;
+            if (RuntimeAsset != null)
+            {
+                RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
+            }
+            selectedColorEvent.OnColorPicked -= OnSelectedColor;
         }
 
-        private void OnLevelChanged(LevelConfig newLevel)
+        private void OnRuntimeChanged()
         {
             SetBrushColorIndex(0);
+        }
+        
+        private void OnSelectedColor(int index, Color newColor)
+        {
+            if (CurrentBrushSettings == null) return;
+            
+            if (CurrentBrushSettings.BrushColorIndex == index)
+            {
+                _layerDrawController.SetBrushColor(newColor);
+            }
         }
 
         private void Awake()
@@ -92,6 +123,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             };
 
             RefreshCurrentBrushSettings();
+            InitializeUndoLimit();
         }
 
         private void RefreshCurrentBrushSettings()
@@ -153,13 +185,14 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void Tick()
         {
+            if(!CanDraw()) return;
+            
             if (InputUtility.IsCtrlHeld)
             {
                 if (IsUpdating)
                 {
                     StopDrawing();
                 };
-
                 return;
             }
             
@@ -207,25 +240,17 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         public void SetBrushColorIndex(int index)
         {
-            if (LevelConfigRuntime == null || LevelConfigRuntime.Value == null)
+            if (RuntimeAsset == null)
             {
-                Debug.LogWarning("LevelConfigRuntimeAsset not assigned!");
+                Debug.LogWarning("RuntimeAsset not assigned!");
                 return;
             }
+            
+            var colors = RuntimeAsset.GetActiveColors();
 
-            LevelConfig level = LevelConfigRuntime.Value;
-            
-            if (level.ColorsToBeUsed == null || level.ColorsToBeUsed.Value == null)
+            if (colors == null || colors.Count == 0)
             {
-                Debug.LogWarning("Level has no ColorsToBeUsed assigned!");
-                return;
-            }
-            
-            var colors = level.ColorsToBeUsed.Value;
-            
-            if (colors.Count == 0)
-            {
-                Debug.LogWarning("ColorsToBeUsed list is empty!");
+                Debug.LogWarning("Active color list is empty!");
                 return;
             }
 
@@ -267,9 +292,21 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         {
             if (_queuedCanvasOperation != null) return;
             if (CurrentCanvasStateHistoryCount <= 1) return;
+            
+            if (_remainingUndo == 0 && RuntimeAsset.UndoLimit > 0)
+            {
+                Debug.Log("Undo limit reached.");
+                return;
+            }
 
             StopDrawing();
+            
             _queuedCanvasOperation = new UndoLastDrawCanvasOperation(this);
+            
+            if (_remainingUndo > 0)
+            {
+                _remainingUndo--;
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -281,8 +318,8 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         {
             // Block drawing if Ctrl is being held
             if (InputUtility.IsCtrlHeld) return;
-            
             if (IsUpdating) return;
+            if(!CanDraw()) return;
 
             IsUpdating = true;
         }
@@ -332,6 +369,22 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         public void SetDrawMode(DrawMode desiredMode)
         {
             CurrentDrawMode = desiredMode;
+        }
+        
+        private void InitializeUndoLimit()
+        {
+            if (RuntimeAsset == null || !RuntimeAsset.HasValue)
+            {
+                _remainingUndo = 0;
+                return;
+            }
+
+            _remainingUndo = RuntimeAsset.UndoLimit;
+        }
+        
+        private bool CanDraw()
+        {
+            return IsCanDraw && (!_drawingBoardController || _drawingBoardController.IsCanInteract);
         }
     }
 }

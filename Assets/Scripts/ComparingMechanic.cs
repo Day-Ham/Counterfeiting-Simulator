@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class ComparingMechanic : MonoBehaviour
 {
+    [Header("Events")]
     public VoidEvent SceneChangerEvent;
     public VoidEvent DrawingBoardControllerEvent;
+    public VoidEvent StartCompareEvent;
     
     [Header("GameObject to Move")]
     public GameObjectValue TargetImage;
@@ -36,7 +38,7 @@ public class ComparingMechanic : MonoBehaviour
     public TMPListValue PercentageTextShadowScriptableObject;
     
     [Header("GameManager Events")]
-    public GameManagerEvents FinishGameRequestEvent;
+    public VoidEvent FinishGameRequestEvent;
     public ComparisonResultEvent ComparisonResultEvent;
     
     private float majorPercentageNumber;
@@ -59,11 +61,13 @@ public class ComparingMechanic : MonoBehaviour
     private void OnEnable()
     {
         ComparisonResultEvent.OnRaised += OnComparisonFinished;
+        StartCompareEvent.Register(StartCompare);
     }
 
     private void OnDisable()
     {
         ComparisonResultEvent.OnRaised -= OnComparisonFinished;
+        StartCompareEvent.Unregister(StartCompare);
     }
 
     private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
@@ -86,12 +90,19 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.Space) || !_isOneShot) return;
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCompareEvent.Raise();
+        }
+    }
+    
+    private void StartCompare()
+    {
+        if (!_isOneShot) return;
+
         DrawingBoardControllerEvent.Raise();
-        
         FinishGameRequestEvent.Raise();
-        
+
         Vector3 targetPos = _targetLocationRect.position;
 
         _targetImageRect
@@ -104,8 +115,8 @@ public class ComparingMechanic : MonoBehaviour
             .SetEase(EaseTween);
 
         _frontRawImage.color = InspectionColor;
-        
-        _isOneShot =false;
+
+        _isOneShot = false;
     }
     
     private IEnumerator ShowResult()

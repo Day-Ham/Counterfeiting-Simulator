@@ -11,6 +11,7 @@ public class InputHandler : ScriptableObject
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
+    private bool _isBlockInput;
     
     private Dictionary<KeyCode, Action> _inputActions;
 
@@ -18,6 +19,8 @@ public class InputHandler : ScriptableObject
     {
         _canvasDraw = canvasDraw;
         _finishGameCallback = finishGameCallback;
+        
+        _isBlockInput = false;
         
         BuildInputDictionary();
     }
@@ -37,10 +40,10 @@ public class InputHandler : ScriptableObject
     
     private bool IsValidCanvasDraw()
     {
-        if (_canvasDraw?.LevelConfigRuntime?.Value != null)
+        if (_canvasDraw.RuntimeAsset.HasValue)
         {
             return true;
-        };
+        }
         
         Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
         return false;
@@ -48,7 +51,8 @@ public class InputHandler : ScriptableObject
     
     private void BindColorKeys()
     {
-        var colors = _canvasDraw.LevelConfigRuntime.Value.ColorsToBeUsed?.Value;
+        var colors = _canvasDraw.RuntimeAsset.GetActiveColors();
+        
         int colorCount = colors?.Count ?? 0;
 
         for (int i = 0; i < Mathf.Min(colorCount, 9); i++)
@@ -73,22 +77,21 @@ public class InputHandler : ScriptableObject
     
     private void SelectColor(int index)
     {
-        var levelConfig = _canvasDraw.LevelConfigRuntime.Value;
-        var colors = levelConfig.ColorsToBeUsed?.Value;
+        var colors = _canvasDraw.RuntimeAsset.GetActiveColors();
         
         if (colors != null && index < colors.Count)
         {
-            SelectBrushColorEvent.Raise(colors[index]);
+            SelectBrushColorEvent.Raise(index);
         };
     }
 
     public void UpdateInput()
     {
-        if (!_canvasDraw || _inputActions == null)
+        if (!_canvasDraw || _inputActions == null || _isBlockInput)
         {
-            return;
-        };
-
+            return; // <-- ignore all input if blocked
+        }
+        
         foreach (var input in _inputActions)
         {
             if (Input.GetKeyDown(input.Key))
@@ -96,6 +99,11 @@ public class InputHandler : ScriptableObject
                 input.Value?.Invoke();
             }
         }
+    }
+    
+    public void BlockInput()
+    {
+        _isBlockInput = true;
     }
 
     private void OnDisable()

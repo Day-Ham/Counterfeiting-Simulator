@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3f1321505bd60442b9c8b6cb0b93b48, type: 3}
   m_Name: '[LEVEL 5] _Level 5'
   m_EditorClassIdentifier: 
+  GameMode: 0
   CanvasTemplate: {fileID: 11400000, guid: 96347731e9462924a820ea7d8e05e174, type: 2}
   ColorBackgroundDraw: {fileID: 11400000, guid: a21815cfae4b9324e8a62eac1edcfad1, type: 2}
-  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
   ColorsToBeUsed: {fileID: 11400000, guid: 83978c487a3c8c04494f193df6931f5f, type: 2}
+  WhiteColors: {fileID: 0}
   TargetTexture: {fileID: 11400000, guid: ad448f32a50285548be3797926b8dabe, type: 2}
+  UndoLimit: {fileID: 11400000, guid: 7a762d2b2c0d3ed4c833abdf58d5f0d3, type: 2}
+  SnapTolerance: {fileID: 11400000, guid: 2d983aeaf0e77994ca2f96f63164624f, type: 2}
+  ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}

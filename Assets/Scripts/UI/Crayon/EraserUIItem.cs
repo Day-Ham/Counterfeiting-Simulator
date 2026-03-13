@@ -37,7 +37,7 @@ public class EraserUIItem : MonoBehaviour
         Expand();
     }
 
-    private void OnOtherColorSelected(Color _)
+    private void OnOtherColorSelected(int _)
     {
         Collapse();
     }
