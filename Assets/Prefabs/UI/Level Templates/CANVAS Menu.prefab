@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 9132120367430000280}
-  levelChangerValue: {fileID: 0}
+  levelChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
 --- !u!1 &6122546746556904061
 GameObject:
   m_ObjectHideFlags: 0
