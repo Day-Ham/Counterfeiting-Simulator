@@ -50,6 +50,8 @@ public class GameManagerMainGame : GameManagerUnit
 
         protected override void InitializeGameMode()
         {
+            GameState.GameFinished = false;
+            
             if (levelConfigRuntime == null || levelConfigRuntime.Value.TargetTexture == null)
             {
                 Debug.LogError("LevelConfigRuntime or TargetTexture missing!");
@@ -75,7 +77,8 @@ public class GameManagerMainGame : GameManagerUnit
         protected override void FinishGame()
         {
             allSimilarity = 1f;
-
+            
+            GameState.GameFinished = true;
             _canvasDraw.IsCanDraw = false;
             _inputHandler.BlockInput();
             _drawingBoardControllerValue.Value.DisableCtrlInput();

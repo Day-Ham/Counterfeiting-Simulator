@@ -34,11 +34,14 @@ public class ScaleSlider : MonoBehaviour
     
     private void Update()
     {
-        // Check if mouse is inside full slider area
-        if (!RectTransformUtility.RectangleContainsScreenPoint(SliderRect, Input.mousePosition, ParentCanvas.worldCamera))
+        if (GameState.GameFinished)
         {
+            BrushScaleSlider.interactable = false;
             return;
-        };
+        }
+        
+        // Check if mouse is inside full slider area
+        if (!RectTransformUtility.RectangleContainsScreenPoint(SliderRect, Input.mousePosition, ParentCanvas.worldCamera)) return;
         
         float scroll = InputUtility.MouseWheelDelta;
 
@@ -52,10 +55,9 @@ public class ScaleSlider : MonoBehaviour
     
     private void SetSize(float brushScaleSize)
     {
-        if (CanvasDrawController == null || Cursor.Value == null)
-        {
-            return;
-        }
+        if (GameState.GameFinished) return;
+        
+        if (CanvasDrawController == null || Cursor.Value == null) return;
         
         Transform cursorSize = Cursor.Value.transform;
 
