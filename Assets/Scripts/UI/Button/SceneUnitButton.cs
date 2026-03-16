@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class SceneChangerUnitButton : MonoBehaviour
 {
     public Button Button;
-    public SceneChangerValue SceneChangerValue;
+    public LevelChangerValue levelChangerValue;
 
-    protected SceneChanger SceneChanger => SceneChangerValue.Value;
+    protected LevelChanger LevelChanger => levelChangerValue.Value;
 }
