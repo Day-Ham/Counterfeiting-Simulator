@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 233064898642962976}
   - component: {fileID: 8791108562884700898}
   - component: {fileID: 7103236292113755081}
+  - component: {fileID: 2553720294941111108}
   m_Layer: 5
   m_Name: Drawing
   m_TagString: Untagged
@@ -653,7 +654,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardController: {fileID: 233064898642962976}
+  boardSoftBounds: {fileID: 2553720294941111108}
   dragSpeed: 1
+--- !u!114 &2553720294941111108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248957169323806648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34581953e1297bc4ab731a14a981fc59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outsideAllowance: 120
+  drawingBoardRectTransform: {fileID: 7864948328430326532}
+  canvasRect: {fileID: 760017119137188966}
 --- !u!1 &3487568899593019836
 GameObject:
   m_ObjectHideFlags: 0
