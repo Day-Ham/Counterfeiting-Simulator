@@ -203,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartButton: {fileID: 1900725855482394023}
   SceneToGo: {fileID: 11400000, guid: 9f48809220edb7343b66b1289793f78b, type: 2}
+  TransitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
 --- !u!1 &1126449822413741079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,3 +1548,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartButton: {fileID: 9066056971942578393}
   SceneToGo: {fileID: 11400000, guid: 44583cbf5dce79643a088b125bd08a78, type: 2}
+  TransitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}

@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class LevelChanger : MonoBehaviour
@@ -11,15 +7,14 @@ public class LevelChanger : MonoBehaviour
     public LevelChangerValue levelChangerValue;
     [SerializeField] private LevelManagerValue _levelManagerValue;
     [SerializeField] private VoidEvent _sceneChangerEvent;
-    [SerializeField] private GameObjectValue _circleTransition;
     [SerializeField] private GameObjectValue _nextButtonValue;
+    [SerializeField] private TransitionControllerValue _transitionController;
 
-    [Header("Tween Settings")]
+    [Header("Tween Settings Next Button")]
     public Ease EaseTween = Ease.OutBounce;
 
     private LevelManager LevelManager => _levelManagerValue.Value;
     private GameObject _nextButtonUI;
-    private GameObject CircleUI => _circleTransition.Value;
     
     private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
     private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
@@ -32,10 +27,6 @@ public class LevelChanger : MonoBehaviour
     private void Start()
     {
         _nextButtonUI = _nextButtonValue.Value;
-        
-        CircleUI.SetActive(true);
-        
-        CircleUI.transform.DOScale(Vector3.zero, 1f);
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
     
@@ -43,7 +34,7 @@ public class LevelChanger : MonoBehaviour
     {
         if (LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1) return;
 
-        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        _transitionController.Value.PlayCloseTransition(() =>
         {
             LevelManager.LoadNextLevel();
         });
@@ -53,7 +44,7 @@ public class LevelChanger : MonoBehaviour
     {
         if (LevelManager.CurrentLevelIndex <= 0) return;
 
-        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        _transitionController.Value.PlayCloseTransition(() =>
         {
             LevelManager.LoadPrevLevel();
         });
@@ -61,7 +52,7 @@ public class LevelChanger : MonoBehaviour
     
     public void ResetLevel()
     {
-        CircleUI.transform.DOScale(Vector3.one * 25f, 1f).OnComplete(() =>
+        _transitionController.Value.PlayCloseTransition(() =>
         {
             LevelManager.ReloadLevel();
         });

@@ -7,6 +7,7 @@ public class ChangeScene : MonoBehaviour
 {
     public Button StartButton;
     public SingleSceneReference SceneToGo;
+    public TransitionControllerValue TransitionController;
 
     private void Awake()
     {
@@ -17,6 +18,9 @@ public class ChangeScene : MonoBehaviour
     {
         string sceneNameToGo = SceneToGo.sceneName;
 
-        SceneManager.LoadScene(sceneNameToGo);
+        TransitionController.Value.PlayCloseTransition(() =>
+        {
+            SceneManager.LoadScene(sceneNameToGo);
+        });
     }
 }
