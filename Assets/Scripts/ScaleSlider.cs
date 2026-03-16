@@ -36,7 +36,7 @@ public class ScaleSlider : MonoBehaviour
     {
         if (GameState.GameFinished)
         {
-            BrushScaleSlider.interactable = false;
+            DisableSliderInteract();
             return;
         }
         
@@ -63,5 +63,10 @@ public class ScaleSlider : MonoBehaviour
 
         cursorSize.localScale = Vector3.one * brushScaleSize;
         CanvasDrawController.SetBrushSize(brushScaleSize * ReferenceNumber);
+    }
+    
+    private void DisableSliderInteract()
+    {
+        BrushScaleSlider.interactable = false;
     }
 }

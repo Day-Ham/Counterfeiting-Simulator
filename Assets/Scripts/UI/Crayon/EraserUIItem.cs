@@ -13,12 +13,16 @@ public class EraserUIItem : MonoBehaviour
     {
         SelectColorEvent.OnEraseSelected += OnEraserSelected;
         SelectColorEvent.OnColorSelected += OnOtherColorSelected;
+        
+        GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
     {
         SelectColorEvent.OnEraseSelected -= OnEraserSelected;
         SelectColorEvent.OnColorSelected -= OnOtherColorSelected;
+        
+        GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
     
     private void Awake()
@@ -26,13 +30,6 @@ public class EraserUIItem : MonoBehaviour
         Button.onClick.AddListener(OnClick);
         
         Collapse();
-    }
-
-    private void Update()
-    {
-        if (!GameState.GameFinished || isCollapsed) return;
-        Collapse();
-        isCollapsed = true;
     }
 
     private void OnClick()
@@ -61,5 +58,12 @@ public class EraserUIItem : MonoBehaviour
     private void Collapse()
     {
         EraserTweenScriptableObject.Collapse(this.gameObject);
+    }
+    
+    private void CollapseAfterGameFinished()
+    {
+        if (isCollapsed) return;
+        Collapse();
+        isCollapsed = true;
     }
 }
