@@ -27,6 +27,7 @@ public class DrawingBoardZoom : MonoBehaviour
     private void Update()
     {
         if (!boardController.IsCanUseCtrl()) return;
+        
         if (!InputUtility.IsCtrlHeld) return;
 
         HandleScrollZoom();

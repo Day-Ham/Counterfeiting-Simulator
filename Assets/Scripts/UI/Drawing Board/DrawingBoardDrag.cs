@@ -17,8 +17,11 @@ public class DrawingBoardDrag : MonoBehaviour
 
     private void Update()
     {
-        if (!boardController.IsCanUseCtrl()) return;
-        if (!InputUtility.IsCtrlHeld) return;
+        if (!boardController.IsCanUseCtrl() || !InputUtility.IsCtrlHeld)
+        {
+            isDragging = false;
+            return;
+        }
 
         HandleMouseDown();
         HandleMouseUp();
