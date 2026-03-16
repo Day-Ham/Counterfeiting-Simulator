@@ -613,6 +613,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _drawingBoardControllerValue: {fileID: 11400000, guid: d8c7f2887133ae64498b0615b82364b0, type: 2}
   targetImageCanvas: {fileID: 3862160744188098095}
   drawingCanvas: {fileID: 396741118517391926}
   inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}

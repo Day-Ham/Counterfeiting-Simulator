@@ -11,6 +11,9 @@ public class GameManagerMainGame : GameManagerUnit
         [Header("Events")]
         [SerializeField] private VoidEvent _finishGameRequestEvent;
         [SerializeField] private ComparisonResultEvent _comparisonResultEvent;
+        
+        [Header("DrawingBoardController")]
+        [SerializeField] private DrawingBoardControllerValue _drawingBoardControllerValue;
 
         [Header("MainGame Settings")]
         [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
@@ -75,6 +78,7 @@ public class GameManagerMainGame : GameManagerUnit
 
             _canvasDraw.IsCanDraw = false;
             _inputHandler.BlockInput();
+            _drawingBoardControllerValue.Value.DisableCtrlInput();
 
             CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 

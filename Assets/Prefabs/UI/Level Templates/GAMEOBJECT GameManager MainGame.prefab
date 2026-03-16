@@ -50,6 +50,7 @@ MonoBehaviour:
   _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
   _finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
   _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
+  _drawingBoardControllerValue: {fileID: 11400000, guid: d8c7f2887133ae64498b0615b82364b0, type: 2}
   levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   _optionalStartingTexture: {fileID: 0}
   _finalSpritePivotPoint: {x: 0.5, y: 0.5}
