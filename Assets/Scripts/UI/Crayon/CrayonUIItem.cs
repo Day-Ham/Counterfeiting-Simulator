@@ -25,12 +25,15 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private Color color;
     private int colorIndex;
+    private bool isCollapsed = false;
     
     private void OnEnable()
     {
         _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
         _selectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
         _selectedColorEvent.OnColorPicked += HandleSelectedColor;
+        
+        GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
@@ -38,10 +41,18 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         _selectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
         _selectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
         _selectedColorEvent.OnColorPicked -= HandleSelectedColor;
+        
+        GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
     
     private void HandleBrushColorSelected(int selectedColorIndex)
     {
+        if (GameState.GameFinished)
+        {
+            CollapseAfterGameFinished();
+            return;
+        }
+        
         if (selectedColorIndex == colorIndex)
         {
             ExpandSize();
@@ -56,6 +67,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleEraseSelected()
     {
+        if (GameState.GameFinished)
+        {
+            CollapseAfterGameFinished();
+            return;
+        }
+        
         CollapseSize();
         SetColorBlobLook.SetShadowColor(UnSelectedColor);
     }
@@ -79,7 +96,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleSelectedColor(int index, Color newColor)
     {
-         if (index != colorIndex) return;
+        if (index != colorIndex) return;
 
         if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
@@ -93,6 +110,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnClick()
     {
+        if (GameState.GameFinished) return;
+        
         _selectBrushColorEvent.Raise(colorIndex);
     }
 
@@ -108,6 +127,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (GameState.GameFinished) 
+        {
+            CollapseAfterGameFinished();
+            return;
+        }
+        
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             TryExpandAndShowRGB();
@@ -121,6 +146,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void TryExpandAndShowRGB()
     {
+        if (GameState.GameFinished) return;
         if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
         var colors = RuntimeAsset.GetActiveColors();
@@ -139,5 +165,14 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         
         // Tells ColorPickerUI to load this color
         _openColorPickerEvent.Raise(color);
+    }
+    
+    private void CollapseAfterGameFinished()
+    {
+        if (isCollapsed) return;
+        CollapseSize();
+        SetColorBlobLook.SetShadowColor(UnSelectedColor);
+        RGBSliderUI.Value.SetActive(false);
+        isCollapsed = true;
     }
 }
