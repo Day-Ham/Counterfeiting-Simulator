@@ -15,7 +15,9 @@ public class UITransitionManagerValue : ValueWrapper<UITransitionManager>
         else
         {
             if (!pendingElements.Contains(element))
+            {
                 pendingElements.Add(element);
+            }
         }
     }
 
@@ -28,7 +30,9 @@ public class UITransitionManagerValue : ValueWrapper<UITransitionManager>
         else
         {
             if (pendingElements.Contains(element))
+            {
                 pendingElements.Remove(element);
+            }
         }
     }
 
@@ -36,10 +40,12 @@ public class UITransitionManagerValue : ValueWrapper<UITransitionManager>
     {
         if (Value == null) return;
 
-        foreach (var e in pendingElements)
+        foreach (var uiTransitionElement in pendingElements)
         {
-            if (e != null)
-                Value.Register(e);
+            if (uiTransitionElement != null)
+            {
+                Value.Register(uiTransitionElement);
+            }
         }
 
         pendingElements.Clear();

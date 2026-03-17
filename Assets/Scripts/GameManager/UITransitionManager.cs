@@ -5,7 +5,7 @@ public class UITransitionManager : MonoBehaviour
 {
     [SerializeField] private UITransitionManagerValue managerValue;
 
-    private readonly List<UITransitionElement> elements = new();
+    private readonly List<UITransitionElement> uiTransitionElements = new();
 
     private void OnEnable()
     {
@@ -17,25 +17,33 @@ public class UITransitionManager : MonoBehaviour
     {
         if (element == null) return;
 
-        if (!elements.Contains(element))
-            elements.Add(element);
+        if (!uiTransitionElements.Contains(element))
+        {
+            uiTransitionElements.Add(element);
+        }
     }
 
     public void Unregister(UITransitionElement element)
     {
-        if (elements.Contains(element))
-            elements.Remove(element);
+        if (uiTransitionElements.Contains(element))
+        {
+            uiTransitionElements.Remove(element);
+        }
     }
 
     public void MoveAllOut()
     {
-        foreach (var e in elements)
-            e.MoveOut();
+        foreach (var uiTransitionElement in uiTransitionElements)
+        {
+            uiTransitionElement.MoveOut();
+        }
     }
 
     public void MoveAllIn()
     {
-        foreach (var e in elements)
-            e.MoveIn();
+        foreach (var uiTransitionElement in uiTransitionElements)
+        {
+            uiTransitionElement.MoveIn();
+        }
     }
 }

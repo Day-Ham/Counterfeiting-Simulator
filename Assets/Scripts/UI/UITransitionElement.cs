@@ -5,17 +5,19 @@ public class UITransitionElement : MonoBehaviour
 {
     [SerializeField] private UITransitionManagerValue managerValue;
 
-    [SerializeField] private float moveDistance = 1200f;
+    [Header("Move Settings")]
+    [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float duration = 0.5f;
-    [SerializeField] private Ease ease = Ease.InBack;
+    [SerializeField] private Ease moveOutEase = Ease.InBack;
+    [SerializeField] private Ease moveInEase = Ease.OutBack;
 
-    private RectTransform rect;
+    private RectTransform rectTransform;
     private Vector2 originalPos;
 
     private void Awake()
     {
-        rect = GetComponent<RectTransform>();
-        originalPos = rect.anchoredPosition;
+        rectTransform = GetComponent<RectTransform>();
+        originalPos = rectTransform.anchoredPosition;
     }
 
     private void OnEnable()
@@ -30,33 +32,15 @@ public class UITransitionElement : MonoBehaviour
 
     public void MoveOut()
     {
-        Vector2 dir = GetDirectionFromAnchor();
-        Vector2 target = originalPos + dir * moveDistance;
-
-        rect.DOAnchorPos(target, duration)
-            .SetEase(ease)
+        rectTransform.DOAnchorPos(targetPosition, duration)
+            .SetEase(moveOutEase)
             .SetUpdate(true);
     }
 
     public void MoveIn()
     {
-        rect.DOAnchorPos(originalPos, duration)
-            .SetEase(Ease.OutBack)
+        rectTransform.DOAnchorPos(originalPos, duration)
+            .SetEase(moveInEase)
             .SetUpdate(true);
-    }
-
-    private Vector2 GetDirectionFromAnchor()
-    {
-        Vector2 anchorCenter = (rect.anchorMin + rect.anchorMax) / 2f;
-
-        Vector2 dir = Vector2.zero;
-
-        if (anchorCenter.x < 0.5f) dir.x = -1;
-        else if (anchorCenter.x > 0.5f) dir.x = 1;
-
-        if (anchorCenter.y < 0.5f) dir.y = -1;
-        else if (anchorCenter.y > 0.5f) dir.y = 1;
-
-        return dir.normalized;
     }
 }
