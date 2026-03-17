@@ -5,18 +5,22 @@ public class UITransitionElement : MonoBehaviour
 {
     [SerializeField] private UITransitionManagerValue managerValue;
 
+    [Header("RectTransform")]
+    [SerializeField] private RectTransform rectTransform;
+    
     [Header("Move Settings")]
     [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float duration;
+    [SerializeField] private float delay;
+    
+    [Header("Tween Settings")]
     [SerializeField] private Ease moveOutEase = Ease.InBack;
     [SerializeField] private Ease moveInEase = Ease.OutBack;
-
-    private RectTransform rectTransform;
+    
     private Vector2 originalPos;
 
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
         originalPos = rectTransform.anchoredPosition;
     }
 

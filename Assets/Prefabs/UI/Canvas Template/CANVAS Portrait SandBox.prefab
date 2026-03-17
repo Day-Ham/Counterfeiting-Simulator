@@ -170,8 +170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  rectTransform: {fileID: 8017943212902261182}
   targetPosition: {x: -380, y: 0}
   duration: 1
+  delay: 0
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &2637768449395452482
@@ -191,7 +193,7 @@ GameObject:
   - component: {fileID: 2604104264098946955}
   - component: {fileID: 6583127964034294273}
   m_Layer: 5
-  m_Name: CANVAS Portrait SandBox
+  m_Name: CANVAS Portrait Sandbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,8 +506,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  rectTransform: {fileID: 4589096121491800033}
   targetPosition: {x: -380, y: 0}
   duration: 1
+  delay: 0
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &5860266345934420551
