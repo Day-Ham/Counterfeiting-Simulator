@@ -1513,7 +1513,7 @@ GameObject:
   - component: {fileID: 7694755513831163732}
   - component: {fileID: 4281746149288592726}
   m_Layer: 5
-  m_Name: CANVAS Tools
+  m_Name: CANVAS ToolsBasePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
