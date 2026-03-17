@@ -44,9 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6867522ffecc67c4597c821cc5eb1f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DrawingBoard: {fileID: 11400000, guid: 7b13b783266629547baafbd8d382d3de, type: 2}
-  TargetLocation: {fileID: 11400000, guid: e2c878d96f5c40242aa27460bd70749e, type: 2}
-  DrawingBoardFrame: {fileID: 11400000, guid: 01e3ab12179652e48ad7ff93dae79f23, type: 2}
   UITransitionManagerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
-  Duration: 1
-  TweenEase: 6
+  InputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}

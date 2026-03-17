@@ -173,7 +173,7 @@ MonoBehaviour:
   rectTransform: {fileID: 8017943212902261182}
   targetPosition: {x: -380, y: 0}
   duration: 1
-  delay: 0
+  delay: 1
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &2637768449395452482
@@ -509,7 +509,7 @@ MonoBehaviour:
   rectTransform: {fileID: 4589096121491800033}
   targetPosition: {x: -380, y: 0}
   duration: 1
-  delay: 0
+  delay: 1
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &5860266345934420551

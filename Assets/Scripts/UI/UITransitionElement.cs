@@ -38,6 +38,7 @@ public class UITransitionElement : MonoBehaviour
     {
         rectTransform.DOAnchorPos(targetPosition, duration)
             .SetEase(moveOutEase)
+            .SetDelay(delay)
             .SetUpdate(true);
     }
 
@@ -45,6 +46,7 @@ public class UITransitionElement : MonoBehaviour
     {
         rectTransform.DOAnchorPos(originalPos, duration)
             .SetEase(moveInEase)
+            .SetDelay(delay)
             .SetUpdate(true);
     }
 }
