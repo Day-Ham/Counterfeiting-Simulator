@@ -8,6 +8,7 @@ public class InputHandler : ScriptableObject
 {
     [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
     [SerializeField] private VoidEvent ResetDrawingBoardPositionEvent;
+    [SerializeField] private VoidEvent SpacePressedEvent;
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
@@ -67,6 +68,8 @@ public class InputHandler : ScriptableObject
     
     private void BindToolKeys()
     {
+        _inputActions[KeyCode.Space] = () => SpacePressedEvent?.Raise();
+        
         _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
         _inputActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
         _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();

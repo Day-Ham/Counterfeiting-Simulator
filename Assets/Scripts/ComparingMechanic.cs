@@ -40,6 +40,7 @@ public class ComparingMechanic : MonoBehaviour
     [Header("GameManager Events")]
     public VoidEvent FinishGameRequestEvent;
     public ComparisonResultEvent ComparisonResultEvent;
+    public VoidEvent SpacePressedEvent;
     
     private float majorPercentageNumber;
     private float minorPercentageNumber;
@@ -62,12 +63,15 @@ public class ComparingMechanic : MonoBehaviour
     {
         ComparisonResultEvent.OnRaised += OnComparisonFinished;
         StartCompareEvent.Register(StartCompare);
+        SpacePressedEvent.Register(OnSpacePressed);
     }
 
     private void OnDisable()
     {
         ComparisonResultEvent.OnRaised -= OnComparisonFinished;
         StartCompareEvent.Unregister(StartCompare);
+        SpacePressedEvent.Unregister(OnSpacePressed);
+        
     }
 
     private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
@@ -88,12 +92,9 @@ public class ComparingMechanic : MonoBehaviour
         FrontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
     
-    private void Update()
+    private void OnSpacePressed()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCompareEvent.Raise();
-        }
+        StartCompareEvent.Raise();
     }
     
     private void StartCompare()
