@@ -7,7 +7,7 @@ public class UITransitionElement : MonoBehaviour
 
     [Header("Move Settings")]
     [SerializeField] private Vector2 targetPosition;
-    [SerializeField] private float duration = 0.5f;
+    [SerializeField] private float duration;
     [SerializeField] private Ease moveOutEase = Ease.InBack;
     [SerializeField] private Ease moveInEase = Ease.OutBack;
 
