@@ -5,7 +5,8 @@ public class DrawingBoardDrag : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private DrawingBoardController boardController;
-
+    [SerializeField] private DrawingBoardSoftBounds boardSoftBounds;
+    
     [Header("Drag Settings")]
     public float dragSpeed = 1f;
 
@@ -17,8 +18,11 @@ public class DrawingBoardDrag : MonoBehaviour
 
     private void Update()
     {
-        if (!IsCanInteract()) return;
-        if (!InputUtility.IsCtrlHeld) return;
+        if (!boardController.IsCanUseCtrl() || !InputUtility.IsCtrlHeld)
+        {
+            isDragging = false;
+            return;
+        }
 
         HandleMouseDown();
         HandleMouseUp();
@@ -49,11 +53,9 @@ public class DrawingBoardDrag : MonoBehaviour
         Vector2 delta = currentMousePos - lastMousePosition;
 
         DrawBoardRectTransform.anchoredPosition += delta * dragSpeed;
+        
+        boardSoftBounds.ClampPosition();
+        
         lastMousePosition = currentMousePos;
-    }
-    
-    private bool IsCanInteract()
-    {
-        return boardController && boardController.IsCanInteract;
     }
 }

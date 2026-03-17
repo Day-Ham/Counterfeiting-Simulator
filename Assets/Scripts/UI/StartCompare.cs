@@ -5,6 +5,16 @@ public class StartCompare : MonoBehaviour
 {
     [SerializeField] private Button _compareButton;
     [SerializeField] private VoidEvent _startCompareEvent;
+    
+    private void OnEnable()
+    {
+        GameState.OnGameFinished += DisableInteraction;
+    }
+
+    private void OnDisable()
+    {
+        GameState.OnGameFinished -= DisableInteraction;
+    }
 
     private void Awake()
     {
@@ -13,6 +23,12 @@ public class StartCompare : MonoBehaviour
 
     private void RaiseCompareEvent()
     {
+        if (GameState.GameFinished) return;
         _startCompareEvent.Raise();
+    }
+    
+    private void DisableInteraction()
+    {
+        _compareButton.interactable = false;
     }
 }

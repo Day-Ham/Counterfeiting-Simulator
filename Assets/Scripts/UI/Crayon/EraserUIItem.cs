@@ -7,16 +7,22 @@ public class EraserUIItem : MonoBehaviour
     [SerializeField] private Button Button;
     [SerializeField] private SelectBrushColorEvent SelectColorEvent;
     
+    private bool isCollapsed = false;
+    
     private void OnEnable()
     {
         SelectColorEvent.OnEraseSelected += OnEraserSelected;
         SelectColorEvent.OnColorSelected += OnOtherColorSelected;
+        
+        GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
     {
         SelectColorEvent.OnEraseSelected -= OnEraserSelected;
         SelectColorEvent.OnColorSelected -= OnOtherColorSelected;
+        
+        GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
     
     private void Awake()
@@ -28,18 +34,20 @@ public class EraserUIItem : MonoBehaviour
 
     private void OnClick()
     {
+        if (GameState.GameFinished) return;
+        
         SelectColorEvent.RaiseErase();
         Debug.Log("Eraser clicked", this);
     }
     
     private void OnEraserSelected()
     {
-        Expand();
+        if (!GameState.GameFinished) Expand();
     }
 
     private void OnOtherColorSelected(int _)
     {
-        Collapse();
+        if (!GameState.GameFinished) Collapse();
     }
 
     private void Expand()
@@ -50,5 +58,12 @@ public class EraserUIItem : MonoBehaviour
     private void Collapse()
     {
         EraserTweenScriptableObject.Collapse(this.gameObject);
+    }
+    
+    private void CollapseAfterGameFinished()
+    {
+        if (isCollapsed) return;
+        Collapse();
+        isCollapsed = true;
     }
 }

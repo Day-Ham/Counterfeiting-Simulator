@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class DrawingBoardController : MonoBehaviour
 {
+    [SerializeField] private DrawingBoardControllerValue _drawingBoardControllerValue;
+    
     [SerializeField] private Canvas targetImageCanvas;
     [SerializeField] private Canvas drawingCanvas;
     [SerializeField] private InputHandler inputHandler;
@@ -18,14 +20,14 @@ public class DrawingBoardController : MonoBehaviour
     private Vector2 originalPosition;
 
     private bool isSnapRequested;
-    private bool _isCanInteract = true;
     private int initialDrawingCanvasSortingOrder = 1;
     private int initialTragetImageCanvasSortingOrder = 2;
 
     public Vector2 OriginalSize => originalSize;
     public Vector2 OriginalPosition => originalPosition;
-    public bool IsCanInteract => _isCanInteract;
-    
+    public bool IsCanInteract { get; private set; } = true;
+    private bool IsDisableCtrlInput { get; set; } = false;
+
     private void OnEnable()
     {
         compareStartedEvent.Register(SnapToOriginalWithSortingReset);
@@ -43,6 +45,8 @@ public class DrawingBoardController : MonoBehaviour
     private void Awake()
     {
         InitializedCanvas();
+
+        _drawingBoardControllerValue.Value = this;
     }
 
     private void InitializedCanvas()
@@ -75,7 +79,7 @@ public class DrawingBoardController : MonoBehaviour
         drawingBoard.anchoredPosition = originalPosition;
         isSnapRequested = false;
         
-        _isCanInteract = true;
+        IsCanInteract = true;
     }
     
     private bool IsSnapComplete()
@@ -108,8 +112,18 @@ public class DrawingBoardController : MonoBehaviour
         drawingBoardZoom.SetTargetSize(OriginalSize);
     }
     
+    public void DisableCtrlInput()
+    {
+        IsDisableCtrlInput = true;
+    }
+   
+    public bool IsCanUseCtrl()
+    {
+        return !IsDisableCtrlInput && IsCanInteract;
+    }
+    
     private void DisableBoardInteraction()
     {
-        _isCanInteract = false; // stops drag or zoom
+        IsCanInteract = false; // stops drag or zoom
     }
 }
