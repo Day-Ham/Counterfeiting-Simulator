@@ -26,7 +26,8 @@ public class DrawingBoardZoom : MonoBehaviour
 
     private void Update()
     {
-        if (!IsCanInteract()) return;
+        if (!boardController.IsCanUseCtrl()) return;
+        
         if (!InputUtility.IsCtrlHeld) return;
 
         HandleScrollZoom();
@@ -64,10 +65,5 @@ public class DrawingBoardZoom : MonoBehaviour
     public void SetTargetSize(Vector2 size)
     {
         _targetSize = size;
-    }
-    
-    private bool IsCanInteract()
-    {
-        return boardController && boardController.IsCanInteract;
     }
 }

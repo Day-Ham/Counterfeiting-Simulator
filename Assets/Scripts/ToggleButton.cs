@@ -7,6 +7,16 @@ public class ToggleButton : MonoBehaviour
     [SerializeField] private GameObjectValue[] _listGameObject;
 
     private bool _isToggled;
+    
+    private void OnEnable()
+    {
+        GameState.OnGameFinished += DisableInteraction;
+    }
+
+    private void OnDisable()
+    {
+        GameState.OnGameFinished -= DisableInteraction;
+    }
 
     private void Awake()
     {
@@ -15,14 +25,27 @@ public class ToggleButton : MonoBehaviour
 
     public void ApplyToggle()
     {
-        _isToggled = !_isToggled;
+        if (GameState.GameFinished) return;
         
+        _isToggled = !_isToggled;
+        UpdateGameObjects();
+    }
+
+    private void UpdateGameObjects()
+    {
         foreach (var value in _listGameObject)
         {
-            if (value != null && value.Value != null)
+            if (value && value.Value)
             {
                 value.Value.SetActive(_isToggled);
             }
         }
+    }
+    
+    private void DisableInteraction()
+    {
+        _isToggled = false;
+        _toggleButton.interactable = false;
+        UpdateGameObjects();
     }
 }

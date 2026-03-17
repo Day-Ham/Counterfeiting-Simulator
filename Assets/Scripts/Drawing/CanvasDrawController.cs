@@ -319,7 +319,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             // Block drawing if Ctrl is being held
             if (InputUtility.IsCtrlHeld) return;
             if (IsUpdating) return;
-            if(!CanDraw()) return;
+            if (!CanDraw()) return;
 
             IsUpdating = true;
         }
