@@ -7,6 +7,8 @@ public class StartAuction : MonoBehaviour
     public GameObjectValue DrawingBoard;
     public GameObjectValue TargetLocation;
     public GameObjectValue DrawingBoardFrame;
+    
+    public UITransitionManagerValue UITransitionManagerValue;
 
     [Header("Tween Settings")]
     public float Duration = 1f;
@@ -29,6 +31,8 @@ public class StartAuction : MonoBehaviour
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Space) || hasMoved) return;
+        
+        UITransitionManagerValue.Value.MoveAllOut();
         
         MoveDrawingBoard();
     }
