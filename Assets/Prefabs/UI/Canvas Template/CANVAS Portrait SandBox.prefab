@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8017943212902261182}
   - component: {fileID: 5039636973713071469}
   - component: {fileID: 1995369359432052165}
-  - component: {fileID: 4337952188996787110}
+  - component: {fileID: 8364547578535531997}
   m_Layer: 5
   m_Name: CONTAINER DrawingBoard
   m_TagString: Untagged
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4337952188996787110
+--- !u!114 &8364547578535531997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,11 +166,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1642467927215496040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 7b13b783266629547baafbd8d382d3de, type: 2}
-  _overrideReference: {fileID: 0}
+  managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  targetPosition: {x: -380, y: 0}
+  duration: 1
+  moveOutEase: 26
+  moveInEase: 27
 --- !u!1 &2637768449395452482
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4589096121491800033}
   - component: {fileID: 4824577917602444363}
-  - component: {fileID: 8137184262565046130}
+  - component: {fileID: 5666653526240697780}
   m_Layer: 5
   m_Name: CONTAINER DrawingFrame
   m_TagString: Untagged
@@ -462,7 +465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1015}
+  m_AnchoredPosition: {x: -380, y: 1015}
   m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4824577917602444363
@@ -488,7 +491,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &8137184262565046130
+--- !u!114 &5666653526240697780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -497,11 +500,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3379376105325536531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 01e3ab12179652e48ad7ff93dae79f23, type: 2}
-  _overrideReference: {fileID: 0}
+  managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  targetPosition: {x: -380, y: 0}
+  duration: 1
+  moveOutEase: 26
+  moveInEase: 27
 --- !u!1 &5860266345934420551
 GameObject:
   m_ObjectHideFlags: 0
