@@ -6,7 +6,20 @@ public class GameManagerSandBox : GameManagerUnit
     [Header("Sandbox Settings")]
     [SerializeField] private SandboxConfigRuntimeAsset sandboxRuntime;
     [SerializeField] private Vector2Int sandboxCanvasSize = new(1024, 1024);
+    [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private UITransitionManagerValue sandboxTransitionManager;
+    [SerializeField] private VoidEvent SpacePressedEvent;
+    
+    private void OnEnable()
+    {
+        SpacePressedEvent.Register(FinishGame);
+    }
 
+    private void OnDisable()
+    {
+        SpacePressedEvent.Unregister(FinishGame);
+    }
+    
     protected override void InitializeGameMode()
     {
         if (sandboxRuntime == null || sandboxRuntime.Value == null)
@@ -26,6 +39,8 @@ public class GameManagerSandBox : GameManagerUnit
 
     protected override void FinishGame()
     {
-        Debug.Log("Sandbox session finished.");
+        sandboxTransitionManager.Value.MoveAllOut();
+        inputHandler.BlockInput();
+        _canvasDraw.IsCanDraw = false;
     }
 }
