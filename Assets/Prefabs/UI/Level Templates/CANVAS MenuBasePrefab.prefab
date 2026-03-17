@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 9035350788895898789}
   - component: {fileID: 7355844844517647653}
   m_Layer: 5
-  m_Name: CANVAS Menu
+  m_Name: CANVAS MenuBasePrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

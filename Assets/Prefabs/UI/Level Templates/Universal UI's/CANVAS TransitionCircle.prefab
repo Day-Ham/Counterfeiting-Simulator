@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7355844844517647653}
   - component: {fileID: -7015410085624085724}
   m_Layer: 5
-  m_Name: CANVAS Transition Circle
+  m_Name: CANVAS TransitionCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
