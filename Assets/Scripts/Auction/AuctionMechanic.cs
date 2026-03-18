@@ -56,6 +56,7 @@ public class AuctionMechanic : MonoBehaviour
         _wantValue = 100;
 
         StartCoroutine(Bidding());
+        StartCoroutine(DebugBidTimer());
     }
 
     private IEnumerator Bidding()
@@ -65,10 +66,11 @@ public class AuctionMechanic : MonoBehaviour
         while (inAuction)
         {
             if (_isEnding) yield break;
-
-            yield return WaitForNextTurn();
             
-            _timeSinceLastBid += Time.deltaTime;
+            float waitTime = Random.Range(1f, 3f);
+            yield return new WaitForSeconds(waitTime);
+
+            _timeSinceLastBid += waitTime;
 
             if (_isAnimatingBid) continue;
 
@@ -87,9 +89,13 @@ public class AuctionMechanic : MonoBehaviour
         }
     }
     
-    private IEnumerator WaitForNextTurn()
+    private IEnumerator DebugBidTimer()
     {
-        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+        while (!_isEnding)
+        {
+            Debug.Log($"[Timer] Time Since Last Bid: {_timeSinceLastBid:F1}s");
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     private bool TryProcessBid()

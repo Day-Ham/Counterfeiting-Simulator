@@ -61,6 +61,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75c02b2db74d1ce4f84fc614f90b4c1d, type: 2}
   - {fileID: 11400000, guid: 4becdff0387319e458d6005825e6fc07, type: 2}
   price: 0
+  noBidTimeout: 5
 --- !u!1 &3256454675523151194
 GameObject:
   m_ObjectHideFlags: 0
