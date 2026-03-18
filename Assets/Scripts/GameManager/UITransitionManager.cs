@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,10 @@ public class UITransitionManager : MonoBehaviour
 {
     [SerializeField] private UITransitionManagerValue managerValue;
 
-    private readonly List<UITransitionElement> uiTransitionElements = new();
+    private readonly List<UITransitionElement> _uiTransitionElements = new();
+    
+    private int _completedCount;
+    private Action _onAllComplete;
 
     private void OnEnable()
     {
@@ -17,31 +21,55 @@ public class UITransitionManager : MonoBehaviour
     {
         if (element == null) return;
 
-        if (!uiTransitionElements.Contains(element))
+        if (!_uiTransitionElements.Contains(element))
         {
-            uiTransitionElements.Add(element);
+            _uiTransitionElements.Add(element);
         }
     }
 
     public void Unregister(UITransitionElement element)
     {
-        if (uiTransitionElements.Contains(element))
+        if (_uiTransitionElements.Contains(element))
         {
-            uiTransitionElements.Remove(element);
+            _uiTransitionElements.Remove(element);
         }
     }
 
-    public void MoveAllOut()
+    public void MoveAllOut(Action onComplete = null)
     {
-        foreach (var uiTransitionElement in uiTransitionElements)
+        _completedCount = 0;
+        _onAllComplete = onComplete;
+
+        if (_uiTransitionElements.Count == 0)
         {
-            uiTransitionElement.MoveOut();
+            _onAllComplete?.Invoke();
+            return;
         }
+
+        foreach (var element in _uiTransitionElements)
+        {
+            element.OnMoveOutComplete += HandleElementDone;
+            element.MoveOut();
+        }
+    }
+
+    private void HandleElementDone()
+    {
+        _completedCount++;
+
+        if (_completedCount < _uiTransitionElements.Count) return;
+        
+        foreach (var element in _uiTransitionElements)
+        {
+            element.OnMoveOutComplete -= HandleElementDone;
+        }
+
+        _onAllComplete?.Invoke();
     }
 
     public void MoveAllIn()
     {
-        foreach (var uiTransitionElement in uiTransitionElements)
+        foreach (var uiTransitionElement in _uiTransitionElements)
         {
             uiTransitionElement.MoveIn();
         }

@@ -5,6 +5,9 @@ using TMPro;
 
 public class AuctionMechanic : MonoBehaviour
 {
+    [Header("Auction Value")] 
+    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
+    
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI auctionText;
     [SerializeField] private TextMeshProUGUI increasedBidText;
@@ -19,6 +22,11 @@ public class AuctionMechanic : MonoBehaviour
     [Header("Auction State")]
     [SerializeField] private int price = 0;
     private int _wantValue = 100;
+
+    private void Awake()
+    {
+        auctionMechanicValue.Value = this;
+    }
 
     private void Start()
     {

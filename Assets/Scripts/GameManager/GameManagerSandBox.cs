@@ -12,6 +12,7 @@ public class GameManagerSandBox : GameManagerUnit
     [Header("Dependencies")]
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private UITransitionManagerValue sandboxTransitionManager;
+    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
     
     [Header("Final Sprite")]
@@ -52,13 +53,18 @@ public class GameManagerSandBox : GameManagerUnit
     
     private void HandleFinishTransition()
     {
-        sandboxTransitionManager.Value.MoveAllOut();
+        sandboxTransitionManager.Value.MoveAllOut(StartBidding);
     }
 
     private void DisableGameplay()
     {
         inputHandler?.BlockInput();
         _canvasDraw.IsCanDraw = false;
+    }
+
+    private void StartBidding()
+    {
+        auctionMechanicValue.Value.BeginBidding();
     }
     
     private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
