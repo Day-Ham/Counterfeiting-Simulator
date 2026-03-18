@@ -1,4 +1,6 @@
 using DaeHanKim.ThisIsTotallyADollar.Core;
+using DaeHanKim.ThisIsTotallyADollar.Drawing;
+using DaeHanKim.ThisIsTotallyADollar.Utility;
 using UnityEngine;
 
 public class GameManagerSandBox : GameManagerUnit
@@ -11,6 +13,13 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private UITransitionManagerValue sandboxTransitionManager;
     [SerializeField] private VoidEvent spacePressedEvent;
+    
+    [Header("Final Sprite")]
+    [SerializeField] private SpriteContainerRuntimeAsset finalSpriteContainer;
+    [SerializeField] private SpriteRenderer finalSpriteRenderer;
+    [SerializeField] private Vector2 finalSpritePivotPoint = new(0.5f, 0.5f);
+    
+    private TextureUtility _textureUtility;
     
     private void OnEnable()
     {
@@ -50,6 +59,18 @@ public class GameManagerSandBox : GameManagerUnit
     {
         inputHandler?.BlockInput();
         _canvasDraw.IsCanDraw = false;
+    }
+    
+    private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
+    {
+        Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], finalSpritePivotPoint);
+
+        finalSpriteContainer.Sprite = finalSprite;
+
+        if (finalSpriteRenderer)
+        {
+            finalSpriteRenderer.sprite = finalSprite;
+        }
     }
     
 }
