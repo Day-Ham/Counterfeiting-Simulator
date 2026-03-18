@@ -14,8 +14,8 @@ public class UITransitionElement : MonoBehaviour
     [SerializeField] private float delay;
     
     [Header("Tween Settings")]
-    [SerializeField] private Ease moveOutEase = Ease.InBack;
-    [SerializeField] private Ease moveInEase = Ease.OutBack;
+    [SerializeField] private Ease moveOutEase;
+    [SerializeField] private Ease moveInEase;
     
     private Vector2 originalPos;
 
