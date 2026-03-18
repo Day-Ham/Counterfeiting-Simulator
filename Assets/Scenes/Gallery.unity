@@ -456,7 +456,54 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &5043641259275940502
+--- !u!1 &1715148012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1715148014}
+  - component: {fileID: 1715148013}
+  m_Layer: 0
+  m_Name: AuctionLoadHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1715148013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715148012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283797358526b534b92e660bedeb0610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayImage: {fileID: 0}
+  pivot: {x: 0.5, y: 0.5}
+  bidText: {fileID: 0}
+--- !u!4 &1715148014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715148012}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1771408159
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -464,6 +511,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2646374584189680757, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163709902405748992, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163709902405748992, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3163709902405748992, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4272004422224236894, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -546,7 +609,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5852524657658216355, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
       propertyPath: m_Name
-      value: Canvas
+      value: CANVAS Gallery
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769594901626952249, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769594901626952249, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -559,5 +630,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1252090463}
   - {fileID: 1596115587}
-  - {fileID: 5043641259275940502}
+  - {fileID: 1715148014}
+  - {fileID: 1771408159}
   - {fileID: 1549745953}
