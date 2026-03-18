@@ -2,6 +2,9 @@ using UnityEngine;
 
 public static class AuctionUtility
 {
+    private const float DURATION = 0.06f;
+    private const float UPDATE_RATE = 0.04f; //Numbers in FPS update
+    
     public static int GenerateStartingPrice()
     {
         int startingPrice = Random.Range(100000, 1000000);
@@ -20,15 +23,18 @@ public static class AuctionUtility
         return baseRange * multiplier;
     }
 
-    public static int GetSmoothStep(int targetValue)
+    public static int GetSmoothStep(int currentValue, int targetValue)
     {
-        int digits = Mathf.FloorToInt(Mathf.Log10(targetValue));
+        int remaining = targetValue - currentValue;
+        if (remaining <= 0) return 0;
 
-        if (digits <= 4) return Random.Range(100, 1000);
-        if (digits == 5) return Random.Range(10000, 50000);
-        if (digits == 6) return Random.Range(100000, 500000);
+        // Number of updates during the animation
+        int steps = Mathf.CeilToInt(DURATION / UPDATE_RATE);
 
-        return Random.Range(1000000, 5000000);
+        // Constant step per update
+        int step = Mathf.Max(1, Mathf.CeilToInt(remaining / (float)steps));
+
+        return Mathf.Clamp(step, 1, remaining);
     }
 
     public static bool ShouldBid(float aggressiveness)

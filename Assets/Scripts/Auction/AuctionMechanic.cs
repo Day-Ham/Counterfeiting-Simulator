@@ -22,6 +22,7 @@ public class AuctionMechanic : MonoBehaviour
     [Header("Auction State")]
     [SerializeField] private int price = 0;
     private int _wantValue = 100;
+    private bool _isAnimatingBid = false;
 
     private void Awake()
     {
@@ -77,6 +78,8 @@ public class AuctionMechanic : MonoBehaviour
 
     private bool TryProcessBid()
     {
+        if (_isAnimatingBid) return false; // skip if previous animation not finished
+        
         var result = AuctionAI.TryGetBid(_activeBidders, price);
 
         if (!result.success)
@@ -93,6 +96,8 @@ public class AuctionMechanic : MonoBehaviour
 
     private IEnumerator HandleBidVisuals(BidResultStruct result)
     {
+        _isAnimatingBid = true;
+        
         bidderNameText.SetText(result.bidder.Data.NpcName);
         increasedBidText.SetText("+$" + result.bidAmount.ToString("n0"));
 
@@ -105,6 +110,8 @@ public class AuctionMechanic : MonoBehaviour
         increasedBidText.SetText("");
 
         _wantValue = AuctionUtility.DecreaseWantValue(_wantValue);
+
+        _isAnimatingBid = false;
     }
 
     private bool TryEndAuction()
@@ -118,15 +125,25 @@ public class AuctionMechanic : MonoBehaviour
     private IEnumerator SmoothIncrease(int start, int end)
     {
         int tempPrice = start;
+        
+        Debug.Log($"[Auction] Counting up started: {start} → {end}");
+        
+        if (tempPrice % 1000 == 0)
+        {
+            Debug.Log($"[Auction] Counting: {tempPrice}");
+        }
 
         while (tempPrice < end)
         {
-            tempPrice += AuctionUtility.GetSmoothStep(end);
+            tempPrice += AuctionUtility.GetSmoothStep(tempPrice,end);
             tempPrice = Mathf.Min(tempPrice, end);
 
             auctionText.SetText("$" + tempPrice.ToString("n0"));
             yield return new WaitForSeconds(0.02f);
         }
+        
+        Debug.Log($"[Auction] Counting finished: {end}");
+        
     }
 
     private IEnumerator FinalCountdown()
