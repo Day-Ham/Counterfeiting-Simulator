@@ -21,8 +21,12 @@ public class AuctionMechanic : MonoBehaviour
 
     [Header("Auction State")]
     [SerializeField] private int price = 0;
+    [SerializeField] private float noBidTimeout = 3f;
+    
     private int _wantValue = 100;
     private bool _isAnimatingBid = false;
+    private bool _isEnding = false;
+    private float _timeSinceLastBid = 0f;
 
     private void Awake()
     {
@@ -57,23 +61,35 @@ public class AuctionMechanic : MonoBehaviour
     private IEnumerator Bidding()
     {
         bool inAuction = true;
-
+        
         while (inAuction)
         {
+            if (_isEnding) yield break;
+
             yield return WaitForNextTurn();
+            
+            _timeSinceLastBid += Time.deltaTime;
 
-            if (TryProcessBid()) continue;
+            if (_isAnimatingBid) continue;
 
-            if (TryEndAuction())
+            if (TryProcessBid())
             {
-                inAuction = false;
+                _timeSinceLastBid = 0f;
+                continue;
             }
+
+            if (!(_timeSinceLastBid >= noBidTimeout)) continue;
+            
+            if (!TryEndAuction(true)) continue;
+            
+            _isEnding = true;
+            inAuction = false;
         }
     }
-
+    
     private IEnumerator WaitForNextTurn()
     {
-        yield return new WaitForSeconds(Random.Range(1f, 2f));
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
     }
 
     private bool TryProcessBid()
@@ -114,9 +130,9 @@ public class AuctionMechanic : MonoBehaviour
         _isAnimatingBid = false;
     }
 
-    private bool TryEndAuction()
+    private bool TryEndAuction(bool forceEnd = false)
     {
-        if (_wantValue > 0) return false;
+        if (!forceEnd && _wantValue > 0) return false;
 
         StartCoroutine(FinalCountdown());
         return true;
