@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5343370999943575199}
   - component: {fileID: 978384687413749075}
+  - component: {fileID: 2454696258766390469}
   m_Layer: 5
   m_Name: CONTAINER AuctionUI
   m_TagString: Untagged
@@ -50,6 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74573d0ff9457e6409b0ea28afb1dc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
+  auctionResultRuntime: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}
+  auctionSaveHandler: {fileID: 2454696258766390469}
   auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
   auctionText: {fileID: 2534628648934014936}
   increasedBidText: {fileID: 3419188257871875267}
@@ -62,6 +66,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4becdff0387319e458d6005825e6fc07, type: 2}
   price: 0
   noBidTimeout: 5
+--- !u!114 &2454696258766390469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297010972755446492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538ca26ac1d368e4991b8b2aa92f35b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  auctionResult: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}
 --- !u!1 &3256454675523151194
 GameObject:
   m_ObjectHideFlags: 0

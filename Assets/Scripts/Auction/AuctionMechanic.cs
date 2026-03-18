@@ -5,6 +5,11 @@ using TMPro;
 
 public class AuctionMechanic : MonoBehaviour
 {
+    [Header("Save System")]
+    [SerializeField] private CanvasDrawControllerValue canvasDrawControllerValue;
+    [SerializeField] private AuctionResultRuntime auctionResultRuntime;
+    [SerializeField] private AuctionSaveHandler auctionSaveHandler;
+    
     [Header("Auction Value")] 
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     
@@ -177,5 +182,34 @@ public class AuctionMechanic : MonoBehaviour
         yield return new WaitForSeconds(2);
 
         auctionPromptText.SetText("SOLD!");
+        
+        StoreAuctionResult();
+        auctionSaveHandler.Save();
+    }
+    
+    private void StoreAuctionResult()
+    {
+        var canvasState = canvasDrawControllerValue.Value.MainCanvasState;
+
+        byte[] pngData = ConvertRenderTextureToPNG(canvasState.LayersRenderTextures[0]);
+
+        auctionResultRuntime.SetData(pngData, price);
+    }
+    
+    private byte[] ConvertRenderTextureToPNG(RenderTexture rt)
+    {
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture.active = rt;
+
+        Texture2D tex = new Texture2D(rt.width, rt.height, TextureFormat.RGBA32, false);
+        tex.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+        tex.Apply();
+
+        RenderTexture.active = currentRT;
+
+        byte[] bytes = tex.EncodeToPNG();
+        Destroy(tex);
+
+        return bytes;
     }
 }
