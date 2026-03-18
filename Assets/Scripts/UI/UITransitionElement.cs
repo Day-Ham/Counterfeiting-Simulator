@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -14,14 +15,16 @@ public class UITransitionElement : MonoBehaviour
     [SerializeField] private float delay;
     
     [Header("Tween Settings")]
-    [SerializeField] private Ease moveOutEase = Ease.InBack;
-    [SerializeField] private Ease moveInEase = Ease.OutBack;
+    [SerializeField] private Ease moveOutEase;
+    [SerializeField] private Ease moveInEase;
     
-    private Vector2 originalPos;
+    private Vector2 _originalPos;
+    
+    public event Action OnMoveOutComplete;
 
     private void Awake()
     {
-        originalPos = rectTransform.anchoredPosition;
+        _originalPos = rectTransform.anchoredPosition;
     }
 
     private void OnEnable()
@@ -39,12 +42,17 @@ public class UITransitionElement : MonoBehaviour
         rectTransform.DOAnchorPos(targetPosition, duration)
             .SetEase(moveOutEase)
             .SetDelay(delay)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                OnMoveOutComplete?.Invoke();
+            });
+        
     }
 
     public void MoveIn()
     {
-        rectTransform.DOAnchorPos(originalPos, duration)
+        rectTransform.DOAnchorPos(_originalPos, duration)
             .SetEase(moveInEase)
             .SetDelay(delay)
             .SetUpdate(true);

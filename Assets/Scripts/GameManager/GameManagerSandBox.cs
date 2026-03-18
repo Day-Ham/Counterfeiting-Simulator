@@ -1,4 +1,6 @@
 using DaeHanKim.ThisIsTotallyADollar.Core;
+using DaeHanKim.ThisIsTotallyADollar.Drawing;
+using DaeHanKim.ThisIsTotallyADollar.Utility;
 using UnityEngine;
 
 public class GameManagerSandBox : GameManagerUnit
@@ -10,7 +12,10 @@ public class GameManagerSandBox : GameManagerUnit
     [Header("Dependencies")]
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private UITransitionManagerValue sandboxTransitionManager;
+    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
+    
+    private TextureUtility _textureUtility;
     
     private void OnEnable()
     {
@@ -43,13 +48,18 @@ public class GameManagerSandBox : GameManagerUnit
     
     private void HandleFinishTransition()
     {
-        sandboxTransitionManager.Value.MoveAllOut();
+        sandboxTransitionManager.Value.MoveAllOut(StartBidding);
     }
 
     private void DisableGameplay()
     {
         inputHandler?.BlockInput();
         _canvasDraw.IsCanDraw = false;
+    }
+
+    private void StartBidding()
+    {
+        auctionMechanicValue.Value.BeginBidding();
     }
     
 }

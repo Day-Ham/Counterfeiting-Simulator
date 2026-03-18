@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 2604104264098946955}
   - component: {fileID: 6583127964034294273}
   m_Layer: 5
-  m_Name: CANVAS Portrait Sandbox
+  m_Name: CANVAS Portrait SandBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0fdd3ea11441d1913475082e39a70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
+  _canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
   _drawingBoardZoom: {fileID: 0}
   _drawingBoardController: {fileID: 0}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
