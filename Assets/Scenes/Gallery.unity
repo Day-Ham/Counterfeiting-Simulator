@@ -485,9 +485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283797358526b534b92e660bedeb0610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayImage: {fileID: 0}
-  pivot: {x: 0.5, y: 0.5}
-  bidText: {fileID: 0}
+  contentParent: {fileID: 1771408160}
+  auctionItemPrefab: {fileID: 3728650235757109020, guid: e4685f6a4289c3240a9b2c653c1ff757, type: 3}
 --- !u!4 &1715148014
 Transform:
   m_ObjectHideFlags: 0
@@ -624,6 +623,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+--- !u!224 &1771408160 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2646374584189680757, guid: 66da9ce1fe8cc1143b3e5e23a140b5d0, type: 3}
+  m_PrefabInstance: {fileID: 1771408159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

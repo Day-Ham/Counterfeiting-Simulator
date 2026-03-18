@@ -258,6 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3297092989004093433}
+  - component: {fileID: 3924101730792454472}
   m_Layer: 5
   m_Name: CONTAINER Image
   m_TagString: Untagged
@@ -286,6 +287,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 530, y: 530}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3924101730792454472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728650235757109020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd3f85e3bd9c8047a2c498999d2be55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawingImage: {fileID: 5084915216710215497}
+  bidText: {fileID: 8000874279120470012}
 --- !u!1 &4333332976776189043
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +312,7 @@ GameObject:
   - component: {fileID: 5332514463695554099}
   - component: {fileID: 7033395920434322841}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: CONTAINER ImageInfos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
