@@ -1,10 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 
 public class AuctionSaveHandler : MonoBehaviour
 {
     [SerializeField] private AuctionResultRuntime auctionResult;
 
+    private const string SaveFileName = "AuctionSave.es3";
+
+    /// <summary>
+    /// Save the final auction drawing and price to history.
+    /// Each auction is appended to the list.
+    /// </summary>
     public void Save()
     {
         if (auctionResult.DrawingData == null)
@@ -13,26 +19,33 @@ public class AuctionSaveHandler : MonoBehaviour
             return;
         }
 
-        ES3Settings settings = new ES3Settings("AuctionSave.es3");
-        
-        ES3.Save("Auction_Drawing", auctionResult.DrawingData, settings);
-        ES3.Save("Auction_FinalPrice", auctionResult.FinalPrice, settings);
-        
-        string path = Path.Combine(Application.persistentDataPath, "ES3Files", "AuctionSave.es3");
-        
-        int dataSizeKB = auctionResult.DrawingData.Length / 1024;
-        Debug.Log($"[Save] Auction saved successfully!");
-        Debug.Log($"[Save] Path: {path}");
-        Debug.Log($"[Save] Price: {auctionResult.FinalPrice}");
-        Debug.Log($"[Save] Image Size: {dataSizeKB} KB");
+        ES3Settings settings = new ES3Settings(SaveFileName);
 
-        if (ES3.KeyExists("Auction_Drawing", settings))
+        // Load existing history if exists, otherwise create new
+        List<AuctionSavedData> history;
+        if (ES3.KeyExists("Auction_History", settings))
         {
-            Debug.Log("[Save] Drawing key exists ✔");
+            history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
         }
         else
         {
-            Debug.LogWarning("[Save] Drawing key does not exist yet (fresh save?)");
+            history = new List<AuctionSavedData>();
         }
+
+        // Append new entry
+        AuctionSavedData newEntry = new AuctionSavedData
+        {
+            DrawingData = auctionResult.DrawingData,
+            FinalPrice = auctionResult.FinalPrice,
+            PaintingName = auctionResult.PaintingName
+        };
+        history.Add(newEntry);
+
+        // Save updated history
+        ES3.Save("Auction_History", history, settings);
+
+        Debug.Log($"[Save] Auction saved successfully! Total auctions: {history.Count}");
+        Debug.Log($"[Save] Final Price: ${auctionResult.FinalPrice}");
+        Debug.Log($"[Save] Image Size: {auctionResult.DrawingData.Length / 1024} KB");
     }
 }

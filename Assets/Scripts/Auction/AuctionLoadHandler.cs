@@ -1,56 +1,47 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AuctionLoadHandler : MonoBehaviour
 {
-    [Header("Display")]
-    [SerializeField] private Image displayImage;
-    [SerializeField] private Vector2 pivot = new Vector2(0.5f, 0.5f);
-    [SerializeField] private TextMeshProUGUI bidText;
+    [Header("Gallery")]
+    [SerializeField] private Transform contentParent;
+    [SerializeField] private GameObject auctionItemPrefab;
 
-    private const string saveFileName = "AuctionSave.es3";
+    private const string SaveFileName = "AuctionSave.es3";
 
     private void Start()
     {
-        LoadAndDisplayLastAuction();
+        LoadAllAuctions();
     }
 
-    /// <summary>
-    /// Loads the last auction drawing and bid and displays them.
-    /// </summary>
-    private void LoadAndDisplayLastAuction()
+    private void LoadAllAuctions()
     {
-        ES3Settings settings = new ES3Settings(saveFileName);
+        ES3Settings settings = new ES3Settings(SaveFileName);
 
-        if (ES3.KeyExists("Auction_Drawing", settings) && ES3.KeyExists("Auction_FinalPrice", settings))
+        if (!ES3.KeyExists("Auction_History", settings))
         {
-            byte[] drawingData = ES3.Load<byte[]>("Auction_Drawing", settings);
-            int finalPrice = ES3.Load<int>("Auction_FinalPrice", settings);
-
-            // Convert PNG bytes to Texture2D
-            Texture2D tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            tex.LoadImage(drawingData);
-
-            Debug.Log($"[AuctionLoadHandler] Loaded auction successfully! Price: ${finalPrice}, Image size: {drawingData.Length / 1024} KB");
-
-            // Display drawing
-            if (displayImage != null)
-            {
-                displayImage.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), pivot);
-                Debug.Log("[AuctionLoadHandler] Drawing displayed on renderer!");
-            }
-
-            // Display bid
-            if (bidText != null)
-            {
-                bidText.SetText("$" + finalPrice.ToString("n0"));
-                Debug.Log("[AuctionLoadHandler] Bid displayed in TMP!");
-            }
+            Debug.LogWarning("[AuctionLoadHandler] No saved auctions found.");
+            return;
         }
-        else
+
+        List<AuctionSavedData> history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
+        Debug.Log($"[AuctionLoadHandler] Loading {history.Count} auctions");
+
+        foreach (var auctionSavedDate in history)
         {
-            Debug.LogWarning("[AuctionLoadHandler] No saved auction found.");
+            GameObject galleryImageUI = Instantiate(auctionItemPrefab, contentParent);
+            AuctionGalleryItem galleryItem = galleryImageUI.GetComponent<AuctionGalleryItem>();
+
+            if (galleryItem != null)
+            {
+                galleryItem.SetData(auctionSavedDate.DrawingData, auctionSavedDate.FinalPrice, auctionSavedDate.PaintingName);
+            }
+            else
+            {
+                Debug.LogWarning("[AuctionLoadHandler] Prefab missing AuctionGalleryItem script!");
+            }
         }
     }
 }

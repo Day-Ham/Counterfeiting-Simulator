@@ -9,6 +9,7 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private CanvasDrawControllerValue canvasDrawControllerValue;
     [SerializeField] private AuctionResultRuntime auctionResultRuntime;
     [SerializeField] private AuctionSaveHandler auctionSaveHandler;
+    [SerializeField] private StringValue paintingName;
     
     [Header("Auction Value")] 
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
@@ -193,7 +194,7 @@ public class AuctionMechanic : MonoBehaviour
 
         byte[] pngData = ConvertRenderTextureToPNG(canvasState.LayersRenderTextures[0]);
 
-        auctionResultRuntime.SetData(pngData, price);
+        auctionResultRuntime.SetData(pngData, price, paintingName.Value);
     }
     
     private byte[] ConvertRenderTextureToPNG(RenderTexture rt)

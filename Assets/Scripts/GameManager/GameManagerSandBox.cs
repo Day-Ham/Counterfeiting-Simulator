@@ -11,9 +11,11 @@ public class GameManagerSandBox : GameManagerUnit
 
     [Header("Dependencies")]
     [SerializeField] private InputHandler inputHandler;
-    [SerializeField] private UITransitionManagerValue sandboxTransitionManager;
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
+    
+    [Header("UI Flow")]
+    [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
     
     private TextureUtility _textureUtility;
     
@@ -34,7 +36,7 @@ public class GameManagerSandBox : GameManagerUnit
     
     protected override void FinishGame()
     {
-        HandleFinishTransition();
+        StartUIFlow();
         DisableGameplay();
     }
 
@@ -46,9 +48,9 @@ public class GameManagerSandBox : GameManagerUnit
         _canvasDraw.IsCanDraw = true;
     }
     
-    private void HandleFinishTransition()
+    private void StartUIFlow()
     {
-        sandboxTransitionManager.Value.MoveAllOut(StartBidding);
+        UIFlowControllerValue.Value.StartBatch(0);
     }
 
     private void DisableGameplay()
@@ -56,10 +58,4 @@ public class GameManagerSandBox : GameManagerUnit
         inputHandler?.BlockInput();
         _canvasDraw.IsCanDraw = false;
     }
-
-    private void StartBidding()
-    {
-        auctionMechanicValue.Value.BeginBidding();
-    }
-    
 }
