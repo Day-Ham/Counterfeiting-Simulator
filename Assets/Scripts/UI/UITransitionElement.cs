@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class UITransitionElement : MonoBehaviour
 {
-    [SerializeField] private UITransitionManagerValue managerValue;
-
+    [Header("UI Transition Value")] 
+    [SerializeField] private UITransitionElementValue UITransitionElementValue;
+    
     [Header("RectTransform")]
     [SerializeField] private RectTransform rectTransform;
     
@@ -21,20 +22,12 @@ public class UITransitionElement : MonoBehaviour
     private Vector2 _originalPos;
     
     public event Action OnMoveOutComplete;
+    public event Action OnMoveInComplete;
 
     private void Awake()
     {
         _originalPos = rectTransform.anchoredPosition;
-    }
-
-    private void OnEnable()
-    {
-        managerValue?.Register(this);
-    }
-
-    private void OnDisable()
-    {
-        managerValue?.Unregister(this);
+        UITransitionElementValue.Bind(this);
     }
 
     public void MoveOut()
@@ -43,11 +36,7 @@ public class UITransitionElement : MonoBehaviour
             .SetEase(moveOutEase)
             .SetDelay(delay)
             .SetUpdate(true)
-            .OnComplete(() =>
-            {
-                OnMoveOutComplete?.Invoke();
-            });
-        
+            .OnComplete(OnMoveOutCompleteEvent);
     }
 
     public void MoveIn()
@@ -55,6 +44,17 @@ public class UITransitionElement : MonoBehaviour
         rectTransform.DOAnchorPos(_originalPos, duration)
             .SetEase(moveInEase)
             .SetDelay(delay)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .OnComplete(OnMoveInCompleteEvent);
+    }
+    
+    private void OnMoveOutCompleteEvent()
+    {
+        OnMoveOutComplete?.Invoke();
+    }
+
+    private void OnMoveInCompleteEvent()
+    {
+        OnMoveInComplete?.Invoke();
     }
 }

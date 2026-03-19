@@ -306,11 +306,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  UITransitionElementValue: {fileID: 11400000, guid: 99ddaa9bb1a67b74cac5c025952c33ca, type: 2}
   rectTransform: {fileID: 8017943212902261182}
   targetPosition: {x: -380, y: 0}
   duration: 1
-  delay: 1
+  delay: 0.75
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &2637768449395452482
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managerValue: {fileID: 11400000, guid: 64e12f1260bfc314382d54a2e8ac6398, type: 2}
+  UITransitionElementValue: {fileID: 11400000, guid: 82d3e83824a959044a150447eafbba9b, type: 2}
   rectTransform: {fileID: 4589096121491800033}
   targetPosition: {x: -380, y: 0}
   duration: 1
@@ -737,6 +737,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1155158120014552416}
   - component: {fileID: 7542550459040891717}
+  - component: {fileID: 4529999845695377769}
   m_Layer: 5
   m_Name: CONTAINER PaintingName
   m_TagString: Untagged
@@ -778,6 +779,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayText: {fileID: 3279238497047999399}
   paintingName: {fileID: 11400000, guid: 3f373235ccd8b294885d7abd9c8dfcb9, type: 2}
+--- !u!114 &4529999845695377769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4614193023626146651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UITransitionElementValue: {fileID: 11400000, guid: 4ecb24735e0249e4cb443dd2177fe2b8, type: 2}
+  rectTransform: {fileID: 1155158120014552416}
+  targetPosition: {x: 580, y: 70}
+  duration: 1
+  delay: 0.75
+  moveOutEase: 28
+  moveInEase: 28
 --- !u!1 &5008375881375934438
 GameObject:
   m_ObjectHideFlags: 0
