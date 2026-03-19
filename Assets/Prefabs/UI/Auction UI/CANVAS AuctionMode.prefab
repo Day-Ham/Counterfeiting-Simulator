@@ -191,6 +191,7 @@ MonoBehaviour:
   canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
   auctionResultRuntime: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}
   auctionSaveHandler: {fileID: 2454696258766390469}
+  paintingName: {fileID: 11400000, guid: 3f373235ccd8b294885d7abd9c8dfcb9, type: 2}
   auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
   auctionText: {fileID: 2534628648934014936}
   increasedBidText: {fileID: 3419188257871875267}

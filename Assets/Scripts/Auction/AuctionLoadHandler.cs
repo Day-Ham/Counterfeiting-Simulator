@@ -36,7 +36,7 @@ public class AuctionLoadHandler : MonoBehaviour
 
             if (galleryItem != null)
             {
-                galleryItem.SetData(auctionSavedDate.DrawingData, auctionSavedDate.FinalPrice);
+                galleryItem.SetData(auctionSavedDate.DrawingData, auctionSavedDate.FinalPrice, auctionSavedDate.PaintingName);
             }
             else
             {

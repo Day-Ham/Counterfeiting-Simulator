@@ -378,6 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drawingImage: {fileID: 5084915216710215497}
   bidText: {fileID: 8000874279120470012}
+  paintingName: {fileID: 7703862054376683618}
 --- !u!1 &4261446880646768261
 GameObject:
   m_ObjectHideFlags: 0

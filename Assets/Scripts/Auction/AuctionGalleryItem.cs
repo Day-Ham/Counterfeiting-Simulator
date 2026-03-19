@@ -7,13 +7,14 @@ public class AuctionGalleryItem : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Image drawingImage;
     [SerializeField] private TextMeshProUGUI bidText;
+    [SerializeField] private TextMeshProUGUI paintingName;
 
     private readonly Vector2 _pivot = new Vector2(0.5f, 0.5f);
 
     /// <summary>
     /// Sets the drawing and bid
     /// </summary>
-    public void SetData(byte[] drawingData, int finalPrice)
+    public void SetData(byte[] drawingData, int finalPrice, string paintingNameValue)
     {
         if (drawingData is { Length: > 0 })
         {
@@ -31,5 +32,10 @@ public class AuctionGalleryItem : MonoBehaviour
         {
             bidText.SetText("$" + finalPrice.ToString("n0"));
         }
+
+        if (paintingName == null) return;
+        
+        string finalName = string.IsNullOrEmpty(paintingNameValue) ? "Untitled" : paintingNameValue;
+        paintingName.SetText(finalName);
     }
 }
