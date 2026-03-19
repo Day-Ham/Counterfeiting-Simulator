@@ -11,10 +11,13 @@ public class ChangeScene : MonoBehaviour
 
     private void Awake()
     {
-        StartButton.onClick.AddListener(GoToScene);
+        if (StartButton != null)
+        {
+            StartButton.onClick.AddListener(GoToScene);
+        }
     }
 
-    private void GoToScene()
+    public void GoToScene()
     {
         string sceneNameToGo = SceneToGo.sceneName;
 
