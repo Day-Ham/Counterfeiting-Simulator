@@ -603,7 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 85
-    m_Right: 0
+    m_Right: 85
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
