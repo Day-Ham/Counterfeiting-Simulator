@@ -5,6 +5,9 @@ using TMPro;
 
 public class AuctionMechanic : MonoBehaviour
 {
+    [Header("Change Scene")]
+    [SerializeField] private ChangeScene changeScene;
+    
     [Header("Save System")]
     [SerializeField] private CanvasDrawControllerValue canvasDrawControllerValue;
     [SerializeField] private AuctionResultRuntime auctionResultRuntime;
@@ -186,6 +189,10 @@ public class AuctionMechanic : MonoBehaviour
         
         StoreAuctionResult();
         auctionSaveHandler.Save();
+        
+        yield return new WaitForSeconds(1);
+        
+        changeScene.GoToScene();
     }
     
     private void StoreAuctionResult()
@@ -197,19 +204,19 @@ public class AuctionMechanic : MonoBehaviour
         auctionResultRuntime.SetData(pngData, price, paintingName.Value);
     }
     
-    private byte[] ConvertRenderTextureToPNG(RenderTexture rt)
+    private byte[] ConvertRenderTextureToPNG(RenderTexture renderTexture)
     {
-        RenderTexture currentRT = RenderTexture.active;
-        RenderTexture.active = rt;
+        RenderTexture currentRenderTexture = RenderTexture.active;
+        RenderTexture.active = renderTexture;
 
-        Texture2D tex = new Texture2D(rt.width, rt.height, TextureFormat.RGBA32, false);
-        tex.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
-        tex.Apply();
+        Texture2D texture2D = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
+        texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture2D.Apply();
 
-        RenderTexture.active = currentRT;
+        RenderTexture.active = currentRenderTexture;
 
-        byte[] bytes = tex.EncodeToPNG();
-        Destroy(tex);
+        byte[] bytes = texture2D.EncodeToPNG();
+        Destroy(texture2D);
 
         return bytes;
     }
