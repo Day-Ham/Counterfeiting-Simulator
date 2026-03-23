@@ -310,7 +310,8 @@ MonoBehaviour:
   rectTransform: {fileID: 8017943212902261182}
   targetPosition: {x: -380, y: 0}
   duration: 1
-  delay: 0.75
+  moveOutDelay: 1.25
+  moveInDelay: 1
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &2637768449395452482
@@ -724,7 +725,8 @@ MonoBehaviour:
   rectTransform: {fileID: 4589096121491800033}
   targetPosition: {x: -380, y: 0}
   duration: 1
-  delay: 1
+  moveOutDelay: 1.5
+  moveInDelay: 1
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &4614193023626146651
@@ -795,7 +797,8 @@ MonoBehaviour:
   rectTransform: {fileID: 1155158120014552416}
   targetPosition: {x: 580, y: 70}
   duration: 1
-  delay: 0.75
+  moveOutDelay: 0.5
+  moveInDelay: 0
   moveOutEase: 28
   moveInEase: 28
 --- !u!1 &5008375881375934438

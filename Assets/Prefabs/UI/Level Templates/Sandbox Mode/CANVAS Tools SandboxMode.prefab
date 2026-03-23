@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 67454303551450949, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1329486006438440070, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -296,6 +300,10 @@ PrefabInstance:
       propertyPath: _crayonSource
       value: 
       objectReference: {fileID: 11400000, guid: 0c3242a67309bbd40abefcddbadd38ae, type: 2}
+    - target: {fileID: 7032441730375356281, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
+      propertyPath: BrushController
+      value: 
+      objectReference: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
     - target: {fileID: 7377003863217108392, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -386,7 +394,8 @@ MonoBehaviour:
   rectTransform: {fileID: 600142651437466242}
   targetPosition: {x: -200, y: 0}
   duration: 1
-  delay: 0
+  moveOutDelay: 0.25
+  moveInDelay: 0
   moveOutEase: 26
   moveInEase: 27
 --- !u!224 &5652364006882930949 stripped
@@ -415,7 +424,8 @@ MonoBehaviour:
   rectTransform: {fileID: 5652364006882930949}
   targetPosition: {x: 100, y: 0}
   duration: 1
-  delay: 0
+  moveOutDelay: 0.25
+  moveInDelay: 0
   moveOutEase: 26
   moveInEase: 27
 --- !u!1 &7042021334222773098 stripped
@@ -439,6 +449,7 @@ MonoBehaviour:
   rectTransform: {fileID: 199912809618187879}
   targetPosition: {x: -78.5, y: -100}
   duration: 1
-  delay: 0
+  moveOutDelay: 0
+  moveInDelay: 0
   moveOutEase: 26
   moveInEase: 27

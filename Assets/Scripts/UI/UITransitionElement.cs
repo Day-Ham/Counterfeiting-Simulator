@@ -13,7 +13,10 @@ public class UITransitionElement : MonoBehaviour
     [Header("Move Settings")]
     [SerializeField] private Vector2 targetPosition;
     [SerializeField] private float duration;
-    [SerializeField] private float delay;
+
+    [Header("Delays")]
+    [SerializeField] private float moveOutDelay;
+    [SerializeField] private float moveInDelay;
     
     [Header("Tween Settings")]
     [SerializeField] private Ease moveOutEase;
@@ -32,18 +35,22 @@ public class UITransitionElement : MonoBehaviour
 
     public void MoveOut()
     {
+        rectTransform.DOKill();
+        
         rectTransform.DOAnchorPos(targetPosition, duration)
             .SetEase(moveOutEase)
-            .SetDelay(delay)
+            .SetDelay(moveOutDelay)
             .SetUpdate(true)
             .OnComplete(OnMoveOutCompleteEvent);
     }
 
     public void MoveIn()
     {
+        rectTransform.DOKill();
+        
         rectTransform.DOAnchorPos(_originalPos, duration)
             .SetEase(moveInEase)
-            .SetDelay(delay)
+            .SetDelay(moveInDelay)
             .SetUpdate(true)
             .OnComplete(OnMoveInCompleteEvent);
     }
@@ -51,10 +58,12 @@ public class UITransitionElement : MonoBehaviour
     private void OnMoveOutCompleteEvent()
     {
         OnMoveOutComplete?.Invoke();
+        OnMoveOutComplete = null;
     }
 
     private void OnMoveInCompleteEvent()
     {
         OnMoveInComplete?.Invoke();
+        OnMoveInComplete = null;
     }
 }

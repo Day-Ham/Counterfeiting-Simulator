@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _nextButtonValue;
     [SerializeField] private TransitionControllerValue _transitionController;
+    [SerializeField] private SingleSceneReference _mainMenuScene;
 
     [Header("Tween Settings Next Button")]
     public Ease EaseTween = Ease.OutBounce;
 
     private LevelManager LevelManager => _levelManagerValue.Value;
     private GameObject _nextButtonUI;
+    private Tween _breathingTween;
     
     private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
     private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
@@ -32,11 +35,18 @@ public class LevelChanger : MonoBehaviour
     
     public void NextLevel()
     {
-        if (LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1) return;
+        bool isLastLevel = LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1;
 
         _transitionController.Value.PlayCloseTransition(() =>
         {
-            LevelManager.LoadNextLevel();
+            if (isLastLevel)
+            {
+                LoadMainMenu();
+            }
+            else
+            {
+                LevelManager.LoadNextLevel();
+            }
         });
     }
     
@@ -60,7 +70,29 @@ public class LevelChanger : MonoBehaviour
 
     private void ShowNextButton()
     {
-        _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
+        _breathingTween?.Kill();
+
+        // Scale in first
+        _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f)
+            .SetEase(EaseTween)
+            .OnComplete(() =>
+            {
+                // Start breathing loop
+                _breathingTween = _nextButtonUI.transform.DOScale(Vector3.one * 0.35f, 0.8f)
+                    .SetEase(Ease.InOutSine)
+                    .SetLoops(-1, LoopType.Yoyo);
+            });
+    }
+    
+    private void LoadMainMenu()
+    {
+        if (!_mainMenuScene)
+        {
+            Debug.LogWarning("Main Menu Scene is not assigned!");
+            return;
+        }
+
+        SceneManager.LoadScene(_mainMenuScene.SceneName);
     }
     
     private void Update()

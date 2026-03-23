@@ -49,4 +49,5 @@ MonoBehaviour:
   _sceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
   _nextButtonValue: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   _transitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
+  _mainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
   EaseTween: 30

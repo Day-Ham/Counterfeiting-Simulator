@@ -18,6 +18,9 @@ public class UIFlowController : MonoBehaviour
 
     [Header("Flow Complete Event on last element")]
     public VoidEvent OnFlowComplete;
+    
+    private int _totalOperations;
+    private int _completedOperations;
 
     private void Awake()
     {
@@ -30,71 +33,68 @@ public class UIFlowController : MonoBehaviour
 
         var batch = uiBatches[batchIndex];
 
-        if (batch.UIToMoveOrHide == null || batch.UIToMoveOrHide.Count == 0)
+        _totalOperations = 0;
+        _completedOperations = 0;
+        
+        // MOVE OUT / HIDE (PARALLEL)
+        if (batch.UIToMoveOrHide != null)
         {
-            OnAllUIHidden(batch);
-            return;
-        }
-
-        int completedCount = 0;
-
-        foreach (var uiValue in batch.UIToMoveOrHide)
-        {
-            if (!uiValue?.Value)
+            foreach (var uiValue in batch.UIToMoveOrHide)
             {
-                completedCount++;
-                CheckAllHidden(batch, completedCount);
-                continue;
-            }
+                _totalOperations++;
 
-            uiValue.Value.OnMoveOutComplete += () =>
-            {
-                completedCount++;
-                CheckAllHidden(batch, completedCount);
-            };
-
-            uiValue.MoveOutElement();
-        }
-    }
-
-    private void CheckAllHidden(UIFlowBatch batch, int completedCount)
-    {
-        if (completedCount >= batch.UIToMoveOrHide.Count)
-        {
-            OnAllUIHidden(batch);
-        }
-    }
-
-    private void OnAllUIHidden(UIFlowBatch batch)
-    {
-        if (batch.UIToReturnOriginalPosition != null && batch.UIToReturnOriginalPosition.Count > 0)
-        {
-            int moveInCompleted = 0;
-            int total = batch.UIToReturnOriginalPosition.Count;
-
-            foreach (var uiValue in batch.UIToReturnOriginalPosition)
-            {
                 if (!uiValue?.Value)
                 {
-                    moveInCompleted++;
-                    if (moveInCompleted >= total)
-                        OnFlowComplete?.Raise();
+                    IncrementComplete();
                     continue;
                 }
-                
-                uiValue.Value.OnMoveInComplete += () =>
-                {
-                    moveInCompleted++;
-                    if (moveInCompleted >= total)
-                        OnFlowComplete?.Raise();
-                };
 
+                uiValue.Value.OnMoveOutComplete += OnOperationComplete;
+                uiValue.MoveOutElement();
+            }
+        }
+        
+        // MOVE IN (PARALLEL)
+        if (batch.UIToReturnOriginalPosition != null)
+        {
+            foreach (var uiValue in batch.UIToReturnOriginalPosition)
+            {
+                _totalOperations++;
+
+                if (!uiValue?.Value)
+                {
+                    IncrementComplete();
+                    continue;
+                }
+
+                uiValue.Value.OnMoveInComplete += OnOperationComplete;
                 uiValue.MoveInElement();
             }
         }
-        else
+
+        // Edge case: nothing to process
+        if (_totalOperations == 0)
         {
-            // No elements to move in, raise the event immediately
+            OnFlowComplete?.Raise();
+        }
+    }
+
+    private void OnOperationComplete()
+    {
+        _completedOperations++;
+
+        if (_completedOperations >= _totalOperations)
+        {
+            OnFlowComplete?.Raise();
+        }
+    }
+
+    private void IncrementComplete()
+    {
+        _completedOperations++;
+
+        if (_completedOperations >= _totalOperations)
+        {
             OnFlowComplete?.Raise();
         }
     }
