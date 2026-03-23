@@ -53,6 +53,7 @@ MonoBehaviour:
   inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
   auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
   spacePressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
+  RGBSliderUI: {fileID: 11400000, guid: 8aff1e5aeec74f645b95d9a8582fbf70, type: 2}
   UIFlowControllerValue: {fileID: 11400000, guid: 841a7ed0a5976f54e82126370854716b, type: 2}
 --- !u!114 &5222011558294312243
 MonoBehaviour:

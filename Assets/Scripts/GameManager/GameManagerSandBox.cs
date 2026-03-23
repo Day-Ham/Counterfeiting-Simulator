@@ -13,6 +13,7 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
+    [SerializeField] private GameObjectValue RGBSliderUI;
     
     [Header("UI Flow")]
     [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
@@ -36,6 +37,7 @@ public class GameManagerSandBox : GameManagerUnit
     
     protected override void FinishGame()
     {
+        RGBSliderUI.Value.SetActive(false);
         StartUIFlow();
         DisableGameplay();
     }
