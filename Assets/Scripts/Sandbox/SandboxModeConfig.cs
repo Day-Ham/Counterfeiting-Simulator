@@ -4,10 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSandBoxConfig", menuName = "Level/SandboxConfig")]
 public class SandboxModeConfig : ScriptableObject
 {
-    [Header("Core Data")]
-    public CanvasTemplateValue CanvasTemplate;
-    public ColorDataValue ColorBackgroundDraw;
-
     [Tooltip("Editable colors for sandbox mode")]
     public ColorDataListValue ColorsToBeUsed;
 
