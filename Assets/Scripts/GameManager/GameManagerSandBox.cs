@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Core;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 using DaeHanKim.ThisIsTotallyADollar.Utility;
@@ -13,7 +14,9 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
-    [SerializeField] private GameObjectValue RGBSliderUI;
+    
+    [Header("UI Elements to Disable")]
+    [SerializeField] private List<GameObjectValue> UIElementsToDisable;
     
     [Header("UI Flow")]
     [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
@@ -37,7 +40,11 @@ public class GameManagerSandBox : GameManagerUnit
     
     protected override void FinishGame()
     {
-        RGBSliderUI.Value.SetActive(false);
+        foreach (var uiElementGameObjectValue in UIElementsToDisable)
+        {
+            uiElementGameObjectValue.Value.SetActive(false);
+        }
+        
         StartUIFlow();
         DisableGameplay();
     }
