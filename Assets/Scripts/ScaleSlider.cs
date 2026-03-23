@@ -4,6 +4,10 @@ using UnityEngine.UI;
 
 public class ScaleSlider : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private FloatEvent brushSizeEvent;
+    
+    [Space]
     public Slider BrushScaleSlider;
     public CanvasDrawControllerValue BrushController;
     public GameObjectValue Cursor;
@@ -57,12 +61,12 @@ public class ScaleSlider : MonoBehaviour
     {
         if (GameState.GameFinished) return;
         
-        if (CanvasDrawController == null || Cursor.Value == null) return;
-        
-        Transform cursorSize = Cursor.Value.transform;
+        if (Cursor.Value != null)
+        {
+            Cursor.Value.transform.localScale = Vector3.one * brushScaleSize;
+        }
 
-        cursorSize.localScale = Vector3.one * brushScaleSize;
-        CanvasDrawController.SetBrushSize(brushScaleSize * ReferenceNumber);
+        brushSizeEvent.Raise(brushScaleSize * ReferenceNumber);
     }
     
     private void DisableSliderInteract()

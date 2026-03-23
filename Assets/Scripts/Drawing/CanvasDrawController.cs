@@ -18,7 +18,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         }
 
         static readonly Vector3[] LAYER_CORNER_POSITIONS = new Vector3[4];
-
+        
+        [Header("Events")]
+        [SerializeField] private FloatEvent brushSizeEvent;
+        
+        [Space]
         public CanvasDrawControllerValue _canvasDrawControllerValue;
         public DrawingBoardZoom _drawingBoardZoom;
         public DrawingBoardController _drawingBoardController;
@@ -72,6 +76,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
             
             selectedColorEvent.OnColorPicked += OnSelectedColor;
+            brushSizeEvent.OnRaised += SetBrushSize;
         }
 
         private void OnDisable()
@@ -81,6 +86,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
             }
             selectedColorEvent.OnColorPicked -= OnSelectedColor;
+            brushSizeEvent.OnRaised -= SetBrushSize;
         }
 
         private void OnRuntimeChanged()
@@ -275,7 +281,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             _layerDrawController.SetBrushColor(selectedColor);
         }
 
-        public void SetBrushSize(float brushSize)
+        private void SetBrushSize(float brushSize)
         {
             if (_layerDrawController == null)
             {
