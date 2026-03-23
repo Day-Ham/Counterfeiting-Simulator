@@ -556,34 +556,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CANVAS MainMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: ff5648224d9b0d64f8d13af3ca859b0a, type: 2}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: set_Value
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: IntValue, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066056971942578393, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 9069248427933250477, guid: c2eaa114c1983e7448d4cc1bbef9c58e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
