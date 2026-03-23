@@ -163,11 +163,20 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         private RenderTexture CreateLayerRenderTexture()
         {
-            RenderTexture tex = new(_canvasDimensions.x, _canvasDimensions.y, 0);
-            tex.filterMode = FilterMode.Point;
-            tex.enableRandomWrite = true;
-            tex.Create();
-            return tex;
+            RenderTexture renderTexture = new(_canvasDimensions.x, _canvasDimensions.y, 0);
+            renderTexture.filterMode = FilterMode.Point;
+            renderTexture.enableRandomWrite = true;
+            renderTexture.Create();
+            
+            /*These lines were added to avoid the Undo bug on the 
+            Build in which when the game is restarted and pressed undo,
+            it will show the last drawn image before restarting*/
+            RenderTexture active = RenderTexture.active;
+            RenderTexture.active = renderTexture;
+            GL.Clear(true, true, _clearColor);
+            RenderTexture.active = active;
+            
+            return renderTexture;
         }
 
         //[Button, EnableIf(nameof(IsApplicationPlaying))]
