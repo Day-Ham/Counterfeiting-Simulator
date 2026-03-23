@@ -356,7 +356,8 @@ MonoBehaviour:
   rectTransform: {fileID: 8601051525711549764}
   targetPosition: {x: 480, y: 0}
   duration: 1
-  delay: 0.75
+  moveOutDelay: 2
+  moveInDelay: 0.5
   moveOutEase: 28
   moveInEase: 27
 --- !u!1 &2975894298058291953
@@ -1838,8 +1839,9 @@ MonoBehaviour:
   UITransitionElementValue: {fileID: 11400000, guid: b5dff887bb0a84740a804ce8751796af, type: 2}
   rectTransform: {fileID: 5445433341711167846}
   targetPosition: {x: 0, y: 100}
-  duration: 1.2
-  delay: 0.75
+  duration: 1
+  moveOutDelay: 0.5
+  moveInDelay: 1
   moveOutEase: 28
   moveInEase: 27
 --- !u!1 &8957698912592256578

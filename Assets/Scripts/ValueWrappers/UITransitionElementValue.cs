@@ -15,6 +15,11 @@ public class UITransitionElementValue : ValueWrapper<UITransitionElement>
 
     public void Bind(UITransitionElement element)
     {
+        if (Value != null && Value != element)
+        {
+            Debug.LogWarning("UITransitionElementValue already bound. Overwriting.");
+        }
+
         Value = element;
     }
 }
