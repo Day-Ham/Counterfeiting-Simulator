@@ -15,6 +15,7 @@ public class LevelChanger : MonoBehaviour
 
     private LevelManager LevelManager => _levelManagerValue.Value;
     private GameObject _nextButtonUI;
+    private Tween _breathingTween;
     
     private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
     private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
@@ -60,7 +61,18 @@ public class LevelChanger : MonoBehaviour
 
     private void ShowNextButton()
     {
-        _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f).SetEase(EaseTween);
+        _breathingTween?.Kill();
+
+        // Scale in first
+        _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f)
+            .SetEase(EaseTween)
+            .OnComplete(() =>
+            {
+                // Start breathing loop
+                _breathingTween = _nextButtonUI.transform.DOScale(Vector3.one * 0.35f, 0.8f)
+                    .SetEase(Ease.InOutSine)
+                    .SetLoops(-1, LoopType.Yoyo);
+            });
     }
     
     private void Update()
