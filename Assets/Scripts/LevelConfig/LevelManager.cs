@@ -1,47 +1,66 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     [Header("Level Settings")]
-    [SerializeField] private LevelConfigListValue levels;
+    [SerializeField] private LevelConfigListValue levelConfigListValue;
     [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntimeAsset;
-    [SerializeField] private LevelManagerValue levelManagerValue;
-    [SerializeField] private IntValue currentLevelIndex;
+    [SerializeField] private IntValue currentLevelIndexValue;
     
     [Header("Prefabs To Spawn")]
     [SerializeField] private GameObjectListValue prefabsToSpawn;
 
     private readonly List<GameObject> _spawnedObjects = new();
     private RuntimeWhiteColorData _runtimeWhiteLevel;
-
-    public int CurrentLevelIndex => currentLevelIndex.Value;
-    public int LevelCount => levels.Value.Count;
+    
     public LevelConfig CurrentLevelConfig => levelConfigRuntimeAsset.Value;
     public RuntimeWhiteColorData RuntimeWhiteLevel => _runtimeWhiteLevel;
     
+    private void OnEnable()
+    {
+        currentLevelIndexValue.OnValueChanged += HandleLevelChanged;
+    }
+
+    private void OnDisable()
+    {
+        currentLevelIndexValue.OnValueChanged -= HandleLevelChanged;
+    }
+    
     private void Awake()
     {
-        levelManagerValue.Value = this;
-
-        if (levels.Value == null || levels.Value.Count == 0)
+        if (levelConfigListValue.Value == null || levelConfigListValue.Value.Count == 0)
         {
             Debug.LogWarning("LevelManager: No levels assigned!");
             return;
         }
-
+        
         ClampLevelIndex();
-        SetCurrentLevel(currentLevelIndex.Value);
+        HandleLevelChanged(currentLevelIndexValue.Value);
         SpawnObjects();
     }
 
     private void ClampLevelIndex()
     {
-        if (currentLevelIndex.Value < 0 || currentLevelIndex.Value >= levels.Value.Count)
+        if (currentLevelIndexValue.Value < 0 || currentLevelIndexValue.Value >= levelConfigListValue.Value.Count)
         {
-            currentLevelIndex.Value = 0;
+            currentLevelIndexValue.Value = 0;
         }
+    }
+    
+    private void HandleLevelChanged(int index)
+    {
+        if (index < 0 || index >= levelConfigListValue.Value.Count)
+        {
+            Debug.LogWarning($"Invalid level index {index}");
+            return;
+        }
+
+        levelConfigRuntimeAsset.Value = levelConfigListValue.Value[index];
+
+        InitializeWhiteColors(levelConfigRuntimeAsset.Value);
+
+        ActivateLevelObjects();
     }
 
     private void SpawnObjects()
@@ -62,26 +81,8 @@ public class LevelManager : MonoBehaviour
     {
         foreach (var spawnedGameObject in _spawnedObjects)
         {
-            spawnedGameObject .SetActive(true);
+            spawnedGameObject.SetActive(true);
         }
-    }
-
-    private void SetCurrentLevel(int index)
-    {
-        if (index < 0 || index >= levels.Value.Count)
-        {
-            Debug.LogWarning($"Invalid level index {index}");
-            return;
-        }
-
-        currentLevelIndex.Value = index;
-        levelConfigRuntimeAsset.Value = levels.Value[index];
-
-        // Initialize white colors for the new level if level is colorPicker
-        InitializeWhiteColors(levelConfigRuntimeAsset.Value);
-
-        // Could also trigger events here if needed
-        ActivateLevelObjects();
     }
 
     private void InitializeWhiteColors(LevelConfig level)
@@ -93,26 +94,5 @@ public class LevelManager : MonoBehaviour
         }
 
         _runtimeWhiteLevel = new RuntimeWhiteColorData(level.WhiteColors.Value);
-    }
-
-    public void LoadNextLevel()
-    {
-        if (currentLevelIndex.Value >= levels.Value.Count - 1) return;
-
-        SetCurrentLevel(currentLevelIndex.Value + 1);
-        ReloadLevel();
-    }
-
-    public void LoadPrevLevel()
-    {
-        if (currentLevelIndex.Value <= 0) return;
-
-        SetCurrentLevel(currentLevelIndex.Value - 1);
-        ReloadLevel();
-    }
-
-    public void ReloadLevel()
-    {
-        SceneManagerUtility.ReloadCurrentScene();
     }
 }

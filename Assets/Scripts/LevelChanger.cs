@@ -9,17 +9,17 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private VoidEvent onNextLevelEvent;
     [SerializeField] private VoidEvent sceneChangerEvent;
     [SerializeField] private CallbackEvent playTransitionEvent;
+
+    [Header("References")] 
+    [SerializeField] private LevelConfigListValue levelConfigListValue;
+    [SerializeField] private IntValue currentLevelIndexValue;
     
-    [Header("References")]
     [SerializeField] private LevelChangerValue levelChangerValue;
-    [SerializeField] private LevelManagerValue levelManagerValue;
     [SerializeField] private GameObjectValue nextButtonValue;
     [SerializeField] private SingleSceneReference mainMenuScene;
 
     [Header("Tween Settings Next Button")]
     public Ease easeTween = Ease.OutBounce;
-    
-    private LevelManager LevelManager => levelManagerValue.Value;
     
     private GameObject _nextButtonUI;
     private Tween _breathingTween;
@@ -51,7 +51,7 @@ public class LevelChanger : MonoBehaviour
     
     private void NextLevel()
     {
-        bool isLastLevel = LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1;
+        bool isLastLevel = currentLevelIndexValue.Value >= levelConfigListValue.Value.Count - 1;
 
         playTransitionEvent?.Raise(() =>
         {
@@ -61,18 +61,20 @@ public class LevelChanger : MonoBehaviour
             }
             else
             {
-                LevelManager.LoadNextLevel();
+                currentLevelIndexValue.SetValue(currentLevelIndexValue.Value + 1);
+                SceneManagerUtility.ReloadCurrentScene();
             }
         });
     }
     
     private void PrevLevel()
     {
-        if (LevelManager.CurrentLevelIndex <= 0) return;
+        if (currentLevelIndexValue.Value <= 0) return;
 
         playTransitionEvent?.Raise(() =>
         {
-            LevelManager.LoadPrevLevel();
+            currentLevelIndexValue.SetValue(currentLevelIndexValue.Value - 1);
+            SceneManagerUtility.ReloadCurrentScene();
         });
     }
     
@@ -80,7 +82,8 @@ public class LevelChanger : MonoBehaviour
     {
         playTransitionEvent?.Raise(() =>
         {
-            LevelManager.ReloadLevel();
+            currentLevelIndexValue.ForceNotify();
+            SceneManagerUtility.ReloadCurrentScene();
         });
     }
 
