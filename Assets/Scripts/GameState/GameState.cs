@@ -11,7 +11,7 @@ public static class GameState
     public static void GameStart()
     {
         GameFinished = false;
-        OnGameStarted?.Invoke(); //notify all systems
+        OnGameStarted?.Invoke(); //notify all systems on GameStarted
     }
 
     public static void FinishGame()
@@ -19,6 +19,6 @@ public static class GameState
         if (GameFinished) return; //prevent multiple invocations
         
         GameFinished = true;
-        OnGameFinished?.Invoke(); //notify all systems
+        OnGameFinished?.Invoke(); //notify all systems on GameFinished
     }
 }
