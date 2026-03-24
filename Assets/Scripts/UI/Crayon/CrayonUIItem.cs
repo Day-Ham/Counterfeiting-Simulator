@@ -10,7 +10,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
     
     [Header("References")]
-    [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
     [SerializeField] private ConfigRuntime RuntimeAsset;
     [SerializeField] private GameObjectValue RGBSliderUI;
@@ -118,12 +118,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 
     private void ExpandSize()
     {
-        ResizeTweenScriptableObject.Expand(rectTransform);
+        resizeTweenUnitScriptableObject.Expand(rectTransform);
     }
 
     private void CollapseSize()
     {
-        ResizeTweenScriptableObject.Collapse(rectTransform);
+        resizeTweenUnitScriptableObject.Collapse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)

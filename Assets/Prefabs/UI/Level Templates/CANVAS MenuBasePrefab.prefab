@@ -1270,6 +1270,7 @@ GameObject:
   - component: {fileID: 9132120367430000280}
   - component: {fileID: 6012672298004405902}
   - component: {fileID: 1208507260531739805}
+  - component: {fileID: 2920612044648156091}
   m_Layer: 5
   m_Name: BUTTON NextLevel
   m_TagString: Untagged
@@ -1407,6 +1408,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventToRaise: {fileID: 11400000, guid: da014033f7f969146bda8dcb823a2ca0, type: 2}
   button: {fileID: 9132120367430000280}
+--- !u!114 &2920612044648156091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5280453852818395517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185517a15b3d6c94784de1544495f6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEvent: {fileID: 0}
+  rectTransform: {fileID: 0}
+  tweenAnimationUnitScriptable: {fileID: 0}
 --- !u!1 &6122546746556904061
 GameObject:
   m_ObjectHideFlags: 0

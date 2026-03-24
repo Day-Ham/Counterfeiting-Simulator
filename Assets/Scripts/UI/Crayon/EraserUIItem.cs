@@ -11,7 +11,7 @@ public class EraserUIItem : MonoBehaviour
     [SerializeField] private Button button;
     
     [Header("ResizeTween")]
-    [SerializeField] private ResizeTweenScriptableObject eraserTweenScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject eraserTweenUnitScriptableObject;
     
     private bool _isCollapsed = false;
     
@@ -58,12 +58,12 @@ public class EraserUIItem : MonoBehaviour
 
     private void Expand()
     {
-        eraserTweenScriptableObject.Expand(rectTransform);
+        eraserTweenUnitScriptableObject.Expand(rectTransform);
     }
 
     private void Collapse()
     {
-        eraserTweenScriptableObject.Collapse(rectTransform);
+        eraserTweenUnitScriptableObject.Collapse(rectTransform);
     }
     
     private void CollapseAfterGameFinished()

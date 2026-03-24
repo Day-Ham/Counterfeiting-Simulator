@@ -24,11 +24,11 @@ public class ComparingMechanic : MonoBehaviour
     
     [Header("Percentage ScriptableObject")]
     [SerializeField] private RectTransformValue percentageParent;
-    [SerializeField] private ResizeTweenScriptableObject percentageResizeTween;
+    [SerializeField] private ResizeTweenUnitScriptableObject percentageResizeTweenUnit;
     
     [Header("ResetButton ScriptableObject")]
     [SerializeField] private RectTransformValue resetButtonUI;
-    [SerializeField] private ResizeTweenScriptableObject resetButtonUIResizeTween;
+    [SerializeField] private ResizeTweenUnitScriptableObject resetButtonUIResizeTweenUnit;
     
     [Header("Comparison ScriptableObject")]
     [SerializeField] private ComparisonRuleScriptableObject comparisonRule;
@@ -85,7 +85,7 @@ public class ComparingMechanic : MonoBehaviour
         _targetLocationRect = targetLocation.Value.GetComponent<RectTransform>();
         _frontRawImage = frontSilhouette.Value.GetComponent<RawImage>();
         
-        percentageResizeTween.Collapse(percentageParent.Value);
+        percentageResizeTweenUnit.Collapse(percentageParent.Value);
         frontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
     
@@ -119,7 +119,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private IEnumerator ShowResult()
     {
-        percentageResizeTween.Expand(percentageParent.Value);
+        percentageResizeTweenUnit.Expand(percentageParent.Value);
         
         for (int tick = 0; tick <= duration; tick++)
         { 
@@ -174,11 +174,11 @@ public class ComparingMechanic : MonoBehaviour
 
     private IEnumerator IndicateReset()
     { 
-        resetButtonUIResizeTween.Expand(resetButtonUI.Value);
+        resetButtonUIResizeTweenUnit.Expand(resetButtonUI.Value);
         
         yield return new WaitForSeconds(.75f);
         
-        resetButtonUIResizeTween.Collapse(resetButtonUI.Value);
+        resetButtonUIResizeTweenUnit.Collapse(resetButtonUI.Value);
         
         yield return new WaitForSeconds(2f);
         
