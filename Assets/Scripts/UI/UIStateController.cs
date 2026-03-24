@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIStateController : MonoBehaviour
 {
-    [SerializeField] private List<GameObjectValue> UIElementsToDisable;
+    [SerializeField] private List<GameObjectValue> UIElementsToToggle;
 
     private void OnEnable()
     {
@@ -31,7 +31,7 @@ public class UIStateController : MonoBehaviour
 
     private void SetUIActive(bool isActive)
     {
-        foreach (var uiGameObjectValue in UIElementsToDisable)
+        foreach (var uiGameObjectValue in UIElementsToToggle)
         {
             if (uiGameObjectValue.Value)
             {
@@ -42,7 +42,7 @@ public class UIStateController : MonoBehaviour
     
     private void ApplyCurrentState()
     {
-        SetUIActive(GameState.GameFinished);
+        SetUIActive(GameState.IsGameFinished);
     }
     
 }

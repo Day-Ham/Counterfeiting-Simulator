@@ -34,7 +34,7 @@ public class EraserUIItem : MonoBehaviour
 
     private void OnClick()
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         
         SelectColorEvent.RaiseErase();
         Debug.Log("Eraser clicked", this);
@@ -42,12 +42,12 @@ public class EraserUIItem : MonoBehaviour
     
     private void OnEraserSelected()
     {
-        if (!GameState.GameFinished) Expand();
+        if (!GameState.IsGameFinished) Expand();
     }
 
     private void OnOtherColorSelected(int _)
     {
-        if (!GameState.GameFinished) Collapse();
+        if (!GameState.IsGameFinished) Collapse();
     }
 
     private void Expand()

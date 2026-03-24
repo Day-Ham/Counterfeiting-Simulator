@@ -18,6 +18,8 @@ public class InputHandler : ScriptableObject
 
     public void Initialize(CanvasDrawController canvasDraw, Action finishGameCallback)
     {
+        UnsubscribeGameState();
+        
         _canvasDraw = canvasDraw;
         _finishGameCallback = finishGameCallback;
         
@@ -25,18 +27,32 @@ public class InputHandler : ScriptableObject
         
         BuildInputDictionary();
         
+        SubscribeGameState();
+    }
+    
+    private void SubscribeGameState()
+    {
         GameState.OnGameFinished += BlockInput;
         GameState.OnGameStarted += UnblockInput;
+
+        GameState.OnGamePaused += BlockInput;
+        GameState.OnGameResumed += UnblockInput;
+    }
+
+    private void UnsubscribeGameState()
+    {
+        GameState.OnGameFinished -= BlockInput;
+        GameState.OnGameStarted -= UnblockInput;
+
+        GameState.OnGamePaused -= BlockInput;
+        GameState.OnGameResumed -= UnblockInput;
     }
     
     private void BuildInputDictionary()
     {
         _inputActions = new Dictionary<KeyCode, Action>();
 
-        if (!IsValidCanvasDraw())
-        {
-            return;
-        };
+        if (!IsValidCanvasDraw()) return;
 
         BindColorKeys();
         BindToolKeys();
@@ -44,10 +60,7 @@ public class InputHandler : ScriptableObject
     
     private bool IsValidCanvasDraw()
     {
-        if (_canvasDraw.RuntimeAsset.HasValue)
-        {
-            return true;
-        }
+        if (_canvasDraw.RuntimeAsset.HasValue) return true;
         
         Debug.LogWarning("CanvasDrawController or LevelConfigRuntime not assigned!");
         return false;
@@ -106,8 +119,8 @@ public class InputHandler : ScriptableObject
             }
         }
     }
-    
-    public void BlockInput()
+
+    private void BlockInput()
     {
         _isBlockInput = true;
     }
@@ -119,8 +132,7 @@ public class InputHandler : ScriptableObject
 
     private void OnDisable()
     {
-        GameState.OnGameFinished -= BlockInput;
-        GameState.OnGameStarted -= UnblockInput;
+        UnsubscribeGameState();
         
         _canvasDraw = null;
         _finishGameCallback = null;

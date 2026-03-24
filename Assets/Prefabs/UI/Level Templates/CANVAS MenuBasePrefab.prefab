@@ -545,6 +545,7 @@ RectTransform:
   m_Children:
   - {fileID: 9002013371099980802}
   - {fileID: 8738758916696946596}
+  - {fileID: 5761399019093341838}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -749,9 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1dbfcd4ec94e64ebeb92e7163dae68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 4633622909706147253}
-  GameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
-  PauseUIGameObject: {fileID: 6122546746556904061}
+  button: {fileID: 4633622909706147253}
 --- !u!1 &2863346145043776249
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,7 +910,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8738758916696946596}
-  - component: {fileID: 7339253196396388157}
   - component: {fileID: 1416778419504588714}
   - component: {fileID: 2014502220269898284}
   m_Layer: 5
@@ -941,20 +939,6 @@ RectTransform:
   m_AnchoredPosition: {x: -7.5, y: -9}
   m_SizeDelta: {x: 527, y: 718}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7339253196396388157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3626603502889647111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: de0b3cf68de400747853ca732a0a81d9, type: 2}
-  _overrideReference: {fileID: 6122546746556904061}
 --- !u!223 &1416778419504588714
 Canvas:
   m_ObjectHideFlags: 0
@@ -1600,6 +1584,55 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7905591592583982809
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5761399019093341838}
+  - component: {fileID: 3013874566089532342}
+  m_Layer: 5
+  m_Name: PauseUIController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5761399019093341838
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905591592583982809}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2854688929936453541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3013874566089532342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7905591592583982809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 810c35212d01ab94780d4321f6cb7191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUI: {fileID: 6122546746556904061}
 --- !u!1 &8466120617364186247
 GameObject:
   m_ObjectHideFlags: 0

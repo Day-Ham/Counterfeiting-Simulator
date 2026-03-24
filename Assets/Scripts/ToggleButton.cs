@@ -25,7 +25,7 @@ public class ToggleButton : MonoBehaviour
 
     public void ApplyToggle()
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         
         _isToggled = !_isToggled;
         UpdateGameObjects();

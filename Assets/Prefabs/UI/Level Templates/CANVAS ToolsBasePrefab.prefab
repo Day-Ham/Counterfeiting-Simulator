@@ -2255,7 +2255,6 @@ GameObject:
   - component: {fileID: 4296859303231385625}
   - component: {fileID: 8445541178076839123}
   - component: {fileID: 5202834433761476605}
-  - component: {fileID: 6401667923242067554}
   m_Layer: 5
   m_Name: BUTTON PauseShadow
   m_TagString: Untagged
@@ -2377,23 +2376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c191f1091c146043a2767384bee0633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 8445541178076839123}
-  GameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
---- !u!114 &6401667923242067554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4280582471768192644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93918e4c2dcd371418a31504abcff16c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toggleButton: {fileID: 8445541178076839123}
-  _listGameObject:
-  - {fileID: 11400000, guid: de0b3cf68de400747853ca732a0a81d9, type: 2}
+  button: {fileID: 8445541178076839123}
 --- !u!1 &4281317503756595747
 GameObject:
   m_ObjectHideFlags: 0

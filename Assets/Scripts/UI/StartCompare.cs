@@ -23,7 +23,7 @@ public class StartCompare : MonoBehaviour
 
     private void RaiseCompareEvent()
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         _startCompareEvent.Raise();
     }
     

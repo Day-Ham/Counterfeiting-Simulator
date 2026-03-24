@@ -34,6 +34,9 @@ public class DrawingBoardController : MonoBehaviour
         
         GameState.OnGameFinished += HandleGameFinished;
         GameState.OnGameStarted += HandleGameStarted;
+        
+        GameState.OnGamePaused += HandleGamePaused;
+        GameState.OnGameResumed += HandleGameResumed; 
     }
 
     private void OnDisable()
@@ -43,6 +46,9 @@ public class DrawingBoardController : MonoBehaviour
         
         GameState.OnGameFinished -= HandleGameFinished;
         GameState.OnGameStarted -= HandleGameStarted;
+        
+        GameState.OnGamePaused -= HandleGamePaused;
+        GameState.OnGameResumed -= HandleGameResumed;
     }
 
     private void Awake()
@@ -126,11 +132,26 @@ public class DrawingBoardController : MonoBehaviour
         DisableCtrlInput();
         DisableBoardInteraction();
     }
+    
+    private void HandleGamePaused()
+    {
+        DisableBoardInteraction();
+    }
 
     private void DisableCtrlInput()
     {
         IsDisableCtrlInput = true;
     }
+    
+    private void HandleGameResumed()
+    {
+        // Only re-enable if not finished
+        if (!GameState.IsGameFinished)
+        {
+            IsCanInteract = true;
+        }
+    }
+    
    
     public bool IsCanUseCtrl()
     {

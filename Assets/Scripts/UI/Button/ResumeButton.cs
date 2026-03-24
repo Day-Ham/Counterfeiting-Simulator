@@ -1,17 +1,17 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ResumeButton : GameManagerUIButton
+public class ResumeButton : MonoBehaviour
 {
-    public GameObject PauseUIGameObject;
-    
+    [SerializeField] private Button button;
+
     private void Awake()
     {
-        Button.onClick.AddListener(ResumeGame);
+        button.onClick.AddListener(OnResumeClicked);
     }
 
-    private void ResumeGame()
+    private void OnResumeClicked()
     {
-        PauseUIGameObject.SetActive(false);
-        GameManagerUnit.ResumeGame();
+        GameState.ResumeGame(); // 🔥 direct
     }
 }

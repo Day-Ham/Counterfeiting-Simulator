@@ -38,7 +38,7 @@ public class ScaleSlider : MonoBehaviour
     
     private void Update()
     {
-        if (GameState.GameFinished)
+        if (GameState.IsGameFinished)
         {
             DisableSliderInteract();
             return;
@@ -59,7 +59,7 @@ public class ScaleSlider : MonoBehaviour
     
     private void SetSize(float brushScaleSize)
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         
         if (Cursor.Value != null)
         {
