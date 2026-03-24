@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Float Event")]
+[CreateAssetMenu(fileName = "FloatEvent", menuName = "Events/FloatEvent")]
 public class FloatEvent : ScriptableObject
 {
     public Action<float> OnRaised;

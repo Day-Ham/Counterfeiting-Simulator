@@ -3707,10 +3707,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93918e4c2dcd371418a31504abcff16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _toggleButton: {fileID: 3473417074998016473}
-  _listGameObject:
-  - {fileID: 11400000, guid: 3f71f0dcc585ce343a43972edf2f662f, type: 2}
-  - {fileID: 11400000, guid: aa5a4983d34eb0e49853cd527fb6a5fa, type: 2}
+  toggleButton: {fileID: 3473417074998016473}
+  boolEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
 --- !u!1 &5682371855452517770
 GameObject:
   m_ObjectHideFlags: 0

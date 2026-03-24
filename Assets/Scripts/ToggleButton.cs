@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public class ToggleButton : MonoBehaviour
 {
-    [SerializeField] private Button _toggleButton;
-    [SerializeField] private GameObjectValue[] _listGameObject;
+    [SerializeField] private Button toggleButton;
+    [SerializeField] private BoolEvent boolEvent;
 
     private bool _isToggled;
-    
+
     private void OnEnable()
     {
         GameState.OnGameFinished += DisableInteraction;
@@ -20,32 +20,21 @@ public class ToggleButton : MonoBehaviour
 
     private void Awake()
     {
-        _toggleButton.onClick.AddListener(ApplyToggle);
+        toggleButton.onClick.AddListener(ApplyToggle);
     }
 
-    public void ApplyToggle()
+    private void ApplyToggle()
     {
         if (GameState.IsGameFinished) return;
-        
+
         _isToggled = !_isToggled;
-        UpdateGameObjects();
+        boolEvent?.Raise(_isToggled);
     }
 
-    private void UpdateGameObjects()
-    {
-        foreach (var value in _listGameObject)
-        {
-            if (value && value.Value)
-            {
-                value.Value.SetActive(_isToggled);
-            }
-        }
-    }
-    
     private void DisableInteraction()
     {
         _isToggled = false;
-        _toggleButton.interactable = false;
-        UpdateGameObjects();
+        toggleButton.interactable = false;
+        boolEvent?.Raise(_isToggled);
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Events/Void Events")]
+[CreateAssetMenu(fileName = "VoidEvent", menuName = "Events/VoidEvent")]
 public class VoidEvent : ScriptableObject
 {
     private Action listeners;
