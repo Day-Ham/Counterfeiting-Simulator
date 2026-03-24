@@ -9,18 +9,18 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private VoidEvent onNextLevel;
     [SerializeField] private VoidEvent sceneChangerEvent;
     
-    
     [Header("References")]
-    public LevelChangerValue levelChangerValue;
-    [SerializeField] private LevelManagerValue _levelManagerValue;
-    [SerializeField] private GameObjectValue _nextButtonValue;
-    [SerializeField] private TransitionControllerValue _transitionController;
-    [SerializeField] private SingleSceneReference _mainMenuScene;
+    [SerializeField] private LevelChangerValue levelChangerValue;
+    [SerializeField] private LevelManagerValue levelManagerValue;
+    [SerializeField] private GameObjectValue nextButtonValue;
+    [SerializeField] private TransitionControllerValue transitionController;
+    [SerializeField] private SingleSceneReference mainMenuScene;
 
     [Header("Tween Settings Next Button")]
-    public Ease EaseTween = Ease.OutBounce;
-
-    private LevelManager LevelManager => _levelManagerValue.Value;
+    public Ease easeTween = Ease.OutBounce;
+    
+    private LevelManager LevelManager => levelManagerValue.Value;
+    
     private GameObject _nextButtonUI;
     private Tween _breathingTween;
     
@@ -45,7 +45,7 @@ public class LevelChanger : MonoBehaviour
 
     private void Start()
     {
-        _nextButtonUI = _nextButtonValue.Value;
+        _nextButtonUI = nextButtonValue.Value;
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
     
@@ -53,7 +53,7 @@ public class LevelChanger : MonoBehaviour
     {
         bool isLastLevel = LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1;
 
-        _transitionController.Value.PlayCloseTransition(() =>
+        transitionController.Value.PlayCloseTransition(() =>
         {
             if (isLastLevel)
             {
@@ -70,7 +70,7 @@ public class LevelChanger : MonoBehaviour
     {
         if (LevelManager.CurrentLevelIndex <= 0) return;
 
-        _transitionController.Value.PlayCloseTransition(() =>
+        transitionController.Value.PlayCloseTransition(() =>
         {
             LevelManager.LoadPrevLevel();
         });
@@ -78,7 +78,7 @@ public class LevelChanger : MonoBehaviour
     
     private void ResetLevel()
     {
-        _transitionController.Value.PlayCloseTransition(() =>
+        transitionController.Value.PlayCloseTransition(() =>
         {
             LevelManager.ReloadLevel();
         });
@@ -90,7 +90,7 @@ public class LevelChanger : MonoBehaviour
 
         // Scale in first
         _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f)
-            .SetEase(EaseTween)
+            .SetEase(easeTween)
             .OnComplete(() =>
             {
                 // Start breathing loop
@@ -102,13 +102,13 @@ public class LevelChanger : MonoBehaviour
     
     private void LoadMainMenu()
     {
-        if (!_mainMenuScene)
+        if (!mainMenuScene)
         {
             Debug.LogWarning("Main Menu Scene is not assigned!");
             return;
         }
 
-        SceneManager.LoadScene(_mainMenuScene.SceneName);
+        SceneManager.LoadScene(mainMenuScene.SceneName);
     }
     
     private void Update()
