@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 601158769}
   - component: {fileID: 601158770}
   - component: {fileID: 601158771}
+  - component: {fileID: 601158772}
   m_Layer: 0
   m_Name: SANDBOX MANAGER
   m_TagString: Untagged
@@ -195,6 +196,21 @@ MonoBehaviour:
   UIElementsToToggle:
   - {fileID: 11400000, guid: 8aff1e5aeec74f645b95d9a8582fbf70, type: 2}
   - {fileID: 11400000, guid: 3f71f0dcc585ce343a43972edf2f662f, type: 2}
+--- !u!114 &601158772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601158766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc64ef85b029a843b93ff7a6215bed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  auctionEndEvent: {fileID: 11400000, guid: 1109e4d6cac43c14eaf5489efa3759cb, type: 2}
+  galleryScene: {fileID: 11400000, guid: ec62f31fdbae2874594f234b023a8cb4, type: 2}
+  transitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
 --- !u!1 &627240082
 GameObject:
   m_ObjectHideFlags: 0

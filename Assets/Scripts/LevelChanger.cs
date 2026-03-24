@@ -108,7 +108,7 @@ public class LevelChanger : MonoBehaviour
             return;
         }
 
-        SceneManager.LoadScene(mainMenuScene.SceneName);
+        SceneManagerUtility.LoadScene(mainMenuScene, transitionController?.Value);
     }
     
     private void Update()

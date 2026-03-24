@@ -11,19 +11,11 @@ public class ChangeScene : MonoBehaviour
 
     private void Awake()
     {
-        if (StartButton != null)
-        {
-            StartButton.onClick.AddListener(GoToScene);
-        }
+        StartButton.onClick.AddListener(GoToScene);
     }
 
     public void GoToScene()
     {
-        string sceneNameToGo = SceneToGo.sceneName;
-
-        TransitionController.Value.PlayCloseTransition(() =>
-        {
-            SceneManager.LoadScene(sceneNameToGo);
-        });
+        SceneManagerUtility.LoadScene(SceneToGo, TransitionController?.Value);
     }
 }
