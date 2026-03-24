@@ -11,9 +11,6 @@ public class GameManagerMainGame : GameManagerUnit
     [Header("Events")]
     [SerializeField] private VoidEvent _finishGameRequestEvent;
     [SerializeField] private ComparisonResultEvent _comparisonResultEvent;
-        
-    [Header("DrawingBoardController")]
-    [SerializeField] private DrawingBoardControllerValue _drawingBoardControllerValue;
     
     [Header("MainGame Settings")]
     [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime; 

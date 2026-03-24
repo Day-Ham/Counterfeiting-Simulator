@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auctionEndEvent: {fileID: 11400000, guid: 1109e4d6cac43c14eaf5489efa3759cb, type: 2}
+  transitionEvent: {fileID: 11400000, guid: e12fc19d4fb3f714385a57613aca8b34, type: 2}
   galleryScene: {fileID: 11400000, guid: ec62f31fdbae2874594f234b023a8cb4, type: 2}
-  transitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
 --- !u!1 &627240082
 GameObject:
   m_ObjectHideFlags: 0

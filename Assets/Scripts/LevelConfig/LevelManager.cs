@@ -14,7 +14,6 @@ public class LevelManager : MonoBehaviour
     private readonly List<GameObject> _spawnedObjects = new();
     private RuntimeWhiteColorData _runtimeWhiteLevel;
     
-    public LevelConfig CurrentLevelConfig => levelConfigRuntimeAsset.Value;
     public RuntimeWhiteColorData RuntimeWhiteLevel => _runtimeWhiteLevel;
     
     private void OnEnable()
