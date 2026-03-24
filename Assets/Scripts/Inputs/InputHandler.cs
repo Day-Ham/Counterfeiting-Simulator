@@ -24,6 +24,9 @@ public class InputHandler : ScriptableObject
         _isBlockInput = false;
         
         BuildInputDictionary();
+        
+        GameState.OnGameFinished += BlockInput;
+        GameState.OnGameStarted += UnblockInput;
     }
     
     private void BuildInputDictionary()
@@ -109,8 +112,16 @@ public class InputHandler : ScriptableObject
         _isBlockInput = true;
     }
 
+    private void UnblockInput()
+    {
+        _isBlockInput = false;
+    }
+
     private void OnDisable()
     {
+        GameState.OnGameFinished -= BlockInput;
+        GameState.OnGameStarted -= UnblockInput;
+        
         _canvasDraw = null;
         _finishGameCallback = null;
         _inputActions?.Clear();

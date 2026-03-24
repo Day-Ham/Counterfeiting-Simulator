@@ -10,7 +10,6 @@ public class DrawingBoardController : MonoBehaviour
     [SerializeField] private InputHandler inputHandler;
     [SerializeField] private VoidEvent compareStartedEvent;
     [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
-    [SerializeField] private VoidEvent finishGameEvent;
     [SerializeField] private DrawingBoardZoom drawingBoardZoom;
     
     public RectTransform drawingBoard;
@@ -32,14 +31,18 @@ public class DrawingBoardController : MonoBehaviour
     {
         compareStartedEvent.Register(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Register(SnapToOriginalPositionOnly);
-        finishGameEvent.Register(DisableBoardInteraction);
+        
+        GameState.OnGameFinished += HandleGameFinished;
+        GameState.OnGameStarted += HandleGameStarted;
     }
 
     private void OnDisable()
     {
         compareStartedEvent.Unregister(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Unregister(SnapToOriginalPositionOnly);
-        finishGameEvent.Unregister(DisableBoardInteraction);
+        
+        GameState.OnGameFinished -= HandleGameFinished;
+        GameState.OnGameStarted -= HandleGameStarted;
     }
 
     private void Awake()
@@ -112,7 +115,19 @@ public class DrawingBoardController : MonoBehaviour
         drawingBoardZoom.SetTargetSize(OriginalSize);
     }
     
-    public void DisableCtrlInput()
+    private void HandleGameStarted()
+    {
+        IsDisableCtrlInput = false;
+        IsCanInteract = true;
+    }
+    
+    private void HandleGameFinished()
+    {
+        DisableCtrlInput();
+        DisableBoardInteraction();
+    }
+
+    private void DisableCtrlInput()
     {
         IsDisableCtrlInput = true;
     }

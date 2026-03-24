@@ -77,6 +77,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             
             selectedColorEvent.OnColorPicked += OnSelectedColor;
             brushSizeEvent.OnRaised += SetBrushSize;
+            
+            GameState.OnGameStarted += HandleGameStart;
+            GameState.OnGameFinished += HandleGameFinished;
         }
 
         private void OnDisable()
@@ -87,6 +90,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
             selectedColorEvent.OnColorPicked -= OnSelectedColor;
             brushSizeEvent.OnRaised -= SetBrushSize;
+            
+            GameState.OnGameStarted -= HandleGameStart;
+            GameState.OnGameFinished -= HandleGameFinished;
         }
 
         private void OnRuntimeChanged()
@@ -395,6 +401,16 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
 
             _remainingUndo = RuntimeAsset.UndoLimit;
+        }
+        
+        private void HandleGameStart()
+        {
+            IsCanDraw = true;
+        }
+
+        private void HandleGameFinished()
+        {
+            IsCanDraw = false;
         }
         
         private bool CanDraw()
