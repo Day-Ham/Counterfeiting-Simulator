@@ -1227,7 +1227,7 @@ GameObject:
   - component: {fileID: 5547397837835526416}
   - component: {fileID: 5124206575937379532}
   - component: {fileID: 7215460033777559390}
-  - component: {fileID: 5574996063032146362}
+  - component: {fileID: 2134830996826367841}
   m_Layer: 5
   m_Name: BUTTON RetryShadow
   m_TagString: Untagged
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 11400000, guid: 30f526a45f1b35d428b69a6f59ac0a43, type: 2}
   _overrideReference: {fileID: 0}
---- !u!114 &5574996063032146362
+--- !u!114 &2134830996826367841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1360,11 +1360,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2630323068150873273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c909a5bad3e2734986bdc73da6688b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 61732abff8c236e4abdbaf8faff51512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 5124206575937379532}
-  levelChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
+  eventToRaise: {fileID: 11400000, guid: 91892a44538866d4bba67044b3f6a94c, type: 2}
+  button: {fileID: 5124206575937379532}
 --- !u!1 &2668526498210363228
 GameObject:
   m_ObjectHideFlags: 0

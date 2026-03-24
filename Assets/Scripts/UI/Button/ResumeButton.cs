@@ -12,6 +12,6 @@ public class ResumeButton : MonoBehaviour
 
     private void OnResumeClicked()
     {
-        GameState.ResumeGame(); // 🔥 direct
+        GameState.ResumeGame();
     }
 }

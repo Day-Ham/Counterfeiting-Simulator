@@ -4,10 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private VoidEvent onRetryLevel;
+    [SerializeField] private VoidEvent onNextLevel;
+    [SerializeField] private VoidEvent sceneChangerEvent;
+    
+    
     [Header("References")]
     public LevelChangerValue levelChangerValue;
     [SerializeField] private LevelManagerValue _levelManagerValue;
-    [SerializeField] private VoidEvent _sceneChangerEvent;
     [SerializeField] private GameObjectValue _nextButtonValue;
     [SerializeField] private TransitionControllerValue _transitionController;
     [SerializeField] private SingleSceneReference _mainMenuScene;
@@ -19,8 +24,19 @@ public class LevelChanger : MonoBehaviour
     private GameObject _nextButtonUI;
     private Tween _breathingTween;
     
-    private void OnEnable() => _sceneChangerEvent.Register(ShowNextButton);
-    private void OnDisable() => _sceneChangerEvent.Unregister(ShowNextButton);
+    private void OnEnable()
+    {
+        sceneChangerEvent.Register(ShowNextButton);
+        onRetryLevel.Register(ResetLevel);
+        onNextLevel.Register(NextLevel);
+    }
+
+    private void OnDisable()
+    {
+        sceneChangerEvent.Unregister(ShowNextButton);
+        onRetryLevel.Unregister(ResetLevel);
+        onNextLevel.Unregister(NextLevel);
+    }
 
     private void Awake()
     {
@@ -33,7 +49,7 @@ public class LevelChanger : MonoBehaviour
         _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
     
-    public void NextLevel()
+    private void NextLevel()
     {
         bool isLastLevel = LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1;
 
@@ -60,7 +76,7 @@ public class LevelChanger : MonoBehaviour
         });
     }
     
-    public void ResetLevel()
+    private void ResetLevel()
     {
         _transitionController.Value.PlayCloseTransition(() =>
         {

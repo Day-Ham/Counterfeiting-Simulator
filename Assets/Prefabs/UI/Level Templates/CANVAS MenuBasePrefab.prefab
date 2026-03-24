@@ -1269,7 +1269,7 @@ GameObject:
   - component: {fileID: 3617827025592421779}
   - component: {fileID: 9132120367430000280}
   - component: {fileID: 6012672298004405902}
-  - component: {fileID: 6061189260691682728}
+  - component: {fileID: 1208507260531739805}
   m_Layer: 5
   m_Name: BUTTON NextLevel
   m_TagString: Untagged
@@ -1393,7 +1393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
   _overrideReference: {fileID: 0}
---- !u!114 &6061189260691682728
+--- !u!114 &1208507260531739805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1402,11 +1402,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5280453852818395517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d311a461ed6abb4fa93cee1760e4554, type: 3}
+  m_Script: {fileID: 11500000, guid: 61732abff8c236e4abdbaf8faff51512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 9132120367430000280}
-  levelChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
+  eventToRaise: {fileID: 11400000, guid: da014033f7f969146bda8dcb823a2ca0, type: 2}
+  button: {fileID: 9132120367430000280}
 --- !u!1 &6122546746556904061
 GameObject:
   m_ObjectHideFlags: 0
