@@ -5,49 +5,50 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Level Settings")]
-    [SerializeField] private LevelConfigListValue _levels;
-    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
-    [SerializeField] private LevelManagerValue _levelManagerValue;
-    [SerializeField] private IntValue _currentLevelIndex;
+    [SerializeField] private LevelConfigListValue levels;
+    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntimeAsset;
+    [SerializeField] private LevelManagerValue levelManagerValue;
+    [SerializeField] private IntValue currentLevelIndex;
     
     [Header("Prefabs To Spawn")]
-    [SerializeField] private GameObjectListValue _prefabsToSpawn;
+    [SerializeField] private GameObjectListValue prefabsToSpawn;
 
     private readonly List<GameObject> _spawnedObjects = new();
     private RuntimeWhiteColorData _runtimeWhiteLevel;
 
-    public int CurrentLevelIndex => _currentLevelIndex.Value;
-    public int LevelCount => _levels.Value.Count;
-    public LevelConfig CurrentLevelConfig => _levelConfigRuntimeAsset.Value;
+    public int CurrentLevelIndex => currentLevelIndex.Value;
+    public int LevelCount => levels.Value.Count;
+    public LevelConfig CurrentLevelConfig => levelConfigRuntimeAsset.Value;
     public RuntimeWhiteColorData RuntimeWhiteLevel => _runtimeWhiteLevel;
     
     private void Awake()
     {
-        _levelManagerValue.Value = this;
+        levelManagerValue.Value = this;
 
-        if (_levels.Value == null || _levels.Value.Count == 0)
+        if (levels.Value == null || levels.Value.Count == 0)
         {
             Debug.LogWarning("LevelManager: No levels assigned!");
             return;
         }
 
         ClampLevelIndex();
-        ApplyLevel(_currentLevelIndex.Value);
-
+        SetCurrentLevel(currentLevelIndex.Value);
         SpawnObjects();
     }
 
     private void ClampLevelIndex()
     {
-        if (_currentLevelIndex.Value < 0 || _currentLevelIndex.Value >= _levels.Value.Count)
+        if (currentLevelIndex.Value < 0 || currentLevelIndex.Value >= levels.Value.Count)
         {
-            _currentLevelIndex.Value = 0;
+            currentLevelIndex.Value = 0;
         }
     }
 
     private void SpawnObjects()
     {
-        foreach (GameObject prefab in _prefabsToSpawn.Value)
+        if (_spawnedObjects.Count > 0) return;
+        
+        foreach (GameObject prefab in prefabsToSpawn.Value)
         {
             GameObject instance = Instantiate(prefab);
             instance.SetActive(false);
@@ -59,16 +60,28 @@ public class LevelManager : MonoBehaviour
 
     private void ActivateLevelObjects()
     {
-        foreach (var obj in _spawnedObjects)
+        foreach (var spawnedGameObject in _spawnedObjects)
         {
-            obj.SetActive(true);
+            spawnedGameObject .SetActive(true);
         }
     }
 
-    private void ApplyLevel(int index)
+    private void SetCurrentLevel(int index)
     {
-        _levelConfigRuntimeAsset.Value = _levels.Value[index];
-        InitializeWhiteColors(_levelConfigRuntimeAsset.Value);
+        if (index < 0 || index >= levels.Value.Count)
+        {
+            Debug.LogWarning($"Invalid level index {index}");
+            return;
+        }
+
+        currentLevelIndex.Value = index;
+        levelConfigRuntimeAsset.Value = levels.Value[index];
+
+        // Initialize white colors for the new level if level is colorPicker
+        InitializeWhiteColors(levelConfigRuntimeAsset.Value);
+
+        // Could also trigger events here if needed
+        ActivateLevelObjects();
     }
 
     private void InitializeWhiteColors(LevelConfig level)
@@ -82,27 +95,20 @@ public class LevelManager : MonoBehaviour
         _runtimeWhiteLevel = new RuntimeWhiteColorData(level.WhiteColors.Value);
     }
 
-    private void LoadLevel(int index)
-    {
-        if (index < 0 || index >= _levels.Value.Count) return;
-
-        _currentLevelIndex.Value = index;
-        ApplyLevel(index);
-        ReloadLevel();
-    }
-
     public void LoadNextLevel()
     {
-        if (_currentLevelIndex.Value >= _levels.Value.Count - 1) return;
+        if (currentLevelIndex.Value >= levels.Value.Count - 1) return;
 
-        LoadLevel(_currentLevelIndex.Value + 1);
+        SetCurrentLevel(currentLevelIndex.Value + 1);
+        ReloadLevel();
     }
 
     public void LoadPrevLevel()
     {
-        if (_currentLevelIndex.Value <= 0) return;
+        if (currentLevelIndex.Value <= 0) return;
 
-        LoadLevel(_currentLevelIndex.Value - 1);
+        SetCurrentLevel(currentLevelIndex.Value - 1);
+        ReloadLevel();
     }
 
     public void ReloadLevel()

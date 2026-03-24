@@ -18,5 +18,6 @@ MonoBehaviour:
   ColorsToBeUsed: {fileID: 11400000, guid: 92273a0adbcd775459d0a54483e6975d, type: 2}
   WhiteColors: {fileID: 11400000, guid: 981296cb4df981b408b18615e0411903, type: 2}
   TargetTexture: {fileID: 11400000, guid: a7e019518aa1a6640a0ee7cae1a7700f, type: 2}
-  Tolerance: 10
+  UndoLimit: {fileID: 11400000, guid: 7a762d2b2c0d3ed4c833abdf58d5f0d3, type: 2}
+  SnapTolerance: {fileID: 11400000, guid: 2d983aeaf0e77994ca2f96f63164624f, type: 2}
   ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
