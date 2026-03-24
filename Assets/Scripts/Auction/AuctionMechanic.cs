@@ -5,8 +5,8 @@ using TMPro;
 
 public class AuctionMechanic : MonoBehaviour
 {
-    [Header("Change Scene")]
-    [SerializeField] private ChangeScene changeScene;
+    [Header("Event")]
+    [SerializeField] private VoidEvent onAuctionEnd;
     
     [Header("Save System")]
     [SerializeField] private CanvasDrawControllerValue canvasDrawControllerValue;
@@ -192,7 +192,7 @@ public class AuctionMechanic : MonoBehaviour
         
         yield return new WaitForSeconds(1);
         
-        changeScene.GoToScene();
+        onAuctionEnd?.Raise();
     }
     
     private void StoreAuctionResult()
