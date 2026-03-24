@@ -44,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc96c4a229a2e4487aa269817f3397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onRetryLevel: {fileID: 11400000, guid: 91892a44538866d4bba67044b3f6a94c, type: 2}
-  onNextLevel: {fileID: 11400000, guid: da014033f7f969146bda8dcb823a2ca0, type: 2}
+  onRetryLevelEvent: {fileID: 11400000, guid: 91892a44538866d4bba67044b3f6a94c, type: 2}
+  onNextLevelEvent: {fileID: 11400000, guid: da014033f7f969146bda8dcb823a2ca0, type: 2}
   sceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
+  playTransitionEvent: {fileID: 11400000, guid: e12fc19d4fb3f714385a57613aca8b34, type: 2}
   levelChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
   levelManagerValue: {fileID: 11400000, guid: c521fc3a9cd96b34d890dbe9478795fa, type: 2}
   nextButtonValue: {fileID: 11400000, guid: 8fb121bb85ded6d4ea20ab0d891943ad, type: 2}
-  transitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
   mainMenuScene: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
-  EaseTween: 30
+  easeTween: 30

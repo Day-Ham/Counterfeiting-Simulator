@@ -4,27 +4,9 @@ using UnityEngine.SceneManagement;
 public static class SceneManagerUtility
 {
     /// <summary>
-    /// Loads a scene with an optional transition.
-    /// </summary>
-    public static void LoadScene(string sceneName, TransitionController transition = null)
-    {
-        if (transition)
-        {
-            transition.PlayCloseTransition(() =>
-            {
-                SceneManager.LoadScene(sceneName);
-            });
-        }
-        else
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-    }
-
-    /// <summary>
     /// Loads a scene from a SingleSceneReference.
     /// </summary>
-    public static void LoadScene(SingleSceneReference sceneReference, TransitionController transition = null)
+    public static void LoadScene(SingleSceneReference sceneReference)
     {
         if (!sceneReference)
         {
@@ -32,14 +14,14 @@ public static class SceneManagerUtility
             return;
         }
 
-        LoadScene(sceneReference.SceneName, transition);
+        SceneManager.LoadScene(sceneReference.SceneName);
     }
 
     /// <summary>
     /// Reloads the current active scene.
     /// </summary>
-    public static void ReloadCurrentScene(TransitionController transition = null)
+    public static void ReloadCurrentScene()
     {
-        LoadScene(SceneManager.GetActiveScene().name, transition);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

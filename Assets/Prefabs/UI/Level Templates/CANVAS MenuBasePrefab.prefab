@@ -509,9 +509,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80df07d4a1bdd7f43a1f84959026d175, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartButton: {fileID: 595858183129722024}
-  SceneToGo: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
-  TransitionController: {fileID: 11400000, guid: 7793c61117744dc4983c4581663e05d4, type: 2}
+  playTransitionEvent: {fileID: 11400000, guid: e12fc19d4fb3f714385a57613aca8b34, type: 2}
+  button: {fileID: 595858183129722024}
+  sceneToGo: {fileID: 11400000, guid: b55e107ccf379794d901a150e6faf6b0, type: 2}
 --- !u!1 &2433383935729226853
 GameObject:
   m_ObjectHideFlags: 0

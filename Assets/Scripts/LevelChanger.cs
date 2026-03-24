@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 public class LevelChanger : MonoBehaviour
 {
     [Header("Events")]
-    [SerializeField] private VoidEvent onRetryLevel;
-    [SerializeField] private VoidEvent onNextLevel;
+    [SerializeField] private VoidEvent onRetryLevelEvent;
+    [SerializeField] private VoidEvent onNextLevelEvent;
     [SerializeField] private VoidEvent sceneChangerEvent;
+    [SerializeField] private CallbackEvent playTransitionEvent;
     
     [Header("References")]
     [SerializeField] private LevelChangerValue levelChangerValue;
     [SerializeField] private LevelManagerValue levelManagerValue;
     [SerializeField] private GameObjectValue nextButtonValue;
-    [SerializeField] private TransitionControllerValue transitionController;
     [SerializeField] private SingleSceneReference mainMenuScene;
 
     [Header("Tween Settings Next Button")]
@@ -27,15 +27,15 @@ public class LevelChanger : MonoBehaviour
     private void OnEnable()
     {
         sceneChangerEvent.Register(ShowNextButton);
-        onRetryLevel.Register(ResetLevel);
-        onNextLevel.Register(NextLevel);
+        onRetryLevelEvent.Register(ResetLevel);
+        onNextLevelEvent.Register(NextLevel);
     }
 
     private void OnDisable()
     {
         sceneChangerEvent.Unregister(ShowNextButton);
-        onRetryLevel.Unregister(ResetLevel);
-        onNextLevel.Unregister(NextLevel);
+        onRetryLevelEvent.Unregister(ResetLevel);
+        onNextLevelEvent.Unregister(NextLevel);
     }
 
     private void Awake()
@@ -53,7 +53,7 @@ public class LevelChanger : MonoBehaviour
     {
         bool isLastLevel = LevelManager.CurrentLevelIndex >= LevelManager.LevelCount - 1;
 
-        transitionController.Value.PlayCloseTransition(() =>
+        playTransitionEvent?.Raise(() =>
         {
             if (isLastLevel)
             {
@@ -70,7 +70,7 @@ public class LevelChanger : MonoBehaviour
     {
         if (LevelManager.CurrentLevelIndex <= 0) return;
 
-        transitionController.Value.PlayCloseTransition(() =>
+        playTransitionEvent?.Raise(() =>
         {
             LevelManager.LoadPrevLevel();
         });
@@ -78,7 +78,7 @@ public class LevelChanger : MonoBehaviour
     
     private void ResetLevel()
     {
-        transitionController.Value.PlayCloseTransition(() =>
+        playTransitionEvent?.Raise(() =>
         {
             LevelManager.ReloadLevel();
         });
@@ -108,7 +108,7 @@ public class LevelChanger : MonoBehaviour
             return;
         }
 
-        SceneManagerUtility.LoadScene(mainMenuScene, transitionController?.Value);
+        SceneManagerUtility.LoadScene(mainMenuScene);
     }
     
     private void Update()
