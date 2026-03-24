@@ -8,13 +8,13 @@ public class GameObjectsAssignements : MonoBehaviour
     [Tooltip("Optional: Assign a GameObject manually if you want to register something other than this object.")]
     [SerializeField] private GameObject _overrideReference;
     
-    private GameObject _registeredObject => _overrideReference != null ? _overrideReference : gameObject;
+    private GameObject RegisteredObject => _overrideReference != null ? _overrideReference : gameObject;
 
     private void Awake()
     {
         if (_value != null)
         {
-            _value.Set(_registeredObject);
+            _value.Set(RegisteredObject);
         }
     }
 
@@ -22,7 +22,7 @@ public class GameObjectsAssignements : MonoBehaviour
     {
         if (_value != null)
         {
-            _value.Clear(_registeredObject);
+            _value.Clear(RegisteredObject);
         }
     }
 }

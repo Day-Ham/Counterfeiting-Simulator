@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Events")]
+    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
+    [SerializeField] private SelectedColorEvent _selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
+    
     [Header("References")]
     [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
@@ -13,11 +18,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [Header("UI")]
     [SerializeField] private Button Button;
     [SerializeField] private Image ColorPreview;
-    
-    [Header("Events")]
-    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
-    [SerializeField] private SelectedColorEvent _selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
+    [SerializeField] private RectTransform rectTransform;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -117,12 +118,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 
     private void ExpandSize()
     {
-        ResizeTweenScriptableObject.Expand(this.gameObject);
+        ResizeTweenScriptableObject.Expand(rectTransform);
     }
 
     private void CollapseSize()
     {
-        ResizeTweenScriptableObject.Collapse(this.gameObject);
+        ResizeTweenScriptableObject.Collapse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)

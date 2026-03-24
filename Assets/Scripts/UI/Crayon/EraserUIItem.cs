@@ -3,31 +3,37 @@ using UnityEngine.UI;
 
 public class EraserUIItem : MonoBehaviour
 {
-    [SerializeField] private ResizeTweenScriptableObject EraserTweenScriptableObject;
-    [SerializeField] private Button Button;
-    [SerializeField] private SelectBrushColorEvent SelectColorEvent;
+    [Header("Events")]
+    [SerializeField] private SelectBrushColorEvent selectColorEvent;
     
-    private bool isCollapsed = false;
+    [Header("UI")]
+    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] private Button button;
+    
+    [Header("ResizeTween")]
+    [SerializeField] private ResizeTweenScriptableObject eraserTweenScriptableObject;
+    
+    private bool _isCollapsed = false;
     
     private void OnEnable()
     {
-        SelectColorEvent.OnEraseSelected += OnEraserSelected;
-        SelectColorEvent.OnColorSelected += OnOtherColorSelected;
+        selectColorEvent.OnEraseSelected += OnEraserSelected;
+        selectColorEvent.OnColorSelected += OnOtherColorSelected;
         
         GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
     {
-        SelectColorEvent.OnEraseSelected -= OnEraserSelected;
-        SelectColorEvent.OnColorSelected -= OnOtherColorSelected;
+        selectColorEvent.OnEraseSelected -= OnEraserSelected;
+        selectColorEvent.OnColorSelected -= OnOtherColorSelected;
         
         GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
     
     private void Awake()
     {
-        Button.onClick.AddListener(OnClick);
+        button.onClick.AddListener(OnClick);
         
         Collapse();
     }
@@ -36,7 +42,7 @@ public class EraserUIItem : MonoBehaviour
     {
         if (GameState.IsGameFinished) return;
         
-        SelectColorEvent.RaiseErase();
+        selectColorEvent.RaiseErase();
         Debug.Log("Eraser clicked", this);
     }
     
@@ -52,18 +58,18 @@ public class EraserUIItem : MonoBehaviour
 
     private void Expand()
     {
-        EraserTweenScriptableObject.Expand(this.gameObject);
+        eraserTweenScriptableObject.Expand(rectTransform);
     }
 
     private void Collapse()
     {
-        EraserTweenScriptableObject.Collapse(this.gameObject);
+        eraserTweenScriptableObject.Collapse(rectTransform);
     }
     
     private void CollapseAfterGameFinished()
     {
-        if (isCollapsed) return;
+        if (_isCollapsed) return;
         Collapse();
-        isCollapsed = true;
+        _isCollapsed = true;
     }
 }

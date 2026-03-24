@@ -749,6 +749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1400555142662047262}
+  - component: {fileID: 6982520979450027655}
   m_Layer: 5
   m_Name: PARENT Eraser
   m_TagString: Untagged
@@ -776,6 +777,22 @@ RectTransform:
   m_AnchoredPosition: {x: -65, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6982520979450027655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616750468877257016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  rectTransform: {fileID: 1744130996101171144}
+  button: {fileID: 5229175689826666223}
+  eraserTweenScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
 --- !u!1 &1680296720183608354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,7 +1243,6 @@ GameObject:
   - component: {fileID: 6113507743958689008}
   - component: {fileID: 5547397837835526416}
   - component: {fileID: 5124206575937379532}
-  - component: {fileID: 7215460033777559390}
   - component: {fileID: 2134830996826367841}
   m_Layer: 5
   m_Name: BUTTON RetryShadow
@@ -1337,20 +1353,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7215460033777559390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2630323068150873273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 30f526a45f1b35d428b69a6f59ac0a43, type: 2}
-  _overrideReference: {fileID: 0}
 --- !u!114 &2134830996826367841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2614,7 +2616,6 @@ GameObject:
   - component: {fileID: 3767300615564727267}
   - component: {fileID: 1439137900753270907}
   - component: {fileID: 5229175689826666223}
-  - component: {fileID: 8202647715784537602}
   m_Layer: 5
   m_Name: BUTTON EresarShadow
   m_TagString: Untagged
@@ -2724,21 +2725,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8202647715784537602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503411668689957427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EraserTweenScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
-  Button: {fileID: 5229175689826666223}
-  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
 --- !u!1 &4637143510756608887
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,6 +4287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3103596289518792853}
   - component: {fileID: 6071921536752382584}
+  - component: {fileID: 3679970670151607485}
   m_Layer: 5
   m_Name: CONTAINER
   m_TagString: Untagged
@@ -4355,6 +4342,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3679970670151607485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072896047117934225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa17f8c7a8759f49865ac0147847e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {fileID: 11400000, guid: 204e8a4ea7b59a245bfedf4eee080a33, type: 2}
+  overrideReference: {fileID: 3733404438618090301}
 --- !u!1 &6164359220578310803
 GameObject:
   m_ObjectHideFlags: 0

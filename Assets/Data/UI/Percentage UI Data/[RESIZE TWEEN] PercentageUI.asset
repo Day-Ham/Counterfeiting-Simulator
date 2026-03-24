@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd7252bd6c996e47bfd000407d8ae57, type: 3}
   m_Name: '[RESIZE TWEEN] PercentageUI'
   m_EditorClassIdentifier: 
-  GameObject: {fileID: 11400000, guid: 434ce091a25094a43b09306353f686e6, type: 2}
-  Duration: 1
-  EaseIn: 29
-  EaseOut: 34
-  ExpandedSize: {x: 910, y: 540}
-  CollapsedSize: {x: 0, y: 0}
+  duration: 1
+  easeIn: 29
+  easeOut: 31
+  expandedSize: {x: 910, y: 540}
+  collapsedSize: {x: 10, y: 10}

@@ -4,56 +4,58 @@ using DG.Tweening;
 [CreateAssetMenu(fileName = "New Resize Animation", menuName = "Settings/GameObject/Resize")]
 public class ResizeTweenScriptableObject : ScriptableObject
 {
-    public GameObjectValue GameObject;
+    private RectTransform _defaultTarget;
 
     [Header("Tween Settings")] 
-    public float Duration;
-    public Ease EaseIn;
-    public Ease EaseOut;
+    public float duration;
+    public Ease easeIn;
+    public Ease easeOut;
     
     [Header("Target Sizes")]
-    public Vector2 ExpandedSize;
-    public Vector2 CollapsedSize;
+    public Vector2 expandedSize;
+    public Vector2 collapsedSize;
     
-    public void Expand(GameObject target = null)
+    public void Expand(RectTransform target = null)
     {
-        RectTransform rectTransform = GetRectTransform(target);
-        if (!rectTransform) return;
+        RectTransform rectTransform;
 
-        rectTransform.DOSizeDelta(ExpandedSize, Duration).SetEase(EaseIn);
-    }
-    
-    public void Collapse(GameObject target = null)
-    {
-        RectTransform rectTransform = GetRectTransform(target);
-        
-        if (!rectTransform) return;
-
-        rectTransform.DOSizeDelta(CollapsedSize, Duration).SetEase(EaseOut);
-    }
-    
-    private RectTransform GetRectTransform(GameObject target)
-    {
-        GameObject gameObject = target;
-
-        if (!gameObject)
+        if (target)
         {
-            if (!GameObject || !GameObject.Value)
-            {
-                Debug.LogWarning("No GameObject provided for resizing!");
-                return null;
-            }
-
-            gameObject = GameObject.Value;
+            rectTransform = target;
+        }
+        else
+        {
+            rectTransform = _defaultTarget;
         }
 
-        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        if (!rectTransform)
+        {
+            Debug.LogWarning("No RectTransform provided!");
+            return;
+        }
 
-        if (rectTransform) return rectTransform;
-        
-        Debug.LogWarning("Target does not have a RectTransform!");
-        
-        return null;
+        rectTransform.DOSizeDelta(expandedSize, duration).SetEase(easeIn);
+    }
+    
+    public void Collapse(RectTransform target = null)
+    {
+        RectTransform rectTransform;
 
+        if (target)
+        {
+            rectTransform = target;
+        }
+        else
+        {
+            rectTransform = _defaultTarget;
+        }
+
+        if (!rectTransform)
+        {
+            Debug.LogWarning("No RectTransform provided!");
+            return;
+        }
+
+        rectTransform.DOSizeDelta(collapsedSize, duration).SetEase(easeOut);
     }
 }

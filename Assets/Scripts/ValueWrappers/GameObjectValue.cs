@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New GameObject", menuName = "Value Wrapper/Game Object")]
+[CreateAssetMenu(fileName = "NewGameObject", menuName = "Value Wrapper/GameObject")]
 public class GameObjectValue : ValueWrapper<GameObject>
 {
     public void Set(GameObject go)
