@@ -4,10 +4,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "FloatEvent", menuName = "Events/FloatEvent")]
 public class FloatEvent : ScriptableObject
 {
-    public Action<float> OnRaised;
+    private Action<float> _listeners;
+
+    public void Register(Action<float> listener)
+    {
+        _listeners += listener;
+    }
+
+    public void Unregister(Action<float> listener)
+    {
+        _listeners -= listener;
+    }
 
     public void Raise(float value)
     {
-        OnRaised?.Invoke(value);
+        _listeners?.Invoke(value);
     }
 }

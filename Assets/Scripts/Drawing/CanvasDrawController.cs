@@ -77,7 +77,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
             
             selectedColorEvent.Register(OnSelectedColor);
-            brushSizeEvent.OnRaised += SetBrushSize;
+            brushSizeEvent.Register(SetBrushSize);
             undoDrawEvent.Register(UndoLastDraw);
             
             GameState.OnGameStarted += HandleGameStart;
@@ -91,7 +91,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
             }
             selectedColorEvent.Unregister(OnSelectedColor);
-            brushSizeEvent.OnRaised -= SetBrushSize;
+            brushSizeEvent.Unregister(SetBrushSize);
             undoDrawEvent.Unregister(UndoLastDraw);
             
             GameState.OnGameStarted -= HandleGameStart;
