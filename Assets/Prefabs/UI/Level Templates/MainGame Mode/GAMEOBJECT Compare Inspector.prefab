@@ -49,6 +49,7 @@ MonoBehaviour:
   startCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
   finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
   spacePressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
+  onShowPercentageUI: {fileID: 11400000, guid: 481f09765be363e4dbd70fb303b56989, type: 2}
   comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
   targetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
   frontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}

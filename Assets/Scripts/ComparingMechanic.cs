@@ -12,6 +12,7 @@ public class ComparingMechanic : MonoBehaviour
     [SerializeField] private VoidEvent startCompareEvent;
     [SerializeField] private VoidEvent finishGameRequestEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
+    [SerializeField] private VoidEvent onShowPercentageUI;
     [SerializeField] private ComparisonResultEvent comparisonResultEvent;
     
     [Header("GameObject to Move")]
@@ -21,10 +22,6 @@ public class ComparingMechanic : MonoBehaviour
     [Header("Target Location")]
     [SerializeField] private GameObjectValue targetLocation;
     [SerializeField] private Ease easeTween;
-    
-    [Header("Percentage ScriptableObject")]
-    [SerializeField] private RectTransformValue percentageParent;
-    [SerializeField] private ResizeTweenUnitScriptableObject percentageResizeTweenUnit;
     
     [Header("ResetButton ScriptableObject")]
     [SerializeField] private RectTransformValue resetButtonUI;
@@ -85,7 +82,6 @@ public class ComparingMechanic : MonoBehaviour
         _targetLocationRect = targetLocation.Value.GetComponent<RectTransform>();
         _frontRawImage = frontSilhouette.Value.GetComponent<RawImage>();
         
-        percentageResizeTweenUnit.Collapse(percentageParent.Value);
         frontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
     
@@ -119,7 +115,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private IEnumerator ShowResult()
     {
-        percentageResizeTweenUnit.Expand(percentageParent.Value);
+        onShowPercentageUI.Raise();
         
         for (int tick = 0; tick <= duration; tick++)
         { 
