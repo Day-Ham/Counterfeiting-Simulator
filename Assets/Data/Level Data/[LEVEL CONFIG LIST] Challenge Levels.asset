@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: '[LEVEL CONFIG LIST] Challenge Levels'
   m_EditorClassIdentifier: 
   value:
-  - {fileID: 11400000, guid: b748e2a5193dea14c8b356a67cc0cc8b, type: 2}
+  - {fileID: 11400000, guid: ed2556945f0400e4dbe6d3ebccc67182, type: 2}
   - {fileID: 11400000, guid: 5c94731959da52b42a7a04d1fe30b87d, type: 2}
   - {fileID: 11400000, guid: 413094bc70e4f5849b5a28fc8f6d8b11, type: 2}
   - {fileID: 11400000, guid: 7d8f5d5f1bff1ab42bf951aacbf502e0, type: 2}

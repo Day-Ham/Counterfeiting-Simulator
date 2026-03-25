@@ -4,17 +4,38 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/ColorPickerEvent")]
 public class OpenColorPickerEvent : ScriptableObject
 {
-    public event Action<Color> OnColorPickerOpened;
-    public event Action<bool> OnColorPickerToggle;
+    private Action<Color> _openListeners;
+    private Action<bool> _toggleListeners;
+    
+    public void RegisterColor(Action<Color> listener)
+    {
+        _openListeners += listener;
+    }
+
+    public void RegisterToggleBool(Action<bool> listener)
+    {
+        _toggleListeners += listener;
+    }
+    
+    public void UnregisterColor(Action<Color> listener)
+    {
+        _openListeners -= listener;
+    }
+
+    public void UnregisterToggleBool(Action<bool> listener)
+    {
+        _toggleListeners -= listener;
+    }
     
     public void Raise(Color color)
     {
-        OnColorPickerOpened?.Invoke(color);
-        OnColorPickerToggle?.Invoke(true);
+        _openListeners?.Invoke(color);
+
+        _toggleListeners?.Invoke(true);
     }
-    
+
     public void RaiseClosed()
     {
-        OnColorPickerToggle?.Invoke(false);
+        _toggleListeners?.Invoke(false);
     }
 }

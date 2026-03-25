@@ -33,7 +33,7 @@ public class InputHandler : ScriptableObject
         
         BuildInputDictionary();
         
-        openColorPickerEvent.OnColorPickerToggle += OnColorPickerToggle;
+        openColorPickerEvent.RegisterToggleBool(OnColorPickerToggle);
         
         SubscribeGameState();
     }
@@ -60,7 +60,7 @@ public class InputHandler : ScriptableObject
         GameState.OnGamePaused -= OnGamePaused;
         GameState.OnGameResumed -= OnGameResumed;
         
-        openColorPickerEvent.OnColorPickerToggle -= OnColorPickerToggle;
+        openColorPickerEvent.UnregisterToggleBool(OnColorPickerToggle);
     }
     
     private void BuildInputDictionary()
