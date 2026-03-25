@@ -52,17 +52,16 @@ public class ComparingMechanic : MonoBehaviour
     
     private void OnEnable()
     {
-        comparisonResultEvent.OnRaised += OnComparisonFinished;
+        comparisonResultEvent.Register(OnComparisonFinished);
         startCompareEvent.Register(StartCompare);
         spacePressedEvent.Register(OnSpacePressed);
     }
 
     private void OnDisable()
     {
-        comparisonResultEvent.OnRaised -= OnComparisonFinished;
+        comparisonResultEvent.Unregister(OnComparisonFinished);
         startCompareEvent.Unregister(StartCompare);
         spacePressedEvent.Unregister(OnSpacePressed);
-        
     }
 
     private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
