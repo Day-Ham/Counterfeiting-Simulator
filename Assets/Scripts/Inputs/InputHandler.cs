@@ -6,10 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameInputHandler", menuName = "Settings/Input Handler")]
 public class InputHandler : ScriptableObject
 {
-    [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
+    [Header("Events")]
+    [SerializeField] private SelectBrushColorEvent selectBrushColorEvent;
     [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
-    [SerializeField] private VoidEvent ResetDrawingBoardPositionEvent;
-    [SerializeField] private VoidEvent SpacePressedEvent;
+    [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
+    [SerializeField] private VoidEvent spacePressedEvent;
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
@@ -56,7 +57,7 @@ public class InputHandler : ScriptableObject
         GameState.OnGameStarted -= OnGameStarted;
         
         GameState.OnGamePaused -= OnGamePaused;
-        GameState.OnGameResumed -= OnGameResumed;;
+        GameState.OnGameResumed -= OnGameResumed;
         
         openColorPickerEvent.OnColorPickerToggle -= OnColorPickerToggle;
     }
@@ -98,14 +99,14 @@ public class InputHandler : ScriptableObject
     
     private void BindToolKeys()
     {
-        _toolKeyActions[KeyCode.Space] = () => SpacePressedEvent?.Raise();
+        _toolKeyActions[KeyCode.Space] = () => spacePressedEvent?.Raise();
         
         _toolKeyActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
         _toolKeyActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
         _toolKeyActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _toolKeyActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
-        _toolKeyActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
-        _toolKeyActions[KeyCode.Q] = () => ResetDrawingBoardPositionEvent.Raise();
+        _toolKeyActions[KeyCode.E] = () => selectBrushColorEvent.RaiseErase();
+        _toolKeyActions[KeyCode.Q] = () => resetDrawingBoardPositionEvent.Raise();
     }
     
     private void SelectColor(int index)
@@ -114,8 +115,8 @@ public class InputHandler : ScriptableObject
         
         if (colors != null && index < colors.Count)
         {
-            SelectBrushColorEvent.Raise(index);
-        };
+            selectBrushColorEvent.Raise(index);
+        }
     }
 
     public void UpdateInput()
