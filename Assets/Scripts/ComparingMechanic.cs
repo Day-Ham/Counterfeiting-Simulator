@@ -13,6 +13,7 @@ public class ComparingMechanic : MonoBehaviour
     [SerializeField] private VoidEvent finishGameRequestEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private VoidEvent onShowPercentageUI;
+    [SerializeField] private VoidEvent indicateResetButtonEvent;
     [SerializeField] private ComparisonResultEvent comparisonResultEvent;
     
     [Header("GameObject to Move")]
@@ -22,10 +23,6 @@ public class ComparingMechanic : MonoBehaviour
     [Header("Target Location")]
     [SerializeField] private GameObjectValue targetLocation;
     [SerializeField] private Ease easeTween;
-    
-    [Header("ResetButton ScriptableObject")]
-    [SerializeField] private RectTransformValue resetButtonUI;
-    [SerializeField] private ResizeTweenUnitScriptableObject resetButtonUIResizeTweenUnit;
     
     [Header("Comparison ScriptableObject")]
     [SerializeField] private ComparisonRuleScriptableObject comparisonRule;
@@ -164,20 +161,7 @@ public class ComparingMechanic : MonoBehaviour
         }
         else
         {
-            StartCoroutine(IndicateReset());
+            indicateResetButtonEvent.Raise();
         }
-    }
-
-    private IEnumerator IndicateReset()
-    { 
-        resetButtonUIResizeTweenUnit.Expand(resetButtonUI.Value);
-        
-        yield return new WaitForSeconds(.75f);
-        
-        resetButtonUIResizeTweenUnit.Collapse(resetButtonUI.Value);
-        
-        yield return new WaitForSeconds(2f);
-        
-        StartCoroutine(IndicateReset());
     }
 }

@@ -50,15 +50,12 @@ MonoBehaviour:
   finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
   spacePressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
   onShowPercentageUI: {fileID: 11400000, guid: 481f09765be363e4dbd70fb303b56989, type: 2}
+  indicateResetButtonEvent: {fileID: 11400000, guid: 44e661d144c5a884c9d6b87ea80b7a86, type: 2}
   comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
   targetImage: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
   frontSilhouette: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
   targetLocation: {fileID: 11400000, guid: f640237ccbf12d046883b778f5cfc574, type: 2}
   easeTween: 28
-  percentageParent: {fileID: 11400000, guid: 30ae921db90945142b7bcdd979f30fba, type: 2}
-  percentageResizeTweenUnit: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
-  resetButtonUI: {fileID: 11400000, guid: 204e8a4ea7b59a245bfedf4eee080a33, type: 2}
-  resetButtonUIResizeTweenUnit: {fileID: 11400000, guid: 5ca8fee53056b524fb337b55c12673f6, type: 2}
   comparisonRule: {fileID: 11400000, guid: 116fab8d095c7cd49898789e84d7c370, type: 2}
   percentageTextScriptableObject: {fileID: 11400000, guid: 35067641073b6d448a233df96febc2c3, type: 2}
   percentageTextShadowScriptableObject: {fileID: 11400000, guid: f64fd4b163130c34c9ed059d53070062, type: 2}

@@ -28,8 +28,7 @@ public class BreathingTweenUnitScriptable : TweenAnimationUnitScriptable
             Sequence sequence = DOTween.Sequence();
 
             sequence
-                .Append(rectTransform.DOSizeDelta(smallSize, duration * 0.5f).SetEase(Ease.OutBack)) // nice pop-in
-                .Append(rectTransform.DOSizeDelta(largeSize, duration * 0.5f).SetEase(ease))
+                .Append(rectTransform.DOSizeDelta(smallSize, duration * 0.5f).SetEase(ease))
                 .OnComplete(() => StartBreathingLoop(rectTransform));
 
             _activeTween = sequence;
@@ -43,11 +42,13 @@ public class BreathingTweenUnitScriptable : TweenAnimationUnitScriptable
 
     private void StartBreathingLoop(RectTransform rectTransform)
     {
+        rectTransform.sizeDelta = smallSize;
+        
         Sequence sequence = DOTween.Sequence();
 
         sequence
-            .Append(rectTransform.DOSizeDelta(smallSize, duration).SetEase(ease))
             .Append(rectTransform.DOSizeDelta(largeSize, duration).SetEase(ease))
+            .Append(rectTransform.DOSizeDelta(smallSize, duration).SetEase(ease))
             .SetLoops(-1);
 
         _activeTween = sequence;
