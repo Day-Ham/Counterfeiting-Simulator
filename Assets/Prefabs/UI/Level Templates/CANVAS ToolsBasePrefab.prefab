@@ -3155,23 +3155,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 665349d5a12d4314db857f87ba88d38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RGBChannels:
-  - Slider: {fileID: 5246270207813104317}
-    InputField: {fileID: 3867646303219711065}
-    Rect: {fileID: 1329486006438440070}
-  - Slider: {fileID: 7379389694745651282}
-    InputField: {fileID: 1260048199009055354}
-    Rect: {fileID: 2126961576096275443}
-  - Slider: {fileID: 7073391047523827013}
-    InputField: {fileID: 3368078249208923726}
-    Rect: {fileID: 2932030441726549575}
-  ParentCanvas: {fileID: 8433173067774485455}
-  RuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  ScrollSensitivity: 0.01
+  selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
+  selectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  rgbChannels:
+  - slider: {fileID: 5246270207813104317}
+    inputField: {fileID: 3867646303219711065}
+    rectTransform: {fileID: 1329486006438440070}
+  - slider: {fileID: 7379389694745651282}
+    inputField: {fileID: 1260048199009055354}
+    rectTransform: {fileID: 2126961576096275443}
+  - slider: {fileID: 7073391047523827013}
+    inputField: {fileID: 3368078249208923726}
+    rectTransform: {fileID: 2932030441726549575}
+  parentCanvas: {fileID: 8433173067774485455}
+  runtimeAsset: {fileID: 0}
+  scrollSensitivity: 0.01
   colorPreview: {fileID: 5500588221694078085}
-  _selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
-  _selectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
-  _openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
 --- !u!114 &4523488929944177057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5039,6 +5039,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+        m_TargetAssemblyTypeName: OpenColorPickerEvent, Assembly-CSharp
+        m_MethodName: RaiseClosed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

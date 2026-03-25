@@ -7,14 +7,18 @@ using UnityEngine;
 public class InputHandler : ScriptableObject
 {
     [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
+    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
     [SerializeField] private VoidEvent ResetDrawingBoardPositionEvent;
     [SerializeField] private VoidEvent SpacePressedEvent;
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
-    private bool _isBlockInput;
     
-    private Dictionary<KeyCode, Action> _inputActions;
+    private bool _isBlockInputGameState;
+    private bool _isBlockInputColorPicker; 
+    
+    private Dictionary<KeyCode, Action> _colorKeyActions;
+    private Dictionary<KeyCode, Action> _toolKeyActions;
 
     public void Initialize(CanvasDrawController canvasDraw, Action finishGameCallback)
     {
@@ -23,34 +27,44 @@ public class InputHandler : ScriptableObject
         _canvasDraw = canvasDraw;
         _finishGameCallback = finishGameCallback;
         
-        _isBlockInput = false;
+        _isBlockInputGameState = false;
         
         BuildInputDictionary();
+        
+        openColorPickerEvent.OnColorPickerToggle += OnColorPickerToggle;
         
         SubscribeGameState();
     }
     
+    private void OnColorPickerToggle(bool isColorPickerUIOpen)
+    {
+        _isBlockInputColorPicker = isColorPickerUIOpen;
+    }
+    
     private void SubscribeGameState()
     {
-        GameState.OnGameFinished += BlockInput;
-        GameState.OnGameStarted += UnblockInput;
-
-        GameState.OnGamePaused += BlockInput;
-        GameState.OnGameResumed += UnblockInput;
+        GameState.OnGameFinished += OnGameFinished;
+        GameState.OnGameStarted += OnGameStarted;
+        
+        GameState.OnGamePaused += OnGamePaused;
+        GameState.OnGameResumed += OnGameResumed;
     }
 
     private void UnsubscribeGameState()
     {
-        GameState.OnGameFinished -= BlockInput;
-        GameState.OnGameStarted -= UnblockInput;
-
-        GameState.OnGamePaused -= BlockInput;
-        GameState.OnGameResumed -= UnblockInput;
+        GameState.OnGameFinished -= OnGameFinished;
+        GameState.OnGameStarted -= OnGameStarted;
+        
+        GameState.OnGamePaused -= OnGamePaused;
+        GameState.OnGameResumed -= OnGameResumed;;
+        
+        openColorPickerEvent.OnColorPickerToggle -= OnColorPickerToggle;
     }
     
     private void BuildInputDictionary()
     {
-        _inputActions = new Dictionary<KeyCode, Action>();
+        _colorKeyActions = new Dictionary<KeyCode, Action>();
+        _toolKeyActions = new Dictionary<KeyCode, Action>();
 
         if (!IsValidCanvasDraw()) return;
 
@@ -76,22 +90,22 @@ public class InputHandler : ScriptableObject
         {
             int colorIndex = i;
             KeyCode key = KeyCode.Alpha1 + i;
-            _inputActions[key] = () => SelectColor(colorIndex);
+            _colorKeyActions[key] = () => SelectColor(colorIndex);
         }
         
-        _inputActions[KeyCode.B] = () => SelectColor(0);
+        _colorKeyActions[KeyCode.B] = () => SelectColor(0);
     }
     
     private void BindToolKeys()
     {
-        _inputActions[KeyCode.Space] = () => SpacePressedEvent?.Raise();
+        _toolKeyActions[KeyCode.Space] = () => SpacePressedEvent?.Raise();
         
-        _inputActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
-        _inputActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
-        _inputActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
-        _inputActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
-        _inputActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
-        _inputActions[KeyCode.Q] = () => ResetDrawingBoardPositionEvent.Raise();
+        _toolKeyActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
+        _toolKeyActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
+        _toolKeyActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
+        _toolKeyActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
+        _toolKeyActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
+        _toolKeyActions[KeyCode.Q] = () => ResetDrawingBoardPositionEvent.Raise();
     }
     
     private void SelectColor(int index)
@@ -106,36 +120,60 @@ public class InputHandler : ScriptableObject
 
     public void UpdateInput()
     {
-        if (!_canvasDraw || _inputActions == null || _isBlockInput)
+        if (!_canvasDraw) return;
+
+        // Color keys are blocked if either game state or color picker blocks them
+        if (!_isBlockInputGameState && !_isBlockInputColorPicker && _colorKeyActions != null)
         {
-            return; // <-- ignore all input if blocked
-        }
-        
-        foreach (var input in _inputActions)
-        {
-            if (Input.GetKeyDown(input.Key))
+            foreach (var inputAlphaKeyCode in _colorKeyActions)
             {
-                input.Value?.Invoke();
+                if (Input.GetKeyDown(inputAlphaKeyCode.Key))
+                {
+                    inputAlphaKeyCode.Value?.Invoke();
+                }
+            }
+        }
+
+        // Tool keys are blocked only by game state
+        if (!_isBlockInputGameState && _toolKeyActions != null)
+        {
+            foreach (var inputAlphaKeyCode in _toolKeyActions)
+            {
+                if (Input.GetKeyDown(inputAlphaKeyCode.Key))
+                {
+                    inputAlphaKeyCode.Value?.Invoke();
+                }
             }
         }
     }
-
-    private void BlockInput()
+    
+    // Game state handlers
+    private void OnGameFinished()
     {
-        _isBlockInput = true;
+        _isBlockInputGameState = true;
     }
-
-    private void UnblockInput()
+    
+    private void OnGamePaused()
     {
-        _isBlockInput = false;
+        _isBlockInputGameState = true;
     }
-
+    
+    private void OnGameStarted()
+    {
+        _isBlockInputGameState = false;
+    }
+    
+    private void OnGameResumed()
+    { 
+        _isBlockInputGameState = false;
+    }
+    
     private void OnDisable()
     {
         UnsubscribeGameState();
         
         _canvasDraw = null;
         _finishGameCallback = null;
-        _inputActions?.Clear();
+        _toolKeyActions?.Clear();
     }
 }

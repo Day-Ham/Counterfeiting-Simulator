@@ -5,25 +5,25 @@ using UnityEngine.UI;
 
 public class ColorPickerUI : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private SelectedColorEvent selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent selectBrushColorEvent;
+    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
+    
     [Header("RGB Sliders In-Order")]
-    [SerializeField] private List<RGBChannel> RGBChannels = new();
-    [SerializeField] private Canvas ParentCanvas;
-    [SerializeField] private ConfigRuntime RuntimeAsset;
+    [SerializeField] private List<RGBChannel> rgbChannels = new();
+    [SerializeField] private Canvas parentCanvas;
+    [SerializeField] private ConfigRuntime runtimeAsset;
     
     [Header("Scroll Settings")]
     [Range(0.01f, 1f)]
-    [SerializeField] private float ScrollSensitivity;
+    [SerializeField] private float scrollSensitivity;
 
     [Header("Color Preview")]
     [SerializeField] private Image colorPreview;
 
-    [Header("Events")]
-    [SerializeField] private SelectedColorEvent _selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
-    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
-
-    private const int MIN_RGB = 0;
-    private const int MAX_RGB = 255;
+    private const int MinRGB = 0;
+    private const int MaxRGB = 255;
     
     // Cached to avoid recomputing every frame
     private bool _isColorPickerMode;
@@ -31,16 +31,14 @@ public class ColorPickerUI : MonoBehaviour
     
     private void OnEnable()
     {
-        _openColorPickerEvent.OnColorPickerOpened += SetColor;
-        if (RuntimeAsset != null)
-            RuntimeAsset.OnValueChanged += OnRuntimeChanged;
+        openColorPickerEvent.OnColorPickerOpened += SetColor;
+        runtimeAsset.OnValueChanged += OnRuntimeChanged;
     }
 
     private void OnDisable()
     {
-        _openColorPickerEvent.OnColorPickerOpened -= SetColor;
-        if (RuntimeAsset != null)
-            RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
+        openColorPickerEvent.OnColorPickerOpened -= SetColor;
+        runtimeAsset.OnValueChanged -= OnRuntimeChanged;
     }
 
     private void Awake()
@@ -56,20 +54,20 @@ public class ColorPickerUI : MonoBehaviour
     
     private void SetupRGBChannels()
     {
-        for (int i = 0; i < RGBChannels.Count; i++)
+        for (int i = 0; i < rgbChannels.Count; i++)
         {
             int index = i;
-            var channel = RGBChannels[i];
+            var channel = rgbChannels[i];
             
-            channel.Slider.onValueChanged.AddListener(_ => UpdateColorPreview(GetCurrentColor()));
+            channel.slider.onValueChanged.AddListener(_ => UpdateColorPreview(GetCurrentColor()));
             
-            channel.InputField.onEndEdit.AddListener(input =>
+            channel.inputField.onEndEdit.AddListener(input =>
             {
                 if (!int.TryParse(input, out int value)) return;
 
-                value = Mathf.Clamp(value, MIN_RGB, MAX_RGB);
+                value = Mathf.Clamp(value, MinRGB, MaxRGB);
                 
-                channel.Slider.SetValueWithoutNotify(value);
+                channel.slider.SetValueWithoutNotify(value);
                 
                 UpdateColorPreview(GetCurrentColor());
             });
@@ -81,12 +79,12 @@ public class ColorPickerUI : MonoBehaviour
         float scroll = Input.mouseScrollDelta.y;
         if (Mathf.Abs(scroll) <= 0.01f) return;
 
-        for (int i = 0; i < RGBChannels.Count; i++)
+        for (int i = 0; i < rgbChannels.Count; i++)
         {
             if (!IsMouseOverChannel(i)) continue;
 
-            var slider = RGBChannels[i].Slider;
-            float value = Mathf.Clamp(slider.value + scroll * ScrollSensitivity, slider.minValue, slider.maxValue);
+            var slider = rgbChannels[i].slider;
+            float value = Mathf.Clamp(slider.value + scroll * scrollSensitivity, slider.minValue, slider.maxValue);
             int rounded = Mathf.RoundToInt(value);
             
             slider.value = rounded;
@@ -97,32 +95,32 @@ public class ColorPickerUI : MonoBehaviour
     
     private bool IsMouseOverChannel(int index)
     {
-        var rect = RGBChannels[index].Rect;
+        var rect = rgbChannels[index].rectTransform;
 
         return RectTransformUtility.RectangleContainsScreenPoint(
             rect,
             Input.mousePosition,
-            ParentCanvas.worldCamera
+            parentCanvas.worldCamera
         );
     }
     
     private void SetSliderValue(int index, float value)
     {
-        if (index < 0 || index >= RGBChannels.Count) return;
+        if (index < 0 || index >= rgbChannels.Count) return;
         
-        RGBChannels[index].Slider.SetValueWithoutNotify(value);
+        rgbChannels[index].slider.SetValueWithoutNotify(value);
         
         int rounded = Mathf.RoundToInt(value);
-        RGBChannels[index].InputField.SetTextWithoutNotify(rounded.ToString());
+        rgbChannels[index].inputField.SetTextWithoutNotify(rounded.ToString());
     }
 
     private void UpdateColorPreview(Color color)
     {
-        _cachedSelectedIndex = _selectBrushColorEvent.CurrentSelectedIndex;
+        _cachedSelectedIndex = selectBrushColorEvent.CurrentSelectedIndex;
 
-        if (_cachedSelectedIndex >= 0 && RuntimeAsset != null && RuntimeAsset.HasValue)
+        if (_cachedSelectedIndex >= 0 && runtimeAsset != null && runtimeAsset.HasValue)
         {
-            var activeColors = RuntimeAsset.GetActiveColors();
+            var activeColors = runtimeAsset.GetActiveColors();
             
             if (activeColors != null)
             {
@@ -130,11 +128,11 @@ public class ColorPickerUI : MonoBehaviour
             }
 
             // Only update sliders/runtime if the snapped color actually changed
-            if (RuntimeAsset is LevelConfigRuntimeAsset levelRuntime)
+            if (runtimeAsset is LevelConfigRuntimeAsset levelRuntime)
             {
                 levelRuntime.Value.SetWhiteColor(_cachedSelectedIndex, color);
             }
-            else if (RuntimeAsset is SandboxConfigRuntimeAsset sandboxRuntime)
+            else if (runtimeAsset is SandboxConfigRuntimeAsset sandboxRuntime)
             {
                 sandboxRuntime.Value.SetColor(_cachedSelectedIndex, color);
             }
@@ -153,31 +151,31 @@ public class ColorPickerUI : MonoBehaviour
 
         if (_cachedSelectedIndex < 0) return;
         
-        _selectedColorEvent.Raise(_cachedSelectedIndex, color);
-        _selectBrushColorEvent.Raise(_cachedSelectedIndex);
+        selectedColorEvent.Raise(_cachedSelectedIndex, color);
+        selectBrushColorEvent.Raise(_cachedSelectedIndex);
     }
     
     private Color GetCurrentColor()
     {
         return ColorUtils.FromRGB(
-            Mathf.RoundToInt(RGBChannels[0].Slider.value),
-            Mathf.RoundToInt(RGBChannels[1].Slider.value),
-            Mathf.RoundToInt(RGBChannels[2].Slider.value)
+            Mathf.RoundToInt(rgbChannels[0].slider.value),
+            Mathf.RoundToInt(rgbChannels[1].slider.value),
+            Mathf.RoundToInt(rgbChannels[2].slider.value)
         );
     }
     
     private void UpdateInputFields()
     {
-        foreach (var channel in RGBChannels)
+        foreach (var channel in rgbChannels)
         {
-            if (!channel.InputField || channel.InputField.isFocused) continue;
+            if (!channel.inputField || channel.inputField.isFocused) continue;
 
-            int value = Mathf.RoundToInt(channel.Slider.value);
+            int value = Mathf.RoundToInt(channel.slider.value);
             string newText = value.ToString();
             
-            if (channel.InputField.text != newText)
+            if (channel.inputField.text != newText)
             {
-                channel.InputField.SetTextWithoutNotify(newText);
+                channel.inputField.SetTextWithoutNotify(newText);
             }
         }
     }
