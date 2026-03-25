@@ -1,13 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SandboxModeManager : MonoBehaviour
 {
     [Header("Sandbox Settings")]
-    [SerializeField] private SandboxModeConfig _sandboxConfig;
+    [SerializeField] private SandboxModeConfig sandboxConfig;
 
     [Header("Runtime Data")]
-    [SerializeField] private SandboxConfigRuntimeAsset _runtimeAsset;
+    [SerializeField] private SandboxConfigRuntimeAsset runtimeAsset;
 
     private void Awake()
     {
@@ -16,20 +15,20 @@ public class SandboxModeManager : MonoBehaviour
 
     private void InitializeSandbox()
     {
-        if (_sandboxConfig == null)
+        if (sandboxConfig == null)
         {
             Debug.LogError("SandboxConfig not assigned!");
             return;
         }
 
-        if (_runtimeAsset == null)
+        if (runtimeAsset == null)
         {
             Debug.LogError("SandboxRuntimeAsset not assigned!");
             return;
         }
 
-        _runtimeAsset.Value = _sandboxConfig;
+        runtimeAsset.Value = sandboxConfig;
         
-        _runtimeAsset.Value.InitializeRuntimeColors();
+        runtimeAsset.Value.InitializeRuntimeColors();
     }
 }

@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6293fbe981c89f4896378500c79af95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sandboxConfig: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
-  _runtimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
+  sandboxConfig: {fileID: 11400000, guid: e2004f18cd5a9d942bd4324f409d69d9, type: 2}
+  runtimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
 --- !u!114 &601158770
 MonoBehaviour:
   m_ObjectHideFlags: 0

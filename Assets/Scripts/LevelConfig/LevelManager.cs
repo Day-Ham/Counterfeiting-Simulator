@@ -12,10 +12,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObjectListValue prefabsToSpawn;
 
     private readonly List<GameObject> _spawnedObjects = new();
-    private RuntimeWhiteColorData _runtimeWhiteLevel;
-    
-    public RuntimeWhiteColorData RuntimeWhiteLevel => _runtimeWhiteLevel;
-    
+
+    public RuntimeWhiteColorData RuntimeWhiteLevel { get; set; }
+
     private void OnEnable()
     {
         currentLevelIndexValue.OnValueChanged += HandleLevelChanged;
@@ -88,10 +87,10 @@ public class LevelManager : MonoBehaviour
     {
         if (!level.WhiteColors || level.WhiteColors.Value.Count == 0)
         {
-            _runtimeWhiteLevel = null;
+            RuntimeWhiteLevel = null;
             return;
         }
 
-        _runtimeWhiteLevel = new RuntimeWhiteColorData(level.WhiteColors.Value);
+        RuntimeWhiteLevel = new RuntimeWhiteColorData(level.WhiteColors.Value);
     }
 }
