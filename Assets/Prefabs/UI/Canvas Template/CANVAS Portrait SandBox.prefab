@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
+  undoDrawEvent: {fileID: 11400000, guid: e4935bd6e59ff1e48a191306dd753a45, type: 2}
   _canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
   _drawingBoardZoom: {fileID: 0}
   _drawingBoardController: {fileID: 0}
