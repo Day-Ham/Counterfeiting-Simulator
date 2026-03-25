@@ -76,7 +76,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 }
             }
             
-            selectedColorEvent.OnColorPicked += OnSelectedColor;
+            selectedColorEvent.Register(OnSelectedColor);
             brushSizeEvent.OnRaised += SetBrushSize;
             undoDrawEvent.Register(UndoLastDraw);
             
@@ -90,7 +90,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             {
                 RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
             }
-            selectedColorEvent.OnColorPicked -= OnSelectedColor;
+            selectedColorEvent.Unregister(OnSelectedColor);
             brushSizeEvent.OnRaised -= SetBrushSize;
             undoDrawEvent.Unregister(UndoLastDraw);
             

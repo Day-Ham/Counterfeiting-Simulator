@@ -4,20 +4,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CallbackEvent", menuName = "Events/CallbackEvent")]
 public class CallbackEvent : ScriptableObject
 {
-    private event Action<Action> Listeners;
+    private Action<Action> _listeners;
 
     public void Register(Action<Action> listener)
     {
-        Listeners += listener;
+        _listeners += listener;
     }
 
     public void Unregister(Action<Action> listener)
     {
-        Listeners -= listener;
+        _listeners -= listener;
     }
 
     public void Raise(Action onComplete = null)
     {
-        Listeners?.Invoke(onComplete);
+        _listeners?.Invoke(onComplete);
     }
 }

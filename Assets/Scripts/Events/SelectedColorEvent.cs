@@ -5,10 +5,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Events/Selected Color Event")]
 public class SelectedColorEvent : ScriptableObject
 {
-    public event Action<int, Color> OnColorPicked;
+    private Action<int, Color> _listeners;
+
+    public void Register(Action<int, Color> listener)
+    {
+        _listeners += listener;
+    }
+
+    public void Unregister(Action<int, Color> listener)
+    {
+        _listeners -= listener;
+    }
 
     public void Raise(int index, Color color)
     {
-        OnColorPicked?.Invoke(index, color);
+        _listeners?.Invoke(index, color);
     }
 }

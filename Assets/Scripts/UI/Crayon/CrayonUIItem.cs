@@ -32,7 +32,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     {
         _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
         _selectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
-        _selectedColorEvent.OnColorPicked += HandleSelectedColor;
+        _selectedColorEvent.Register(HandleSelectedColor);
         
         GameState.OnGameFinished += CollapseAfterGameFinished;
     }
@@ -41,7 +41,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     {
         _selectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
         _selectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
-        _selectedColorEvent.OnColorPicked -= HandleSelectedColor;
+        _selectedColorEvent.Unregister(HandleSelectedColor);
         
         GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
