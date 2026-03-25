@@ -21,141 +21,194 @@ public class ColorPickerUI : MonoBehaviour
 
     [Header("Color Preview")]
     [SerializeField] private Image colorPreview;
-
-    private const int MinRGB = 0;
-    private const int MaxRGB = 255;
+    
     private const int SnapTolerance = 10;
     
     // Cached to avoid recomputing every frame
-    private bool _isColorPickerMode;
     private int _cachedSelectedIndex = -1;
     
     private void OnEnable()
     {
         openColorPickerEvent.OnColorPickerOpened += SetColor;
-        runtimeAsset.OnValueChanged += OnRuntimeChanged;
+        runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
         openColorPickerEvent.OnColorPickerOpened -= SetColor;
-        runtimeAsset.OnValueChanged -= OnRuntimeChanged;
+        runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 
     private void Awake()
     {
-        SetupRGBChannels();
-        UpdateColorPreview(GetCurrentColor());
+        SetupChannels();
+        RefreshPreview();
     }
-    
-    private void OnRuntimeChanged()
+
+    private void Update()
     {
-        UpdateColorPreview(GetCurrentColor());
+        HandleScrollInput();
     }
-    
-    private void SetupRGBChannels()
+
+    private void SetupChannels()
     {
         for (int i = 0; i < rgbChannels.Count; i++)
         {
-            int index = i;
-            var channel = rgbChannels[i];
-            
-            channel.slider.onValueChanged.AddListener(_ => UpdateColorPreview(GetCurrentColor()));
-            
-            channel.inputField.onEndEdit.AddListener(input =>
-            {
-                if (!int.TryParse(input, out int value)) return;
-
-                value = Mathf.Clamp(value, MinRGB, MaxRGB);
-                
-                channel.slider.SetValueWithoutNotify(value);
-                
-                UpdateColorPreview(GetCurrentColor());
-            });
+            SetupSlider(rgbChannels[i]);
+            SetupInputField(rgbChannels[i]);
         }
     }
+
+    private void SetupSlider(RGBChannel channel)
+    {
+        channel.slider.onValueChanged.AddListener(_ => OnSliderChanged());
+    }
+
+    private void SetupInputField(RGBChannel rgbChannel)
+    {
+        InputFieldUtility.SetupRGBInput(rgbChannel.inputField, rgbChannel, OnRGBInputChanged);
+    }
     
-    private void Update()
+    private void OnRGBInputChanged(RGBChannel channel, int value)
+    {
+        channel.slider.SetValueWithoutNotify(value);
+        OnSliderChanged();
+    }
+
+    private void HandleScrollInput()
     {
         float scroll = Input.mouseScrollDelta.y;
         if (Mathf.Abs(scroll) <= 0.01f) return;
 
+        int index = GetHoveredChannel();
+        if (index == -1) return;
+
+        AdjustSlider(index, scroll);
+    }
+
+    private int GetHoveredChannel()
+    {
         for (int i = 0; i < rgbChannels.Count; i++)
         {
-            if (!IsMouseOverChannel(i)) continue;
-
-            var slider = rgbChannels[i].slider;
-            float value = Mathf.Clamp(slider.value + scroll * scrollSensitivity, slider.minValue, slider.maxValue);
-            int rounded = Mathf.RoundToInt(value);
-            
-            slider.value = rounded;
-            
-            break;
+            if (IsMouseOver(rgbChannels[i])) return i;
         }
+        return -1;
     }
-    
-    private bool IsMouseOverChannel(int index)
-    {
-        var rect = rgbChannels[index].rectTransform;
 
+    private bool IsMouseOver(RGBChannel channel)
+    {
         return RectTransformUtility.RectangleContainsScreenPoint(
-            rect,
+            channel.rectTransform,
             Input.mousePosition,
             parentCanvas.worldCamera
         );
     }
-    
-    private void SetSliderValue(int index, float value)
+
+    private void AdjustSlider(int index, float scroll)
     {
-        if (index < 0 || index >= rgbChannels.Count) return;
-        
-        rgbChannels[index].slider.SetValueWithoutNotify(value);
-        
-        int rounded = Mathf.RoundToInt(value);
-        rgbChannels[index].inputField.SetTextWithoutNotify(rounded.ToString());
+        var slider = rgbChannels[index].slider;
+
+        float value = slider.value + scroll * scrollSensitivity;
+        value = Mathf.Clamp(value, slider.minValue, slider.maxValue);
+
+        slider.value = Mathf.RoundToInt(value);
     }
 
-    private void UpdateColorPreview(Color color)
+    private void OnSliderChanged()
+    {
+        ApplyColor(GetCurrentColor());
+    }
+
+    private void ApplyColor(Color color)
     {
         _cachedSelectedIndex = selectBrushColorEvent.CurrentSelectedIndex;
 
-        if (_cachedSelectedIndex >= 0 && runtimeAsset != null && runtimeAsset.HasValue)
+        color = ApplySnapping(color);
+        ApplyToRuntime(color);
+        SyncUI(color);
+        RaiseEvents(color);
+    }
+
+    private Color ApplySnapping(Color color)
+    {
+        if (!CanSnap()) return color;
+
+        var activeColors = runtimeAsset.GetActiveColors();
+        return ColorMatchUtils.SnapPerChannelClosest(color, activeColors, SnapTolerance);
+    }
+
+    private bool CanSnap()
+    {
+        return runtimeAsset != null &&
+               runtimeAsset.HasValue &&
+               runtimeAsset.UseSnapping;
+    }
+
+    private void ApplyToRuntime(Color color)
+    {
+        if (_cachedSelectedIndex < 0 || runtimeAsset == null) return;
+
+        if (runtimeAsset is LevelConfigRuntimeAsset level)
         {
-            var activeColors = runtimeAsset.GetActiveColors();
-
-            if (runtimeAsset.UseSnapping && activeColors != null)
-            {
-                color = ColorMatchUtils.SnapPerChannelClosest(color, activeColors, SnapTolerance);
-            }
-
-            // Only update sliders/runtime if the snapped color actually changed
-            if (runtimeAsset is LevelConfigRuntimeAsset levelRuntime)
-            {
-                levelRuntime.Value.SetWhiteColor(_cachedSelectedIndex, color);
-            }
-            else if (runtimeAsset is SandboxConfigRuntimeAsset sandboxRuntime)
-            {
-                sandboxRuntime.Value.SetColor(_cachedSelectedIndex, color);
-            }
-            
-            SetSliderValue(0, color.r * 255);
-            SetSliderValue(1, color.g * 255);
-            SetSliderValue(2, color.b * 255);
+            level.Value.SetWhiteColor(_cachedSelectedIndex, color);
         }
+        else if (runtimeAsset is SandboxConfigRuntimeAsset sandbox)
+        {
+            sandbox.Value.SetColor(_cachedSelectedIndex, color);
+        }
+    }
 
+    private void SyncUI(Color color)
+    {
+        SetSliderValues(color);
+        UpdateInputFields();
+        UpdatePreview(color);
+    }
+
+    private void SetSliderValues(Color color)
+    {
+        SetSlider(0, color.r * 255);
+        SetSlider(1, color.g * 255);
+        SetSlider(2, color.b * 255);
+    }
+
+    private void SetSlider(int index, float value)
+    {
+        if (index < 0 || index >= rgbChannels.Count) return;
+
+        var channel = rgbChannels[index];
+
+        channel.slider.SetValueWithoutNotify(value);
+        channel.inputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
+    }
+
+    private void UpdateInputFields()
+    {
+        foreach (var c in rgbChannels)
+        {
+            if (!c.inputField || c.inputField.isFocused) continue;
+
+            int value = Mathf.RoundToInt(c.slider.value);
+            c.inputField.SetTextWithoutNotify(value.ToString());
+        }
+    }
+
+    private void UpdatePreview(Color color)
+    {
         if (colorPreview)
         {
             colorPreview.color = color;
         }
-        
-        UpdateInputFields();
+    }
 
+    private void RaiseEvents(Color color)
+    {
         if (_cachedSelectedIndex < 0) return;
-        
+
         selectedColorEvent.Raise(_cachedSelectedIndex, color);
         selectBrushColorEvent.Raise(_cachedSelectedIndex);
     }
-    
+
     private Color GetCurrentColor()
     {
         return ColorUtils.FromRGB(
@@ -164,29 +217,15 @@ public class ColorPickerUI : MonoBehaviour
             Mathf.RoundToInt(rgbChannels[2].slider.value)
         );
     }
-    
-    private void UpdateInputFields()
-    {
-        foreach (var channel in rgbChannels)
-        {
-            if (!channel.inputField || channel.inputField.isFocused) continue;
 
-            int value = Mathf.RoundToInt(channel.slider.value);
-            string newText = value.ToString();
-            
-            if (channel.inputField.text != newText)
-            {
-                channel.inputField.SetTextWithoutNotify(newText);
-            }
-        }
+    private void RefreshPreview()
+    {
+        UpdatePreview(GetCurrentColor());
     }
-    
-    private void SetColor(Color newColor)
-    {
-        SetSliderValue(0, newColor.r * 255f);
-        SetSliderValue(1, newColor.g * 255f);
-        SetSliderValue(2, newColor.b * 255f);
 
-        UpdateColorPreview(GetCurrentColor());
+    private void SetColor(Color color)
+    {
+        SetSliderValues(color);
+        ApplyColor(GetCurrentColor());
     }
 }
