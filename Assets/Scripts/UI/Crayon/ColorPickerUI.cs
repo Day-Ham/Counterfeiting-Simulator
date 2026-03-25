@@ -24,6 +24,7 @@ public class ColorPickerUI : MonoBehaviour
 
     private const int MinRGB = 0;
     private const int MaxRGB = 255;
+    private const int SnapTolerance = 10;
     
     // Cached to avoid recomputing every frame
     private bool _isColorPickerMode;
@@ -121,10 +122,10 @@ public class ColorPickerUI : MonoBehaviour
         if (_cachedSelectedIndex >= 0 && runtimeAsset != null && runtimeAsset.HasValue)
         {
             var activeColors = runtimeAsset.GetActiveColors();
-            
-            if (activeColors != null)
+
+            if (runtimeAsset.UseSnapping && activeColors != null)
             {
-                color = ColorMatchUtils.SnapPerChannelClosest(color, activeColors, 10); // use default tolerance or provide one
+                color = ColorMatchUtils.SnapPerChannelClosest(color, activeColors, SnapTolerance);
             }
 
             // Only update sliders/runtime if the snapped color actually changed

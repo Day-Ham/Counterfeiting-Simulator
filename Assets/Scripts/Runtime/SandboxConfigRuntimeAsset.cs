@@ -8,6 +8,8 @@ public class SandboxConfigRuntimeAsset : ConfigRuntime
     private SandboxModeConfig _runtimeValue;
 
     public override event Action OnValueChanged;
+    
+    public override bool UseSnapping => false;
 
     public SandboxModeConfig Value
     {
