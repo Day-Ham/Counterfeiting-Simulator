@@ -1954,13 +1954,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
-  BrushScaleSlider: {fileID: 5111421449432821805}
-  BrushController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
-  Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
-  SliderRect: {fileID: 3397076821255554346}
-  ParentCanvas: {fileID: 8433173067774485455}
-  ReferenceNumber: 64
-  ScrollSensitivity: 0.1
+  brushScaleSlider: {fileID: 5111421449432821805}
+  cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
+  sliderRect: {fileID: 3397076821255554346}
+  parentCanvas: {fileID: 8433173067774485455}
+  referenceNumber: 64
+  scrollSensitivity: 0.1
 --- !u!1 &3562053044706008062
 GameObject:
   m_ObjectHideFlags: 0
