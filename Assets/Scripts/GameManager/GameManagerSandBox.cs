@@ -15,9 +15,6 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
     
-    [Header("UI Elements to Disable")]
-    [SerializeField] private List<GameObjectValue> UIElementsToDisable;
-    
     [Header("UI Flow")]
     [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
     
@@ -35,18 +32,16 @@ public class GameManagerSandBox : GameManagerUnit
     
     protected override void InitializeGameMode()
     {
+        GameState.GameStart();
+        
         SetupCanvas();
     }
     
     protected override void FinishGame()
     {
-        foreach (var uiElementGameObjectValue in UIElementsToDisable)
-        {
-            uiElementGameObjectValue.Value.SetActive(false);
-        }
-        
+        GameState.FinishGame();
+
         StartUIFlow();
-        DisableGameplay();
     }
 
     private void SetupCanvas()
@@ -60,11 +55,5 @@ public class GameManagerSandBox : GameManagerUnit
     private void StartUIFlow()
     {
         UIFlowControllerValue.Value.StartBatch(0);
-    }
-
-    private void DisableGameplay()
-    {
-        inputHandler?.BlockInput();
-        _canvasDraw.IsCanDraw = false;
     }
 }

@@ -749,6 +749,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1400555142662047262}
+  - component: {fileID: 6982520979450027655}
   m_Layer: 5
   m_Name: PARENT Eraser
   m_TagString: Untagged
@@ -776,6 +777,22 @@ RectTransform:
   m_AnchoredPosition: {x: -65, y: 0}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6982520979450027655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616750468877257016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  rectTransform: {fileID: 1744130996101171144}
+  button: {fileID: 5229175689826666223}
+  eraserTweenUnitScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
 --- !u!1 &1680296720183608354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,8 +1243,8 @@ GameObject:
   - component: {fileID: 6113507743958689008}
   - component: {fileID: 5547397837835526416}
   - component: {fileID: 5124206575937379532}
-  - component: {fileID: 7215460033777559390}
-  - component: {fileID: 5574996063032146362}
+  - component: {fileID: 2134830996826367841}
+  - component: {fileID: 1242919100097213512}
   m_Layer: 5
   m_Name: BUTTON RetryShadow
   m_TagString: Untagged
@@ -1337,7 +1354,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7215460033777559390
+--- !u!114 &2134830996826367841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1346,12 +1363,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2630323068150873273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Script: {fileID: 11500000, guid: 61732abff8c236e4abdbaf8faff51512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 30f526a45f1b35d428b69a6f59ac0a43, type: 2}
-  _overrideReference: {fileID: 0}
---- !u!114 &5574996063032146362
+  eventToRaise: {fileID: 11400000, guid: 91892a44538866d4bba67044b3f6a94c, type: 2}
+  button: {fileID: 5124206575937379532}
+--- !u!114 &1242919100097213512
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1360,11 +1377,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2630323068150873273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c909a5bad3e2734986bdc73da6688b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 185517a15b3d6c94784de1544495f6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 5124206575937379532}
-  levelChangerValue: {fileID: 11400000, guid: ffb328f5287e8374192edb51d0768db7, type: 2}
+  triggerEvent: {fileID: 11400000, guid: 44e661d144c5a884c9d6b87ea80b7a86, type: 2}
+  rectTransform: {fileID: 3733404438618090301}
+  tweenAnimationUnitScriptable: {fileID: 11400000, guid: 12ea488fb24e9964f945e66fdf438f37, type: 2}
 --- !u!1 &2668526498210363228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,6 +1953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985f296330a6a394094d918c4159cbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
   BrushScaleSlider: {fileID: 5111421449432821805}
   BrushController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   Cursor: {fileID: 11400000, guid: d2ce9259e29489549ba51990afc76c04, type: 2}
@@ -2254,7 +2273,6 @@ GameObject:
   - component: {fileID: 4296859303231385625}
   - component: {fileID: 8445541178076839123}
   - component: {fileID: 5202834433761476605}
-  - component: {fileID: 6401667923242067554}
   m_Layer: 5
   m_Name: BUTTON PauseShadow
   m_TagString: Untagged
@@ -2376,23 +2394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c191f1091c146043a2767384bee0633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 8445541178076839123}
-  GameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
---- !u!114 &6401667923242067554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4280582471768192644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93918e4c2dcd371418a31504abcff16c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toggleButton: {fileID: 8445541178076839123}
-  _listGameObject:
-  - {fileID: 11400000, guid: de0b3cf68de400747853ca732a0a81d9, type: 2}
+  button: {fileID: 8445541178076839123}
 --- !u!1 &4281317503756595747
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,7 +2632,6 @@ GameObject:
   - component: {fileID: 3767300615564727267}
   - component: {fileID: 1439137900753270907}
   - component: {fileID: 5229175689826666223}
-  - component: {fileID: 8202647715784537602}
   m_Layer: 5
   m_Name: BUTTON EresarShadow
   m_TagString: Untagged
@@ -2740,21 +2741,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8202647715784537602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4503411668689957427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EraserTweenScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
-  Button: {fileID: 5229175689826666223}
-  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
 --- !u!1 &4637143510756608887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3139,7 +3125,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &5204984264910136755
 MonoBehaviour:
@@ -3723,10 +3709,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93918e4c2dcd371418a31504abcff16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _toggleButton: {fileID: 3473417074998016473}
-  _listGameObject:
-  - {fileID: 11400000, guid: 3f71f0dcc585ce343a43972edf2f662f, type: 2}
-  - {fileID: 11400000, guid: aa5a4983d34eb0e49853cd527fb6a5fa, type: 2}
+  toggleButton: {fileID: 3473417074998016473}
+  boolEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
 --- !u!1 &5682371855452517770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4319,6 +4303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3103596289518792853}
   - component: {fileID: 6071921536752382584}
+  - component: {fileID: 3679970670151607485}
   m_Layer: 5
   m_Name: CONTAINER
   m_TagString: Untagged
@@ -4373,6 +4358,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &3679970670151607485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072896047117934225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa17f8c7a8759f49865ac0147847e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: {fileID: 11400000, guid: 204e8a4ea7b59a245bfedf4eee080a33, type: 2}
+  overrideReference: {fileID: 3733404438618090301}
 --- !u!1 &6164359220578310803
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,8 +4,13 @@ using UnityEngine.UI;
 
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Events")]
+    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
+    [SerializeField] private SelectedColorEvent _selectedColorEvent;
+    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
+    
     [Header("References")]
-    [SerializeField] private ResizeTweenScriptableObject ResizeTweenScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook SetColorBlobLook;
     [SerializeField] private ConfigRuntime RuntimeAsset;
     [SerializeField] private GameObjectValue RGBSliderUI;
@@ -13,11 +18,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [Header("UI")]
     [SerializeField] private Button Button;
     [SerializeField] private Image ColorPreview;
-    
-    [Header("Events")]
-    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
-    [SerializeField] private SelectedColorEvent _selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
+    [SerializeField] private RectTransform rectTransform;
     
     [Header("Shadow Color")]
     [SerializeField] private Color SelectedColor;
@@ -47,7 +48,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleBrushColorSelected(int selectedColorIndex)
     {
-        if (GameState.GameFinished)
+        if (GameState.IsGameFinished)
         {
             CollapseAfterGameFinished();
             return;
@@ -67,7 +68,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void HandleEraseSelected()
     {
-        if (GameState.GameFinished)
+        if (GameState.IsGameFinished)
         {
             CollapseAfterGameFinished();
             return;
@@ -110,24 +111,24 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void OnClick()
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         
         _selectBrushColorEvent.Raise(colorIndex);
     }
 
     private void ExpandSize()
     {
-        ResizeTweenScriptableObject.Expand(this.gameObject);
+        resizeTweenUnitScriptableObject.Expand(rectTransform);
     }
 
     private void CollapseSize()
     {
-        ResizeTweenScriptableObject.Collapse(this.gameObject);
+        resizeTweenUnitScriptableObject.Collapse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (GameState.GameFinished) 
+        if (GameState.IsGameFinished) 
         {
             CollapseAfterGameFinished();
             return;
@@ -146,7 +147,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     
     private void TryExpandAndShowRGB()
     {
-        if (GameState.GameFinished) return;
+        if (GameState.IsGameFinished) return;
         if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
         var colors = RuntimeAsset.GetActiveColors();

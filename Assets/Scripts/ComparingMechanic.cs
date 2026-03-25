@@ -7,47 +7,38 @@ using UnityEngine.UI;
 public class ComparingMechanic : MonoBehaviour
 {
     [Header("Events")]
-    public VoidEvent SceneChangerEvent;
-    public VoidEvent DrawingBoardControllerEvent;
-    public VoidEvent StartCompareEvent;
+    [SerializeField] private VoidEvent sceneChangerEvent;
+    [SerializeField] private VoidEvent drawingBoardControllerEvent;
+    [SerializeField] private VoidEvent startCompareEvent;
+    [SerializeField] private VoidEvent finishGameRequestEvent;
+    [SerializeField] private VoidEvent spacePressedEvent;
+    [SerializeField] private VoidEvent onShowPercentageUI;
+    [SerializeField] private VoidEvent indicateResetButtonEvent;
+    [SerializeField] private ComparisonResultEvent comparisonResultEvent;
     
     [Header("GameObject to Move")]
-    public GameObjectValue TargetImage;
-    public GameObjectValue FrontSilhouette;
+    [SerializeField] private GameObjectValue targetImage; 
+    [SerializeField] private GameObjectValue frontSilhouette;
     
     [Header("Target Location")]
-    public GameObjectValue TargetLocation;
-    
-    public Ease EaseTween;
-    
-    [Header("Percentage ScriptableObject")]
-    public GameObjectValue PercentageParent;
-    public ResizeTweenScriptableObject PercentageResizeTween;
-    
-    [Header("ResetButton ScriptableObject")]
-    public GameObjectValue ResetButtonUI;
-    public ResizeTweenScriptableObject ResetButtonUIResizeTween;
+    [SerializeField] private GameObjectValue targetLocation;
+    [SerializeField] private Ease easeTween;
     
     [Header("Comparison ScriptableObject")]
-    public ComparisonRuleScriptableObject ComparisonRule;
+    [SerializeField] private ComparisonRuleScriptableObject comparisonRule;
 
     [Header("Main Text ScriptableObject")]
-    public TMPListValue PercentageTextScriptableObject;
+    [SerializeField] private TMPListValue percentageTextScriptableObject;
 
     [Header("Shadow Text ScriptableObject")]
-    public TMPListValue PercentageTextShadowScriptableObject;
-    
-    [Header("GameManager Events")]
-    public VoidEvent FinishGameRequestEvent;
-    public ComparisonResultEvent ComparisonResultEvent;
-    public VoidEvent SpacePressedEvent;
-    
-    private float majorPercentageNumber;
-    private float minorPercentageNumber;
+    [SerializeField] private TMPListValue percentageTextShadowScriptableObject;
     
     [SerializeField] private int duration = 100;
+    [SerializeField] private Color inspectionColor;
     
-    public Color InspectionColor;
+    private float _majorPercentageNumber;
+    private float _minorPercentageNumber;
+    
     private bool _isOneShot = true;
     
     private float _gameManagerCachedSimilarity;
@@ -61,16 +52,16 @@ public class ComparingMechanic : MonoBehaviour
     
     private void OnEnable()
     {
-        ComparisonResultEvent.OnRaised += OnComparisonFinished;
-        StartCompareEvent.Register(StartCompare);
-        SpacePressedEvent.Register(OnSpacePressed);
+        comparisonResultEvent.OnRaised += OnComparisonFinished;
+        startCompareEvent.Register(StartCompare);
+        spacePressedEvent.Register(OnSpacePressed);
     }
 
     private void OnDisable()
     {
-        ComparisonResultEvent.OnRaised -= OnComparisonFinished;
-        StartCompareEvent.Unregister(StartCompare);
-        SpacePressedEvent.Unregister(OnSpacePressed);
+        comparisonResultEvent.OnRaised -= OnComparisonFinished;
+        startCompareEvent.Unregister(StartCompare);
+        spacePressedEvent.Unregister(OnSpacePressed);
         
     }
 
@@ -83,55 +74,54 @@ public class ComparingMechanic : MonoBehaviour
     
     private void Start()
     {
-        _targetImageRect = TargetImage.Value.GetComponent<RectTransform>();
-        _frontRect = FrontSilhouette.Value.GetComponent<RectTransform>();
-        _targetLocationRect = TargetLocation.Value.GetComponent<RectTransform>();
-        _frontRawImage = FrontSilhouette.Value.GetComponent<RawImage>();
+        _targetImageRect = targetImage.Value.GetComponent<RectTransform>();
+        _frontRect = frontSilhouette.Value.GetComponent<RectTransform>();
+        _targetLocationRect = targetLocation.Value.GetComponent<RectTransform>();
+        _frontRawImage = frontSilhouette.Value.GetComponent<RawImage>();
         
-        PercentageResizeTween.Collapse(PercentageParent.Value);
-        FrontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
+        frontSilhouette.Value.GetComponent<RawImage>().color = Color.white;
     }
     
     private void OnSpacePressed()
     {
-        StartCompareEvent.Raise();
+        startCompareEvent.Raise();
     }
     
     private void StartCompare()
     {
         if (!_isOneShot) return;
 
-        DrawingBoardControllerEvent.Raise();
-        FinishGameRequestEvent.Raise();
+        drawingBoardControllerEvent.Raise();
+        finishGameRequestEvent.Raise();
 
         Vector3 targetPos = _targetLocationRect.position;
 
         _targetImageRect
             .DOMove(targetPos, 1f)
-            .SetEase(EaseTween)
+            .SetEase(easeTween)
             .OnComplete(() => StartCoroutine(ShowResult()));
 
         _frontRect
             .DOMove(targetPos, 1f)
-            .SetEase(EaseTween);
+            .SetEase(easeTween);
 
-        _frontRawImage.color = InspectionColor;
+        _frontRawImage.color = inspectionColor;
 
         _isOneShot = false;
     }
     
     private IEnumerator ShowResult()
     {
-        PercentageResizeTween.Expand(PercentageParent.Value);
+        onShowPercentageUI.Raise();
         
         for (int tick = 0; tick <= duration; tick++)
         { 
             yield return new WaitForSeconds(0.02f);
             
-            majorPercentageNumber = Random.Range(1, 99);
-            minorPercentageNumber = Random.Range(1, 99);
+            _majorPercentageNumber = Random.Range(1, 99);
+            _minorPercentageNumber = Random.Range(1, 99);
             
-            SetPercentageText(majorPercentageNumber, minorPercentageNumber);
+            SetPercentageText(_majorPercentageNumber, _minorPercentageNumber);
             
             if (tick != duration) continue;
             
@@ -139,8 +129,8 @@ public class ComparingMechanic : MonoBehaviour
         }
         
         Debug.Log(_gameManagerCachedSimilarity * 100);
-        Debug.Log(ComparisonRule.PercentRequirement);
-        Debug.Log(_gameManagerCachedSimilarity * 100 > ComparisonRule.PercentRequirement);
+        Debug.Log(comparisonRule.PercentRequirement);
+        Debug.Log(_gameManagerCachedSimilarity * 100 > comparisonRule.PercentRequirement);
         
         CheckingSimilar();
         
@@ -153,38 +143,25 @@ public class ComparingMechanic : MonoBehaviour
     {
         string formatted = TextFormattingUtility.FormatPercentage(major, minor);
 
-        TextFormattingUtility.SetTextList(PercentageTextScriptableObject.Value, formatted);
-        TextFormattingUtility.SetTextList(PercentageTextShadowScriptableObject.Value, formatted);
+        TextFormattingUtility.SetTextList(percentageTextScriptableObject.Value, formatted);
+        TextFormattingUtility.SetTextList(percentageTextShadowScriptableObject.Value, formatted);
     }
 
     private void CheckingSimilar()
     {
-        Color resultColor = ComparisonRule.GetResultColor(_gameManagerCachedSimilarity);
-        TextFormattingUtility.SetColorList(PercentageTextScriptableObject.Value, resultColor);
+        Color resultColor = comparisonRule.GetResultColor(_gameManagerCachedSimilarity);
+        TextFormattingUtility.SetColorList(percentageTextScriptableObject.Value, resultColor);
     }
 
     private void Similar()
     {
-        if (ComparisonRule.IsPassed(_gameManagerCachedSimilarity))
+        if (comparisonRule.IsPassed(_gameManagerCachedSimilarity))
         {
-            SceneChangerEvent.Raise();
+            sceneChangerEvent.Raise();
         }
         else
         {
-            StartCoroutine(IndicateReset());
+            indicateResetButtonEvent.Raise();
         }
-    }
-
-    private IEnumerator IndicateReset()
-    { 
-        ResetButtonUIResizeTween.Expand(ResetButtonUI.Value);
-        
-        yield return new WaitForSeconds(.75f);
-        
-        ResetButtonUIResizeTween.Collapse(ResetButtonUI.Value);
-        
-        yield return new WaitForSeconds(2f);
-        
-        StartCoroutine(IndicateReset());
     }
 }

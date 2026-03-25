@@ -1,49 +1,99 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-
-/// <summary>
-/// this will be used instead of a hard set variable eg. 100 required experience, constants, gravity
-/// </summary>
 
 public class ValueWrapper<T> : ScriptableObject
 {
-    [Header("Stored Value")]
+    [Header("Default Value")]
     [SerializeField] protected T value;
-    
-    private T runtimeValue;
-    
+
+    private T _runtimeValue;
+    private bool _isInitialized;
+
     public event Action<T> OnValueChanged;
 
     public T Value
     {
-        get => value;
+        get
+        {
+            if (_isInitialized)
+            {
+                return _runtimeValue;
+            }
+            
+            _runtimeValue = value;
+            _isInitialized = true;
+
+            return _runtimeValue;
+        }
         set
         {
-            if (Equals(this.value, value))
-                return;
+            if (!_isInitialized)
+            {
+                _runtimeValue = this.value;
+                _isInitialized = true;
+            }
 
-            this.value = value;
-            OnValueChanged?.Invoke(value);
+            // Safe equality check
+            if (EqualityComparer<T>.Default.Equals(_runtimeValue, value)) return;
+
+            _runtimeValue = value;
+            OnValueChanged?.Invoke(_runtimeValue);
         }
     }
-    
-    protected virtual void OnEnable()
+
+    /// <summary>
+    /// Direct access to serialized value (Editor-safe, no runtime logic)
+    /// </summary>
+    public T GetRawValue()
     {
-        // Reset runtime value when entering play mode
-        runtimeValue = value;
+        return value;
     }
 
+    /// <summary>
+    /// Explicit setter (cleaner usage)
+    /// </summary>
+    public void SetValue(T newValue)
+    {
+        Value = newValue;
+    }
+
+    /// <summary>
+    /// Force event trigger without changing value
+    /// </summary>
+    public void ForceNotify()
+    {
+        OnValueChanged?.Invoke(Value);
+    }
+
+    /// <summary>
+    /// Reset runtime value back to default
+    /// </summary>
+    public void ResetValue()
+    {
+        _runtimeValue = value;
+        _isInitialized = true;
+        OnValueChanged?.Invoke(_runtimeValue);
+    }
+
+    /// <summary>
+    /// Allows setting value via object (useful for generic systems)
+    /// </summary>
     public void SetObjectValue(object newValue)
     {
         if (newValue is T castValue)
         {
-            Value = castValue; // use property so event fires
+            Value = castValue;
         }
         else
         {
-            Debug.LogWarning(
-                $"[ValueWrapper] Tried to assign {newValue?.GetType()} to {typeof(T)}"
-            );
+            Debug.LogWarning($"[ValueWrapper<{typeof(T).Name}>] Tried to assign {newValue?.GetType()} to {typeof(T)}");
         }
+    }
+
+    protected virtual void OnEnable()
+    {
+        //Reset on entering play mode / domain reload
+        _isInitialized = false;
     }
 }

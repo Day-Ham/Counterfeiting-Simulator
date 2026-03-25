@@ -5,25 +5,34 @@ using UnityEngine.UI;
 
 public class ChangeScene : MonoBehaviour
 {
-    public Button StartButton;
-    public SingleSceneReference SceneToGo;
-    public TransitionControllerValue TransitionController;
+    [Header("Events")]
+    [SerializeField] private CallbackEvent playTransitionEvent;
+    
+    [Header("Buttons")]
+    public Button button;
+    
+    [Header("Scene")]
+    public SingleSceneReference sceneToGo;
+    
+    private void OnEnable()
+    {
+        playTransitionEvent?.Register((onComplete) => GoToScene());
+    }
+
+    private void OnDisable()
+    {
+        playTransitionEvent?.Unregister((onComplete) => GoToScene());
+    }
 
     private void Awake()
     {
-        if (StartButton != null)
-        {
-            StartButton.onClick.AddListener(GoToScene);
-        }
+        button.onClick.AddListener(GoToScene);
     }
 
-    public void GoToScene()
+    private void GoToScene()
     {
-        string sceneNameToGo = SceneToGo.sceneName;
-
-        TransitionController.Value.PlayCloseTransition(() =>
-        {
-            SceneManager.LoadScene(sceneNameToGo);
-        });
+        playTransitionEvent?.Raise();
+        
+        SceneManagerUtility.LoadScene(sceneToGo);
     }
 }

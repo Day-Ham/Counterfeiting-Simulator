@@ -1,16 +1,17 @@
-using DaeHanKim.ThisIsTotallyADollar.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseButton : GameManagerUIButton
+public class PauseButton : MonoBehaviour
 {
+    [SerializeField] private Button button;
+
     private void Awake()
     {
-        Button.onClick.AddListener(PauseGame);
+        button.onClick.AddListener(OnPauseClicked);
     }
 
-    private void PauseGame()
+    private void OnPauseClicked()
     {
-        GameManagerUnit.PauseGame();
+        GameState.PauseGame();
     }
 }

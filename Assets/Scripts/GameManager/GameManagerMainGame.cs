@@ -11,9 +11,6 @@ public class GameManagerMainGame : GameManagerUnit
     [Header("Events")]
     [SerializeField] private VoidEvent _finishGameRequestEvent;
     [SerializeField] private ComparisonResultEvent _comparisonResultEvent;
-        
-    [Header("DrawingBoardController")]
-    [SerializeField] private DrawingBoardControllerValue _drawingBoardControllerValue;
     
     [Header("MainGame Settings")]
     [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime; 
@@ -50,8 +47,6 @@ public class GameManagerMainGame : GameManagerUnit
 
     protected override void InitializeGameMode()
     {
-        GameState.GameStart();
-        
         if (levelConfigRuntime == null || levelConfigRuntime.Value.TargetTexture == null)
         {
             Debug.LogError("LevelConfigRuntime or TargetTexture missing!");
@@ -70,8 +65,8 @@ public class GameManagerMainGame : GameManagerUnit
         {
             _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
         }
-
-        _canvasDraw.IsCanDraw = true;
+        
+        GameState.GameStart();
     }
 
     protected override void FinishGame()
@@ -79,9 +74,6 @@ public class GameManagerMainGame : GameManagerUnit
         allSimilarity = 1f;
         
         GameState.FinishGame();
-        _canvasDraw.IsCanDraw = false;
-        _inputHandler.BlockInput();
-        _drawingBoardControllerValue.Value.DisableCtrlInput();
 
         CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
 

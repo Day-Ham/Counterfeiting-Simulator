@@ -15,7 +15,6 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         [SerializeField] protected CanvasDrawControllerValue _canvasDrawController;
 
         protected CanvasDrawController _canvasDraw;
-        protected bool GameIsPaused;
 
         protected virtual void Awake()
         {
@@ -40,7 +39,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         protected virtual void Update()
         {
-            if (GameIsPaused) return;
+            if (GameState.IsGamePaused) return;
 
             _inputHandler?.UpdateInput();
             _canvasDraw?.Tick();
@@ -49,8 +48,14 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         protected abstract void InitializeGameMode();
         protected abstract void FinishGame();
 
-        public void PauseGame() => GameIsPaused = true;
+        private void PauseGame()
+        {
+            GameState.PauseGame();
+        }
 
-        public void ResumeGame() => GameIsPaused = false;
+        private void ResumeGame()
+        {
+            GameState.ResumeGame();
+        }
     }
 }

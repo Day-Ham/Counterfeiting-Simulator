@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2433383935729226853, guid: 217078191bc75e64fae3b39d29330420, type: 3}
       propertyPath: m_Name
-      value: CANVAS MainGame Mode
+      value: CANVAS MainGameMode
       objectReference: {fileID: 0}
     - target: {fileID: 2854688929936453541, guid: 217078191bc75e64fae3b39d29330420, type: 3}
       propertyPath: m_Pivot.x
@@ -90,6 +90,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2854688929936453541, guid: 217078191bc75e64fae3b39d29330420, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910305340794926411, guid: 217078191bc75e64fae3b39d29330420, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910305340794926411, guid: 217078191bc75e64fae3b39d29330420, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910305340794926411, guid: 217078191bc75e64fae3b39d29330420, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910305340794926411, guid: 217078191bc75e64fae3b39d29330420, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910305340794926411, guid: 217078191bc75e64fae3b39d29330420, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

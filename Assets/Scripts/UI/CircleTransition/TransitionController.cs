@@ -1,36 +1,42 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
 public class TransitionController : MonoBehaviour
 {
     [Header("Transition")]
-    [SerializeField] protected GameObjectValue circleTransition;
+    [SerializeField] private GameObject circleUI;
 
     [Header("Tween Settings")]
-    [SerializeField] protected float duration = 1f;
-    [SerializeField] protected Ease ease = Ease.OutQuad;
+    [SerializeField] private float duration = 1f;
+    [SerializeField] private Ease ease = Ease.OutQuad;
 
-    private GameObject CircleUI => circleTransition.Value;
-    
-    private bool isOpened;
+    [Header("Event")]
+    [SerializeField] private CallbackEvent playTransitionEvent;
 
-    protected virtual void Start()
+    private void OnEnable()
     {
-        if (isOpened) return;
-
-        isOpened = true;
-        
-        CircleUI.SetActive(true);
-        CircleUI.transform.localScale = Vector3.one * 25f;
-        
-        CircleUI.transform
-            .DOScale(Vector3.zero, duration)
-            .SetEase(ease);
+        playTransitionEvent?.Register(HandleTransition);
     }
 
-    public void PlayCloseTransition(System.Action onComplete)
+    private void OnDisable()
     {
-        CircleUI.transform
+        playTransitionEvent?.Unregister(HandleTransition);
+    }
+
+    private void Start()
+    {
+        circleUI.SetActive(true);
+        circleUI.transform.localScale = Vector3.one * 25f;
+        circleUI.transform.DOScale(Vector3.zero, duration).SetEase(ease);
+    }
+
+    private void HandleTransition(Action onComplete)
+    {
+        circleUI.SetActive(true);
+        circleUI.transform.localScale = Vector3.zero;
+        
+        circleUI.transform
             .DOScale(Vector3.one * 25f, duration)
             .SetEase(ease)
             .OnComplete(() => onComplete?.Invoke());
