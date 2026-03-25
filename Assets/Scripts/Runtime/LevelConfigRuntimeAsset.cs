@@ -8,6 +8,8 @@ public class LevelConfigRuntimeAsset : ConfigRuntime
     private LevelConfig _runtimeValue;
 
     public override event Action OnValueChanged;
+    
+    public override bool UseSnapping => true;
 
     public LevelConfig Value
     {

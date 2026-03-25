@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class RGBChannel
 {
-    public Slider Slider;
-    public TMP_InputField InputField;
-    public RectTransform Rect;
+    public Slider slider;
+    public TMP_InputField inputField;
+    public RectTransform rectTransform;
 }

@@ -101,11 +101,11 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 
         if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
-        var colors = RuntimeAsset.GetActiveColors();
+        var colorList = RuntimeAsset.GetActiveColors();
 
-        if (colors == null || colorIndex < 0 || colorIndex >= colors.Count) return;
+        if (colorList == null || colorIndex < 0 || colorIndex >= colorList.Count) return;
 
-        color = colors[colorIndex];
+        color = colorList[colorIndex];
         ColorPreview.color = color;
     }
     
@@ -141,7 +141,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnClick(); // Normal click
-            RGBSliderUI.Value.SetActive(false);
+            CollapseRGB();
         }
     }
     
@@ -150,8 +150,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         if (GameState.IsGameFinished) return;
         if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
 
-        var colors = RuntimeAsset.GetActiveColors();
-        if (colors == null || colorIndex >= colors.Count) return;
+        var colorsList = RuntimeAsset.GetActiveColors();
+        if (colorsList == null || colorIndex >= colorsList.Count) return;
 
         // Only allow in ColorPicker mode if the runtime exposes it
         if (RuntimeAsset is LevelConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
@@ -166,6 +166,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         
         // Tells ColorPickerUI to load this color
         _openColorPickerEvent.Raise(color);
+    }
+    
+    private void CollapseRGB()
+    {
+        RGBSliderUI.Value.SetActive(false);
+        _openColorPickerEvent.RaiseClosed();
     }
     
     private void CollapseAfterGameFinished()

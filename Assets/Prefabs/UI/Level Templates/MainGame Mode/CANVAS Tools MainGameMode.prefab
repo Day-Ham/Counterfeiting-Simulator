@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CANVAS Tools MainGameMode
       objectReference: {fileID: 0}
+    - target: {fileID: 3017644480269859462, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
+      propertyPath: runtimeAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
     - target: {fileID: 3562053044706008062, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
       propertyPath: m_IsActive
       value: 0
