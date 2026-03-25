@@ -17,6 +17,20 @@ public class PauseUIController : MonoBehaviour
         GameState.OnGamePaused -= ShowPauseUI;
         GameState.OnGameResumed -= HidePauseUI;
     }
+    
+    private void Update()
+    {
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        
+        if (GameState.IsGamePaused)
+        {
+            GameState.ResumeGame();
+        }
+        else
+        {
+            GameState.PauseGame();
+        }
+    }
 
     private void ShowPauseUI()
     {
