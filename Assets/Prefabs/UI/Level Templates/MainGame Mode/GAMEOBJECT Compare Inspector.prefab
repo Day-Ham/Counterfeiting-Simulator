@@ -55,9 +55,9 @@ MonoBehaviour:
   targetLocation: {fileID: 11400000, guid: f640237ccbf12d046883b778f5cfc574, type: 2}
   easeTween: 28
   percentageParent: {fileID: 11400000, guid: 30ae921db90945142b7bcdd979f30fba, type: 2}
-  percentageResizeTween: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
+  percentageResizeTweenUnit: {fileID: 11400000, guid: dd4d0bee587c5b84a8cf698dcced5d95, type: 2}
   resetButtonUI: {fileID: 11400000, guid: 204e8a4ea7b59a245bfedf4eee080a33, type: 2}
-  resetButtonUIResizeTween: {fileID: 11400000, guid: 5ca8fee53056b524fb337b55c12673f6, type: 2}
+  resetButtonUIResizeTweenUnit: {fileID: 11400000, guid: 5ca8fee53056b524fb337b55c12673f6, type: 2}
   comparisonRule: {fileID: 11400000, guid: 116fab8d095c7cd49898789e84d7c370, type: 2}
   percentageTextScriptableObject: {fileID: 11400000, guid: 35067641073b6d448a233df96febc2c3, type: 2}
   percentageTextShadowScriptableObject: {fileID: 11400000, guid: f64fd4b163130c34c9ed059d53070062, type: 2}

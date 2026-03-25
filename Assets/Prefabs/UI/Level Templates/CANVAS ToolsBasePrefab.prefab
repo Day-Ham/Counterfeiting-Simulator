@@ -792,7 +792,7 @@ MonoBehaviour:
   selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
   rectTransform: {fileID: 1744130996101171144}
   button: {fileID: 5229175689826666223}
-  eraserTweenScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
+  eraserTweenUnitScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
 --- !u!1 &1680296720183608354
 GameObject:
   m_ObjectHideFlags: 0

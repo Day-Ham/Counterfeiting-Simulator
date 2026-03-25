@@ -4,8 +4,7 @@ using DG.Tweening;
 [CreateAssetMenu(fileName = "NewResizeAnimation", menuName = "DOTween/Resize")]
 public class ResizeTweenUnitScriptableObject : TweenAnimationUnitScriptable
 {
-    [Header("Tween Settings")] 
-    public float duration = 0.5f;
+    [Header("Tween Settings")]
     public Ease easeIn = Ease.OutBack;
     public Ease easeOut = Ease.InBack;
     
@@ -40,15 +39,14 @@ public class ResizeTweenUnitScriptableObject : TweenAnimationUnitScriptable
 
         rectTransform.DOSizeDelta(collapsedSize, duration).SetEase(easeOut);
     }
-
-    // Implement abstract TweenAnimationScriptable
-    public override void Play(RectTransform target)
+    
+    public override void Play(RectTransform rectTransform)
     {
-        Expand(target);
+        Expand(rectTransform);
     }
 
-    public override void Stop(RectTransform target)
+    public override void Stop(RectTransform rectTransform)
     {
-        Collapse(target);
+        Collapse(rectTransform);
     }
 }

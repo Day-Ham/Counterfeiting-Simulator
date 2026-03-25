@@ -4,29 +4,56 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewBreathingAnimation", menuName = "DOTween/Breath")]
 public class BreathingTweenUnitScriptable : TweenAnimationUnitScriptable
 {
+    [Header("Easing Settings")]
+    public Ease ease = Ease.InOutSine;
+    
     [Header("Size Settings")]
     public Vector2 smallSize;
     public Vector2 largeSize;
     
-    [Header("Time Settings")]
-    public float duration;
-    
-    [Header("Easing Settings")]
-    public Ease ease = Ease.InOutSine;
+    [Header("Behavior")]
+    public bool isPlayIntroFirst;
 
     private Tween _activeTween;
 
-    public override void Play(RectTransform target)
+    public override void Play(RectTransform rectTransform)
     {
-        if (!target) return;
+        if (!rectTransform) return;
+
         _activeTween?.Kill();
-        target.sizeDelta = smallSize;
-        _activeTween = target.DOSizeDelta(largeSize, duration)
-            .SetEase(ease)
-            .SetLoops(-1, LoopType.Yoyo);
+
+        // Case 1: Start from 0 and zoom to the smallSize
+        if (isPlayIntroFirst)
+        {
+            Sequence sequence = DOTween.Sequence();
+
+            sequence
+                .Append(rectTransform.DOSizeDelta(smallSize, duration * 0.5f).SetEase(Ease.OutBack)) // nice pop-in
+                .Append(rectTransform.DOSizeDelta(largeSize, duration * 0.5f).SetEase(ease))
+                .OnComplete(() => StartBreathingLoop(rectTransform));
+
+            _activeTween = sequence;
+        }
+        else
+        {
+            // Case 2: UI is already visible
+            StartBreathingLoop(rectTransform);
+        }
     }
 
-    public override void Stop(RectTransform target)
+    private void StartBreathingLoop(RectTransform rectTransform)
+    {
+        Sequence sequence = DOTween.Sequence();
+
+        sequence
+            .Append(rectTransform.DOSizeDelta(smallSize, duration).SetEase(ease))
+            .Append(rectTransform.DOSizeDelta(largeSize, duration).SetEase(ease))
+            .SetLoops(-1);
+
+        _activeTween = sequence;
+    }
+
+    public override void Stop(RectTransform rectTransform)
     {
         _activeTween?.Kill();
         _activeTween = null;

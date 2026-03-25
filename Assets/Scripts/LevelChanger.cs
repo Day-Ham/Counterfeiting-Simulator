@@ -8,6 +8,7 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private VoidEvent onRetryLevelEvent;
     [SerializeField] private VoidEvent onNextLevelEvent;
     [SerializeField] private VoidEvent sceneChangerEvent;
+    [SerializeField] private VoidEvent onShowNextLevelButtonEvent;
     [SerializeField] private CallbackEvent playTransitionEvent;
 
     [Header("References")] 
@@ -15,7 +16,7 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private IntValue currentLevelIndexValue;
     
     [SerializeField] private LevelChangerValue levelChangerValue;
-    [SerializeField] private GameObjectValue nextButtonValue;
+    //[SerializeField] private GameObjectValue nextButtonValue;
     [SerializeField] private SingleSceneReference mainMenuScene;
 
     [Header("Tween Settings Next Button")]
@@ -45,8 +46,8 @@ public class LevelChanger : MonoBehaviour
 
     private void Start()
     {
-        _nextButtonUI = nextButtonValue.Value;
-        _nextButtonUI.transform.DOScale(Vector3.zero, 0f);
+        //_nextButtonUI = nextButtonValue.Value;
+        //_nextButtonUI.transform.DOScale(Vector3.zero, 0f);
     }
     
     private void NextLevel()
@@ -89,7 +90,8 @@ public class LevelChanger : MonoBehaviour
 
     private void ShowNextButton()
     {
-        _breathingTween?.Kill();
+        onShowNextLevelButtonEvent?.Raise();
+        /*_breathingTween?.Kill();
 
         // Scale in first
         _nextButtonUI.transform.DOScale(Vector3.one * .3f, .5f)
@@ -100,7 +102,7 @@ public class LevelChanger : MonoBehaviour
                 _breathingTween = _nextButtonUI.transform.DOScale(Vector3.one * 0.35f, 0.8f)
                     .SetEase(Ease.InOutSine)
                     .SetLoops(-1, LoopType.Yoyo);
-            });
+            });*/
     }
     
     private void LoadMainMenu()

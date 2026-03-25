@@ -47,6 +47,7 @@ MonoBehaviour:
   onRetryLevelEvent: {fileID: 11400000, guid: 91892a44538866d4bba67044b3f6a94c, type: 2}
   onNextLevelEvent: {fileID: 11400000, guid: da014033f7f969146bda8dcb823a2ca0, type: 2}
   sceneChangerEvent: {fileID: 11400000, guid: 5525f869b932d8849a6248f26c5f8f9a, type: 2}
+  onShowNextLevelButtonEvent: {fileID: 11400000, guid: 2beaf9b822bde7448bd759d5a00adbc0, type: 2}
   playTransitionEvent: {fileID: 11400000, guid: e12fc19d4fb3f714385a57613aca8b34, type: 2}
   levelConfigListValue: {fileID: 11400000, guid: 780ad28872189de45b8b96186ecc71b8, type: 2}
   currentLevelIndexValue: {fileID: 11400000, guid: ff5648224d9b0d64f8d13af3ca859b0a, type: 2}

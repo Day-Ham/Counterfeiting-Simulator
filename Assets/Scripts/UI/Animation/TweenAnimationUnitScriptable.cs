@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class TweenAnimationUnitScriptable : ScriptableObject
 {
-    public abstract void Play(RectTransform target);
-    public virtual void Stop(RectTransform target) { }
+    [Header("Time Settings")]
+    public float duration;
+    
+    public abstract void Play(RectTransform rectTransform);
+    public virtual void Stop(RectTransform rectTransform) { }
 }
