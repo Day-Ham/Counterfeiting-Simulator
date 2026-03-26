@@ -12,19 +12,18 @@ public class AuctionEndSceneController : MonoBehaviour
     private void OnEnable()
     {
         auctionEndEvent.Register(HandleAuctionEnd);
-        auctionEndEvent.Register(HandleAuctionEnd);
     }
 
     private void OnDisable()
     {
         auctionEndEvent.Unregister(HandleAuctionEnd);
-        auctionEndEvent.Unregister(HandleAuctionEnd);
     }
 
     private void HandleAuctionEnd()
     {
-        transitionEvent?.Raise();
-        
-        SceneManagerUtility.LoadScene(galleryScene);
+        transitionEvent?.Raise(() =>
+        {
+            SceneManagerUtility.LoadScene(galleryScene);
+        });
     }
 }
