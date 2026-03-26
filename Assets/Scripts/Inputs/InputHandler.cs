@@ -6,10 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameInputHandler", menuName = "Settings/Input Handler")]
 public class InputHandler : ScriptableObject
 {
-    [Header("Events")]
+    [Header("Events")] 
+    [SerializeField] private BoolEvent toggleColorPickerUIEvent;
     [SerializeField] private IntEvent colorSelectedEvent;
     [SerializeField] private VoidEvent eraserSelectEvent;
-    [SerializeField] private ColorPickerEvent colorPickerEvent;
+    [SerializeField] private ColorEvent colorEvent;
     [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private VoidEvent undoDrawEvent;
@@ -34,7 +35,7 @@ public class InputHandler : ScriptableObject
         
         BuildInputDictionary();
         
-        colorPickerEvent.RegisterToggleBool(OnColorPickerToggle);
+        toggleColorPickerUIEvent.Register(OnColorPickerToggle);
         
         SubscribeGameState();
     }
@@ -61,7 +62,7 @@ public class InputHandler : ScriptableObject
         GameState.OnGamePaused -= OnGamePaused;
         GameState.OnGameResumed -= OnGameResumed;
         
-        colorPickerEvent.UnregisterToggleBool(OnColorPickerToggle);
+        toggleColorPickerUIEvent.Unregister(OnColorPickerToggle);
     }
     
     private void BuildInputDictionary()

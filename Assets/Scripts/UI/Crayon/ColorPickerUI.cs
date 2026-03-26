@@ -7,7 +7,7 @@ public class ColorPickerUI : MonoBehaviour
     [Header("Events")]
     [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private IntEvent selectBrushColorEvent;
-    [SerializeField] private ColorPickerEvent colorPickerEvent;
+    [SerializeField] private ColorEvent colorEvent;
     
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<RGBChannel> rgbChannels = new();
@@ -29,14 +29,14 @@ public class ColorPickerUI : MonoBehaviour
     private void OnEnable()
     {
         selectBrushColorEvent.Register(OnColorSelected);
-        colorPickerEvent.RegisterColor(SetColor);
+        colorEvent.RegisterColor(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
         selectBrushColorEvent.Unregister(OnColorSelected);
-        colorPickerEvent.UnregisterColor(SetColor);
+        colorEvent.UnregisterColor(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 

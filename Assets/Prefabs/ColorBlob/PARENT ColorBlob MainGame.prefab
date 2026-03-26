@@ -186,7 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57478c95795bcc04aa24f21d79f67909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  colorEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  toggleColorPickerUIEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   selectBrushColorEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
   eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
     [Header("Events")]
-    [SerializeField] private ColorPickerEvent colorPickerEvent;
+    [SerializeField] private ColorEvent colorEvent;
+    [SerializeField] private BoolEvent toggleColorPickerUIEvent;
     [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private IntEvent selectBrushColorEvent;
     [SerializeField] private VoidEvent eraserSelectEvent;
@@ -163,12 +164,14 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         selectBrushColorEvent.Raise(_colorIndex);
         
         // Tells ColorPickerUI to load this color
-        colorPickerEvent.Raise(_color);
+        colorEvent.Raise(_color);
+        
+        toggleColorPickerUIEvent.Raise(true);
     }
     
     private void CollapseRGBPicker()
     {
-        colorPickerEvent.RaiseClosed();
+        toggleColorPickerUIEvent.Raise(false);
     }
     
     private void CollapseAfterGameFinished()
