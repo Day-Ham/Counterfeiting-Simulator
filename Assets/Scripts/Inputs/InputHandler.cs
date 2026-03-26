@@ -7,7 +7,8 @@ using UnityEngine;
 public class InputHandler : ScriptableObject
 {
     [Header("Events")]
-    [SerializeField] private SelectBrushColorEvent selectBrushColorEvent;
+    [SerializeField] private IntEvent colorSelectedEvent;
+    [SerializeField] private VoidEvent eraserSelectEvent;
     [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
     [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
@@ -106,7 +107,7 @@ public class InputHandler : ScriptableObject
         _toolKeyActions[KeyCode.Z] = () => undoDrawEvent?.Raise();
         _toolKeyActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _toolKeyActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
-        _toolKeyActions[KeyCode.E] = () => selectBrushColorEvent.RaiseErase();
+        _toolKeyActions[KeyCode.E] = () => eraserSelectEvent.Raise();
         _toolKeyActions[KeyCode.Q] = () => resetDrawingBoardPositionEvent.Raise();
     }
     
@@ -116,7 +117,7 @@ public class InputHandler : ScriptableObject
         
         if (colors != null && index < colors.Count)
         {
-            selectBrushColorEvent.Raise(index);
+            colorSelectedEvent.Raise(index);
         }
     }
 

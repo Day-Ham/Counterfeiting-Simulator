@@ -7,7 +7,7 @@ public class ColorPickerUI : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private SelectedColorEvent selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent selectBrushColorEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;
     [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
     
     [Header("RGB Sliders In-Order")]
@@ -29,12 +29,14 @@ public class ColorPickerUI : MonoBehaviour
     
     private void OnEnable()
     {
+        selectBrushColorEvent.Register(OnColorSelected);
         openColorPickerEvent.RegisterColor(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
+        selectBrushColorEvent.Unregister(OnColorSelected);
         openColorPickerEvent.UnregisterColor(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
@@ -118,10 +120,15 @@ public class ColorPickerUI : MonoBehaviour
     {
         ApplyColor(GetCurrentColor());
     }
+    
+    private void OnColorSelected(int index)
+    {
+        _cachedSelectedIndex = index;
+    }
 
     private void ApplyColor(Color color)
     {
-        _cachedSelectedIndex = selectBrushColorEvent.CurrentSelectedIndex;
+        if (_cachedSelectedIndex < 0) return;
 
         color = ApplySnapping(color);
         ApplyToRuntime(color);

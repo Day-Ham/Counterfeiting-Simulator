@@ -495,10 +495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b96a69790c7df4d8ce9a4d46ece66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
-  DrawController: {fileID: 3748006732957819457}
-  LayerController: {fileID: 4660420507562528374}
-  RuntimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
+  colorSelectedEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
+  eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
+  drawController: {fileID: 3748006732957819457}
+  layerController: {fileID: 4660420507562528374}
+  runtimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
 --- !u!1 &2708193945092676324
 GameObject:
   m_ObjectHideFlags: 0
