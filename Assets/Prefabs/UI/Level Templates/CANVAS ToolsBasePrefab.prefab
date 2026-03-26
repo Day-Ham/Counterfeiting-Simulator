@@ -3076,7 +3076,6 @@ GameObject:
   - component: {fileID: 533316429484763882}
   - component: {fileID: 5204984264910136755}
   - component: {fileID: 3017644480269859462}
-  - component: {fileID: 4523488929944177057}
   m_Layer: 5
   m_Name: CONTAINER RGB
   m_TagString: Untagged
@@ -3158,7 +3157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   selectBrushColorEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
-  openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  colorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
   rgbChannels:
   - slider: {fileID: 5246270207813104317}
     inputField: {fileID: 3867646303219711065}
@@ -3173,20 +3172,6 @@ MonoBehaviour:
   runtimeAsset: {fileID: 0}
   scrollSensitivity: 0.01
   colorPreview: {fileID: 5500588221694078085}
---- !u!114 &4523488929944177057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5065759469364467423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 8aff1e5aeec74f645b95d9a8582fbf70, type: 2}
-  _overrideReference: {fileID: 3562053044706008062}
 --- !u!1 &5086780015175411535
 GameObject:
   m_ObjectHideFlags: 0

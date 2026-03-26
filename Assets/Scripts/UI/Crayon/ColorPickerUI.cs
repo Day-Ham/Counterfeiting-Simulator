@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ public class ColorPickerUI : MonoBehaviour
     [Header("Events")]
     [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private IntEvent selectBrushColorEvent;
-    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
+    [SerializeField] private ColorPickerEvent colorPickerEvent;
     
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<RGBChannel> rgbChannels = new();
@@ -30,14 +29,14 @@ public class ColorPickerUI : MonoBehaviour
     private void OnEnable()
     {
         selectBrushColorEvent.Register(OnColorSelected);
-        openColorPickerEvent.RegisterColor(SetColor);
+        colorPickerEvent.RegisterColor(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
         selectBrushColorEvent.Unregister(OnColorSelected);
-        openColorPickerEvent.UnregisterColor(SetColor);
+        colorPickerEvent.UnregisterColor(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 

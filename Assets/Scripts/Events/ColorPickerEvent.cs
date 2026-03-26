@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Events/ColorPickerEvent")]
-public class OpenColorPickerEvent : ScriptableObject
+public class ColorPickerEvent : ScriptableObject
 {
     private Action<Color> _openListeners;
     private Action<bool> _toggleListeners;

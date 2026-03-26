@@ -186,14 +186,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57478c95795bcc04aa24f21d79f67909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  colorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   selectBrushColorEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
   eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
   resizeTweenUnitScriptableObject: {fileID: 11400000, guid: 9d72f66fd28e33942bd5d864fe856b85, type: 2}
   setColorBlobLook: {fileID: 1595530708759805303}
   runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  rgbSliderUI: {fileID: 11400000, guid: 8aff1e5aeec74f645b95d9a8582fbf70, type: 2}
   button: {fileID: 6619709584715426218}
   colorPreview: {fileID: 8705097553555431597}
   rectTransform: {fileID: 5603445176423182755}

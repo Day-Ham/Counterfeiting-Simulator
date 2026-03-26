@@ -9,7 +9,7 @@ public class InputHandler : ScriptableObject
     [Header("Events")]
     [SerializeField] private IntEvent colorSelectedEvent;
     [SerializeField] private VoidEvent eraserSelectEvent;
-    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
+    [SerializeField] private ColorPickerEvent colorPickerEvent;
     [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private VoidEvent undoDrawEvent;
@@ -34,7 +34,7 @@ public class InputHandler : ScriptableObject
         
         BuildInputDictionary();
         
-        openColorPickerEvent.RegisterToggleBool(OnColorPickerToggle);
+        colorPickerEvent.RegisterToggleBool(OnColorPickerToggle);
         
         SubscribeGameState();
     }
@@ -61,7 +61,7 @@ public class InputHandler : ScriptableObject
         GameState.OnGamePaused -= OnGamePaused;
         GameState.OnGameResumed -= OnGameResumed;
         
-        openColorPickerEvent.UnregisterToggleBool(OnColorPickerToggle);
+        colorPickerEvent.UnregisterToggleBool(OnColorPickerToggle);
     }
     
     private void BuildInputDictionary()

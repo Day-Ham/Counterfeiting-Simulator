@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
     [Header("Events")]
-    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
+    [SerializeField] private ColorPickerEvent colorPickerEvent;
     [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private IntEvent selectBrushColorEvent;
     [SerializeField] private VoidEvent eraserSelectEvent;
@@ -14,7 +14,6 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook setColorBlobLook;
     [SerializeField] private ConfigRuntime runtimeAsset;
-    [SerializeField] private GameObjectValue rgbSliderUI;
     
     [Header("UI")]
     [SerializeField] private Button button;
@@ -142,7 +141,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnClick(); // Normal click
-            CollapseRGB();
+            CollapseRGBPicker();
         }
     }
     
@@ -159,28 +158,25 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         
         ExpandSize();
         setColorBlobLook.SetShadowColor(selectedColor);
-        
-        rgbSliderUI.Value.SetActive(true);
 
         // Auto-select this crayon for brushing
         selectBrushColorEvent.Raise(_colorIndex);
         
         // Tells ColorPickerUI to load this color
-        openColorPickerEvent.Raise(_color);
+        colorPickerEvent.Raise(_color);
     }
     
-    private void CollapseRGB()
+    private void CollapseRGBPicker()
     {
-        rgbSliderUI.Value.SetActive(false);
-        openColorPickerEvent.RaiseClosed();
+        colorPickerEvent.RaiseClosed();
     }
     
     private void CollapseAfterGameFinished()
     {
         if (_isCollapsed) return;
         CollapseSize();
+        CollapseRGBPicker();
         setColorBlobLook.SetShadowColor(unSelectedColor);
-        rgbSliderUI.Value.SetActive(false);
         _isCollapsed = true;
     }
 }
