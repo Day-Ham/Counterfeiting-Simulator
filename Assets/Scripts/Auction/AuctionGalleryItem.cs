@@ -1,14 +1,21 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AuctionGalleryItem : MonoBehaviour
+public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Event")]
+    [SerializeField] private BoolEvent toggleContextMenu;
+    [SerializeField] private ByteArrayEvent selectedImageEvent;
+    
     [Header("UI References")]
     [SerializeField] private Image drawingImage;
     [SerializeField] private TextMeshProUGUI bidText;
     [SerializeField] private TextMeshProUGUI paintingName;
-
+    
+    private byte[] _drawingData;
     private readonly Vector2 _pivot = new Vector2(0.5f, 0.5f);
 
     /// <summary>
@@ -16,7 +23,9 @@ public class AuctionGalleryItem : MonoBehaviour
     /// </summary>
     public void SetData(byte[] drawingData, int finalPrice, string paintingNameValue)
     {
-        if (drawingData is { Length: > 0 })
+        _drawingData = drawingData;
+
+        if (drawingData != null && drawingData.Length > 0)
         {
             Texture2D tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
             tex.LoadImage(drawingData);
@@ -37,5 +46,14 @@ public class AuctionGalleryItem : MonoBehaviour
         
         string finalName = string.IsNullOrEmpty(paintingNameValue) ? "Untitled" : paintingNameValue;
         paintingName.SetText(finalName);
+    }
+    
+    // Detect right-click
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+        
+        toggleContextMenu.Raise(true);
+        selectedImageEvent.Raise(_drawingData);
     }
 }
