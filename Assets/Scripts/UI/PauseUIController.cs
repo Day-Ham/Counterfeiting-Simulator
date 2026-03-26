@@ -17,6 +17,11 @@ public class PauseUIController : MonoBehaviour
         GameState.OnGamePaused -= ShowPauseUI;
         GameState.OnGameResumed -= HidePauseUI;
     }
+
+    private void Start()
+    {
+        GameState.ResumeGame();
+    }
     
     private void Update()
     {

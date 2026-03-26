@@ -3,40 +3,43 @@ using DaeHanKim.ThisIsTotallyADollar.Drawing;
 
 public class DrawingColorReceiver : MonoBehaviour
 {
-    [SerializeField] private SelectBrushColorEvent SelectColorEvent;
-    [SerializeField] private CanvasDrawController DrawController;
-    [SerializeField] private CanvasLayerDrawController LayerController;
-    [SerializeField] private ConfigRuntime RuntimeAsset;
+    [Header("Events")]
+    [SerializeField] private IntEvent colorSelectedEvent;
+    [SerializeField] private VoidEvent eraserSelectEvent;
+    
+    [SerializeField] private CanvasDrawController drawController;
+    [SerializeField] private CanvasLayerDrawController layerController;
+    [SerializeField] private ConfigRuntime runtimeAsset;
 
     private void OnEnable()
     {
-        SelectColorEvent.OnColorSelected += OnColorSelected;
-        SelectColorEvent.OnEraseSelected += OnEraseSelected;
+        colorSelectedEvent.Register(OnColorSelected);
+        eraserSelectEvent.Register(OnEraseSelected);
     }
 
     private void OnDisable()
     {
-        SelectColorEvent.OnColorSelected -= OnColorSelected;
-        SelectColorEvent.OnEraseSelected -= OnEraseSelected;
+        colorSelectedEvent.Unregister(OnColorSelected);
+        eraserSelectEvent.Unregister(OnEraseSelected);
     }
 
     private void OnColorSelected(int index)
     {
-        if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
+        if (runtimeAsset == null || !runtimeAsset.HasValue) return;
 
-        var colors = RuntimeAsset.GetActiveColors();
+        var colors = runtimeAsset.GetActiveColors();
 
         if (colors == null || index < 0 || index >= colors.Count) return;
 
         Color selectedColor = colors[index];
 
-        LayerController.SetBrushColor(selectedColor);
+        layerController.SetBrushColor(selectedColor);
 
-        DrawController.SetDrawMode(CanvasDrawController.DrawMode.Draw);
+        drawController.SetDrawMode(CanvasDrawController.DrawMode.Draw);
     }
 
     private void OnEraseSelected()
     {
-        DrawController.SetDrawMode(CanvasDrawController.DrawMode.Erase);
+        drawController.SetDrawMode(CanvasDrawController.DrawMode.Erase);
     }
 }

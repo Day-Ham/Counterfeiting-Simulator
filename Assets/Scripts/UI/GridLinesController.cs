@@ -7,12 +7,12 @@ public class GridLinesController : MonoBehaviour
 
     private void OnEnable()
     {
-        boolEvent.OnRaised += SetGridActive;
+        boolEvent.Register(SetGridActive);
     }
 
     private void OnDisable()
     {
-        boolEvent.OnRaised -= SetGridActive;
+        boolEvent.Unregister(SetGridActive);
     }
 
     private void SetGridActive(bool active)

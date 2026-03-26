@@ -5,43 +5,44 @@ using UnityEngine.UI;
 public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 {
     [Header("Events")]
-    [SerializeField] private OpenColorPickerEvent _openColorPickerEvent;
-    [SerializeField] private SelectedColorEvent _selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent _selectBrushColorEvent;
+    [SerializeField] private ColorEvent colorEvent;
+    [SerializeField] private BoolEvent toggleColorPickerUIEvent;
+    [SerializeField] private SelectedColorEvent selectedColorEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;
+    [SerializeField] private VoidEvent eraserSelectEvent;
     
     [Header("References")]
     [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
-    [SerializeField] private SetColorBlobLook SetColorBlobLook;
-    [SerializeField] private ConfigRuntime RuntimeAsset;
-    [SerializeField] private GameObjectValue RGBSliderUI;
+    [SerializeField] private SetColorBlobLook setColorBlobLook;
+    [SerializeField] private ConfigRuntime runtimeAsset;
     
     [Header("UI")]
-    [SerializeField] private Button Button;
-    [SerializeField] private Image ColorPreview;
+    [SerializeField] private Button button;
+    [SerializeField] private Image colorPreview;
     [SerializeField] private RectTransform rectTransform;
     
     [Header("Shadow Color")]
-    [SerializeField] private Color SelectedColor;
-    [SerializeField] private Color UnSelectedColor;
+    [SerializeField] private Color selectedColor;
+    [SerializeField] private Color unSelectedColor;
     
-    private Color color;
-    private int colorIndex;
-    private bool isCollapsed = false;
+    private Color _color;
+    private int _colorIndex;
+    private bool _isCollapsed = false;
     
     private void OnEnable()
     {
-        _selectBrushColorEvent.OnColorSelected += HandleBrushColorSelected;
-        _selectBrushColorEvent.OnEraseSelected += HandleEraseSelected;
-        _selectedColorEvent.OnColorPicked += HandleSelectedColor;
+        selectBrushColorEvent.Register(HandleBrushColorSelected);
+        eraserSelectEvent.Register(HandleEraseSelected);
+        selectedColorEvent.Register(HandleSelectedColor);
         
         GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
     {
-        _selectBrushColorEvent.OnColorSelected -= HandleBrushColorSelected;
-        _selectBrushColorEvent.OnEraseSelected -= HandleEraseSelected;
-        _selectedColorEvent.OnColorPicked -= HandleSelectedColor;
+        selectBrushColorEvent.Unregister(HandleBrushColorSelected);
+        eraserSelectEvent.Unregister(HandleEraseSelected);
+        selectedColorEvent.Unregister(HandleSelectedColor);
         
         GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
@@ -54,15 +55,15 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             return;
         }
         
-        if (selectedColorIndex == colorIndex)
+        if (selectedColorIndex == _colorIndex)
         {
             ExpandSize();
-            SetColorBlobLook.SetShadowColor(SelectedColor);
+            setColorBlobLook.SetShadowColor(selectedColor);
         }
         else
         {
             CollapseSize();
-            SetColorBlobLook.SetShadowColor(UnSelectedColor);
+            setColorBlobLook.SetShadowColor(unSelectedColor);
         }
     }
     
@@ -75,45 +76,45 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         }
         
         CollapseSize();
-        SetColorBlobLook.SetShadowColor(UnSelectedColor);
+        setColorBlobLook.SetShadowColor(unSelectedColor);
     }
         
     private void Awake()
     {
         CollapseSize();
         
-        SetColorBlobLook.SetShadowColor(UnSelectedColor);
+        setColorBlobLook.SetShadowColor(unSelectedColor);
         
-        Button.onClick.AddListener(OnClick);
+        button.onClick.AddListener(OnClick);
     }
 
     public void Setup(Color newColor, int index)
     {
-        color = newColor;
-        colorIndex = index;
+        _color = newColor;
+        _colorIndex = index;
 
-        ColorPreview.color = color;
+        colorPreview.color = _color;
     }
     
     private void HandleSelectedColor(int index, Color newColor)
     {
-        if (index != colorIndex) return;
+        if (index != _colorIndex) return;
 
-        if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
+        if (runtimeAsset == null || !runtimeAsset.HasValue) return;
 
-        var colorList = RuntimeAsset.GetActiveColors();
+        var colorList = runtimeAsset.GetActiveColors();
 
-        if (colorList == null || colorIndex < 0 || colorIndex >= colorList.Count) return;
+        if (colorList == null || _colorIndex < 0 || _colorIndex >= colorList.Count) return;
 
-        color = colorList[colorIndex];
-        ColorPreview.color = color;
+        _color = colorList[_colorIndex];
+        colorPreview.color = _color;
     }
     
     private void OnClick()
     {
         if (GameState.IsGameFinished) return;
         
-        _selectBrushColorEvent.Raise(colorIndex);
+        selectBrushColorEvent.Raise(_colorIndex);
     }
 
     private void ExpandSize()
@@ -141,45 +142,44 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         else if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnClick(); // Normal click
-            CollapseRGB();
+            CollapseRGBPicker();
         }
     }
     
     private void TryExpandAndShowRGB()
     {
         if (GameState.IsGameFinished) return;
-        if (RuntimeAsset == null || !RuntimeAsset.HasValue) return;
+        if (runtimeAsset == null || !runtimeAsset.HasValue) return;
 
-        var colorsList = RuntimeAsset.GetActiveColors();
-        if (colorsList == null || colorIndex >= colorsList.Count) return;
+        var colorsList = runtimeAsset.GetActiveColors();
+        if (colorsList == null || _colorIndex >= colorsList.Count) return;
 
         // Only allow in ColorPicker mode if the runtime exposes it
-        if (RuntimeAsset is LevelConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
+        if (runtimeAsset is LevelConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
         
         ExpandSize();
-        SetColorBlobLook.SetShadowColor(SelectedColor);
-        
-        RGBSliderUI.Value.SetActive(true);
+        setColorBlobLook.SetShadowColor(selectedColor);
 
         // Auto-select this crayon for brushing
-        _selectBrushColorEvent.Raise(colorIndex);
+        selectBrushColorEvent.Raise(_colorIndex);
         
         // Tells ColorPickerUI to load this color
-        _openColorPickerEvent.Raise(color);
+        colorEvent.Raise(_color);
+        
+        toggleColorPickerUIEvent.Raise(true);
     }
     
-    private void CollapseRGB()
+    private void CollapseRGBPicker()
     {
-        RGBSliderUI.Value.SetActive(false);
-        _openColorPickerEvent.RaiseClosed();
+        toggleColorPickerUIEvent.Raise(false);
     }
     
     private void CollapseAfterGameFinished()
     {
-        if (isCollapsed) return;
+        if (_isCollapsed) return;
         CollapseSize();
-        SetColorBlobLook.SetShadowColor(UnSelectedColor);
-        RGBSliderUI.Value.SetActive(false);
-        isCollapsed = true;
+        CollapseRGBPicker();
+        setColorBlobLook.SetShadowColor(unSelectedColor);
+        _isCollapsed = true;
     }
 }

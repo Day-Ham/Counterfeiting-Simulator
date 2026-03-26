@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
+  undoDrawEvent: {fileID: 11400000, guid: e4935bd6e59ff1e48a191306dd753a45, type: 2}
   _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   _drawingBoardZoom: {fileID: 8791108562884700898}
   _drawingBoardController: {fileID: 233064898642962976}
@@ -470,10 +471,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b96a69790c7df4d8ce9a4d46ece66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
-  DrawController: {fileID: 48093491722432198}
-  LayerController: {fileID: 3969123139997115803}
-  RuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  colorSelectedEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
+  eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
+  drawController: {fileID: 48093491722432198}
+  layerController: {fileID: 3969123139997115803}
+  runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
 --- !u!1 &2466815981192243548
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _drawingBoardControllerValue: {fileID: 11400000, guid: d8c7f2887133ae64498b0615b82364b0, type: 2}
   targetImageCanvas: {fileID: 3862160744188098095}
   drawingCanvas: {fileID: 396741118517391926}
   inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}

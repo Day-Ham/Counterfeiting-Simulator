@@ -4,7 +4,8 @@ using UnityEngine.UI;
 public class EraserUIItem : MonoBehaviour
 {
     [Header("Events")]
-    [SerializeField] private SelectBrushColorEvent selectColorEvent;
+    [SerializeField] private IntEvent colorSelectedEvent;
+    [SerializeField] private VoidEvent eraserSelectEvent;
     
     [Header("UI")]
     [SerializeField] private RectTransform rectTransform;
@@ -17,16 +18,16 @@ public class EraserUIItem : MonoBehaviour
     
     private void OnEnable()
     {
-        selectColorEvent.OnEraseSelected += OnEraserSelected;
-        selectColorEvent.OnColorSelected += OnOtherColorSelected;
+        eraserSelectEvent.Register(OnEraserSelected);
+        colorSelectedEvent.Register(OnOtherColorSelected);
         
         GameState.OnGameFinished += CollapseAfterGameFinished;
     }
 
     private void OnDisable()
     {
-        selectColorEvent.OnEraseSelected -= OnEraserSelected;
-        selectColorEvent.OnColorSelected -= OnOtherColorSelected;
+        eraserSelectEvent.Unregister(OnEraserSelected);
+        colorSelectedEvent.Unregister(OnOtherColorSelected);
         
         GameState.OnGameFinished -= CollapseAfterGameFinished;
     }
@@ -42,7 +43,7 @@ public class EraserUIItem : MonoBehaviour
     {
         if (GameState.IsGameFinished) return;
         
-        selectColorEvent.RaiseErase();
+        eraserSelectEvent.Raise();
         Debug.Log("Eraser clicked", this);
     }
     

@@ -789,7 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d23686194fc6e244a57ed401d095bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
+  colorSelectedEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
+  eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
   rectTransform: {fileID: 1744130996101171144}
   button: {fileID: 5229175689826666223}
   eraserTweenUnitScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
@@ -3075,7 +3076,7 @@ GameObject:
   - component: {fileID: 533316429484763882}
   - component: {fileID: 5204984264910136755}
   - component: {fileID: 3017644480269859462}
-  - component: {fileID: 4523488929944177057}
+  - component: {fileID: 2318859753998903625}
   m_Layer: 5
   m_Name: CONTAINER RGB
   m_TagString: Untagged
@@ -3156,8 +3157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
-  selectBrushColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
-  openColorPickerEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
+  selectBrushColorEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
+  colorEvent: {fileID: 11400000, guid: d483d9a768ac9f14ab2552b015ee5043, type: 2}
   rgbChannels:
   - slider: {fileID: 5246270207813104317}
     inputField: {fileID: 3867646303219711065}
@@ -3172,7 +3173,7 @@ MonoBehaviour:
   runtimeAsset: {fileID: 0}
   scrollSensitivity: 0.01
   colorPreview: {fileID: 5500588221694078085}
---- !u!114 &4523488929944177057
+--- !u!114 &2318859753998903625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3181,11 +3182,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5065759469364467423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b655c563ad5e7d44bcc8028307f6152, type: 3}
+  m_Script: {fileID: 11500000, guid: bcb89a3fc02a5fd45a0af599c53808c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _value: {fileID: 11400000, guid: 8aff1e5aeec74f645b95d9a8582fbf70, type: 2}
-  _overrideReference: {fileID: 3562053044706008062}
+  toggleEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
+  target: {fileID: 3562053044706008062}
 --- !u!1 &5086780015175411535
 GameObject:
   m_ObjectHideFlags: 0

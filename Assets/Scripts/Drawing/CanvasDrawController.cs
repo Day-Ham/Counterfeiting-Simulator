@@ -21,6 +21,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         
         [Header("Events")]
         [SerializeField] private FloatEvent brushSizeEvent;
+        [SerializeField] private VoidEvent undoDrawEvent;
         
         [Space]
         public CanvasDrawControllerValue _canvasDrawControllerValue;
@@ -75,8 +76,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
                 }
             }
             
-            selectedColorEvent.OnColorPicked += OnSelectedColor;
-            brushSizeEvent.OnRaised += SetBrushSize;
+            selectedColorEvent.Register(OnSelectedColor);
+            brushSizeEvent.Register(SetBrushSize);
+            undoDrawEvent.Register(UndoLastDraw);
             
             GameState.OnGameStarted += HandleGameStart;
             GameState.OnGameFinished += HandleGameFinished;
@@ -88,8 +90,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             {
                 RuntimeAsset.OnValueChanged -= OnRuntimeChanged;
             }
-            selectedColorEvent.OnColorPicked -= OnSelectedColor;
-            brushSizeEvent.OnRaised -= SetBrushSize;
+            selectedColorEvent.Unregister(OnSelectedColor);
+            brushSizeEvent.Unregister(SetBrushSize);
+            undoDrawEvent.Unregister(UndoLastDraw);
             
             GameState.OnGameStarted -= HandleGameStart;
             GameState.OnGameFinished -= HandleGameFinished;
@@ -309,7 +312,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             _queuedCanvasOperation ??= new SnapshotCurrentCanvasOperation(this);
         }
 
-        public void UndoLastDraw()
+        private void UndoLastDraw()
         {
             if (_queuedCanvasOperation != null) return;
             if (CurrentCanvasStateHistoryCount <= 1) return;

@@ -6,10 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GameInputHandler", menuName = "Settings/Input Handler")]
 public class InputHandler : ScriptableObject
 {
-    [SerializeField] private SelectBrushColorEvent SelectBrushColorEvent;
-    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
-    [SerializeField] private VoidEvent ResetDrawingBoardPositionEvent;
-    [SerializeField] private VoidEvent SpacePressedEvent;
+    [Header("Events")] 
+    [SerializeField] private BoolEvent toggleColorPickerUIEvent;
+    [SerializeField] private IntEvent colorSelectedEvent;
+    [SerializeField] private VoidEvent eraserSelectEvent;
+    [SerializeField] private ColorEvent colorEvent;
+    [SerializeField] private VoidEvent resetDrawingBoardPositionEvent;
+    [SerializeField] private VoidEvent spacePressedEvent;
+    [SerializeField] private VoidEvent undoDrawEvent;
     
     private CanvasDrawController _canvasDraw;
     private Action _finishGameCallback;
@@ -31,7 +35,7 @@ public class InputHandler : ScriptableObject
         
         BuildInputDictionary();
         
-        openColorPickerEvent.OnColorPickerToggle += OnColorPickerToggle;
+        toggleColorPickerUIEvent.Register(OnColorPickerToggle);
         
         SubscribeGameState();
     }
@@ -56,9 +60,9 @@ public class InputHandler : ScriptableObject
         GameState.OnGameStarted -= OnGameStarted;
         
         GameState.OnGamePaused -= OnGamePaused;
-        GameState.OnGameResumed -= OnGameResumed;;
+        GameState.OnGameResumed -= OnGameResumed;
         
-        openColorPickerEvent.OnColorPickerToggle -= OnColorPickerToggle;
+        toggleColorPickerUIEvent.Unregister(OnColorPickerToggle);
     }
     
     private void BuildInputDictionary()
@@ -98,14 +102,14 @@ public class InputHandler : ScriptableObject
     
     private void BindToolKeys()
     {
-        _toolKeyActions[KeyCode.Space] = () => SpacePressedEvent?.Raise();
+        _toolKeyActions[KeyCode.Space] = () => spacePressedEvent?.Raise();
         
         _toolKeyActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
-        _toolKeyActions[KeyCode.Z] = () => _canvasDraw.UndoLastDraw();
+        _toolKeyActions[KeyCode.Z] = () => undoDrawEvent?.Raise();
         _toolKeyActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _toolKeyActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;
-        _toolKeyActions[KeyCode.E] = () => SelectBrushColorEvent.RaiseErase();
-        _toolKeyActions[KeyCode.Q] = () => ResetDrawingBoardPositionEvent.Raise();
+        _toolKeyActions[KeyCode.E] = () => eraserSelectEvent.Raise();
+        _toolKeyActions[KeyCode.Q] = () => resetDrawingBoardPositionEvent.Raise();
     }
     
     private void SelectColor(int index)
@@ -114,8 +118,8 @@ public class InputHandler : ScriptableObject
         
         if (colors != null && index < colors.Count)
         {
-            SelectBrushColorEvent.Raise(index);
-        };
+            colorSelectedEvent.Raise(index);
+        }
     }
 
     public void UpdateInput()

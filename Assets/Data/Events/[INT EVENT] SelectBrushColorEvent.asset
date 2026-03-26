@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51c8c85b17be5694f9d4951098ab7778, type: 3}
-  m_Name: '[BOOL EVENT] ToggleGridLineEvent'
+  m_Script: {fileID: 11500000, guid: 57e6ee040242b474daa8495fca09d9e4, type: 3}
+  m_Name: '[INT EVENT] SelectBrushColorEvent'
   m_EditorClassIdentifier: 

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +6,8 @@ public class ColorPickerUI : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private SelectedColorEvent selectedColorEvent;
-    [SerializeField] private SelectBrushColorEvent selectBrushColorEvent;
-    [SerializeField] private OpenColorPickerEvent openColorPickerEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;
+    [SerializeField] private ColorEvent colorEvent;
     
     [Header("RGB Sliders In-Order")]
     [SerializeField] private List<RGBChannel> rgbChannels = new();
@@ -29,13 +28,15 @@ public class ColorPickerUI : MonoBehaviour
     
     private void OnEnable()
     {
-        openColorPickerEvent.OnColorPickerOpened += SetColor;
+        selectBrushColorEvent.Register(OnColorSelected);
+        colorEvent.RegisterColor(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
-        openColorPickerEvent.OnColorPickerOpened -= SetColor;
+        selectBrushColorEvent.Unregister(OnColorSelected);
+        colorEvent.UnregisterColor(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 
@@ -118,10 +119,15 @@ public class ColorPickerUI : MonoBehaviour
     {
         ApplyColor(GetCurrentColor());
     }
+    
+    private void OnColorSelected(int index)
+    {
+        _cachedSelectedIndex = index;
+    }
 
     private void ApplyColor(Color color)
     {
-        _cachedSelectedIndex = selectBrushColorEvent.CurrentSelectedIndex;
+        if (_cachedSelectedIndex < 0) return;
 
         color = ApplySnapping(color);
         ApplyToRuntime(color);
