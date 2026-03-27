@@ -8,6 +8,9 @@ public class ContextMenuPositioner : MonoBehaviour
     [Header("UI")]
     [SerializeField] private RectTransform contextMenu;
     [SerializeField] private Canvas contextMenuCanvas;
+    
+    [Header("Settings")]
+    [SerializeField] private Vector2 cursorPadding = new Vector2(4f, -4f);
 
     private void OnEnable()
     {
@@ -23,36 +26,11 @@ public class ContextMenuPositioner : MonoBehaviour
     {
         if (!value) return;
 
-        SetPositionAtMouse();
-    }
-
-    private void SetPositionAtMouse()
-    {
-        if (!contextMenu || !contextMenuCanvas) return;
-
-        RectTransform canvasRectTransform = contextMenuCanvas.transform as RectTransform;
-        Vector2 mousePos = Input.mousePosition;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvasRectTransform,
-            mousePos,
-            contextMenuCanvas.worldCamera,
-            out Vector2 localPoint
+        ContextMenuPositionUtility.PositionAtCursor(
+            contextMenu,
+            contextMenuCanvas,
+            Input.mousePosition,
+            cursorPadding
         );
-
-        // Clamp inside screen
-        Vector2 size = contextMenu.sizeDelta;
-
-        if (!canvasRectTransform) return;
-        
-        float clampedX = Mathf.Clamp(localPoint.x,
-            -canvasRectTransform.rect.width / 2 + size.x / 2,
-            canvasRectTransform.rect.width / 2 - size.x / 2);
-
-        float clampedY = Mathf.Clamp(localPoint.y,
-            -canvasRectTransform.rect.height / 2 + size.y / 2,
-            canvasRectTransform.rect.height / 2 - size.y / 2);
-
-        contextMenu.localPosition = new Vector2(clampedX, clampedY);
     }
 }
