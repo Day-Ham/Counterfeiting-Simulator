@@ -510,6 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283797358526b534b92e660bedeb0610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  auctionSavedEvent: {fileID: 11400000, guid: e6c42d1a52e066d43986fd9953eda4cb, type: 2}
   contentParent: {fileID: 2646374584189680757}
   scrollRect: {fileID: 18935959657498599}
   auctionItemPrefab: {fileID: 3728650235757109020, guid: e4685f6a4289c3240a9b2c653c1ff757, type: 3}

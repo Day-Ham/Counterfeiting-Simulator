@@ -16,12 +16,12 @@ public class AuctionLoadHandler : MonoBehaviour
     [SerializeField] private Ease autoScrollEase;
 
     private const string SaveFileName = "AuctionSave.es3";
+    private const string AutoScrollFlagKey = "GalleryAutoScroll";
     
     private Tween _scrollTween;
     private Coroutine _scrollCoroutine;
     
-    private int _lastLoadedCount = 0;
-
+    
     private void Start()
     {
         LoadAllAuctions();
@@ -34,34 +34,35 @@ public class AuctionLoadHandler : MonoBehaviour
 
         if (!ES3.KeyExists("Auction_History", settings))
         {
-            Debug.LogWarning("[AuctionLoadHandler] No saved auctions found.");
+            Debug.LogWarning("[Load] No auctions found.");
             return;
         }
 
         List<AuctionSavedData> history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
-        Debug.Log($"[AuctionLoadHandler] Loading {history.Count} auctions");
 
-        foreach (var auctionSavedData in history)
+        Debug.Log($"[Load] Loading {history.Count} auctions");
+
+        foreach (var data in history)
         {
-            CreateItem(auctionSavedData);
+            CreateItem(data);
         }
+
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)contentParent);
         
-        if (history.Count > _lastLoadedCount)
-        {
-            int newSavedItems = history.Count - _lastLoadedCount;
+        bool shouldAutoScroll = false;
 
-            for (int i = history.Count - newSavedItems; i < history.Count; i++)
-            {
-                AddNewAuction(history[i]);
-            }
+        if (ES3.KeyExists(AutoScrollFlagKey, settings))
+        {
+            shouldAutoScroll = ES3.Load<bool>(AutoScrollFlagKey, settings);
         }
 
-        _lastLoadedCount = history.Count;
-    }
+        if (!shouldAutoScroll) return;
+        
+        Debug.Log("[Gallery] Coming from Auction → Auto Scroll");
 
-    private void AddNewAuction(AuctionSavedData data)
-    {
-        CreateItem(data);
+        // IMPORTANT: reset immediately so it won't trigger again
+        ES3.Save(AutoScrollFlagKey, false, settings);
 
         if (_scrollCoroutine != null)
         {
@@ -71,22 +72,12 @@ public class AuctionLoadHandler : MonoBehaviour
         _scrollCoroutine = StartCoroutine(ScrollToLatest());
     }
     
-    private void CreateItem(AuctionSavedData data)
-    {
-        GameObject galleryImageUI = Instantiate(auctionItemPrefab, contentParent);
-        AuctionGalleryItem galleryItem = galleryImageUI.GetComponent<AuctionGalleryItem>();
-
-        if (galleryItem != null)
-        {
-            galleryItem.SetData(data.DrawingData, data.FinalPrice, data.PaintingName);
-        }
-    }
-    
     private IEnumerator ScrollToLatest()
     {
         SetScrollInteractable(false);
         
-        yield return new WaitForSeconds(1.5f);
+        yield return null;
+        yield return new WaitForEndOfFrame();
         
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)contentParent);
@@ -104,10 +95,20 @@ public class AuctionLoadHandler : MonoBehaviour
         SetScrollInteractable(true);
     }
     
+    private void CreateItem(AuctionSavedData data)
+    {
+        GameObject galleryImageUI = Instantiate(auctionItemPrefab, contentParent);
+        AuctionGalleryItem galleryItem = galleryImageUI.GetComponent<AuctionGalleryItem>();
+
+        if (galleryItem)
+        {
+            galleryItem.SetData(data.DrawingData, data.FinalPrice, data.PaintingName);
+        }
+    }
+    
     private void SetScrollInteractable(bool value)
     {
         scrollRect.horizontal = value;
-        scrollRect.vertical = value;
         scrollRect.inertia = value;
     }
 }
