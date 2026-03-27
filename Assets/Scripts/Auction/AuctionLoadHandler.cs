@@ -84,6 +84,8 @@ public class AuctionLoadHandler : MonoBehaviour
     
     private IEnumerator ScrollToLatest()
     {
+        SetScrollInteractable(false);
+        
         yield return new WaitForSeconds(1.5f);
         
         Canvas.ForceUpdateCanvases();
@@ -98,5 +100,14 @@ public class AuctionLoadHandler : MonoBehaviour
                 tweenDuration
             )
             .SetEase(autoScrollEase);
+        
+        SetScrollInteractable(true);
+    }
+    
+    private void SetScrollInteractable(bool value)
+    {
+        scrollRect.horizontal = value;
+        scrollRect.vertical = value;
+        scrollRect.inertia = value;
     }
 }
