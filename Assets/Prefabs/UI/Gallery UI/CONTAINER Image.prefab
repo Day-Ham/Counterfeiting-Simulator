@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -376,6 +376,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd3f85e3bd9c8047a2c498999d2be55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toggleContextMenu: {fileID: 11400000, guid: e6ae3baa2715846419f6b39daaf7f254, type: 2}
+  selectedImageEvent: {fileID: 11400000, guid: 52ca37560cbd2924db5ee7cb54b58c70, type: 2}
   drawingImage: {fileID: 5084915216710215497}
   bidText: {fileID: 8000874279120470012}
   paintingName: {fileID: 7703862054376683618}
