@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class TransitionController : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private VoidEvent playTransitionEvent;
+    [SerializeField] private VoidEvent onTransitionFinished;
+    
     [Header("Transition")]
     [SerializeField] private GameObject circleUI;
 
@@ -11,34 +15,46 @@ public class TransitionController : MonoBehaviour
     [SerializeField] private float duration = 1f;
     [SerializeField] private Ease ease = Ease.OutQuad;
 
-    [Header("Event")]
-    [SerializeField] private CallbackEvent playTransitionEvent;
-
     private void OnEnable()
     {
-        playTransitionEvent?.Register(HandleTransition);
+        playTransitionEvent?.Register(PlayTransition);
     }
 
     private void OnDisable()
     {
-        playTransitionEvent?.Unregister(HandleTransition);
+        playTransitionEvent?.Unregister(PlayTransition);
     }
-
+    
     private void Start()
     {
-        circleUI.SetActive(true);
-        circleUI.transform.localScale = Vector3.one * 25f;
-        circleUI.transform.DOScale(Vector3.zero, duration).SetEase(ease);
+        PlayIntroTransition();
     }
 
-    private void HandleTransition(Action onComplete)
+    // Intro (scene enter: big -> small)
+    private void PlayIntroTransition()
     {
         circleUI.SetActive(true);
+
+        circleUI.transform.localScale = Vector3.one * 25f;
+
+        circleUI.transform
+            .DOScale(Vector3.zero, duration)
+            .SetEase(ease);
+    }
+
+    // Normal Transition (small -> big)
+    private void PlayTransition()
+    {
+        circleUI.SetActive(true);
+
         circleUI.transform.localScale = Vector3.zero;
-        
+
         circleUI.transform
             .DOScale(Vector3.one * 25f, duration)
             .SetEase(ease)
-            .OnComplete(() => onComplete?.Invoke());
+            .OnComplete(() =>
+            {
+                onTransitionFinished.Raise();
+            });
     }
 }

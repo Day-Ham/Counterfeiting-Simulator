@@ -193,7 +193,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auctionEndEvent: {fileID: 11400000, guid: 1109e4d6cac43c14eaf5489efa3759cb, type: 2}
-  transitionEvent: {fileID: 11400000, guid: e12fc19d4fb3f714385a57613aca8b34, type: 2}
+  playTransitionEvent: {fileID: 11400000, guid: d2e058587fb6d234fbf1c68c91be87ca, type: 2}
+  onTransitionFinishedEvent: {fileID: 11400000, guid: 91327e38c5af159478120b8b5ca4eb08, type: 2}
   galleryScene: {fileID: 11400000, guid: ec62f31fdbae2874594f234b023a8cb4, type: 2}
 --- !u!1 &627240082
 GameObject:

@@ -9,7 +9,10 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private VoidEvent onNextLevelEvent;
     [SerializeField] private VoidEvent sceneChangerEvent;
     [SerializeField] private VoidEvent onShowNextLevelButtonEvent;
-    [SerializeField] private CallbackEvent playTransitionEvent;
+    
+    [Header("Transition Events")]
+    [SerializeField] private VoidEvent playTransitionEvent;
+    [SerializeField] private VoidEvent onTransitionFinishedEvent;
 
     [Header("References")] 
     [SerializeField] private LevelConfigListValue levelConfigListValue;
@@ -18,11 +21,18 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private LevelChangerValue levelChangerValue;
     [SerializeField] private SingleSceneReference mainMenuScene;
     
+    private bool _pendingNextLevel;
+    private bool _pendingPrevLevel;
+    private bool _pendingReset;
+    private bool _pendingMainMenu;
+    
     private void OnEnable()
     {
         sceneChangerEvent.Register(ShowNextButton);
         onRetryLevelEvent.Register(ResetLevel);
         onNextLevelEvent.Register(NextLevel);
+        
+        onTransitionFinishedEvent.Register(OnTransitionFinished);
     }
 
     private void OnDisable()
@@ -30,6 +40,8 @@ public class LevelChanger : MonoBehaviour
         sceneChangerEvent.Unregister(ShowNextButton);
         onRetryLevelEvent.Unregister(ResetLevel);
         onNextLevelEvent.Unregister(NextLevel);
+        
+        onTransitionFinishedEvent.Unregister(OnTransitionFinished);
     }
 
     private void Awake()
@@ -39,49 +51,79 @@ public class LevelChanger : MonoBehaviour
     
     private void NextLevel()
     {
-        bool isLastLevel = currentLevelIndexValue.Value >= levelConfigListValue.Value.Count - 1;
-
-        playTransitionEvent?.Raise(() =>
-        {
-            if (isLastLevel)
-            {
-                LoadMainMenu();
-            }
-            else
-            {
-                currentLevelIndexValue.SetValue(currentLevelIndexValue.Value + 1);
-                SceneManagerUtility.ReloadCurrentScene();
-            }
-        });
+        _pendingNextLevel = true;
+        playTransitionEvent.Raise();
     }
     
     private void PrevLevel()
     {
         if (currentLevelIndexValue.Value <= 0) return;
 
-        playTransitionEvent?.Raise(() =>
-        {
-            currentLevelIndexValue.SetValue(currentLevelIndexValue.Value - 1);
-            SceneManagerUtility.ReloadCurrentScene();
-        });
+        _pendingPrevLevel = true;
+        playTransitionEvent.Raise();
     }
     
     private void ResetLevel()
     {
-        playTransitionEvent?.Raise(() =>
-        {
-            currentLevelIndexValue.ForceNotify();
-            SceneManagerUtility.ReloadCurrentScene();
-        });
+        _pendingReset = true;
+        playTransitionEvent.Raise();
     }
-
+    
+    private void LoadMainMenu()
+    {
+        _pendingMainMenu = true;
+        playTransitionEvent.Raise();
+    }
+    
+    private void OnTransitionFinished()
+    {
+        if (_pendingNextLevel) HandleNextLevel();
+        if (_pendingPrevLevel) HandlePrevLevel();
+        if (_pendingReset) HandleReset();
+        if (_pendingMainMenu) HandleMainMenu();
+    }
+    
     private void ShowNextButton()
     {
         onShowNextLevelButtonEvent?.Raise();
     }
     
-    private void LoadMainMenu()
+    private void HandleNextLevel()
     {
+        _pendingNextLevel = false;
+
+        bool isLastLevel = currentLevelIndexValue.Value >= levelConfigListValue.Value.Count - 1;
+
+        if (isLastLevel)
+        {
+            LoadMainMenu();
+            return;
+        }
+
+        currentLevelIndexValue.SetValue(currentLevelIndexValue.Value + 1);
+        SceneManagerUtility.ReloadCurrentScene();
+    }
+    
+    private void HandlePrevLevel()
+    {
+        _pendingPrevLevel = false;
+
+        currentLevelIndexValue.SetValue(currentLevelIndexValue.Value - 1);
+        SceneManagerUtility.ReloadCurrentScene();
+    }
+    
+    private void HandleReset()
+    {
+        _pendingReset = false;
+
+        currentLevelIndexValue.ForceNotify();
+        SceneManagerUtility.ReloadCurrentScene();
+    }
+    
+    private void HandleMainMenu()
+    {
+        _pendingMainMenu = false;
+
         if (!mainMenuScene)
         {
             Debug.LogWarning("Main Menu Scene is not assigned!");
