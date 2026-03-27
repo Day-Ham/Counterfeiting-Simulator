@@ -107,7 +107,6 @@ public class AuctionLoadHandler : MonoBehaviour
     private void SetScrollInteractable(bool value)
     {
         scrollRect.horizontal = value;
-        scrollRect.vertical = value;
         scrollRect.inertia = value;
     }
 }
