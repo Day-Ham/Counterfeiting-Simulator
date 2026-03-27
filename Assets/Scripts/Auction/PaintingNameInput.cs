@@ -4,12 +4,16 @@ using UnityEngine.UI;
 
 public class PaintingNameInput : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private StringValue paintingName;
     [SerializeField] private Button submitButton;
-    [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
+    
+    [Header("Dependencies")]
+    [SerializeField] private UIFlowControllerValue uiFlowControllerValue;
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
 
+    [Header("No Name")]
     [SerializeField] private string defaultName = "Untitled Painting";
 
     private void Start()
@@ -22,12 +26,17 @@ public class PaintingNameInput : MonoBehaviour
         SetName(inputField.text);
         inputField.text = "";
         
-        if (UIFlowControllerValue?.Value != null)
+        if (uiFlowControllerValue?.Value != null)
         {
-            UIFlowControllerValue.Value.OnFlowComplete.Register(StartBidding);
+            uiFlowControllerValue.Value.OnFlowComplete.Register(StartBidding);
         }
+
+        if (uiFlowControllerValue == null) return;
         
-        UIFlowControllerValue.Value.StartBatch(1);
+        if (uiFlowControllerValue.Value != null)
+        {
+            uiFlowControllerValue.Value.StartBatch(1);
+        }
     }
 
     private void SetName(string value)
@@ -37,9 +46,9 @@ public class PaintingNameInput : MonoBehaviour
     
     private void StartBidding()
     {
-        if (UIFlowControllerValue?.Value)
+        if (uiFlowControllerValue?.Value)
         {
-            UIFlowControllerValue.Value.OnFlowComplete.Unregister(StartBidding);
+            uiFlowControllerValue.Value.OnFlowComplete.Unregister(StartBidding);
         }
         
         auctionMechanicValue.Value.BeginBidding();
