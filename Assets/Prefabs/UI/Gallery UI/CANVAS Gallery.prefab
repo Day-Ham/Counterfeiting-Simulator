@@ -511,7 +511,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentParent: {fileID: 2646374584189680757}
+  scrollRect: {fileID: 18935959657498599}
   auctionItemPrefab: {fileID: 3728650235757109020, guid: e4685f6a4289c3240a9b2c653c1ff757, type: 3}
+  tweenDuration: 1.5
+  autoScrollEase: 2
 --- !u!114 &3212370184847786832
 MonoBehaviour:
   m_ObjectHideFlags: 0
