@@ -47,15 +47,5 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
 
         protected abstract void InitializeGameMode();
         protected abstract void FinishGame();
-
-        private void PauseGame()
-        {
-            GameState.PauseGame();
-        }
-
-        private void ResumeGame()
-        {
-            GameState.ResumeGame();
-        }
     }
 }

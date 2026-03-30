@@ -23,9 +23,9 @@ public class GameManagerMainGame : GameManagerUnit
 
     private TextureUtility _textureUtility;
 
-    private float allSimilarity = 1f;
-    private float FirstTwoDigits;
-    private float LastTwoDigits;
+    private float _allSimilarity = 1f;
+    private float _firstTwoDigits;
+    private float _lastTwoDigits;
 
     protected override void Awake()
     {
@@ -71,7 +71,7 @@ public class GameManagerMainGame : GameManagerUnit
 
     protected override void FinishGame()
     {
-        allSimilarity = 1f;
+        _allSimilarity = 1f;
         
         GameState.FinishGame();
 
@@ -85,7 +85,7 @@ public class GameManagerMainGame : GameManagerUnit
 
             if (similarity.HasValue)
             {
-                allSimilarity *= similarity.Value;
+                _allSimilarity *= similarity.Value;
             }
             else
             {
@@ -96,14 +96,14 @@ public class GameManagerMainGame : GameManagerUnit
 
         SaveFinalTextureToSprite(playerCanvasState);
 
-        float f = Mathf.Round(allSimilarity * 10000) / 10000.0f;
+        float f = Mathf.Round(_allSimilarity * 10000) / 10000.0f;
 
-        LastTwoDigits = (f * 1000 % 10) * 10;
-        FirstTwoDigits = (f * 10000 - LastTwoDigits) / 100;
+        _lastTwoDigits = (f * 1000 % 10) * 10;
+        _firstTwoDigits = (f * 10000 - _lastTwoDigits) / 100;
 
-        Debug.Log($"Game finished with similarity of {FirstTwoDigits}.{(int)LastTwoDigits}%");
+        Debug.Log($"Game finished with similarity of {_firstTwoDigits}.{(int)_lastTwoDigits}%");
 
-        _comparisonResultEvent.Raise(allSimilarity, FirstTwoDigits, LastTwoDigits);
+        _comparisonResultEvent.Raise(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
     }
 
     private void SaveFinalTextureToSprite(CanvasState playerCanvasState)

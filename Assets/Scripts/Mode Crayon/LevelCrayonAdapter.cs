@@ -18,10 +18,8 @@ public class LevelCrayonAdapter : GameModeCrayon
         {
             return _runtimeAsset.Value.GetActiveColors(); // returns _runtimeWhiteColors
         }
-        else
-        {
-            return _runtimeAsset.Value.ColorsToBeUsed?.Value;
-        }
+
+        return _runtimeAsset.Value.ColorsToBeUsed?.Value;
     }
 
     public override GameObjectListValue GetColorBlobs()

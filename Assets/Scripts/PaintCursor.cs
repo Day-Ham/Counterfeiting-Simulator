@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
 public class PaintCursor : MonoBehaviour
