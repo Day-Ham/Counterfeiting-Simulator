@@ -2,11 +2,11 @@ using UnityEngine;
 
 public static class ColorUtils
 {
-    private const float RGB_SCALE = 255f;
+    private const float RGBScale = 255f;
 
     private static int ToRGBInt(float value)
     {
-        return Mathf.RoundToInt(value * RGB_SCALE);
+        return Mathf.RoundToInt(value * RGBScale);
     }
 
     public static int Red(Color color) => ToRGBInt(color.r);
@@ -25,9 +25,9 @@ public static class ColorUtils
     public static Color FromRGB(int red, int green, int blue)
     {
         return new Color(
-            red / RGB_SCALE,
-            green / RGB_SCALE,
-            blue / RGB_SCALE
+            red / RGBScale,
+            green / RGBScale,
+            blue / RGBScale
         );
     }
 }
