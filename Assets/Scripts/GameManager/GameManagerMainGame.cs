@@ -27,10 +27,8 @@ public class GameManagerMainGame : GameManagerUnit
     private float _firstTwoDigits;
     private float _lastTwoDigits;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         _textureUtility = new TextureUtility(_similarityComputeShader);
         _textureUtility.Create();
     }

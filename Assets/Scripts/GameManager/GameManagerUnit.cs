@@ -7,19 +7,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
     [DisallowMultipleComponent]
     public abstract class GameManagerUnit : MonoBehaviour
     {
-        [Header("Game Manager Value")]
-        [SerializeField] protected GameManagerValue _gameManagerValue;
-
         [Header("Dependencies")]
         [SerializeField] protected InputHandler _inputHandler;
         [SerializeField] protected CanvasDrawControllerValue _canvasDrawController;
 
         protected CanvasDrawController _canvasDraw;
-
-        protected virtual void Awake()
-        {
-            _gameManagerValue.Value = this;
-        }
 
         protected virtual void Start()
         {

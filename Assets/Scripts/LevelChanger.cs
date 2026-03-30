@@ -18,7 +18,6 @@ public class LevelChanger : MonoBehaviour
     [SerializeField] private LevelConfigListValue levelConfigListValue;
     [SerializeField] private IntValue currentLevelIndexValue;
     
-    [SerializeField] private LevelChangerValue levelChangerValue;
     [SerializeField] private SingleSceneReference mainMenuScene;
     
     private bool _pendingNextLevel;
@@ -42,11 +41,6 @@ public class LevelChanger : MonoBehaviour
         onNextLevelEvent.Unregister(NextLevel);
         
         onTransitionFinishedEvent.Unregister(OnTransitionFinished);
-    }
-
-    private void Awake()
-    {
-        levelChangerValue.Value = this;
     }
     
     private void NextLevel()
