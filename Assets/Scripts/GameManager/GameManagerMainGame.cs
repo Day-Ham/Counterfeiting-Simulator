@@ -5,21 +5,15 @@ using UnityEngine;
 
 public class GameManagerMainGame : GameManagerUnit
 {
-    [Header("Similarity System")]
-    [SerializeField] private ComputeShader _similarityComputeShader;
-    
     [Header("Events")]
-    [SerializeField] private VoidEvent _finishGameRequestEvent;
-    [SerializeField] private ComparisonResultEvent _comparisonResultEvent;
+    [SerializeField] private VoidEvent finishGameRequestEvent;
+    [SerializeField] private ComparisonResultEvent comparisonResultEvent;
+    
+    [Header("Similarity System")]
+    [SerializeField] private ComputeShader similarityComputeShader;
     
     [Header("MainGame Settings")]
     [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime; 
-    [SerializeField] private Texture _optionalStartingTexture; 
-    [SerializeField] private Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f);
-
-    [Header("Final Sprite")]
-    [SerializeField] private SpriteContainerRuntimeAsset _finalSpriteContainer;
-    [SerializeField] private SpriteRenderer _finalSpriteRenderer;
 
     private TextureUtility _textureUtility;
 
@@ -29,18 +23,18 @@ public class GameManagerMainGame : GameManagerUnit
 
     private void Awake()
     {
-        _textureUtility = new TextureUtility(_similarityComputeShader);
+        _textureUtility = new TextureUtility(similarityComputeShader);
         _textureUtility.Create();
     }
 
     private void OnEnable()
     {
-        _finishGameRequestEvent?.Register(FinishGame);
+        finishGameRequestEvent?.Register(FinishGame);
     }
 
     private void OnDisable()
     {
-        _finishGameRequestEvent?.Unregister(FinishGame);
+        finishGameRequestEvent?.Unregister(FinishGame);
     }
 
     protected override void InitializeGameMode()
@@ -53,16 +47,11 @@ public class GameManagerMainGame : GameManagerUnit
 
         Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
 
-        _canvasDraw.RuntimeAsset = levelConfigRuntime;
+        CanvasDraw.RuntimeAsset = levelConfigRuntime;
 
-        _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
+        CanvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
-        _canvasDraw.SetBrushColorIndex(0);
-
-        if (_optionalStartingTexture != null)
-        {
-            _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
-        }
+        CanvasDraw.SetBrushColorIndex(0);
         
         GameState.GameStart();
     }
@@ -73,7 +62,7 @@ public class GameManagerMainGame : GameManagerUnit
         
         GameState.FinishGame();
 
-        CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
+        CanvasState playerCanvasState = CanvasDraw.MainCanvasState;
 
         foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
         {
@@ -92,8 +81,6 @@ public class GameManagerMainGame : GameManagerUnit
             }
         }
 
-        SaveFinalTextureToSprite(playerCanvasState);
-
         float f = Mathf.Round(_allSimilarity * 10000) / 10000.0f;
 
         _lastTwoDigits = (f * 1000 % 10) * 10;
@@ -101,19 +88,7 @@ public class GameManagerMainGame : GameManagerUnit
 
         Debug.Log($"Game finished with similarity of {_firstTwoDigits}.{(int)_lastTwoDigits}%");
 
-        _comparisonResultEvent.Raise(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
-    }
-
-    private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
-    {
-        Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], _finalSpritePivotPoint);
-
-        _finalSpriteContainer.Sprite = finalSprite;
-
-        if (_finalSpriteRenderer)
-        {
-            _finalSpriteRenderer.sprite = finalSprite;
-        }
+        comparisonResultEvent.Raise(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
     }
 
     private void OnDestroy()

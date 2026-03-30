@@ -11,7 +11,6 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private Vector2Int sandboxCanvasSize = new(1024, 1024);
 
     [Header("Dependencies")]
-    [SerializeField] private InputHandler inputHandler;
     [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     [SerializeField] private VoidEvent spacePressedEvent;
     
@@ -46,10 +45,10 @@ public class GameManagerSandBox : GameManagerUnit
 
     private void SetupCanvas()
     {
-        _canvasDraw.RuntimeAsset = sandboxRuntime;
-        _canvasDraw.OnStart(sandboxCanvasSize);
-        _canvasDraw.SetBrushColorIndex(0);
-        _canvasDraw.IsCanDraw = true;
+        CanvasDraw.RuntimeAsset = sandboxRuntime;
+        CanvasDraw.OnStart(sandboxCanvasSize);
+        CanvasDraw.SetBrushColorIndex(0);
+        CanvasDraw.IsCanDraw = true;
     }
     
     private void StartUIFlow()

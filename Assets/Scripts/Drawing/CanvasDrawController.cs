@@ -41,7 +41,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [SerializeField, Min(1)] int _layersCount = 1;
         [SerializeField] CanvasBrushSettings _initialCanvasBrushSettings;
         [SerializeField] Color _clearColor = Color.clear;
-
+        
         [field: Header("Debug")]
         [field: SerializeField, Utilities.ShowIf(true, nameof(IsApplicationPlaying))] public CanvasBrushRuntimeSettings CurrentBrushSettings { get; private set; }
         [field: SerializeField, Utilities.ShowIf(false, nameof(IsApplicationPlaying))] public bool IsUpdating { get; private set; }

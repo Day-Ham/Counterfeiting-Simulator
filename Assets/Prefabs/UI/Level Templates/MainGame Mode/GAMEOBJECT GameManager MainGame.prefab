@@ -44,15 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48239bd214b9bf34cb8e2234fe04e1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManagerValue: {fileID: 11400000, guid: a0d8919a1aec61443b2d9c4938c0b8dc, type: 2}
-  _inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
-  _canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
-  _similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
-  _finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
-  _comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
-  _drawingBoardControllerValue: {fileID: 11400000, guid: d8c7f2887133ae64498b0615b82364b0, type: 2}
+  inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
+  canvasDrawController: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
+  finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
+  comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
+  similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
   levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _optionalStartingTexture: {fileID: 0}
-  _finalSpritePivotPoint: {x: 0.5, y: 0.5}
-  _finalSpriteContainer: {fileID: 11400000, guid: ab6e0373907c4184b9fa9a107ad473cb, type: 2}
-  _finalSpriteRenderer: {fileID: 0}
