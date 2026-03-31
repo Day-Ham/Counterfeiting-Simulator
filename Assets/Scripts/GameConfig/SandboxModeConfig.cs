@@ -28,8 +28,11 @@ public class SandboxModeConfig : ScriptableObject
     {
         if (_runtimeColors == null) InitializeRuntimeColors();
 
-        if (index < 0 || index >= _runtimeColors.Count) return;
+        if (_runtimeColors != null && (index < 0 || index >= _runtimeColors.Count)) return;
 
-        _runtimeColors[index] = newColor;
+        if (_runtimeColors != null)
+        {
+            _runtimeColors[index] = newColor;
+        }
     }
 }
