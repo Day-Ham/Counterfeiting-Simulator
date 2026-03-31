@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class TextFormattingUtility
 {
-    private const string MAJOR_DIGIT_SIZE = "100%";
-    private const string MINOR_DIGIT_SIZE = "50%";
+    private const string MajorDigitSize = "100%";
+    private const string MinorDigitSize = "50%";
     
     public static string FormatPercentage(float majorDigits, float minorDigits, bool showPercent = true)
     {
         string minorText = minorDigits.ToString("00");
-        string formatResult = $"<size={MAJOR_DIGIT_SIZE}>{majorDigits}</size>" +
-                              $"<size={MINOR_DIGIT_SIZE}>.{minorText}</size>";
+        string formatResult = $"<size={MajorDigitSize}>{majorDigits}</size>" +
+                              $"<size={MinorDigitSize}>.{minorText}</size>";
 
         if (showPercent)
         {
-            formatResult += $"<size={MAJOR_DIGIT_SIZE}>%</size>";
+            formatResult += $"<size={MajorDigitSize}>%</size>";
         }
 
         return formatResult;

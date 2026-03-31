@@ -9,7 +9,6 @@ public class ComparingMechanic : MonoBehaviour
     [Header("Events")]
     [SerializeField] private VoidEvent sceneChangerEvent;
     [SerializeField] private VoidEvent drawingBoardControllerEvent;
-    [SerializeField] private VoidEvent startCompareEvent;
     [SerializeField] private VoidEvent finishGameRequestEvent;
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private VoidEvent onShowPercentageUI;
@@ -50,14 +49,12 @@ public class ComparingMechanic : MonoBehaviour
     private void OnEnable()
     {
         comparisonResultEvent.Register(OnComparisonFinished);
-        startCompareEvent.Register(StartCompare);
         spacePressedEvent.Register(OnSpacePressed);
     }
 
     private void OnDisable()
     {
         comparisonResultEvent.Unregister(OnComparisonFinished);
-        startCompareEvent.Unregister(StartCompare);
         spacePressedEvent.Unregister(OnSpacePressed);
     }
 
@@ -78,7 +75,7 @@ public class ComparingMechanic : MonoBehaviour
     
     private void OnSpacePressed()
     {
-        startCompareEvent.Raise();
+        StartCompare();
     }
     
     private void StartCompare()
@@ -104,6 +101,7 @@ public class ComparingMechanic : MonoBehaviour
         _isOneShot = false;
     }
     
+    //Animation Result
     private IEnumerator ShowResult()
     {
         onShowPercentageUI.Raise();
