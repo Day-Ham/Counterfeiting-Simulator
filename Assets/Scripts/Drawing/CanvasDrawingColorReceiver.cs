@@ -1,7 +1,7 @@
 using UnityEngine;
 using DaeHanKim.ThisIsTotallyADollar.Drawing;
 
-public class DrawingColorReceiver : MonoBehaviour
+public class CanvasDrawingColorReceiver : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private IntEvent colorSelectedEvent;

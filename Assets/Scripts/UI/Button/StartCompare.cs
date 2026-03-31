@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class StartCompare : MonoBehaviour
 {
-    [SerializeField] private Button _compareButton;
-    [SerializeField] private VoidEvent _startCompareEvent;
+    [SerializeField] private Button compareButton;
+    [SerializeField] private VoidEvent startCompareEvent;
     
     private void OnEnable()
     {
@@ -18,17 +18,17 @@ public class StartCompare : MonoBehaviour
 
     private void Awake()
     {
-        _compareButton.onClick.AddListener(RaiseCompareEvent);
+        compareButton.onClick.AddListener(RaiseCompareEvent);
     }
 
     private void RaiseCompareEvent()
     {
         if (GameState.IsGameFinished) return;
-        _startCompareEvent.Raise();
+        startCompareEvent.Raise();
     }
     
     private void DisableInteraction()
     {
-        _compareButton.interactable = false;
+        compareButton.interactable = false;
     }
 }

@@ -254,7 +254,9 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             if (!_layerDrawController || CurrentBrushSettings == null) return;
 
             float zoomRatio = _drawingBoardZoom ? _drawingBoardZoom.ZoomRatio : 1f;
-            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
+            float adjustedBrushSize = CurrentBrushSettings.BrushSize / zoomRatio;
+            
+            _layerDrawController.SetBrushSize(adjustedBrushSize);
         }
 
         private void UpdateDrawController(Vector2 cursorScreenPosition)

@@ -4,17 +4,17 @@ using UnityEngine.UI;
 
 public class LevelGoalToRawImageBinder : MonoBehaviour
 {
-    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntime;
-    [SerializeField] private List<RawImage> _rawImages;
-    [SerializeField] private List<Image> _drawingBackground; 
+    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
+    [SerializeField] private List<RawImage> rawImages;
+    [SerializeField] private List<Image> drawingBackground; 
 
     private void Start()
     {
-        if (_levelConfigRuntime == null || _levelConfigRuntime.Value == null)
+        if (levelConfigRuntime == null || levelConfigRuntime.Value == null)
             return;
 
-        ApplyTexture(_levelConfigRuntime.Value.TargetTexture);
-        ApplyBackgroundColor(_levelConfigRuntime.Value.ColorBackgroundDraw);
+        ApplyTexture(levelConfigRuntime.Value.TargetTexture);
+        ApplyBackgroundColor(levelConfigRuntime.Value.ColorBackgroundDraw);
     }
 
     private void ApplyTexture(TextureValueWrapper textureValue)
@@ -24,7 +24,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
 
         Texture texture = textureValue.Value;
 
-        foreach (var rawImage in _rawImages)
+        foreach (var rawImage in rawImages)
         {
             if (rawImage != null)
             {
@@ -40,7 +40,7 @@ public class LevelGoalToRawImageBinder : MonoBehaviour
         
         Color backgroundColor  = colorData.Value;
 
-        foreach (var drawingBackgroundImages in _drawingBackground)
+        foreach (var drawingBackgroundImages in drawingBackground)
         {
             if (drawingBackgroundImages != null)
             {
