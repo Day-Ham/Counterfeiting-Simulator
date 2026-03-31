@@ -2,22 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ByteEvent", menuName = "Events/ByteEvent")]
-public class ByteArrayEvent : ScriptableObject
+public class ByteArrayEvent : BaseEventT1<byte[]>
 {
-    private Action<byte[]> _listeners;
-
-    public void Register(Action<byte[]> listener)
-    {
-        _listeners += listener;
-    }
-
-    public void Unregister(Action<byte[]> listener)
-    {
-        _listeners -= listener;
-    }
-
-    public void Raise(byte[] data)
-    {
-        _listeners?.Invoke(data);
-    }
+    
 }

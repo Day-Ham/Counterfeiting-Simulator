@@ -29,14 +29,14 @@ public class ColorPickerUI : MonoBehaviour
     private void OnEnable()
     {
         selectBrushColorEvent.Register(OnColorSelected);
-        colorEvent.RegisterColor(SetColor);
+        colorEvent.Register(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
         selectBrushColorEvent.Unregister(OnColorSelected);
-        colorEvent.UnregisterColor(SetColor);
+        colorEvent.Unregister(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 
