@@ -88,7 +88,8 @@ public class GameManagerMainGame : GameManagerUnit
 
         Debug.Log($"Game finished with similarity of {_firstTwoDigits}.{(int)_lastTwoDigits}%");
 
-        comparisonResultEvent.Raise(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
+        var result = new ComparisonResultStruct(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
+        comparisonResultEvent.Raise(result);
     }
 
     private void OnDestroy()

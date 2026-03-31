@@ -4,23 +4,23 @@ using UnityEngine;
 public class ComparisonRuleScriptableObject : ScriptableObject
 {
     [Header("Threshold for Passing (%)")]
-    public float PercentRequirement;
+    public float percentRequirement;
     
-    private Color PassedColor;
-    private Color FailedColor;
+    private Color _passedColor;
+    private Color _failedColor;
 
-    private const string PASSEDCOLOR = "#8FFF86";
-    private const string FAILEDCOLOR = "#FF4040";
+    private const string PassedColor = "#8FFF86";
+    private const string FailedColor = "#FF4040";
     
     private void OnEnable()
     {
-        ColorUtility.TryParseHtmlString(PASSEDCOLOR, out PassedColor);
-        ColorUtility.TryParseHtmlString(FAILEDCOLOR, out FailedColor);
+        ColorUtility.TryParseHtmlString(PassedColor, out _passedColor);
+        ColorUtility.TryParseHtmlString(FailedColor, out _failedColor);
     }
     
     public bool IsPassed(float similarity)
     {
-        return similarity * 100f > PercentRequirement;
+        return similarity * 100f > percentRequirement;
     }
     
     public Color GetResultColor(float similarity)

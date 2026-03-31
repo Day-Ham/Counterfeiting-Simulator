@@ -4,20 +4,20 @@ using System;
 [CreateAssetMenu(menuName = "Events/ComparisonEvent")]
 public class ComparisonResultEvent : ScriptableObject
 {
-    private Action<float, float, float> _listeners;
+    private Action<ComparisonResultStruct> _listeners;
 
-    public void Register(Action<float, float, float> listener)
+    public void Register(Action<ComparisonResultStruct> listener)
     {
         _listeners += listener;
     }
 
-    public void Unregister(Action<float, float, float> listener)
+    public void Unregister(Action<ComparisonResultStruct> listener)
     {
         _listeners -= listener;
     }
 
-    public void Raise(float similarity, float firstTwoDigits, float lastTwoDigits)
+    public void Raise(ComparisonResultStruct result)
     {
-        _listeners?.Invoke(similarity, firstTwoDigits, lastTwoDigits);
+        _listeners?.Invoke(result);
     }
 }

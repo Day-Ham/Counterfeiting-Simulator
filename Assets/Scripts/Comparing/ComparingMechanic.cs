@@ -38,12 +38,9 @@ public class ComparingMechanic : MonoBehaviour
     
     private float _majorPercentageNumber;
     private float _minorPercentageNumber;
-    
     private bool _isOneShot = true;
     
-    private float _gameManagerCachedSimilarity;
-    private float _gameManagerCachedFirstTwo;
-    private float _gameManagerCachedLastTwo;
+    private ComparisonResultStruct _cachedResult;
     
     private RectTransform _targetImageRect;
     private RectTransform _frontRect;
@@ -64,11 +61,9 @@ public class ComparingMechanic : MonoBehaviour
         spacePressedEvent.Unregister(OnSpacePressed);
     }
 
-    private void OnComparisonFinished(float similarity, float firstTwo, float lastTwo)
+    private void OnComparisonFinished(ComparisonResultStruct result)
     {
-        _gameManagerCachedSimilarity = similarity;
-        _gameManagerCachedFirstTwo = firstTwo;
-        _gameManagerCachedLastTwo = lastTwo;
+        _cachedResult = result;
     }
     
     private void Start()
@@ -124,12 +119,12 @@ public class ComparingMechanic : MonoBehaviour
             
             if (tick != duration) continue;
             
-            SetPercentageText(_gameManagerCachedFirstTwo, _gameManagerCachedLastTwo);
+            SetPercentageText(_cachedResult.firstTwoDigits, _cachedResult.lastTwoDigits);
         }
         
-        Debug.Log(_gameManagerCachedSimilarity * 100);
-        Debug.Log(comparisonRule.PercentRequirement);
-        Debug.Log(_gameManagerCachedSimilarity * 100 > comparisonRule.PercentRequirement);
+        Debug.Log(_cachedResult.Percentage);
+        Debug.Log(comparisonRule.percentRequirement);
+        Debug.Log(_cachedResult.Percentage > comparisonRule.percentRequirement);
         
         CheckingSimilar();
         
@@ -148,13 +143,13 @@ public class ComparingMechanic : MonoBehaviour
 
     private void CheckingSimilar()
     {
-        Color resultColor = comparisonRule.GetResultColor(_gameManagerCachedSimilarity);
+        Color resultColor = comparisonRule.GetResultColor(_cachedResult.similarity);
         TextFormattingUtility.SetColorList(percentageTextScriptableObject.Value, resultColor);
     }
 
     private void Similar()
     {
-        if (comparisonRule.IsPassed(_gameManagerCachedSimilarity))
+        if (comparisonRule.IsPassed(_cachedResult.similarity))
         {
             sceneChangerEvent.Raise();
         }
