@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BaseEvent : ScriptableObject
+public abstract class BaseEvent : ScriptableObject
 {
     private Action _listeners;
 
