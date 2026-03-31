@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewLevelConfig", menuName = "Level/LevelConfig")]
-public class LevelConfig : ScriptableObject
+public class MainGameModeConfig : ScriptableObject
 {
     [Header("Core Level Data")]
     public LevelGameMode GameMode;

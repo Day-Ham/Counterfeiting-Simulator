@@ -154,7 +154,7 @@ public class ColorPickerUI : MonoBehaviour
     {
         if (_cachedSelectedIndex < 0 || runtimeAsset == null) return;
 
-        if (runtimeAsset is LevelConfigRuntimeAsset level)
+        if (runtimeAsset is MainGameConfigRuntimeAsset level)
         {
             level.Value.SetWhiteColor(_cachedSelectedIndex, color);
         }

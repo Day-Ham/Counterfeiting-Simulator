@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Runtime Assets/New Level Config")]
-public class LevelConfigRuntimeAsset : ConfigRuntime
+public class MainGameConfigRuntimeAsset : ConfigRuntime
 {
-    private LevelConfig _runtimeValue;
+    private MainGameModeConfig _runtimeValue;
 
     public override event Action OnValueChanged;
     
     public override bool UseSnapping => true;
 
-    public LevelConfig Value
+    public MainGameModeConfig Value
     {
         get => _runtimeValue;
         set

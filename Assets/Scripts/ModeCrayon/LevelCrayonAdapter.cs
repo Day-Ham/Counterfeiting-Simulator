@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelCrayonAdapter", menuName = "Crayons/LevelAdapter")]
 public class LevelCrayonAdapter : GameModeCrayon
 {
-    [SerializeField] private LevelConfigRuntimeAsset _runtimeAsset;
+    [SerializeField] private MainGameConfigRuntimeAsset _runtimeAsset;
 
     public override void InitializeColors()
     {

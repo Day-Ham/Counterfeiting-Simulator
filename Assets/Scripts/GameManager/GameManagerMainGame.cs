@@ -13,7 +13,7 @@ public class GameManagerMainGame : GameManagerUnit
     [SerializeField] private ComputeShader similarityComputeShader;
     
     [Header("MainGame Settings")]
-    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime; 
+    [SerializeField] private MainGameConfigRuntimeAsset mainGameConfigRuntime; 
 
     private TextureUtility _textureUtility;
 
@@ -39,15 +39,15 @@ public class GameManagerMainGame : GameManagerUnit
 
     protected override void InitializeGameMode()
     {
-        if (levelConfigRuntime == null || levelConfigRuntime.Value.TargetTexture == null)
+        if (mainGameConfigRuntime == null || mainGameConfigRuntime.Value.TargetTexture == null)
         {
             Debug.LogError("LevelConfigRuntime or TargetTexture missing!");
             return;
         }
 
-        Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
+        Texture goalTexture = mainGameConfigRuntime.Value.TargetTexture.Value;
 
-        CanvasDraw.RuntimeAsset = levelConfigRuntime;
+        CanvasDraw.RuntimeAsset = mainGameConfigRuntime;
 
         CanvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
@@ -66,7 +66,7 @@ public class GameManagerMainGame : GameManagerUnit
 
         foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
         {
-            Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
+            Texture goalTexture = mainGameConfigRuntime.Value.TargetTexture.Value;
 
             float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 

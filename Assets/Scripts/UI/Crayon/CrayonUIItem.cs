@@ -155,7 +155,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
         if (colorsList == null || _colorIndex >= colorsList.Count) return;
 
         // Only allow in ColorPicker mode if the runtime exposes it
-        if (runtimeAsset is LevelConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
+        if (runtimeAsset is MainGameConfigRuntimeAsset levelRuntime && levelRuntime.Value.GameMode != LevelGameMode.ColorPicker) return;
         
         ExpandSize();
         setColorBlobLook.SetShadowColor(selectedColor);

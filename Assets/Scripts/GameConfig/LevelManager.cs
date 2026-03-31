@@ -5,7 +5,7 @@ public class LevelManager : MonoBehaviour
 {
     [Header("Level Settings")]
     [SerializeField] private LevelConfigListValue levelConfigListValue;
-    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntimeAsset;
+    [SerializeField] private MainGameConfigRuntimeAsset mainGameConfigRuntimeAsset;
     [SerializeField] private IntValue currentLevelIndexValue;
     
     [Header("Prefabs To Spawn")]
@@ -54,9 +54,9 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        levelConfigRuntimeAsset.Value = levelConfigListValue.Value[index];
+        mainGameConfigRuntimeAsset.Value = levelConfigListValue.Value[index];
 
-        InitializeWhiteColors(levelConfigRuntimeAsset.Value);
+        InitializeWhiteColors(mainGameConfigRuntimeAsset.Value);
 
         ActivateLevelObjects();
     }
@@ -83,14 +83,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void InitializeWhiteColors(LevelConfig level)
+    private void InitializeWhiteColors(MainGameModeConfig mainGameMode)
     {
-        if (!level.WhiteColors || level.WhiteColors.Value.Count == 0)
+        if (!mainGameMode.WhiteColors || mainGameMode.WhiteColors.Value.Count == 0)
         {
             RuntimeWhiteLevel = null;
             return;
         }
 
-        RuntimeWhiteLevel = new RuntimeWhiteColorData(level.WhiteColors.Value);
+        RuntimeWhiteLevel = new RuntimeWhiteColorData(mainGameMode.WhiteColors.Value);
     }
 }

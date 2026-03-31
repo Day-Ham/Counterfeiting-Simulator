@@ -3,7 +3,7 @@ using UnityEngine;
 public class CanvasSpawn : MonoBehaviour
 {
     [Header("Level Settings")]
-    [SerializeField] private LevelConfigRuntimeAsset _levelConfigRuntimeAsset;
+    [SerializeField] private MainGameConfigRuntimeAsset mainGameConfigRuntimeAsset;
     
     private void Start()
     {
@@ -12,16 +12,16 @@ public class CanvasSpawn : MonoBehaviour
     
     private void SpawnCanvas()
     {
-        LevelConfig currentLevel = _levelConfigRuntimeAsset.Value;
+        MainGameModeConfig currentMainGameMode = mainGameConfigRuntimeAsset.Value;
 
-        if (currentLevel == null ||
-            currentLevel.CanvasTemplate == null ||
-            currentLevel.CanvasTemplate.Value == null)
+        if (currentMainGameMode == null ||
+            currentMainGameMode.CanvasTemplate == null ||
+            currentMainGameMode.CanvasTemplate.Value == null)
         {
             Debug.LogWarning("No Canvas Template assigned!");
             return;
         }
 
-        Instantiate(currentLevel.CanvasTemplate.Value, transform);
+        Instantiate(currentMainGameMode.CanvasTemplate.Value, transform);
     }
 }

@@ -4,17 +4,17 @@ using UnityEngine.UI;
 
 public class LevelGoalToRawImageBinder : MonoBehaviour
 {
-    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime;
+    [SerializeField] private MainGameConfigRuntimeAsset mainGameConfigRuntime;
     [SerializeField] private List<RawImage> rawImages;
     [SerializeField] private List<Image> drawingBackground; 
 
     private void Start()
     {
-        if (levelConfigRuntime == null || levelConfigRuntime.Value == null)
+        if (mainGameConfigRuntime == null || mainGameConfigRuntime.Value == null)
             return;
 
-        ApplyTexture(levelConfigRuntime.Value.TargetTexture);
-        ApplyBackgroundColor(levelConfigRuntime.Value.ColorBackgroundDraw);
+        ApplyTexture(mainGameConfigRuntime.Value.TargetTexture);
+        ApplyBackgroundColor(mainGameConfigRuntime.Value.ColorBackgroundDraw);
     }
 
     private void ApplyTexture(TextureValueWrapper textureValue)

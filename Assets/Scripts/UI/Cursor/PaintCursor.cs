@@ -5,7 +5,7 @@ using Cursor = UnityEngine.Cursor;
 public class PaintCursor : MonoBehaviour
 {
     [Header("Runtime References")]
-    public LevelConfigRuntimeAsset RuntimeCanvas;
+    public MainGameConfigRuntimeAsset RuntimeCanvas;
     public RawImage[] mouseCursors;
 
     private static Canvas _canvas;
