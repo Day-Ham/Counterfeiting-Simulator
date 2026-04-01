@@ -7,32 +7,24 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
     [DisallowMultipleComponent]
     public abstract class GameManagerUnit : MonoBehaviour
     {
-        [Header("Game Manager Value")]
-        [SerializeField] protected GameManagerValue _gameManagerValue;
-
         [Header("Dependencies")]
-        [SerializeField] protected InputHandler _inputHandler;
-        [SerializeField] protected CanvasDrawControllerValue _canvasDrawController;
+        [SerializeField] protected InputHandler inputHandler;
+        [SerializeField] protected CanvasDrawControllerValue canvasDrawController;
 
-        protected CanvasDrawController _canvasDraw;
-
-        protected virtual void Awake()
-        {
-            _gameManagerValue.Value = this;
-        }
+        protected CanvasDrawController CanvasDraw;
 
         protected virtual void Start()
         {
-            _canvasDraw = _canvasDrawController.Value;
+            CanvasDraw = canvasDrawController.Value;
 
-            if (_canvasDraw == null)
+            if (CanvasDraw == null)
             {
                 Debug.LogError("CanvasDrawController not found.");
                 enabled = false;
                 return;
             }
 
-            _inputHandler?.Initialize(_canvasDraw, FinishGame);
+            inputHandler?.Initialize(CanvasDraw, FinishGame);
 
             InitializeGameMode();
         }
@@ -41,21 +33,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Core
         {
             if (GameState.IsGamePaused) return;
 
-            _inputHandler?.UpdateInput();
-            _canvasDraw?.Tick();
+            inputHandler?.UpdateInput();
+            CanvasDraw?.Tick();
         }
 
         protected abstract void InitializeGameMode();
         protected abstract void FinishGame();
-
-        private void PauseGame()
-        {
-            GameState.PauseGame();
-        }
-
-        private void ResumeGame()
-        {
-            GameState.ResumeGame();
-        }
     }
 }

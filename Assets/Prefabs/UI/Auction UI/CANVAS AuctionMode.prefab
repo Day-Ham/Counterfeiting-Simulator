@@ -204,7 +204,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75c02b2db74d1ce4f84fc614f90b4c1d, type: 2}
   - {fileID: 11400000, guid: 4becdff0387319e458d6005825e6fc07, type: 2}
   price: 0
-  noBidTimeout: 1
+  noBidTimeout: 5
 --- !u!114 &2454696258766390469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538ca26ac1d368e4991b8b2aa92f35b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  auctionSavedEvent: {fileID: 11400000, guid: e6c42d1a52e066d43986fd9953eda4cb, type: 2}
   auctionResult: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}
 --- !u!1 &2582648995581515872
 GameObject:

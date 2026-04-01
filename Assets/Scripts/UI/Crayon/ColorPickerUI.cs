@@ -29,14 +29,14 @@ public class ColorPickerUI : MonoBehaviour
     private void OnEnable()
     {
         selectBrushColorEvent.Register(OnColorSelected);
-        colorEvent.RegisterColor(SetColor);
+        colorEvent.Register(SetColor);
         runtimeAsset.OnValueChanged += RefreshPreview;
     }
 
     private void OnDisable()
     {
         selectBrushColorEvent.Unregister(OnColorSelected);
-        colorEvent.UnregisterColor(SetColor);
+        colorEvent.Unregister(SetColor);
         runtimeAsset.OnValueChanged -= RefreshPreview;
     }
 
@@ -154,7 +154,7 @@ public class ColorPickerUI : MonoBehaviour
     {
         if (_cachedSelectedIndex < 0 || runtimeAsset == null) return;
 
-        if (runtimeAsset is LevelConfigRuntimeAsset level)
+        if (runtimeAsset is MainGameConfigRuntimeAsset level)
         {
             level.Value.SetWhiteColor(_cachedSelectedIndex, color);
         }

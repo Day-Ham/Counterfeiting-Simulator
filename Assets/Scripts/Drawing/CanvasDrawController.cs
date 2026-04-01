@@ -41,8 +41,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         [SerializeField, Min(1)] int _layersCount = 1;
         [SerializeField] CanvasBrushSettings _initialCanvasBrushSettings;
         [SerializeField] Color _clearColor = Color.clear;
-        [SerializeField] Color _color0 = Color.black;
-
+        
         [field: Header("Debug")]
         [field: SerializeField, Utilities.ShowIf(true, nameof(IsApplicationPlaying))] public CanvasBrushRuntimeSettings CurrentBrushSettings { get; private set; }
         [field: SerializeField, Utilities.ShowIf(false, nameof(IsApplicationPlaying))] public bool IsUpdating { get; private set; }
@@ -61,8 +60,6 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
         public int RemainingUndo => _remainingUndo;
-        
-        public int CurrentBrushColorIndex { get; private set; } = 0;
         
         private void OnEnable()
         {
@@ -232,12 +229,34 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
         }
         
+        private void SetBrushSize(float brushSize)
+        {
+            if (_layerDrawController == null)
+            {
+                Debug.LogWarning("_layerDrawController is null!");
+                return;
+            }
+            
+            if (brushSize < 0f) return;
+
+            CurrentBrushSettings.BrushSize = brushSize;
+
+            ApplyBrushSizeInternal();
+        }
+        
         private void ApplyZoomCorrectedBrushSize()
         {
-            if (CurrentBrushSettings == null) return;
+            ApplyBrushSizeInternal();
+        }
+        
+        private void ApplyBrushSizeInternal()
+        {
+            if (!_layerDrawController || CurrentBrushSettings == null) return;
 
             float zoomRatio = _drawingBoardZoom ? _drawingBoardZoom.ZoomRatio : 1f;
-            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
+            float adjustedBrushSize = CurrentBrushSettings.BrushSize / zoomRatio;
+            
+            _layerDrawController.SetBrushSize(adjustedBrushSize);
         }
 
         private void UpdateDrawController(Vector2 cursorScreenPosition)
@@ -288,22 +307,6 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             Color selectedColor = colors[index];
             _layerDrawController.SetBrushColor(selectedColor);
-        }
-
-        private void SetBrushSize(float brushSize)
-        {
-            if (_layerDrawController == null)
-            {
-                Debug.LogWarning("_layerDrawController is null!");
-                return;
-            }
-            
-            if (brushSize < 0f) return;
-
-            CurrentBrushSettings.BrushSize = brushSize;
-
-            float zoomRatio = _drawingBoardZoom != null ? _drawingBoardZoom.ZoomRatio : 1f;
-            _layerDrawController.SetBrushSize(CurrentBrushSettings.BrushSize / zoomRatio);
         }
 
         public void ClearCurrentLayer()

@@ -5,87 +5,74 @@ using UnityEngine;
 
 public class GameManagerMainGame : GameManagerUnit
 {
-    [Header("Similarity System")]
-    [SerializeField] private ComputeShader _similarityComputeShader;
-    
     [Header("Events")]
-    [SerializeField] private VoidEvent _finishGameRequestEvent;
-    [SerializeField] private ComparisonResultEvent _comparisonResultEvent;
+    [SerializeField] private VoidEvent finishGameRequestEvent;
+    [SerializeField] private ComparisonResultEvent comparisonResultEvent;
+    
+    [Header("Similarity System")]
+    [SerializeField] private ComputeShader similarityComputeShader;
     
     [Header("MainGame Settings")]
-    [SerializeField] private LevelConfigRuntimeAsset levelConfigRuntime; 
-    [SerializeField] private Texture _optionalStartingTexture; 
-    [SerializeField] private Vector2 _finalSpritePivotPoint = new(0.5f, 0.5f);
-
-    [Header("Final Sprite")]
-    [SerializeField] private SpriteContainerRuntimeAsset _finalSpriteContainer;
-    [SerializeField] private SpriteRenderer _finalSpriteRenderer;
+    [SerializeField] private MainGameConfigRuntimeAsset mainGameConfigRuntime; 
 
     private TextureUtility _textureUtility;
 
-    private float allSimilarity = 1f;
-    private float FirstTwoDigits;
-    private float LastTwoDigits;
+    private float _allSimilarity = 1f;
+    private float _firstTwoDigits;
+    private float _lastTwoDigits;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
-        _textureUtility = new TextureUtility(_similarityComputeShader);
+        _textureUtility = new TextureUtility(similarityComputeShader);
         _textureUtility.Create();
     }
 
     private void OnEnable()
     {
-        _finishGameRequestEvent?.Register(FinishGame);
+        finishGameRequestEvent?.Register(FinishGame);
     }
 
     private void OnDisable()
     {
-        _finishGameRequestEvent?.Unregister(FinishGame);
+        finishGameRequestEvent?.Unregister(FinishGame);
     }
 
     protected override void InitializeGameMode()
     {
-        if (levelConfigRuntime == null || levelConfigRuntime.Value.TargetTexture == null)
+        if (mainGameConfigRuntime == null || mainGameConfigRuntime.Value.TargetTexture == null)
         {
             Debug.LogError("LevelConfigRuntime or TargetTexture missing!");
             return;
         }
 
-        Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
+        Texture goalTexture = mainGameConfigRuntime.Value.TargetTexture.Value;
 
-        _canvasDraw.RuntimeAsset = levelConfigRuntime;
+        CanvasDraw.RuntimeAsset = mainGameConfigRuntime;
 
-        _canvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
+        CanvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
-        _canvasDraw.SetBrushColorIndex(0);
-
-        if (_optionalStartingTexture != null)
-        {
-            _canvasDraw.CopyTextureToCurrentLayer(_optionalStartingTexture);
-        }
+        CanvasDraw.SetBrushColorIndex(0);
         
         GameState.GameStart();
     }
 
     protected override void FinishGame()
     {
-        allSimilarity = 1f;
+        _allSimilarity = 1f;
         
         GameState.FinishGame();
 
-        CanvasState playerCanvasState = _canvasDraw.MainCanvasState;
+        CanvasState playerCanvasState = CanvasDraw.MainCanvasState;
 
         foreach (RenderTexture playerTex in playerCanvasState.LayersRenderTextures)
         {
-            Texture goalTexture = levelConfigRuntime.Value.TargetTexture.Value;
+            Texture goalTexture = mainGameConfigRuntime.Value.TargetTexture.Value;
 
             float? similarity = _textureUtility.GetSimilarity(goalTexture, playerTex);
 
             if (similarity.HasValue)
             {
-                allSimilarity *= similarity.Value;
+                _allSimilarity *= similarity.Value;
             }
             else
             {
@@ -94,28 +81,15 @@ public class GameManagerMainGame : GameManagerUnit
             }
         }
 
-        SaveFinalTextureToSprite(playerCanvasState);
+        float f = Mathf.Round(_allSimilarity * 10000) / 10000.0f;
 
-        float f = Mathf.Round(allSimilarity * 10000) / 10000.0f;
+        _lastTwoDigits = (f * 1000 % 10) * 10;
+        _firstTwoDigits = (f * 10000 - _lastTwoDigits) / 100;
 
-        LastTwoDigits = (f * 1000 % 10) * 10;
-        FirstTwoDigits = (f * 10000 - LastTwoDigits) / 100;
+        Debug.Log($"Game finished with similarity of {_firstTwoDigits}.{(int)_lastTwoDigits}%");
 
-        Debug.Log($"Game finished with similarity of {FirstTwoDigits}.{(int)LastTwoDigits}%");
-
-        _comparisonResultEvent.Raise(allSimilarity, FirstTwoDigits, LastTwoDigits);
-    }
-
-    private void SaveFinalTextureToSprite(CanvasState playerCanvasState)
-    {
-        Sprite finalSprite = _textureUtility.CreateSpriteFromRenderTexture(playerCanvasState.LayersRenderTextures[0], _finalSpritePivotPoint);
-
-        _finalSpriteContainer.Sprite = finalSprite;
-
-        if (_finalSpriteRenderer)
-        {
-            _finalSpriteRenderer.sprite = finalSprite;
-        }
+        var result = new ComparisonResultStruct(_allSimilarity, _firstTwoDigits, _lastTwoDigits);
+        comparisonResultEvent.Raise(result);
     }
 
     private void OnDestroy()

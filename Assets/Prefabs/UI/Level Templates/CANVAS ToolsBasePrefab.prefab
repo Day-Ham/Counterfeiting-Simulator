@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78eddc36a6d407746ab4cc9a9ea82560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _compareButton: {fileID: 5485613765731659918}
-  _startCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
+  compareButton: {fileID: 5485613765731659918}
+  startCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
 --- !u!1 &128996083472076220
 GameObject:
   m_ObjectHideFlags: 0

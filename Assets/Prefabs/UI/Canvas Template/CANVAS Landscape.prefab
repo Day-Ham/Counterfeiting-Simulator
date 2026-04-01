@@ -440,7 +440,6 @@ MonoBehaviour:
   _layersCount: 1
   _initialCanvasBrushSettings: {fileID: 11400000, guid: 81be51f292a112b4fbe7e2cefc51bef9, type: 2}
   _clearColor: {r: 0, g: 0, b: 0, a: 0}
-  _color0: {r: 0.03529412, g: 0.20392159, b: 0.37254903, a: 1}
   <CurrentBrushSettings>k__BackingField:
     BrushTexture: {fileID: 0}
     BrushColorIndex: 0
@@ -552,11 +551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fdc0deffadd7443be52e6480bf038a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _rawImages:
+  levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  rawImages:
   - {fileID: 8681999644420673123}
   - {fileID: 1582748024271213027}
-  _drawingBackground:
+  drawingBackground:
   - {fileID: 5504037737531346822}
   - {fileID: 1472591937254248471}
 --- !u!114 &1132202135603609810
@@ -694,7 +693,7 @@ MonoBehaviour:
   zoomSpeed: 0.1
   zoomSmoothness: 10
   minSize: {x: 765, y: 380}
-  maxSize: {x: 1530, y: 760}
+  maxSize: {x: 2295, y: 1140}
 --- !u!114 &7103236292113755081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,7 +721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34581953e1297bc4ab731a14a981fc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outsideAllowance: 120
+  outsideAllowance: 360
   drawingBoardRectTransform: {fileID: 7864948328430326532}
   canvasRect: {fileID: 760017119137188966}
 --- !u!1 &3487568899593019836
