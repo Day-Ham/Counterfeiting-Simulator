@@ -7,7 +7,7 @@ public class DrawingBoardSoftBounds : MonoBehaviour
     [SerializeField] private RectTransform drawingBoardRectTransform;
     [SerializeField] private RectTransform canvasRect;
     
-    private float minX, maxX, minY, maxY;
+    private float _minClampX, _maxClampX, _minClampY, _maxClampY;
     
     private void Awake()
     {
@@ -16,17 +16,17 @@ public class DrawingBoardSoftBounds : MonoBehaviour
 
     private void CalculateBounds()
     {
-        float canvasHalfW = canvasRect.rect.width * 0.5f;
-        float canvasHalfH = canvasRect.rect.height * 0.5f;
+        float canvasHalfWidth = canvasRect.rect.width * 0.5f;
+        float canvasHalfHeight = canvasRect.rect.height * 0.5f;
 
-        float boardHalfW = drawingBoardRectTransform.rect.width * 0.5f;
-        float boardHalfH = drawingBoardRectTransform.rect.height * 0.5f;
+        float boardHalfWidth = drawingBoardRectTransform.rect.width * 0.5f;
+        float boardHalfHeight = drawingBoardRectTransform.rect.height * 0.5f;
 
-        minX = -canvasHalfW + boardHalfW - outsideAllowance;
-        maxX =  canvasHalfW - boardHalfW + outsideAllowance;
+        _minClampX = -canvasHalfWidth + boardHalfWidth - outsideAllowance;
+        _maxClampX =  canvasHalfWidth - boardHalfWidth + outsideAllowance;
 
-        minY = -canvasHalfH + boardHalfH - outsideAllowance;
-        maxY =  canvasHalfH - boardHalfH + outsideAllowance;
+        _minClampY = -canvasHalfHeight + boardHalfHeight - outsideAllowance;
+        _maxClampY =  canvasHalfHeight - boardHalfHeight + outsideAllowance;
     }
 
     /// <summary>
@@ -34,9 +34,9 @@ public class DrawingBoardSoftBounds : MonoBehaviour
     /// </summary>
     public void ClampPosition()
     {
-        Vector2 pos = drawingBoardRectTransform.anchoredPosition;
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minY, maxY);
-        drawingBoardRectTransform.anchoredPosition = pos;
+        Vector2 vector2Position = drawingBoardRectTransform.anchoredPosition;
+        vector2Position.x = Mathf.Clamp(vector2Position.x, _minClampX, _maxClampX);
+        vector2Position.y = Mathf.Clamp(vector2Position.y, _minClampY, _maxClampY);
+        drawingBoardRectTransform.anchoredPosition = vector2Position;
     }
 }

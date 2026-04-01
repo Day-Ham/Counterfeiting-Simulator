@@ -148,7 +148,6 @@ public class DrawingBoardController : MonoBehaviour
             IsCanInteract = true;
         }
     }
-    
    
     public bool IsCanUseCtrl()
     {
