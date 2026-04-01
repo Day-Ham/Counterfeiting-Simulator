@@ -86,7 +86,7 @@ public class ColorPickerUI : MonoBehaviour
 
         AdjustSlider(index, scroll);
     }
-
+    
     private int GetHoveredChannel()
     {
         for (int i = 0; i < rgbChannels.Count; i++)
@@ -145,14 +145,14 @@ public class ColorPickerUI : MonoBehaviour
 
     private bool CanSnap()
     {
-        return runtimeAsset != null &&
+        return runtimeAsset &&
                runtimeAsset.HasValue &&
                runtimeAsset.UseSnapping;
     }
 
     private void ApplyToRuntime(Color color)
     {
-        if (_cachedSelectedIndex < 0 || runtimeAsset == null) return;
+        if (_cachedSelectedIndex < 0 || !runtimeAsset) return;
 
         if (runtimeAsset is MainGameConfigRuntimeAsset level)
         {
@@ -190,12 +190,12 @@ public class ColorPickerUI : MonoBehaviour
 
     private void UpdateInputFields()
     {
-        foreach (var c in rgbChannels)
+        foreach (var rgbChannel in rgbChannels)
         {
-            if (!c.inputField || c.inputField.isFocused) continue;
+            if (!rgbChannel.inputField || rgbChannel.inputField.isFocused) continue;
 
-            int value = Mathf.RoundToInt(c.slider.value);
-            c.inputField.SetTextWithoutNotify(value.ToString());
+            int value = Mathf.RoundToInt(rgbChannel.slider.value);
+            rgbChannel.inputField.SetTextWithoutNotify(value.ToString());
         }
     }
 

@@ -256,10 +256,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -172.25
       objectReference: {fileID: 0}
-    - target: {fileID: 7032441730375356281, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
-      propertyPath: brushSizeEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
     - target: {fileID: 7377003863217108392, guid: d45abcc5066f433489afed3b97a8ee7e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
