@@ -14,7 +14,7 @@ public class AuctionSaveHandler : MonoBehaviour
     /// </summary>
     public void Save()
     {
-        if (auctionResult.DrawingData == null)
+        if (auctionResult.drawingData == null)
         {
             Debug.LogError("[Save] No drawing data to save!");
             return;
@@ -35,9 +35,9 @@ public class AuctionSaveHandler : MonoBehaviour
 
         AuctionSavedData newEntry = new AuctionSavedData
         {
-            DrawingData = auctionResult.DrawingData,
-            FinalPrice = auctionResult.FinalPrice,
-            PaintingName = auctionResult.PaintingName
+            DrawingData = auctionResult.drawingData,
+            FinalPrice = auctionResult.finalPrice,
+            PaintingName = auctionResult.paintingName
         };
 
         history.Add(newEntry);

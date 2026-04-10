@@ -118,12 +118,12 @@ public class AuctionMechanic : MonoBehaviour
         
         var result = AuctionAI.TryGetBid(_activeBidders, price);
 
-        if (!result.success)
+        if (!result.Success)
         {
             return false;
         }
 
-        result.bidder.CurrentMoney -= result.bidAmount;
+        result.Bidder.CurrentMoney -= result.BidAmount;
 
         StartCoroutine(HandleBidVisuals(result));
 
@@ -134,12 +134,12 @@ public class AuctionMechanic : MonoBehaviour
     {
         _isAnimatingBid = true;
         
-        bidderNameText.SetText(result.bidder.Data.NpcName);
-        increasedBidText.SetText("+$" + result.bidAmount.ToString("n0"));
+        bidderNameText.SetText(result.Bidder.Data.npcName);
+        increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
 
-        yield return StartCoroutine(SmoothIncrease(price, result.newPrice));
+        yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
 
-        price = result.newPrice;
+        price = result.NewPrice;
         auctionText.SetText("$" + price.ToString("n0"));
 
         yield return new WaitForSeconds(0.5f);

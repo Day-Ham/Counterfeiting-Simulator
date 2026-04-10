@@ -3,21 +3,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AuctionResult", menuName = "Auction/AuctionResultRuntime")]
 public class AuctionResultRuntime : ScriptableObject
 {
-    public byte[] DrawingData;
-    public string PaintingName;
-    public int FinalPrice;
+    [HideInInspector] public byte[] drawingData;
+    [HideInInspector] public string paintingName;
+    [HideInInspector] public int finalPrice;
 
-    public void SetData(byte[] drawingData, int finalPrice, string paintingName)
+    public void SetData(byte[] bytDrawingData, int intFinalPrice, string stringPaintingName)
     {
-        DrawingData = drawingData;
-        FinalPrice = finalPrice;
-        PaintingName = paintingName;
+        drawingData = bytDrawingData;
+        finalPrice = intFinalPrice;
+        paintingName = stringPaintingName;
     }
 
     public void Clear()
     {
-        DrawingData = null;
-        FinalPrice = 0;
-        PaintingName = "";
+        drawingData = null;
+        finalPrice = 0;
+        paintingName = "";
     }
 }

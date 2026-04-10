@@ -7,7 +7,7 @@ public class NPCBidderRuntime
     public NPCBidderRuntime(NPCBidder bidder)
     {
         Data = bidder;
-        CurrentMoney = bidder.MaxMoney;
+        CurrentMoney = bidder.maxMoney;
     }
 
     public bool CanBid(int currentPrice)
