@@ -17,20 +17,20 @@ public static class AuctionAI
             return BidResultStruct.Fail();
         }
 
-        if (!AuctionUtility.ShouldBid(bidder.Data.aggressiveness))
+        if (!AuctionUtility.ShouldBid(bidder.data.aggressiveness))
         {
             return BidResultStruct.Fail();
         }
 
         int bidAmount = AuctionUtility.GenerateBidAmount(
             currentPrice,
-            bidder.Data.minBidMultiplier,
-            bidder.Data.maxBidMultiplier
+            bidder.data.minBidMultiplier,
+            bidder.data.maxBidMultiplier
         );
 
         int newPrice = currentPrice + bidAmount;
 
-        if (newPrice > bidder.CurrentMoney)
+        if (newPrice > bidder.currentMoney)
         {
             return BidResultStruct.Fail();
         }

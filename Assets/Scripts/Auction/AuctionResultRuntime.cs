@@ -14,10 +14,5 @@ public class AuctionResultRuntime : ScriptableObject
         paintingName = stringPaintingName;
     }
 
-    public void Clear()
-    {
-        drawingData = null;
-        finalPrice = 0;
-        paintingName = "";
-    }
+    
 }

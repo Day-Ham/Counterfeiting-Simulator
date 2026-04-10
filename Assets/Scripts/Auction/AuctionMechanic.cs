@@ -123,7 +123,7 @@ public class AuctionMechanic : MonoBehaviour
             return false;
         }
 
-        result.Bidder.CurrentMoney -= result.BidAmount;
+        result.Bidder.currentMoney -= result.BidAmount;
 
         StartCoroutine(HandleBidVisuals(result));
 
@@ -134,7 +134,7 @@ public class AuctionMechanic : MonoBehaviour
     {
         _isAnimatingBid = true;
         
-        bidderNameText.SetText(result.Bidder.Data.npcName);
+        bidderNameText.SetText(result.Bidder.data.npcName);
         increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
 
         yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
