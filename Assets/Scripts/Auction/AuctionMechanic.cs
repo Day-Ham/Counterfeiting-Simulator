@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class AuctionMechanic : MonoBehaviour
 {
-    [Header("Event")]
+    [Header("Event")] 
+    [SerializeField] private VoidEvent beginBidEvent;
     [SerializeField] private VoidEvent onAuctionEnd;
     
     [Header("Save System")]
@@ -13,9 +16,6 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private AuctionResultRuntime auctionResultRuntime;
     [SerializeField] private AuctionSaveHandler auctionSaveHandler;
     [SerializeField] private StringValue paintingName;
-    
-    [Header("Auction Value")] 
-    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI auctionText;
@@ -37,9 +37,14 @@ public class AuctionMechanic : MonoBehaviour
     private bool _isEnding = false;
     private float _timeSinceLastBid = 0f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        auctionMechanicValue.Value = this;
+        beginBidEvent.Register(BeginBidding);
+    }
+
+    private void OnDisable()
+    {
+        beginBidEvent.Unregister(BeginBidding);
     }
 
     private void Start()
@@ -57,7 +62,7 @@ public class AuctionMechanic : MonoBehaviour
         }
     }
 
-    public void BeginBidding()
+    private void BeginBidding()
     {
         price = AuctionUtility.GenerateStartingPrice();
         auctionText.SetText("$" + price.ToString("n0"));
