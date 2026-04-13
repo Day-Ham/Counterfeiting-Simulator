@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5fe3fdfe0d0d644d9fbb1de827f878c, type: 3}
   m_Name: NPC 4
   m_EditorClassIdentifier: 
-  NpcName: NPC4
-  MinBidMultiplier: 1
-  MaxBidMultiplier: 5
-  MaxMoney: 1000000
-  Aggressiveness: 0.5
+  npcName: NPC4
+  minBidMultiplier: 1
+  maxBidMultiplier: 5
+  maxMoney: 1000000
+  aggressiveness: 0.5

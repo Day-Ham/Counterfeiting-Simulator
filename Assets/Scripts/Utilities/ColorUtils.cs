@@ -13,15 +13,6 @@ public static class ColorUtils
     public static int Green(Color color) => ToRGBInt(color.g);
     public static int Blue(Color color) => ToRGBInt(color.b);
 
-    public static Vector3Int ToRGB(Color color)
-    {
-        return new Vector3Int(
-            ToRGBInt(color.r),
-            ToRGBInt(color.g),
-            ToRGBInt(color.b)
-        );
-    }
-
     public static Color FromRGB(int red, int green, int blue)
     {
         return new Color(

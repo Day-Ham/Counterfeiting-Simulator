@@ -59,7 +59,7 @@ public class AuctionLoadHandler : MonoBehaviour
 
         if (!shouldAutoScroll) return;
         
-        Debug.Log("[Gallery] Coming from Auction → Auto Scroll");
+        Debug.Log("[Gallery] Coming from Auction > Auto Scroll");
 
         // IMPORTANT: reset immediately so it won't trigger again
         ES3.Save(AutoScrollFlagKey, false, settings);
