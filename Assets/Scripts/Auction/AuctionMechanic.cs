@@ -28,12 +28,11 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private List<NPCBidder> npcBidders;
     [SerializeField] private Transform bidderUIParent;
 
-    private readonly List<NPCBidderRuntime> _activeBidders = new();
-
     [Header("Auction State")]
     [SerializeField] private int price = 0;
     [SerializeField] private float noBidTimeout = 3f;
     
+    private readonly List<NPCBidderRuntime> _activeBidders = new();
     private int _wantValue = 100;
     private bool _isAnimatingBid = false;
     private bool _isEnding = false;
@@ -56,33 +55,45 @@ public class AuctionMechanic : MonoBehaviour
 
     private void InitializeBidders()
     {
+        ClearOldUI();
+        SpawnBidders();
+    }
+    
+    private void ClearOldUI()
+    {
         _activeBidders.Clear();
 
-        foreach (var npcBidder in npcBidders)
+        foreach (Transform child in bidderUIParent)
         {
-            var runtime = new NPCBidderRuntime(npcBidder);
-
-            // 🔥 Instantiate UI
-            if (npcBidder.bidderUIPrefab != null)
-            {
-                GameObject uiObj = Instantiate(npcBidder.bidderUIPrefab, bidderUIParent);
-
-                var uiBinder = uiObj.GetComponent<BidderUIBinder>();
-
-                if (uiBinder != null)
-                {
-                    uiBinder.Bind(runtime);
-                    
-                    runtime.bidderUIBinder = uiBinder;
-                }
-                else
-                {
-                    Debug.LogWarning($"No BidderUIBinder found on {uiObj.name}");
-                }
-            }
-
+            Destroy(child.gameObject);
+        }
+    }
+    
+    private void SpawnBidders()
+    {
+        foreach (var npc in npcBidders)
+        {
+            var runtime = new NPCBidderRuntime(npc);
+            AttachUI(runtime, npc);
             _activeBidders.Add(runtime);
         }
+    }
+    
+    private void AttachUI(NPCBidderRuntime runtime, NPCBidder npc)
+    {
+        if (npc.bidderUIPrefab == null) return;
+
+        var gameObjectInstantiate = Instantiate(npc.bidderUIPrefab, bidderUIParent);
+        var bidderUI = gameObjectInstantiate.GetComponent<BidderUIBinder>();
+
+        if (bidderUI == null)
+        {
+            Debug.LogWarning("Missing BidderUIBinder on prefab");
+            return;
+        }
+
+        bidderUI.Bind(runtime);
+        runtime.bidderUIBinder = bidderUI;
     }
 
     private void BeginBidding()
@@ -91,6 +102,7 @@ public class AuctionMechanic : MonoBehaviour
         auctionText.SetText("$" + price.ToString("n0"));
 
         _wantValue = 100;
+        _isEnding = false;
 
         StartCoroutine(Bidding());
         StartCoroutine(DebugBidTimer());
@@ -98,31 +110,25 @@ public class AuctionMechanic : MonoBehaviour
 
     private IEnumerator Bidding()
     {
-        bool inAuction = true;
-        
-        while (inAuction)
+        while (!_isEnding)
         {
-            if (_isEnding) yield break;
-            
-            float waitTime = Random.Range(1f, 3f);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
 
-            _timeSinceLastBid += waitTime;
+            _timeSinceLastBid += 1f;
 
             if (_isAnimatingBid) continue;
 
             if (TryProcessBid())
             {
                 _timeSinceLastBid = 0f;
-                continue;
             }
 
             if (!(_timeSinceLastBid >= noBidTimeout)) continue;
             
-            if (!TryEndAuction(true)) continue;
-            
-            _isEnding = true;
-            inAuction = false;
+            if (TryEndAuction(true))
+            {
+                _isEnding = true;
+            }
         }
     }
     
@@ -130,18 +136,16 @@ public class AuctionMechanic : MonoBehaviour
     {
         while (!_isEnding)
         {
-            Debug.Log($"[Timer] Time Since Last Bid: {_timeSinceLastBid:F1}s");
+            Debug.Log($"[Timer] {_timeSinceLastBid:F1}s");
             yield return new WaitForSeconds(1f);
         }
     }
 
     private bool TryProcessBid()
     {
-        if (_isAnimatingBid) return false; // skip if previous animation not finished
-        
         var result = AuctionAI.TryGetBid(_activeBidders, price);
 
-        if (!result.Success)
+        if (!result.Success || _isAnimatingBid)
         {
             return false;
         }
@@ -149,7 +153,6 @@ public class AuctionMechanic : MonoBehaviour
         result.Bidder.currentMoney -= result.BidAmount;
 
         StartCoroutine(HandleBidVisuals(result));
-
         return true;
     }
 
@@ -168,16 +171,19 @@ public class AuctionMechanic : MonoBehaviour
         auctionText.SetText("$" + price.ToString("n0"));
 
         yield return new WaitForSeconds(0.5f);
+        
         increasedBidText.SetText("");
 
         _wantValue = AuctionUtility.DecreaseWantValue(_wantValue);
-
         _isAnimatingBid = false;
     }
 
     private bool TryEndAuction(bool forceEnd = false)
     {
-        if (!forceEnd && _wantValue > 0) return false;
+        if (!forceEnd && _wantValue > 0)
+        {
+            return false;
+        }
 
         StartCoroutine(FinalCountdown());
         return true;
@@ -185,21 +191,21 @@ public class AuctionMechanic : MonoBehaviour
 
     private IEnumerator SmoothIncrease(int start, int end)
     {
-        int tempPrice = start;
+        int priceValue = start;
         
         Debug.Log($"[Auction] Counting up started: {start} → {end}");
         
-        if (tempPrice % 1000 == 0)
+        if (priceValue % 1000 == 0)
         {
-            Debug.Log($"[Auction] Counting: {tempPrice}");
+            Debug.Log($"[Auction] Counting: {priceValue}");
         }
 
-        while (tempPrice < end)
+        while (priceValue < end)
         {
-            tempPrice += AuctionUtility.GetSmoothStep(tempPrice,end);
-            tempPrice = Mathf.Min(tempPrice, end);
+            priceValue += AuctionUtility.GetSmoothStep(priceValue,end);
+            priceValue = Mathf.Min(priceValue, end);
 
-            auctionText.SetText("$" + tempPrice.ToString("n0"));
+            auctionText.SetText("$" + priceValue.ToString("n0"));
             yield return new WaitForSeconds(0.02f);
         }
         
