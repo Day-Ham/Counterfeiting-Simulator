@@ -8,29 +8,22 @@ public class AuctionLoadHandler : MonoBehaviour
 {
     [Header("Gallery")]
     [SerializeField] private Transform contentParent;
-    [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private GameObject auctionItemPrefab;
-    
-    [Header("Tween Settings")]
-    [SerializeField] private float tweenDuration;
-    [SerializeField] private Ease autoScrollEase;
+
+    [Header("Events")]
+    [SerializeField] private VoidEvent autoScrollEvent;
 
     private const string SaveFileName = "AuctionSave.es3";
     private const string AutoScrollFlagKey = "GalleryAutoScroll";
-    
-    private Tween _scrollTween;
-    private Coroutine _scrollCoroutine;
-    
-    
+
     private void Start()
     {
         LoadAllAuctions();
     }
     
-    // Load Saved Data (No Scroll)
     private void LoadAllAuctions()
     {
-        ES3Settings settings = new ES3Settings(SaveFileName);
+        var settings = new ES3Settings(SaveFileName);
 
         if (!ES3.KeyExists("Auction_History", settings))
         {
@@ -38,77 +31,44 @@ public class AuctionLoadHandler : MonoBehaviour
             return;
         }
 
-        List<AuctionSavedData> history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
+        var history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
 
-        Debug.Log($"[Load] Loading {history.Count} auctions");
+        foreach (var data in history) CreateItem(data);
 
-        foreach (var data in history)
-        {
-            CreateItem(data);
-        }
+        RebuildLayout();
 
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)contentParent);
-        
-        bool shouldAutoScroll = false;
-
-        if (ES3.KeyExists(AutoScrollFlagKey, settings))
-        {
-            shouldAutoScroll = ES3.Load<bool>(AutoScrollFlagKey, settings);
-        }
-
-        if (!shouldAutoScroll) return;
-        
-        Debug.Log("[Gallery] Coming from Auction > Auto Scroll");
-
-        // IMPORTANT: reset immediately so it won't trigger again
-        ES3.Save(AutoScrollFlagKey, false, settings);
-
-        if (_scrollCoroutine != null)
-        {
-            StopCoroutine(_scrollCoroutine);
-        }
-
-        _scrollCoroutine = StartCoroutine(ScrollToLatest());
+        TryTriggerAutoScroll(settings);
     }
     
-    private IEnumerator ScrollToLatest()
+    private void TryTriggerAutoScroll(ES3Settings settings)
     {
-        SetScrollInteractable(false);
-        
-        yield return null;
-        yield return new WaitForEndOfFrame();
-        
-        Canvas.ForceUpdateCanvases();
-        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)contentParent);
-        
-        _scrollTween?.Kill();
+        if (!ShouldAutoScroll(settings)) return;
 
-        _scrollTween = DOTween.To(
-                () => scrollRect.horizontalNormalizedPosition,
-                x => scrollRect.horizontalNormalizedPosition = x,
-                1f,
-                tweenDuration
-            )
-            .SetEase(autoScrollEase);
-        
-        SetScrollInteractable(true);
+        Debug.Log("[Gallery] Auto Scroll Triggered (Event)");
+
+        ES3.Save(AutoScrollFlagKey, false, settings);
+        autoScrollEvent?.Raise();
+    }
+
+    private bool ShouldAutoScroll(ES3Settings settings)
+    {
+        return ES3.KeyExists(AutoScrollFlagKey, settings) && ES3.Load<bool>(AutoScrollFlagKey, settings);
     }
     
     private void CreateItem(AuctionSavedData data)
     {
-        GameObject galleryImageUI = Instantiate(auctionItemPrefab, contentParent);
-        AuctionGalleryItem galleryItem = galleryImageUI.GetComponent<AuctionGalleryItem>();
+        var gameObjectInstantiate = Instantiate(auctionItemPrefab, contentParent);
+        var item = gameObjectInstantiate.GetComponent<AuctionGalleryItem>();
 
-        if (galleryItem)
+        if (item != null)
         {
-            galleryItem.SetData(data.DrawingData, data.FinalPrice, data.PaintingName);
+            item.SetData(data.DrawingData, data.FinalPrice, data.PaintingName);
         }
     }
     
-    private void SetScrollInteractable(bool value)
+    private void RebuildLayout()
     {
-        scrollRect.horizontal = value;
-        scrollRect.inertia = value;
+        Canvas.ForceUpdateCanvases();
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)contentParent);
     }
 }
