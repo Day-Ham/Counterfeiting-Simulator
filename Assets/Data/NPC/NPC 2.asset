@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NPC 2
   m_EditorClassIdentifier: 
   npcName: NPC2
+  bidderUIPrefab: {fileID: 704938304016203127, guid: 27c1f23deec289540bdd154fdfb65101, type: 3}
   minBidMultiplier: 1
   maxBidMultiplier: 5
   maxMoney: 1000000

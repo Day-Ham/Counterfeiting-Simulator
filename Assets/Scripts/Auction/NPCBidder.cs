@@ -4,6 +4,9 @@ using UnityEngine;
 public class NPCBidder : ScriptableObject
 {
     public string npcName;
+    
+    [Header("UI")]
+    public GameObject bidderUIPrefab;
 
     [Header("Bidding Behavior")]
     public int minBidMultiplier = 1;
