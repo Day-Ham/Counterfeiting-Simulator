@@ -2,13 +2,13 @@ using UnityEngine;
 
 public struct BidResultStruct
 {
-    public bool success;
-    public NPCBidderRuntime bidder;
-    public int bidAmount;
-    public int newPrice;
+    public bool Success;
+    public NPCBidderRuntime Bidder;
+    public int BidAmount;
+    public int NewPrice;
 
     public static BidResultStruct Fail()
     {
-        return new BidResultStruct() { success = false };
+        return new BidResultStruct() { Success = false };
     }
 }

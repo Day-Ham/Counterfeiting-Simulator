@@ -49,4 +49,4 @@ MonoBehaviour:
   finishGameRequestEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
   comparisonResultEvent: {fileID: 11400000, guid: e63b16f9456a75843a98243988c5f51b, type: 2}
   similarityComputeShader: {fileID: 7200000, guid: 097db70cea1b4cf9beb5a02651b34ea2, type: 3}
-  levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  mainGameConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}

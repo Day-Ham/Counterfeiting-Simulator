@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class PaintingNameInput : MonoBehaviour
 {
+    [Header("Events")] 
+    [SerializeField] private VoidEvent beginBidEvent;
+    
     [Header("UI")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private StringValue paintingName;
@@ -11,7 +14,6 @@ public class PaintingNameInput : MonoBehaviour
     
     [Header("Dependencies")]
     [SerializeField] private UIFlowControllerValue uiFlowControllerValue;
-    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
 
     [Header("No Name")]
     [SerializeField] private string defaultName = "Untitled Painting";
@@ -51,6 +53,6 @@ public class PaintingNameInput : MonoBehaviour
             uiFlowControllerValue.Value.OnFlowComplete.Unregister(StartBidding);
         }
         
-        auctionMechanicValue.Value.BeginBidding();
+        beginBidEvent.Raise();
     }
 }

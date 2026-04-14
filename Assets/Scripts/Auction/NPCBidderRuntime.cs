@@ -1,17 +1,17 @@
 [System.Serializable]
 public class NPCBidderRuntime
 {
-    public NPCBidder Data;
-    public int CurrentMoney;
+    public NPCBidder data;
+    public int currentMoney;
 
     public NPCBidderRuntime(NPCBidder bidder)
     {
-        Data = bidder;
-        CurrentMoney = bidder.MaxMoney;
+        data = bidder;
+        currentMoney = bidder.maxMoney;
     }
 
     public bool CanBid(int currentPrice)
     {
-        return CurrentMoney > currentPrice;
+        return currentMoney > currentPrice;
     }
 }

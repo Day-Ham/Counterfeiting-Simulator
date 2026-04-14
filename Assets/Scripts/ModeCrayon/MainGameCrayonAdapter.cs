@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LevelCrayonAdapter", menuName = "Crayons/LevelAdapter")]
-public class LevelCrayonAdapter : GameModeCrayon
+public class MainGameCrayonAdapter : GameModeCrayon
 {
     [SerializeField] private MainGameConfigRuntimeAsset _runtimeAsset;
 

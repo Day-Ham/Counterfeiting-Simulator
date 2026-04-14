@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class GameManagerSandBox : GameManagerUnit
 {
+    [Header("Events")]
+    [SerializeField] private VoidEvent spacePressedEvent;
+    
     [Header("Sandbox Settings")]
     [SerializeField] private SandboxConfigRuntimeAsset sandboxRuntime;
     [SerializeField] private Vector2Int sandboxCanvasSize = new(1024, 1024);
-
-    [Header("Dependencies")]
-    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
-    [SerializeField] private VoidEvent spacePressedEvent;
     
     [Header("UI Flow")]
     [SerializeField] private UIFlowControllerValue UIFlowControllerValue;

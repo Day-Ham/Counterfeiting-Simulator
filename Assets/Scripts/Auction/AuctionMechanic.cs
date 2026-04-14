@@ -1,11 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class AuctionMechanic : MonoBehaviour
 {
-    [Header("Event")]
+    [Header("Event")] 
+    [SerializeField] private VoidEvent beginBidEvent;
     [SerializeField] private VoidEvent onAuctionEnd;
     
     [Header("Save System")]
@@ -13,9 +16,6 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private AuctionResultRuntime auctionResultRuntime;
     [SerializeField] private AuctionSaveHandler auctionSaveHandler;
     [SerializeField] private StringValue paintingName;
-    
-    [Header("Auction Value")] 
-    [SerializeField] private AuctionMechanicValue auctionMechanicValue;
     
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI auctionText;
@@ -37,9 +37,14 @@ public class AuctionMechanic : MonoBehaviour
     private bool _isEnding = false;
     private float _timeSinceLastBid = 0f;
 
-    private void Awake()
+    private void OnEnable()
     {
-        auctionMechanicValue.Value = this;
+        beginBidEvent.Register(BeginBidding);
+    }
+
+    private void OnDisable()
+    {
+        beginBidEvent.Unregister(BeginBidding);
     }
 
     private void Start()
@@ -57,7 +62,7 @@ public class AuctionMechanic : MonoBehaviour
         }
     }
 
-    public void BeginBidding()
+    private void BeginBidding()
     {
         price = AuctionUtility.GenerateStartingPrice();
         auctionText.SetText("$" + price.ToString("n0"));
@@ -113,12 +118,12 @@ public class AuctionMechanic : MonoBehaviour
         
         var result = AuctionAI.TryGetBid(_activeBidders, price);
 
-        if (!result.success)
+        if (!result.Success)
         {
             return false;
         }
 
-        result.bidder.CurrentMoney -= result.bidAmount;
+        result.Bidder.currentMoney -= result.BidAmount;
 
         StartCoroutine(HandleBidVisuals(result));
 
@@ -129,12 +134,12 @@ public class AuctionMechanic : MonoBehaviour
     {
         _isAnimatingBid = true;
         
-        bidderNameText.SetText(result.bidder.Data.NpcName);
-        increasedBidText.SetText("+$" + result.bidAmount.ToString("n0"));
+        bidderNameText.SetText(result.Bidder.data.npcName);
+        increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
 
-        yield return StartCoroutine(SmoothIncrease(price, result.newPrice));
+        yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
 
-        price = result.newPrice;
+        price = result.NewPrice;
         auctionText.SetText("$" + price.ToString("n0"));
 
         yield return new WaitForSeconds(0.5f);

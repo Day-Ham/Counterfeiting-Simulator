@@ -188,12 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74573d0ff9457e6409b0ea28afb1dc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beginBidEvent: {fileID: 11400000, guid: fe58af5f0a5821f46ad2a7fcf68258c3, type: 2}
   onAuctionEnd: {fileID: 11400000, guid: 1109e4d6cac43c14eaf5489efa3759cb, type: 2}
   canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
   auctionResultRuntime: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}
   auctionSaveHandler: {fileID: 2454696258766390469}
   paintingName: {fileID: 11400000, guid: 3f373235ccd8b294885d7abd9c8dfcb9, type: 2}
-  auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
   auctionText: {fileID: 2534628648934014936}
   increasedBidText: {fileID: 3419188257871875267}
   auctionPromptText: {fileID: 1789595807886990200}
@@ -707,11 +707,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7532dbcfaaf8f647aefdb1ad356cb06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beginBidEvent: {fileID: 11400000, guid: fe58af5f0a5821f46ad2a7fcf68258c3, type: 2}
   inputField: {fileID: 8012865329534281870}
   paintingName: {fileID: 11400000, guid: 3f373235ccd8b294885d7abd9c8dfcb9, type: 2}
   submitButton: {fileID: 206095128574618062}
   uiFlowControllerValue: {fileID: 11400000, guid: 841a7ed0a5976f54e82126370854716b, type: 2}
-  auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
   defaultName: Untitled Painting
 --- !u!1 &3866779947910887302
 GameObject:
