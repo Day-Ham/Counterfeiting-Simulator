@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beginBidEvent: {fileID: 11400000, guid: fe58af5f0a5821f46ad2a7fcf68258c3, type: 2}
+  onBidRaisedEvent: {fileID: 11400000, guid: 7ae1851f405a6b947a4300b9cadfe94b, type: 2}
   onAuctionEnd: {fileID: 11400000, guid: 1109e4d6cac43c14eaf5489efa3759cb, type: 2}
   canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
   auctionResultRuntime: {fileID: 11400000, guid: 112a42f7fbec98445881cbbadd3597c2, type: 2}

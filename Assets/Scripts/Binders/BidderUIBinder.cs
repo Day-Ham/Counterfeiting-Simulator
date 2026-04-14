@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class BidderUIBinder : MonoBehaviour
 {
+    [Header("Event")]
+    [SerializeField] private BidEvent onBidRaisedEvent;
+    
     [Header("References")]
     [SerializeField] private RectTransform container;
 
@@ -15,7 +18,27 @@ public class BidderUIBinder : MonoBehaviour
     [SerializeField] private float holdTime = 0.2f;
 
     private Tween _currentTween;
+    
+    private NPCBidderRuntime _boundBidder;
+    
+    public void Bind(NPCBidderRuntime bidder)
+    {
+        _boundBidder = bidder;
+    }
 
+    private void OnEnable()
+    {
+        onBidRaisedEvent.Register(OnBidRaised);
+    }
+
+    private void OnDisable()
+    {
+        onBidRaisedEvent.Unregister(OnBidRaised);
+        
+        // Prevent ghost tween when object gets disabled
+        _currentTween?.Kill();
+    }
+    
     private void Awake()
     {
         // Safer than Start (runs earlier)
@@ -24,8 +47,16 @@ public class BidderUIBinder : MonoBehaviour
             container.anchoredPosition = restPosition;
         }
     }
+    
+    private void OnBidRaised(NPCBidderRuntime bidder)
+    {
+        // Only react if THIS UI belongs to the bidder
+        if (bidder != _boundBidder) return;
 
-    public void Raise()
+        Raise();
+    }
+
+    private void Raise()
     {
         if (!container) return;
 
@@ -37,11 +68,5 @@ public class BidderUIBinder : MonoBehaviour
             .AppendInterval(holdTime)
             .Append(container.DOAnchorPos(restPosition, duration).SetEase(Ease.InQuad))
             .SetLink(gameObject); // auto-kill if object is destroyed
-    }
-
-    private void OnDisable()
-    {
-        // Prevent ghost tween when object gets disabled
-        _currentTween?.Kill();
     }
 }

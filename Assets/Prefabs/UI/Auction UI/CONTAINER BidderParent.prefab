@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0a3229cb61b974ca689b8c3e34e440, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onBidRaisedEvent: {fileID: 11400000, guid: 7ae1851f405a6b947a4300b9cadfe94b, type: 2}
   container: {fileID: 7876381106310050431}
   restPosition: {x: 0, y: 0}
   raisedPosition: {x: 0, y: 100}

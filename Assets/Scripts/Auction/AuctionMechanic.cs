@@ -7,8 +7,9 @@ using Random = UnityEngine.Random;
 
 public class AuctionMechanic : MonoBehaviour
 {
-    [Header("Event")] 
+    [Header("Event")]
     [SerializeField] private VoidEvent beginBidEvent;
+    [SerializeField] private BidEvent onBidRaisedEvent;
     [SerializeField] private VoidEvent onAuctionEnd;
     
     [Header("Save System")]
@@ -57,12 +58,6 @@ public class AuctionMechanic : MonoBehaviour
     {
         _activeBidders.Clear();
 
-        // Optional: clear old UI (important if restarting auction)
-        foreach (Transform child in bidderUIParent)
-        {
-            Destroy(child.gameObject);
-        }
-
         foreach (var npcBidder in npcBidders)
         {
             var runtime = new NPCBidderRuntime(npcBidder);
@@ -72,11 +67,13 @@ public class AuctionMechanic : MonoBehaviour
             {
                 GameObject uiObj = Instantiate(npcBidder.bidderUIPrefab, bidderUIParent);
 
-                var uiHandler = uiObj.GetComponent<BidderUIBinder>();
+                var uiBinder = uiObj.GetComponent<BidderUIBinder>();
 
-                if (uiHandler != null)
+                if (uiBinder != null)
                 {
-                    runtime.bidderUIBinder = uiHandler;
+                    uiBinder.Bind(runtime);
+                    
+                    runtime.bidderUIBinder = uiBinder;
                 }
                 else
                 {
@@ -163,7 +160,7 @@ public class AuctionMechanic : MonoBehaviour
         bidderNameText.SetText(result.Bidder.data.npcName);
         increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
         
-        result.Bidder.bidderUIBinder?.Raise();
+        onBidRaisedEvent?.Raise(result.Bidder);
 
         yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
 
