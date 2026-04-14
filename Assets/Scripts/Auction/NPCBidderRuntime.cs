@@ -3,6 +3,8 @@ public class NPCBidderRuntime
 {
     public NPCBidder data;
     public int currentMoney;
+    
+    public BidderUIBinder bidderUIBinder;
 
     public NPCBidderRuntime(NPCBidder bidder)
     {

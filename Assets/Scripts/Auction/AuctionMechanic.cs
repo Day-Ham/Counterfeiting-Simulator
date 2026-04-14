@@ -25,6 +25,7 @@ public class AuctionMechanic : MonoBehaviour
 
     [Header("NPC Bidders")]
     [SerializeField] private List<NPCBidder> npcBidders;
+    [SerializeField] private Transform bidderUIParent;
 
     private readonly List<NPCBidderRuntime> _activeBidders = new();
 
@@ -56,9 +57,34 @@ public class AuctionMechanic : MonoBehaviour
     {
         _activeBidders.Clear();
 
+        // Optional: clear old UI (important if restarting auction)
+        foreach (Transform child in bidderUIParent)
+        {
+            Destroy(child.gameObject);
+        }
+
         foreach (var npcBidder in npcBidders)
         {
-            _activeBidders.Add(new NPCBidderRuntime(npcBidder));
+            var runtime = new NPCBidderRuntime(npcBidder);
+
+            // 🔥 Instantiate UI
+            if (npcBidder.bidderUIPrefab != null)
+            {
+                GameObject uiObj = Instantiate(npcBidder.bidderUIPrefab, bidderUIParent);
+
+                var uiHandler = uiObj.GetComponent<BidderUIBinder>();
+
+                if (uiHandler != null)
+                {
+                    runtime.bidderUIBinder = uiHandler;
+                }
+                else
+                {
+                    Debug.LogWarning($"No BidderUIBinder found on {uiObj.name}");
+                }
+            }
+
+            _activeBidders.Add(runtime);
         }
     }
 
@@ -136,6 +162,8 @@ public class AuctionMechanic : MonoBehaviour
         
         bidderNameText.SetText(result.Bidder.data.npcName);
         increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
+        
+        result.Bidder.bidderUIBinder?.Raise();
 
         yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
 
