@@ -3,14 +3,14 @@ using UnityEngine;
 
 public static class InputFieldUtility
 {
-    private const int MinRGB = 0;
-    private const int MaxRGB = 255;
-    private const int MaxDigits = 3;
+    private const int MIN_RGB = 0;
+    private const int MAX_RGB = 255;
+    private const int MAX_DIGITS = 3;
 
     public static void SetupRGBInput(TMP_InputField input, RGBChannel channel, System.Action<RGBChannel, int> onValidIntValue)
     {
         input.characterValidation = TMP_InputField.CharacterValidation.Integer;
-        input.characterLimit = MaxDigits;
+        input.characterLimit = MAX_DIGITS;
 
         input.onValueChanged.AddListener(value => ClampWhileTyping(input, value));
         input.onEndEdit.AddListener(value => ValidateFinal(input, channel, value, onValidIntValue));
@@ -20,9 +20,9 @@ public static class InputFieldUtility
     {
         if (string.IsNullOrEmpty(value)) return;
 
-        if (int.TryParse(value, out int number) && number > MaxRGB)
+        if (int.TryParse(value, out int number) && number > MAX_RGB)
         {
-            input.SetTextWithoutNotify(MaxRGB.ToString());
+            input.SetTextWithoutNotify(MAX_RGB.ToString());
         }
     }
 
@@ -30,10 +30,10 @@ public static class InputFieldUtility
     {
         if (!int.TryParse(value, out int number))
         {
-            number = MinRGB;
+            number = MIN_RGB;
         }
 
-        number = Mathf.Clamp(number, MinRGB, MaxRGB);
+        number = Mathf.Clamp(number, MIN_RGB, MAX_RGB);
 
         input.SetTextWithoutNotify(number.ToString());
         onValidIntValue?.Invoke(channel, number);
