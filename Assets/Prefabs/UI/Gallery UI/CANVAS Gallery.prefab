@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 7926500106747037440}
   - component: {fileID: 7788699628516691820}
   - component: {fileID: 3212370184847786832}
+  - component: {fileID: 8935935989273779374}
   m_Layer: 5
   m_Name: AuctionLoadHandler
   m_TagString: Untagged
@@ -262,10 +263,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   contentParent: {fileID: 1892750219759049179}
-  scrollRect: {fileID: 6214633122523879923}
   auctionItemPrefab: {fileID: 3728650235757109020, guid: e4685f6a4289c3240a9b2c653c1ff757, type: 3}
-  tweenDuration: 1.5
-  autoScrollEase: 2
+  autoScrollEvent: {fileID: 11400000, guid: 868a418830f3a1746aa4b38e24c99097, type: 2}
 --- !u!114 &3212370184847786832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +277,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1c91afc2ddb264388caefc6c78d703, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8935935989273779374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893208890588840854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ea7770477353946b9a6b43dd4a40d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 6214633122523879923}
+  contentParent: {fileID: 1892750219759049179}
+  duration: 0.5
+  ease: 9
+  autoScrollEvent: {fileID: 11400000, guid: 868a418830f3a1746aa4b38e24c99097, type: 2}
+  autoScrollOnStart: 0
+  debugAutoScroll: 0
 --- !u!1 &1993769893004943855
 GameObject:
   m_ObjectHideFlags: 0
