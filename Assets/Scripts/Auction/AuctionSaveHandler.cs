@@ -35,9 +35,10 @@ public class AuctionSaveHandler : MonoBehaviour
 
         AuctionSavedData newEntry = new AuctionSavedData
         {
-            DrawingData = auctionResult.drawingData,
-            FinalPrice = auctionResult.finalPrice,
-            PaintingName = auctionResult.paintingName
+            paintingID = auctionResult.paintingID,
+            drawingData = auctionResult.drawingData,
+            finalPrice = auctionResult.finalPrice,
+            paintingName = auctionResult.paintingName
         };
 
         history.Add(newEntry);

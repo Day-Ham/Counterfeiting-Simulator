@@ -62,7 +62,7 @@ public class AuctionLoadHandler : MonoBehaviour
 
         if (item != null)
         {
-            item.SetData(data.DrawingData, data.FinalPrice, data.PaintingName);
+            item.SetData(data.drawingData, data.finalPrice, data.paintingName);
         }
     }
     

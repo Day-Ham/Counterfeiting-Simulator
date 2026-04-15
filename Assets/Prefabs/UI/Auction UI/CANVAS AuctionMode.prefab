@@ -206,7 +206,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4becdff0387319e458d6005825e6fc07, type: 2}
   bidderUIParent: {fileID: 5445433341711167846}
   price: 0
-  noBidTimeout: 5
+  noBidTimeout: 1
 --- !u!114 &2454696258766390469
 MonoBehaviour:
   m_ObjectHideFlags: 0
