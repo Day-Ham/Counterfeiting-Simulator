@@ -6,17 +6,33 @@ using DG.Tweening;
 
 public class AuctionLoadHandler : MonoBehaviour
 {
+    [Header("Events")]
+    [SerializeField] private VoidEvent autoScrollEvent;
+    [SerializeField] private VoidEvent refreshGalleryEvent;
+    
     [Header("Gallery")]
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject auctionItemPrefab;
 
-    [Header("Events")]
-    [SerializeField] private VoidEvent autoScrollEvent;
-
     private const string SaveFileName = "AuctionSave.es3";
     private const string AutoScrollFlagKey = "GalleryAutoScroll";
+    
+    private void OnEnable()
+    {
+        refreshGalleryEvent.Register(RefreshGallery);
+    }
+
+    private void OnDisable()
+    {
+        refreshGalleryEvent.Unregister(RefreshGallery);
+    }
 
     private void Start()
+    {
+        LoadAllAuctions();
+    }
+    
+    private void RefreshGallery()
     {
         LoadAllAuctions();
     }
@@ -30,14 +46,38 @@ public class AuctionLoadHandler : MonoBehaviour
             Debug.LogWarning("[Load] No auctions found.");
             return;
         }
+        
+        ClearGallery();
 
         var history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
+        
+        FixMissingIds(history);
+        
+        ES3.Save("Auction_History", history, settings);
 
-        foreach (var data in history) CreateItem(data);
+        foreach (var data in history)
+        {
+            CreateItem(data);
+        }
 
         RebuildLayout();
 
         TryTriggerAutoScroll(settings);
+    }
+    
+    private void FixMissingIds(List<AuctionSavedData> history)
+    {
+        HashSet<string> usedIds = new HashSet<string>();
+
+        foreach (var data in history)
+        {
+            if (string.IsNullOrEmpty(data.paintingID) || usedIds.Contains(data.paintingID))
+            {
+                data.paintingID = System.Guid.NewGuid().ToString();
+            }
+
+            usedIds.Add(data.paintingID);
+        }
     }
     
     private void TryTriggerAutoScroll(ES3Settings settings)
@@ -55,14 +95,22 @@ public class AuctionLoadHandler : MonoBehaviour
         return ES3.KeyExists(AutoScrollFlagKey, settings) && ES3.Load<bool>(AutoScrollFlagKey, settings);
     }
     
-    private void CreateItem(AuctionSavedData data)
+    private void CreateItem(AuctionSavedData savedData)
     {
         var gameObjectInstantiate = Instantiate(auctionItemPrefab, contentParent);
         var item = gameObjectInstantiate.GetComponent<AuctionGalleryItem>();
 
-        if (item != null)
+        if (item)
         {
-            item.SetData(data.drawingData, data.finalPrice, data.paintingName);
+            item.SetData(savedData);
+        }
+    }
+    
+    private void ClearGallery()
+    {
+        foreach (Transform child in contentParent)
+        {
+            Destroy(child.gameObject);
         }
     }
     

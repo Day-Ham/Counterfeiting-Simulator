@@ -262,9 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283797358526b534b92e660bedeb0610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoScrollEvent: {fileID: 11400000, guid: 868a418830f3a1746aa4b38e24c99097, type: 2}
+  refreshGalleryEvent: {fileID: 11400000, guid: 4c0fc42a35b304142b93d320170427fc, type: 2}
   contentParent: {fileID: 1892750219759049179}
   auctionItemPrefab: {fileID: 3728650235757109020, guid: e4685f6a4289c3240a9b2c653c1ff757, type: 3}
-  autoScrollEvent: {fileID: 11400000, guid: 868a418830f3a1746aa4b38e24c99097, type: 2}
 --- !u!114 &3212370184847786832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,7 +878,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DEBUG SAVE FILE
+  m_text: DEBUG NO ID
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}
   m_sharedMaterial: {fileID: 2394976983258692724, guid: ec1271e85ef99f443a8e1e667a30e396, type: 2}

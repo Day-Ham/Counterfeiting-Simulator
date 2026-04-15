@@ -9,43 +9,44 @@ public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
     [Header("Event")]
     [SerializeField] private BoolEvent toggleContextMenu;
     [SerializeField] private ByteArrayEvent selectedImageEvent;
+    [SerializeField] private AuctionSavedDataEvent selectedSavedDataEvent;
     
     [Header("UI References")]
     [SerializeField] private Image drawingImage;
     [SerializeField] private TextMeshProUGUI bidText;
     [SerializeField] private TextMeshProUGUI paintingName;
     
-    private byte[] _drawingData;
+    private AuctionSavedData _auctionSavedData;
     private readonly Vector2 _pivot = new Vector2(0.5f, 0.5f);
 
     /// <summary>
     /// Sets the drawing and bid
     /// </summary>
-    public void SetData(byte[] drawingData, int finalPrice, string paintingNameValue)
+    public void SetData(AuctionSavedData savedData)
     {
-        _drawingData = drawingData;
+        _auctionSavedData = savedData;
 
-        if (drawingData != null && drawingData.Length > 0)
+        if (savedData.drawingData != null && savedData.drawingData.Length > 0)
         {
             Texture2D tex = new Texture2D(2, 2, TextureFormat.RGBA32, false);
-            tex.LoadImage(drawingData);
+            tex.LoadImage(savedData.drawingData);
 
-            if (drawingImage != null)
-            {
-                drawingImage.sprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), _pivot);
-                drawingImage.preserveAspect = true;
-            }
+            drawingImage.sprite = Sprite.Create(
+                tex,
+                new Rect(0, 0, tex.width, tex.height),
+                _pivot
+            );
+
+            drawingImage.preserveAspect = true;
         }
 
-        if (bidText != null)
-        {
-            bidText.SetText("$" + finalPrice.ToString("n0"));
-        }
+        bidText.SetText("$" + savedData.finalPrice.ToString("n0"));
 
-        if (paintingName == null) return;
-        
-        string finalName = string.IsNullOrEmpty(paintingNameValue) ? "Untitled" : paintingNameValue;
-        paintingName.SetText(finalName);
+        paintingName.SetText(
+            string.IsNullOrEmpty(savedData.paintingName)
+                ? "Untitled"
+                : savedData.paintingName
+        );
     }
     
     // Detect right-click
@@ -54,6 +55,7 @@ public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
         if (eventData.button != PointerEventData.InputButton.Right) return;
         
         toggleContextMenu.Raise(true);
-        selectedImageEvent.Raise(_drawingData);
+        selectedImageEvent.Raise(_auctionSavedData.drawingData);
+        selectedSavedDataEvent.Raise(_auctionSavedData);
     }
 }
