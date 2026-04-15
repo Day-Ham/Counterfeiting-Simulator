@@ -14,9 +14,6 @@ public class DeleteController : MonoBehaviour
 
     private AuctionSavedData _selectedData;
 
-    private const string SaveFileName = "AuctionSave.es3";
-    private const string SaveKey = "Auction_History";
-
     private void OnEnable()
     {
         deleteButton.onClick.AddListener(DeleteSelectedItem);
@@ -38,15 +35,15 @@ public class DeleteController : MonoBehaviour
     {
         if (_selectedData == null) return;
 
-        ES3Settings settings = new ES3Settings(SaveFileName);
+        ES3Settings settings = new ES3Settings(SaveFileUtility.SAVE_FILE_NAME);
 
-        if (!ES3.KeyExists(SaveKey, settings)) return;
+        if (!ES3.KeyExists(SaveFileUtility.SAVE_FILE_HISTORY, settings)) return;
 
-        List<AuctionSavedData> history = ES3.Load<List<AuctionSavedData>>(SaveKey, settings);
+        List<AuctionSavedData> history = ES3.Load<List<AuctionSavedData>>(SaveFileUtility.SAVE_FILE_HISTORY, settings);
 
         history.RemoveAll(auctionSavedData => auctionSavedData.paintingID == _selectedData.paintingID);
 
-        ES3.Save(SaveKey, history, settings);
+        ES3.Save(SaveFileUtility.SAVE_FILE_HISTORY, history, settings);
 
         Debug.Log($"[Delete] Removed: {_selectedData.paintingName}");
 

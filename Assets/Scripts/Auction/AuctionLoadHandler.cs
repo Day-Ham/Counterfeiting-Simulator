@@ -13,9 +13,6 @@ public class AuctionLoadHandler : MonoBehaviour
     [Header("Gallery")]
     [SerializeField] private Transform contentParent;
     [SerializeField] private GameObject auctionItemPrefab;
-
-    private const string SaveFileName = "AuctionSave.es3";
-    private const string AutoScrollFlagKey = "GalleryAutoScroll";
     
     private void OnEnable()
     {
@@ -39,9 +36,9 @@ public class AuctionLoadHandler : MonoBehaviour
     
     private void LoadAllAuctions()
     {
-        var settings = new ES3Settings(SaveFileName);
+        var settings = new ES3Settings(SaveFileUtility.SAVE_FILE_NAME);
 
-        if (!ES3.KeyExists("Auction_History", settings))
+        if (!ES3.KeyExists(SaveFileUtility.SAVE_FILE_HISTORY, settings))
         {
             Debug.LogWarning("[Load] No auctions found.");
             return;
@@ -49,11 +46,11 @@ public class AuctionLoadHandler : MonoBehaviour
         
         ClearGallery();
 
-        var history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
+        var history = ES3.Load<List<AuctionSavedData>>(SaveFileUtility.SAVE_FILE_HISTORY, settings);
         
         FixMissingIds(history);
         
-        ES3.Save("Auction_History", history, settings);
+        ES3.Save(SaveFileUtility.SAVE_FILE_HISTORY, history, settings);
 
         foreach (var data in history)
         {
@@ -86,13 +83,13 @@ public class AuctionLoadHandler : MonoBehaviour
 
         Debug.Log("[Gallery] Auto Scroll Triggered (Event)");
 
-        ES3.Save(AutoScrollFlagKey, false, settings);
+        ES3.Save(SaveFileUtility.AUTO_SCROLL_FLAG_KEY, false, settings);
         autoScrollEvent?.Raise();
     }
 
     private bool ShouldAutoScroll(ES3Settings settings)
     {
-        return ES3.KeyExists(AutoScrollFlagKey, settings) && ES3.Load<bool>(AutoScrollFlagKey, settings);
+        return ES3.KeyExists(SaveFileUtility.AUTO_SCROLL_FLAG_KEY, settings) && ES3.Load<bool>(SaveFileUtility.AUTO_SCROLL_FLAG_KEY, settings);
     }
     
     private void CreateItem(AuctionSavedData savedData)

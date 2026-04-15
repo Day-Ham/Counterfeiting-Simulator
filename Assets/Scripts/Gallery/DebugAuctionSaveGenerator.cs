@@ -8,24 +8,26 @@ public class DebugAuctionSaveGenerator : MonoBehaviour
     [Header("Debug Settings")]
     [SerializeField] private int generateCount = 5;
     
-    private const string SAVE_FILE_NAME = "AuctionSave.es3";
-    private const string SAVE_KEY = "Auction_History";
-    
     public void GenerateDebugSaves()
     { 
-        ES3Settings settings = new ES3Settings(SAVE_FILE_NAME);
+        ES3Settings settings = new ES3Settings(SaveFileUtility.SAVE_FILE_NAME);
     
         List<AuctionSavedData> history;
     
-        if (ES3.KeyExists(SAVE_KEY, settings))
-            history = ES3.Load<List<AuctionSavedData>>(SAVE_KEY, settings);
+        if (ES3.KeyExists(SaveFileUtility.SAVE_FILE_HISTORY, settings))
+        {
+            history = ES3.Load<List<AuctionSavedData>>(SaveFileUtility.SAVE_FILE_HISTORY, settings);
+        }
         else
+        {
             history = new List<AuctionSavedData>();
+        }
     
         for (int i = 0; i < generateCount; i++)
         { 
             AuctionSavedData fakeData = new AuctionSavedData
             {
+                paintingID = Guid.NewGuid().ToString(),
                 drawingData = GenerateDummyImage(), // fake image
                 finalPrice = Random.Range(50, 5000),
                 paintingName = GetRandomName()
@@ -34,7 +36,7 @@ public class DebugAuctionSaveGenerator : MonoBehaviour
             history.Add(fakeData);
         }
     
-        ES3.Save(SAVE_KEY, history, settings);
+        ES3.Save(SaveFileUtility.SAVE_FILE_HISTORY, history, settings);
     
         Debug.Log($"[DEBUG] Generated {generateCount} fake auction entries.");
     }
