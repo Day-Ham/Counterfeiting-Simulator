@@ -338,14 +338,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UITransitionElementValue: {fileID: 11400000, guid: da268a850127a2b45a3aa6e3bed7be58, type: 2}
+  bindings:
+  - action: 0
+    batch: 0
+  - action: 1
+    batch: 1
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  tween:
+    enterDuration: 1
+    exitDuration: 1
+    enterDelay: 1.5
+    exitDelay: 1.5
+    enterEase: 28
+    exitEase: 28
   rectTransform: {fileID: 8601051525711549764}
-  targetPosition: {x: 480, y: 0}
-  duration: 1
-  moveOutDelay: 2
-  moveInDelay: 0.5
-  moveOutEase: 28
-  moveInEase: 27
+  enterPosition: {x: 480, y: 0}
+  exitPosition: {x: 480, y: 900}
 --- !u!1 &2975894298058291953
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,10 +720,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   beginBidEvent: {fileID: 11400000, guid: fe58af5f0a5821f46ad2a7fcf68258c3, type: 2}
+  startUIFlowEvent: {fileID: 11400000, guid: f065d845ee0744548ba6683a610af58b, type: 2}
+  onFlowCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
   inputField: {fileID: 8012865329534281870}
   paintingName: {fileID: 11400000, guid: 3f373235ccd8b294885d7abd9c8dfcb9, type: 2}
   submitButton: {fileID: 206095128574618062}
-  uiFlowControllerValue: {fileID: 11400000, guid: 841a7ed0a5976f54e82126370854716b, type: 2}
   defaultName: Untitled Painting
 --- !u!1 &3866779947910887302
 GameObject:
@@ -1818,14 +1829,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UITransitionElementValue: {fileID: 11400000, guid: b5dff887bb0a84740a804ce8751796af, type: 2}
+  bindings:
+  - action: 0
+    batch: 1
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  tween:
+    enterDuration: 1
+    exitDuration: 0
+    enterDelay: 1.5
+    exitDelay: 0
+    enterEase: 28
+    exitEase: 28
   rectTransform: {fileID: 5445433341711167846}
-  targetPosition: {x: 0, y: 100}
-  duration: 1
-  moveOutDelay: 0.5
-  moveInDelay: 1
-  moveOutEase: 28
-  moveInEase: 27
+  enterPosition: {x: 0, y: 100}
+  exitPosition: {x: 0, y: 0}
 --- !u!1 &8957698912592256578
 GameObject:
   m_ObjectHideFlags: 0

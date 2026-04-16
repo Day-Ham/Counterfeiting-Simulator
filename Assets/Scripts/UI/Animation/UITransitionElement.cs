@@ -1,69 +1,81 @@
-using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
 public class UITransitionElement : MonoBehaviour
 {
-    [Header("UI Transition Value")] 
-    [SerializeField] private UITransitionElementValue UITransitionElementValue;
-    
-    [Header("RectTransform")]
-    [SerializeField] private RectTransform rectTransform;
-    
-    [Header("Move Settings")]
-    [SerializeField] private Vector2 targetPosition;
-    [SerializeField] private float duration;
+    [Header("Bindings")]
+    [SerializeField] private List<UITransitionBinding> bindings;
 
-    [Header("Delays")]
-    [SerializeField] private float moveOutDelay;
-    [SerializeField] private float moveInDelay;
-    
+    [Header("Events")]
+    [SerializeField] private IntEvent batchEvent;
+    [SerializeField] private IntEvent registerElementEvent;
+    [SerializeField] private VoidEvent elementCompleteEvent;
+
     [Header("Tween Settings")]
-    [SerializeField] private Ease moveOutEase;
-    [SerializeField] private Ease moveInEase;
-    
-    private Vector2 _originalPos;
-    
-    public event Action OnMoveOutComplete;
-    public event Action OnMoveInComplete;
+    [SerializeField] private UITransitionTweenSettings tween;
 
-    private void Awake()
+    [Header("Positions")]
+    [SerializeField] private RectTransform rectTransform;
+
+    [Tooltip("Where UI appears")]
+    [SerializeField] private Vector2 enterPosition;
+
+    [Tooltip("Where UI goes when hidden OR shifted (side/offscreen/etc)")]
+    [SerializeField] private Vector2 exitPosition;
+
+    private void OnEnable()
     {
-        _originalPos = rectTransform.anchoredPosition;
-        UITransitionElementValue.Bind(this);
+        batchEvent.Register(OnBatchTriggered);
     }
 
-    public void MoveOut()
+    private void OnDisable()
+    {
+        batchEvent.Unregister(OnBatchTriggered);
+    }
+
+    private void OnBatchTriggered(int batch)
+    {
+        foreach (var uiTransitionBinding in bindings)
+        {
+            if (uiTransitionBinding.batch != batch) continue;
+
+            registerElementEvent.Raise(1);
+
+            if (uiTransitionBinding.action == UITransitionAction.Enter)
+            {
+                MoveToEnterPosition();
+            }
+            else
+            {
+                MoveToExitPosition();
+            }
+
+            return;
+        }
+    }
+    
+    // ENTER (SHOW UI)
+    private void MoveToEnterPosition()
     {
         rectTransform.DOKill();
-        
-        rectTransform.DOAnchorPos(targetPosition, duration)
-            .SetEase(moveOutEase)
-            .SetDelay(moveOutDelay)
-            .SetUpdate(true)
-            .OnComplete(OnMoveOutCompleteEvent);
-    }
 
-    public void MoveIn()
-    {
-        rectTransform.DOKill();
-        
-        rectTransform.DOAnchorPos(_originalPos, duration)
-            .SetEase(moveInEase)
-            .SetDelay(moveInDelay)
+        rectTransform.DOAnchorPos(enterPosition, tween.enterDuration)
+            .SetEase(tween.enterEase)
+            .SetDelay(tween.enterDelay)
             .SetUpdate(true)
-            .OnComplete(OnMoveInCompleteEvent);
+            .OnComplete(() => elementCompleteEvent.Raise());
     }
     
-    private void OnMoveOutCompleteEvent()
+    // EXIT (HIDE / SIDE SHIFT / OFFSCREEN)
+    private void MoveToExitPosition()
     {
-        OnMoveOutComplete?.Invoke();
-        OnMoveOutComplete = null;
-    }
+        rectTransform.DOKill();
 
-    private void OnMoveInCompleteEvent()
-    {
-        OnMoveInComplete?.Invoke();
-        OnMoveInComplete = null;
+        rectTransform.DOAnchorPos(exitPosition, tween.exitDuration)
+            .SetEase(tween.exitEase)
+            .SetDelay(tween.exitDelay)
+            .SetUpdate(true)
+            .OnComplete(() => elementCompleteEvent.Raise());
     }
 }

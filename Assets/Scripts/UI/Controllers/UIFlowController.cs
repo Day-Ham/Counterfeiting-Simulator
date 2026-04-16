@@ -1,101 +1,56 @@
-using System.Collections.Generic;
 using UnityEngine;
-
-[System.Serializable]
-public class UIFlowBatch
-{
-    public List<UITransitionElementValue> UIToMoveOrHide = new();
-    public List<UITransitionElementValue> UIToReturnOriginalPosition = new();
-}
 
 public class UIFlowController : MonoBehaviour
 {
-    [Header("UI Flow Value")]
-    [SerializeField] private UIFlowControllerValue UIFlowValue;
+    [Header("Events")]
+    [SerializeField] private IntEvent startUIFlowEvent;
+    [SerializeField] private IntEvent batchEvent;
+    [SerializeField] private IntEvent registerElementEvent;
+    [SerializeField] private VoidEvent elementCompleteEvent;
+    [SerializeField] private VoidEvent onFlowComplete;
     
-    [Header("Batches of UI Flows")]
-    [SerializeField] private List<UIFlowBatch> uiBatches = new();
+    private int _expected;
+    private int _completed;
 
-    [Header("Flow Complete Event on last element")]
-    public VoidEvent OnFlowComplete;
-    
-    private int _totalOperations;
-    private int _completedOperations;
-
-    private void Awake()
+    private void OnEnable()
     {
-        UIFlowValue.Value = this;
+        startUIFlowEvent.Register(StartBatch);
+        registerElementEvent.Register(OnRegister);
+        elementCompleteEvent.Register(OnComplete);
     }
 
-    public void StartBatch(int batchIndex)
+    private void OnDisable()
     {
-        if (batchIndex < 0 || batchIndex >= uiBatches.Count) return;
+        startUIFlowEvent.Unregister(StartBatch);
+        registerElementEvent.Unregister(OnRegister);
+        elementCompleteEvent.Unregister(OnComplete);
+    }
 
-        var batch = uiBatches[batchIndex];
+    private void StartBatch(int batchIndex)
+    {
+        _expected = 0;
+        _completed = 0;
 
-        _totalOperations = 0;
-        _completedOperations = 0;
-        
-        // MOVE OUT / HIDE (PARALLEL)
-        if (batch.UIToMoveOrHide != null)
+        batchEvent.Raise(batchIndex);
+
+        if (_expected == 0)
         {
-            foreach (var uiValue in batch.UIToMoveOrHide)
-            {
-                _totalOperations++;
-
-                if (!uiValue?.Value)
-                {
-                    IncrementComplete();
-                    continue;
-                }
-
-                uiValue.Value.OnMoveOutComplete += OnOperationComplete;
-                uiValue.MoveOutElement();
-            }
-        }
-        
-        // MOVE IN (PARALLEL)
-        if (batch.UIToReturnOriginalPosition != null)
-        {
-            foreach (var uiValue in batch.UIToReturnOriginalPosition)
-            {
-                _totalOperations++;
-
-                if (!uiValue?.Value)
-                {
-                    IncrementComplete();
-                    continue;
-                }
-
-                uiValue.Value.OnMoveInComplete += OnOperationComplete;
-                uiValue.MoveInElement();
-            }
-        }
-
-        // Edge case: nothing to process
-        if (_totalOperations == 0)
-        {
-            OnFlowComplete?.Raise();
+            onFlowComplete?.Raise();
         }
     }
 
-    private void OnOperationComplete()
+    private void OnRegister(int value)
     {
-        _completedOperations++;
-
-        if (_completedOperations >= _totalOperations)
-        {
-            OnFlowComplete?.Raise();
-        }
+        _expected += value;
     }
 
-    private void IncrementComplete()
+    private void OnComplete()
     {
-        _completedOperations++;
+        _completed++;
 
-        if (_completedOperations >= _totalOperations)
+        if (_completed >= _expected && _expected > 0)
         {
-            OnFlowComplete?.Raise();
+            onFlowComplete?.Raise();
         }
     }
 }

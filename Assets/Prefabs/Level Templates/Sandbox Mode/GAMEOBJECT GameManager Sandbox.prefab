@@ -47,12 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
   canvasDrawController: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
+  spacePressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
+  startUIFlowEvent: {fileID: 11400000, guid: f065d845ee0744548ba6683a610af58b, type: 2}
   sandboxRuntime: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
   sandboxCanvasSize: {x: 1024, y: 1024}
-  inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
-  auctionMechanicValue: {fileID: 11400000, guid: 678d1da7185c0c443a03453d724ebc6d, type: 2}
-  spacePressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
-  UIFlowControllerValue: {fileID: 11400000, guid: 841a7ed0a5976f54e82126370854716b, type: 2}
 --- !u!114 &5222011558294312243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,19 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b582f7f835cab4b9c9be16c9a5dd2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIFlowValue: {fileID: 11400000, guid: 841a7ed0a5976f54e82126370854716b, type: 2}
-  uiBatches:
-  - UIToMoveOrHide:
-    - {fileID: 11400000, guid: d9e8c9bd6a52f514bbd2bfab6b0c78ed, type: 2}
-    - {fileID: 11400000, guid: 99ddaa9bb1a67b74cac5c025952c33ca, type: 2}
-    - {fileID: 11400000, guid: 82d3e83824a959044a150447eafbba9b, type: 2}
-    - {fileID: 11400000, guid: da268a850127a2b45a3aa6e3bed7be58, type: 2}
-    - {fileID: 11400000, guid: d6e46771eaee47843ab330e77ac62337, type: 2}
-    - {fileID: 11400000, guid: 92eb1f22ad890f9439f763d695593598, type: 2}
-    UIToReturnOriginalPosition: []
-  - UIToMoveOrHide:
-    - {fileID: 11400000, guid: b5dff887bb0a84740a804ce8751796af, type: 2}
-    - {fileID: 11400000, guid: 4ecb24735e0249e4cb443dd2177fe2b8, type: 2}
-    UIToReturnOriginalPosition:
-    - {fileID: 11400000, guid: da268a850127a2b45a3aa6e3bed7be58, type: 2}
-  OnFlowComplete: {fileID: 11400000, guid: e1ee44ece824c0145bf10c0847ea241c, type: 2}
+  startUIFlowEvent: {fileID: 11400000, guid: f065d845ee0744548ba6683a610af58b, type: 2}
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  onFlowComplete: {fileID: 11400000, guid: e1ee44ece824c0145bf10c0847ea241c, type: 2}
