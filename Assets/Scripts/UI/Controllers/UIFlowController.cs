@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class UIFlowController : MonoBehaviour
 {
@@ -11,7 +9,6 @@ public class UIFlowController : MonoBehaviour
     [SerializeField] private VoidEvent elementCompleteEvent;
     [SerializeField] private VoidEvent onFlowComplete;
     
-
     private int _expected;
     private int _completed;
 

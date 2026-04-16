@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using DaeHanKim.ThisIsTotallyADollar.Core;
-using DaeHanKim.ThisIsTotallyADollar.Drawing;
 using DaeHanKim.ThisIsTotallyADollar.Utility;
 using UnityEngine;
 
