@@ -48,8 +48,6 @@ public class AuctionLoadHandler : MonoBehaviour
 
         var history = ES3.Load<List<AuctionSavedData>>(SaveFileUtility.SAVE_FILE_HISTORY, settings);
         
-        FixMissingIds(history);
-        
         ES3.Save(SaveFileUtility.SAVE_FILE_HISTORY, history, settings);
 
         foreach (var data in history)
@@ -60,21 +58,6 @@ public class AuctionLoadHandler : MonoBehaviour
         RebuildLayout();
 
         TryTriggerAutoScroll(settings);
-    }
-    
-    private void FixMissingIds(List<AuctionSavedData> history)
-    {
-        HashSet<string> usedIds = new HashSet<string>();
-
-        foreach (var data in history)
-        {
-            if (string.IsNullOrEmpty(data.paintingID) || usedIds.Contains(data.paintingID))
-            {
-                data.paintingID = System.Guid.NewGuid().ToString();
-            }
-
-            usedIds.Add(data.paintingID);
-        }
     }
     
     private void TryTriggerAutoScroll(ES3Settings settings)
