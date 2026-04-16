@@ -8,13 +8,11 @@ public class GameManagerSandBox : GameManagerUnit
 {
     [Header("Events")]
     [SerializeField] private VoidEvent spacePressedEvent;
+    [SerializeField] private IntEvent startUIFlowEvent;
     
     [Header("Sandbox Settings")]
     [SerializeField] private SandboxConfigRuntimeAsset sandboxRuntime;
     [SerializeField] private Vector2Int sandboxCanvasSize = new(1024, 1024);
-    
-    [Header("UI Flow")]
-    [SerializeField] private UIFlowControllerValue UIFlowControllerValue;
     
     private TextureUtility _textureUtility;
     
@@ -52,6 +50,6 @@ public class GameManagerSandBox : GameManagerUnit
     
     private void StartUIFlow()
     {
-        UIFlowControllerValue.Value.StartBatch(0);
+        startUIFlowEvent.Raise(0);
     }
 }

@@ -306,14 +306,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UITransitionElementValue: {fileID: 11400000, guid: 99ddaa9bb1a67b74cac5c025952c33ca, type: 2}
+  bindings:
+  - action: 1
+    batch: 0
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  tween:
+    enterDuration: 0.5
+    exitDuration: 1.5
+    enterDelay: 0
+    exitDelay: 1
+    enterEase: 6
+    exitEase: 28
   rectTransform: {fileID: 8017943212902261182}
-  targetPosition: {x: -380, y: 0}
-  duration: 1
-  moveOutDelay: 1.25
-  moveInDelay: 1
-  moveOutEase: 26
-  moveInEase: 27
+  enterPosition: {x: 0, y: 0}
+  exitPosition: {x: -380, y: 0}
 --- !u!1 &2637768449395452482
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +472,6 @@ MonoBehaviour:
   _layersCount: 1
   _initialCanvasBrushSettings: {fileID: 11400000, guid: 81be51f292a112b4fbe7e2cefc51bef9, type: 2}
   _clearColor: {r: 0, g: 0, b: 0, a: 0}
-  _color0: {r: 0.03529412, g: 0.20392159, b: 0.37254903, a: 1}
   <CurrentBrushSettings>k__BackingField:
     BrushTexture: {fileID: 0}
     BrushColorIndex: 0
@@ -725,14 +732,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UITransitionElementValue: {fileID: 11400000, guid: 82d3e83824a959044a150447eafbba9b, type: 2}
+  bindings:
+  - action: 1
+    batch: 0
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  tween:
+    enterDuration: 0.5
+    exitDuration: 1.5
+    enterDelay: 0
+    exitDelay: 1
+    enterEase: 6
+    exitEase: 28
   rectTransform: {fileID: 4589096121491800033}
-  targetPosition: {x: -380, y: 0}
-  duration: 1
-  moveOutDelay: 1.5
-  moveInDelay: 1
-  moveOutEase: 26
-  moveInEase: 27
+  enterPosition: {x: 0, y: 0}
+  exitPosition: {x: -380, y: 0}
 --- !u!1 &4614193023626146651
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 580, y: -100}
+  m_AnchoredPosition: {x: 580, y: -95}
   m_SizeDelta: {x: 530, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7542550459040891717
@@ -797,14 +812,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bae4657959ff4bba28cbad26cd4b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UITransitionElementValue: {fileID: 11400000, guid: 4ecb24735e0249e4cb443dd2177fe2b8, type: 2}
+  bindings:
+  - action: 0
+    batch: 1
+  batchEvent: {fileID: 11400000, guid: 898801a74cda12046a3ec3500349c44d, type: 2}
+  registerElementEvent: {fileID: 11400000, guid: 971aae5deef16584fadd124a0351b3b3, type: 2}
+  elementCompleteEvent: {fileID: 11400000, guid: 1c7ff2e6244bb504c89c2cbe02208427, type: 2}
+  tween:
+    enterDuration: 1
+    exitDuration: 1
+    enterDelay: 1.5
+    exitDelay: 0
+    enterEase: 28
+    exitEase: 28
   rectTransform: {fileID: 1155158120014552416}
-  targetPosition: {x: 580, y: 70}
-  duration: 1
-  moveOutDelay: 0.5
-  moveInDelay: 0
-  moveOutEase: 28
-  moveInEase: 28
+  enterPosition: {x: 580, y: 65}
+  exitPosition: {x: 0, y: 0}
 --- !u!1 &5008375881375934438
 GameObject:
   m_ObjectHideFlags: 0
