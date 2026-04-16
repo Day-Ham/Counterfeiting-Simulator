@@ -5,14 +5,13 @@ public static class InputFieldUtility
 {
     private const int MIN_RGB = 0;
     private const int MAX_RGB = 255;
-    private const int MAX_DIGITS = 3;
+    private const int MAX_DIGITS = 4;
 
     public static void SetupRGBInput(TMP_InputField input, RGBChannel channel, System.Action<RGBChannel, int> onValidIntValue)
     {
         input.characterValidation = TMP_InputField.CharacterValidation.Integer;
         input.characterLimit = MAX_DIGITS;
-
-        input.onValueChanged.AddListener(value => ClampWhileTyping(input, value));
+        
         input.onEndEdit.AddListener(value => ValidateFinal(input, channel, value, onValidIntValue));
     }
 

@@ -378,6 +378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggleContextMenu: {fileID: 11400000, guid: e6ae3baa2715846419f6b39daaf7f254, type: 2}
   selectedImageEvent: {fileID: 11400000, guid: 52ca37560cbd2924db5ee7cb54b58c70, type: 2}
+  selectedSavedDataEvent: {fileID: 11400000, guid: c361dca1949ea2243bc29c23c3bb9c8b, type: 2}
   drawingImage: {fileID: 5084915216710215497}
   bidText: {fileID: 8000874279120470012}
   paintingName: {fileID: 7703862054376683618}

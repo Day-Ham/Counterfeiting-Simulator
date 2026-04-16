@@ -6,9 +6,6 @@ public class AuctionSaveHandler : MonoBehaviour
 {
     [SerializeField] private AuctionResultRuntime auctionResult;
 
-    private const string SaveFileName = "AuctionSave.es3";
-    private const string AutoScrollFlagKey = "GalleryAutoScroll";
-
     /// <summary>
     /// Save the final auction drawing and price to history.
     /// </summary>
@@ -20,13 +17,13 @@ public class AuctionSaveHandler : MonoBehaviour
             return;
         }
 
-        ES3Settings settings = new ES3Settings(SaveFileName);
+        ES3Settings settings = new ES3Settings(SaveFileUtility.SAVE_FILE_NAME);
 
         List<AuctionSavedData> history;
 
-        if (ES3.KeyExists("Auction_History", settings))
+        if (ES3.KeyExists(SaveFileUtility.SAVE_FILE_HISTORY, settings))
         {
-            history = ES3.Load<List<AuctionSavedData>>("Auction_History", settings);
+            history = ES3.Load<List<AuctionSavedData>>(SaveFileUtility.SAVE_FILE_HISTORY, settings);
         }
         else
         {
@@ -35,17 +32,18 @@ public class AuctionSaveHandler : MonoBehaviour
 
         AuctionSavedData newEntry = new AuctionSavedData
         {
-            DrawingData = auctionResult.drawingData,
-            FinalPrice = auctionResult.finalPrice,
-            PaintingName = auctionResult.paintingName
+            paintingID = auctionResult.paintingID,
+            drawingData = auctionResult.drawingData,
+            finalPrice = auctionResult.finalPrice,
+            paintingName = auctionResult.paintingName
         };
 
         history.Add(newEntry);
 
-        ES3.Save("Auction_History", history, settings);
+        ES3.Save(SaveFileUtility.SAVE_FILE_HISTORY, history, settings);
 
         // Save flag for gallery detection
-        ES3.Save(AutoScrollFlagKey, true, settings);
+        ES3.Save(SaveFileUtility.AUTO_SCROLL_FLAG_KEY, true, settings);
 
         Debug.Log($"[Save] Auction saved successfully! Total auctions: {history.Count}");
     }

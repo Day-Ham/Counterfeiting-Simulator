@@ -6,7 +6,7 @@ public class DownloadController : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private ByteArrayEvent selectedImageEvent;
-    [SerializeField] private BoolEvent openDownloadUIEvent;
+    [SerializeField] private BoolEvent openContextMenuEvent;
     
     [Header("UI")]
     [SerializeField] private Button downloadButton;
@@ -45,6 +45,6 @@ public class DownloadController : MonoBehaviour
         
         System.IO.File.WriteAllBytes(path, _currentImageData);
         Debug.Log($"Image saved to {path}");
-        openDownloadUIEvent.Raise(false);
+        openContextMenuEvent.Raise(false);
     }
 }
