@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 373154543537367271}
   - component: {fileID: 1582748024271213027}
   - component: {fileID: 5640500931488326611}
+  - component: {fileID: 6641694112599239657}
   m_Layer: 5
   m_Name: FrontSilhouette
   m_TagString: Untagged
@@ -112,6 +113,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 11400000, guid: 69a98cd8016036f43acb2b83351a985a, type: 2}
   _overrideReference: {fileID: 0}
+--- !u!114 &6641694112599239657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174405308202747561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185517a15b3d6c94784de1544495f6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEvent: {fileID: 11400000, guid: 7984f1a4561ce8b4093d8a76fd0ce8e6, type: 2}
+  rectTransform: {fileID: 7096433258330602841}
+  tweenAnimationUnitScriptable: {fileID: 11400000, guid: 44116d9e42e1d894da3378a3afee8cae, type: 2}
 --- !u!1 &639952413580695292
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +503,7 @@ GameObject:
   - component: {fileID: 3862160744188098095}
   - component: {fileID: 4089402077394801992}
   - component: {fileID: 1132202135603609810}
+  - component: {fileID: 328211927451769181}
   m_Layer: 5
   m_Name: TargetImage
   m_TagString: Untagged
@@ -572,6 +589,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _value: {fileID: 11400000, guid: 2e5317fb0c023ae43b290f2c5d14acb5, type: 2}
   _overrideReference: {fileID: 0}
+--- !u!114 &328211927451769181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2466815981192243548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185517a15b3d6c94784de1544495f6dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEvent: {fileID: 11400000, guid: 7984f1a4561ce8b4093d8a76fd0ce8e6, type: 2}
+  rectTransform: {fileID: 2382131091363728981}
+  tweenAnimationUnitScriptable: {fileID: 11400000, guid: 44116d9e42e1d894da3378a3afee8cae, type: 2}
 --- !u!1 &3248957169323806648
 GameObject:
   m_ObjectHideFlags: 0

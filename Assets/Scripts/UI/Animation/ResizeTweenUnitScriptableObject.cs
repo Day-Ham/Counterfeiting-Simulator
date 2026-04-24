@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 [CreateAssetMenu(fileName = "NewResizeAnimation", menuName = "DOTween/Resize")]
 public class ResizeTweenUnitScriptableObject : TweenAnimationUnitScriptable
@@ -38,6 +39,21 @@ public class ResizeTweenUnitScriptableObject : TweenAnimationUnitScriptable
         }
 
         rectTransform.DOSizeDelta(collapsedSize, duration).SetEase(easeOut);
+    }
+
+    public void Collapse(RectTransform target, Action onComplete)
+    {
+        RectTransform rectTransform = target ? target : _defaultTarget;
+
+        if (!rectTransform)
+        {
+            Debug.LogWarning("No RectTransform provided for Collapse!");
+            return;
+        }
+
+        rectTransform.DOSizeDelta(collapsedSize, duration)
+            .SetEase(easeOut)
+            .OnComplete(() => onComplete?.Invoke());
     }
     
     public override void Play(RectTransform rectTransform)

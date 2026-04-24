@@ -8,7 +8,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private ColorEvent colorEvent;
     [SerializeField] private BoolEvent toggleColorPickerUIEvent;
     [SerializeField] private SelectedColorEvent selectedColorEvent;
-    [SerializeField] private IntEvent selectBrushColorEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;    
     [SerializeField] private VoidEvent eraserSelectEvent;
     
     [Header("References")]
