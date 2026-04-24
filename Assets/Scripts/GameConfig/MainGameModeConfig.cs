@@ -11,10 +11,12 @@ public class MainGameModeConfig : ScriptableObject
     public ColorDataListValue ColorsToBeUsed;
     public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
+    public HintDataListValue Hints;
     
     [Header("Gameplay Limits")]
     public IntValue UndoLimit;
     public IntValue SnapTolerance;
+    public FloatValue TimeLimit;
 
     [Header("Universal Data")] 
     public GameObjectListValue ColorBlobs;

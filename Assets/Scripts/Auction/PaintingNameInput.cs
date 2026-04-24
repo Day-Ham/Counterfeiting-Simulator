@@ -16,9 +16,6 @@ public class PaintingNameInput : MonoBehaviour
     [SerializeField] private StringValue paintingName;
     [SerializeField] private Button submitButton;
 
-    [Header("No Name")]
-    [SerializeField] private string defaultName = "Untitled Painting";
-
     private void Start()
     {
         submitButton.onClick.AddListener(OnSubmitClicked);

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdf22db7fde1a51458a74817a70046ef, type: 3}
+  m_Name: Clear Layer
+  m_EditorClassIdentifier: 
+  message: Press <color=#C45E00>C</color> to clear everything on the current layer
+  delay: 5
+  displayDuration: 5
+  screenPosition: {x: 0, y: 0}
+  useArrow: 0
+  arrowPosition: {x: 0, y: 0}
+  arrowRotation: 0
