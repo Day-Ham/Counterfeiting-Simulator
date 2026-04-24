@@ -25,9 +25,20 @@ public class PaintingNameInput : MonoBehaviour
     }
 
     private void OnSubmitClicked()
-    {
-        SetName(inputField.text);
+    {   
+        //Check if the painting has a name
+        if (!IsNameValid(inputField.text))
+        {
+            return;
+        }
+        
+        //Set the painting name to the input value
+        paintingName.Value = inputField.text;
+
         inputField.text = "";
+
+        //disable the submit button to prevent multiple submissions
+        submitButton.interactable = false;
 
         // Register callback BEFORE triggering flow
         onFlowCompleteEvent.Register(StartBidding);
@@ -36,11 +47,9 @@ public class PaintingNameInput : MonoBehaviour
         startUIFlowEvent.Raise(1);
     }
 
-    private void SetName(string value)
+    private bool IsNameValid(string name)
     {
-        paintingName.Value = string.IsNullOrWhiteSpace(value)
-            ? defaultName
-            : value;
+        return !string.IsNullOrWhiteSpace(name);
     }
 
     private void StartBidding()
