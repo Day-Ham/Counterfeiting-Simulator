@@ -11,6 +11,7 @@ public class MainGameModeConfig : ScriptableObject
     public ColorDataListValue ColorsToBeUsed;
     public ColorDataListValue WhiteColors;
     public TextureValueWrapper TargetTexture;
+    public TextureValueWrapper UVTexture;
     public HintDataListValue Hints;
     
     [Header("Gameplay Limits")]
