@@ -1,9 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
-
+using DG.Tweening;
 
 public class HintView : MonoBehaviour
 {
@@ -27,12 +25,36 @@ public class HintView : MonoBehaviour
 
     private Coroutine _dismissCoroutine;
 
-    private void OnEnable() => hintDataEvent.Register(ShowHint);
-    private void OnDisable() => hintDataEvent.Unregister(ShowHint);
+    private void OnEnable()
+    {
+        hintDataEvent.Register(ShowHint);
+        GameState.OnGamePaused += PauseAnimations;
+        GameState.OnGameResumed += ResumeAnimations;
+    }
+
+    private void OnDisable()
+    {
+        hintDataEvent.Unregister(ShowHint);
+        GameState.OnGamePaused -= PauseAnimations;
+        GameState.OnGameResumed -= ResumeAnimations;
+    }
+
     private void Start()
     {
-        hintBGRescaleTweenUnitScriptableObject.Collapse(hintParentRectTransform);
-        arrowRescaleTweenUnitScriptableObject.Collapse(arrowRectTransform);
+        hintParentRectTransform.localScale = Vector3.zero;
+        arrowRectTransform.localScale = Vector3.zero;
+    }
+    
+    private void PauseAnimations()
+    {
+        hintBGBreathingTweenUnitScriptableObject.Pause();
+        arrowBreathingTweenUnitScriptableObject.Pause();
+    }
+
+    private void ResumeAnimations()
+    {
+        hintBGBreathingTweenUnitScriptableObject.Resume();
+        arrowBreathingTweenUnitScriptableObject.Resume();
     }
 
     private void ShowHint(HintData hint)
@@ -66,7 +88,7 @@ public class HintView : MonoBehaviour
 
     private IEnumerator DismissAfterDelay(float duration)
     {
-        yield return new WaitForSeconds(duration);
+        yield return CoroutineUtility.PauseAwareWait(duration);
         arrowRescaleTweenUnitScriptableObject.Collapse(arrowRectTransform, () =>
         {
             arrowBreathingTweenUnitScriptableObject.Stop(arrowRectTransform);

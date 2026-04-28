@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee5874b0df09c249bfec3cc5af72791, type: 3}
   m_Name: '[AUDIOCLIP] MenuClick'
   m_EditorClassIdentifier: 
-  value: {fileID: 8300000, guid: 96fb9ecefddb4db44ac7b3b4f2830fe4, type: 3}
+  value: {fileID: 8300000, guid: b35accf07379f2f41902dc53aac1dce2, type: 3}

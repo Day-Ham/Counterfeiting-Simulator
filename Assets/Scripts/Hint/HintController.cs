@@ -7,7 +7,7 @@ public class HintController : MonoBehaviour
     [Header("Events")]
     [SerializeField] private HintDataEvent hintDataEvent;
     [SerializeField] private VoidEvent hintDismissedEvent;
-    [SerializeField] private MainGameConfigRuntimeAsset _runtimeAsset;
+    [SerializeField] private MainGameConfigRuntimeAsset runtimeAsset;
 
     [Header("General Hints")]
     [SerializeField] private HintDataListValue generalHints;
@@ -42,16 +42,16 @@ public class HintController : MonoBehaviour
 
     private IEnumerator HintsRoutine()
     {
-        var levelHints = _runtimeAsset?.Value?.Hints?.Value;
+        var levelHints = runtimeAsset?.Value?.Hints?.Value;
 
         if (levelHints != null)
         {
             foreach (var hint in levelHints)
             {
-                yield return new WaitForSeconds(hint.delay);
+                yield return CoroutineUtility.PauseAwareWait(hint.delay);
                 _hintDismissed = false;
                 hintDataEvent.Raise(hint);
-                yield return new WaitUntil(() => _hintDismissed);
+                yield return new WaitUntil(() => _hintDismissed && !GameState.IsGamePaused);
             }
         }
 
@@ -70,11 +70,11 @@ public class HintController : MonoBehaviour
             HintData hint = remaining[randomIndex];
             remaining.RemoveAt(randomIndex);
 
-            yield return new WaitForSeconds(hint.delay);
+            yield return CoroutineUtility.PauseAwareWait(hint.delay);
             _hintDismissed = false;
             hintDataEvent.Raise(hint);
 
-            yield return new WaitUntil(() => _hintDismissed);
+            yield return new WaitUntil(() => _hintDismissed && !GameState.IsGamePaused);
         }
     }
 }

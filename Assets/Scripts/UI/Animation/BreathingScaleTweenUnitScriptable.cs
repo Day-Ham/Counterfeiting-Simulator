@@ -54,4 +54,7 @@ public class BreathingScaleTweenUnitScriptable : TweenAnimationUnitScriptable
         _activeTween?.Kill();
         _activeTween = null;
     }
+
+    public void Pause() => _activeTween?.Pause();
+    public void Resume() => _activeTween?.Play();
 }
