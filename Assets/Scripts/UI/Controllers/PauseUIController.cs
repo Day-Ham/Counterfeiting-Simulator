@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 
 public class PauseUIController : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseCanvasGroup;
     [SerializeField] private GameObject pauseUI;
+    [SerializeField] private TweenAnimationUnitScriptable tweenAnimationUnitScriptable;
+    [SerializeField] private UIPanelNavigator panelNavigator;
 
     private void OnEnable()
     {
         GameState.OnGamePaused += ShowPauseUI;
         GameState.OnGameResumed += HidePauseUI;
 
-        ApplyCurrentState();
+        pauseUI.SetActive(false);
     }
 
     private void OnDisable()
@@ -20,35 +24,32 @@ public class PauseUIController : MonoBehaviour
 
     private void Start()
     {
-        GameState.ResumeGame();
+        //GameState.ResumeGame();
     }
     
     private void Update()
     {
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        if (panelNavigator.IsTransitioning) return;
         
-        if (GameState.IsGamePaused)
-        {
-            GameState.ResumeGame();
-        }
-        else
+        if (!GameState.IsGamePaused)
         {
             GameState.PauseGame();
+            return;
         }
+
+        if (!panelNavigator.TryNavigateBack())
+            GameState.ResumeGame();
     }
 
     private void ShowPauseUI()
     {
         pauseUI.SetActive(true);
+        tweenAnimationUnitScriptable?.Play(pauseCanvasGroup.GetComponent<RectTransform>());
     }
-
     private void HidePauseUI()
     {
-        pauseUI.SetActive(false);
-    }
-
-    private void ApplyCurrentState()
-    {
-        pauseUI.SetActive(GameState.IsGamePaused);
+        tweenAnimationUnitScriptable?.PlayReverse(pauseCanvasGroup.GetComponent<RectTransform>()
+        , () => pauseUI.SetActive(false));
     }
 }

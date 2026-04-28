@@ -63,7 +63,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &9035350788895898789
 MonoBehaviour:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintDataEvent: {fileID: 11400000, guid: 5a52a9c6754a96043bc08a711a25dc29, type: 2}
   hintDismissedEvent: {fileID: 11400000, guid: 8511562168b64d440a4bde8916fd0a06, type: 2}
-  _runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
   generalHints: {fileID: 11400000, guid: c9a612f0461400e4cb46f0cfb6e71419, type: 2}
 --- !u!1 &4405312322584096608
 GameObject:
