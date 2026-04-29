@@ -1,10 +1,11 @@
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
+public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Event")]
     [SerializeField] private BoolEvent toggleContextMenu;
@@ -15,6 +16,8 @@ public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image drawingImage;
     [SerializeField] private TextMeshProUGUI bidText;
     [SerializeField] private TextMeshProUGUI paintingName;
+    [SerializeField] private RectTransform cornerBadge;
+    [SerializeField] private FadeTweenUnitScriptableObject fadeTween;
     
     private AuctionSavedData _auctionSavedData;
     private readonly Vector2 _pivot = new Vector2(0.5f, 0.5f);
@@ -57,5 +60,15 @@ public class AuctionGalleryItem : MonoBehaviour, IPointerClickHandler
         toggleContextMenu.Raise(true);
         selectedImageEvent.Raise(_auctionSavedData.drawingData);
         selectedSavedDataEvent.Raise(_auctionSavedData);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        fadeTween.Play(cornerBadge, null);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        fadeTween.PlayReverse(cornerBadge, null);
     }
 }

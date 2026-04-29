@@ -41,6 +41,19 @@ public class RescaleTweenUnitScriptableObject : TweenAnimationUnitScriptable
             .OnComplete(() => onComplete?.Invoke());
     }
 
-    public override void Play(RectTransform rectTransform) => Expand(rectTransform);
-    public override void Stop(RectTransform rectTransform) => Collapse(rectTransform);
+    public override void Play(RectTransform rectTransform, Action onComplete = null)
+    {
+        Expand(rectTransform, onComplete);
+    }
+
+    public override void Stop(RectTransform rectTransform)
+    {
+        Collapse(rectTransform);
+    }
+
+    public override void PlayReverse(RectTransform rectTransform, Action onComplete = null)
+    {
+        Collapse(rectTransform, onComplete);
+    }
+
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf22db7fde1a51458a74817a70046ef, type: 3}
   m_Name: Color Picker
   m_EditorClassIdentifier: 
-  message: Right click a crayon to open its color picker
+  message: <color=#C45E00>Right Click</color> a crayon to open its color picker
   delay: 5
   displayDuration: 5
   screenPosition: {x: -674, y: 9}

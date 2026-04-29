@@ -5,6 +5,10 @@ public class ToggleEventListener : MonoBehaviour
     [Header("Event")]
     [SerializeField] private BoolEvent toggleEvent;
 
+    [Header("Tween")]
+    [SerializeField] private RescaleTweenUnitScriptableObject tweenAnimation;
+    [SerializeField] private bool playAnimation;
+
     [Header("Target GameObject")]
     [SerializeField] private GameObject target;
 
@@ -20,9 +24,20 @@ public class ToggleEventListener : MonoBehaviour
 
     private void OnToggleEvent(bool value)
     {
-        if (target)
+        if(playAnimation && tweenAnimation != null)
         {
-            target.SetActive(value);
+            if(value)
+            {
+                tweenAnimation.Expand(target.GetComponent<RectTransform>(), null);                
+            }
+            else
+            {
+                tweenAnimation.Collapse(target.GetComponent<RectTransform>(), null);
+            }
         }
+        // if (target)
+        // {
+        //     target.SetActive(value);
+        // }
     }
 }

@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 755215941}
   - component: {fileID: 755215942}
+  - component: {fileID: 755215943}
   m_Layer: 0
   m_Name: GALLERYMANAGER
   m_TagString: Untagged
@@ -164,6 +165,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObjectListValueToSpawn: {fileID: 11400000, guid: 1780e702ca9051e4baed16e6f04876eb, type: 2}
+--- !u!114 &755215943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755215940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84ee961e27ee0345aa2671ec7a11031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hintDataEvent: {fileID: 11400000, guid: 5a52a9c6754a96043bc08a711a25dc29, type: 2}
+  rightClickHint: {fileID: 11400000, guid: 8d4c23f8b29d48246b00e050cafd0275, type: 2}
+  delay: 2
 --- !u!1 &1252090460
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1703095345
 AudioSource:
   m_ObjectHideFlags: 0

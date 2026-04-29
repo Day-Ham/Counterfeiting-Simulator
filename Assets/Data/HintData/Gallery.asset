@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdf22db7fde1a51458a74817a70046ef, type: 3}
-  m_Name: Grid
+  m_Name: Gallery
   m_EditorClassIdentifier: 
-  message: Toggle the grid with <color=#C45E00>#</color> to help guide your drawing
-  delay: 5
+  message: <color=#C45E00>Right Click</color> a painting to delete or save it!
+  delay: 0
   displayDuration: 5
-  screenPosition: {x: -680, y: 12}
+  screenPosition: {x: 91, y: 180}
   useArrow: 1
-  arrowPosition: {x: -748, y: -236}
-  arrowRotation: 240
+  arrowPosition: {x: -244, y: 180}
+  arrowRotation: 180
