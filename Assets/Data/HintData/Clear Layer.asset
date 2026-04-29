@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf22db7fde1a51458a74817a70046ef, type: 3}
   m_Name: Clear Layer
   m_EditorClassIdentifier: 
-  message: Press <color=#C45E00>C</color> to clear everything on the current layer
+  message: Press <color=#C45E00>C</color> to clear everything on the current canvas
   delay: 5
   displayDuration: 5
   screenPosition: {x: 0, y: 0}

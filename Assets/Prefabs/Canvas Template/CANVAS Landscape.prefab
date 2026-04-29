@@ -619,6 +619,7 @@ GameObject:
   - component: {fileID: 8791108562884700898}
   - component: {fileID: 7103236292113755081}
   - component: {fileID: 2553720294941111108}
+  - component: {fileID: 3803419029987546951}
   m_Layer: 5
   m_Name: Drawing
   m_TagString: Untagged
@@ -756,6 +757,21 @@ MonoBehaviour:
   outsideAllowance: 360
   drawingBoardRectTransform: {fileID: 7864948328430326532}
   canvasRect: {fileID: 760017119137188966}
+--- !u!114 &3803419029987546951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248957169323806648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b9e80d99348744988836927fb1d258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardController: {fileID: 233064898642962976}
+  rotationSpeed: 10
+  rotationSmoothness: 10
 --- !u!1 &3487568899593019836
 GameObject:
   m_ObjectHideFlags: 0
