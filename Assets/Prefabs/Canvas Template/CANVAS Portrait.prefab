@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
+  undoDrawEvent: {fileID: 0}
   _canvasDrawControllerValue: {fileID: 11400000, guid: cc34ec6558baf2a4facd432cf1e9a473, type: 2}
   _drawingBoardZoom: {fileID: 8791108562884700898}
   _drawingBoardController: {fileID: 233064898642962976}
@@ -386,7 +387,6 @@ MonoBehaviour:
   _layersCount: 1
   _initialCanvasBrushSettings: {fileID: 11400000, guid: 81be51f292a112b4fbe7e2cefc51bef9, type: 2}
   _clearColor: {r: 0, g: 0, b: 0, a: 0}
-  _color0: {r: 0.03529412, g: 0.20392159, b: 0.37254903, a: 1}
   <CurrentBrushSettings>k__BackingField:
     BrushTexture: {fileID: 0}
     BrushColorIndex: 0
@@ -417,10 +417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b96a69790c7df4d8ce9a4d46ece66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectColorEvent: {fileID: 11400000, guid: f0815b7b3e261e24683734d719b59da1, type: 2}
-  DrawController: {fileID: 48093491722432198}
-  LayerController: {fileID: 3969123139997115803}
-  RuntimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  colorSelectedEvent: {fileID: 0}
+  eraserSelectEvent: {fileID: 0}
+  drawController: {fileID: 0}
+  layerController: {fileID: 0}
+  runtimeAsset: {fileID: 0}
 --- !u!1 &2466815981192243548
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,13 +498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1fdc0deffadd7443be52e6480bf038a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelConfigRuntime: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
-  _rawImages:
-  - {fileID: 8681999644420673123}
-  - {fileID: 1582748024271213027}
-  _drawingBackground:
-  - {fileID: 5504037737531346822}
-  - {fileID: 1472591937254248471}
+  mainGameConfigRuntime: {fileID: 0}
+  rawImages: []
+  drawingBackground: []
 --- !u!114 &1132202135603609810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,13 +611,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _drawingBoardControllerValue: {fileID: 0}
   targetImageCanvas: {fileID: 3862160744188098095}
   drawingCanvas: {fileID: 396741118517391926}
   inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
   compareStartedEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
   resetDrawingBoardPositionEvent: {fileID: 11400000, guid: fcffd111151352b4782fae24695b83d4, type: 2}
-  finishGameEvent: {fileID: 11400000, guid: 4cc7bee8e965c234db707967ac5f7153, type: 2}
   drawingBoardZoom: {fileID: 8791108562884700898}
   drawingBoard: {fileID: 7864948328430326532}
   snapSmoothness: 10

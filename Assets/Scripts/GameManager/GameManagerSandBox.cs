@@ -7,6 +7,8 @@ public class GameManagerSandBox : GameManagerUnit
     [Header("Events")]
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private IntEvent startUIFlowEvent;
+    [SerializeField] private VoidEvent drawingBoardControllerEvent;
+
     
     [Header("Sandbox Settings")]
     [SerializeField] private SandboxConfigRuntimeAsset sandboxRuntime;
@@ -35,6 +37,9 @@ public class GameManagerSandBox : GameManagerUnit
     {
         GameState.FinishGame();
 
+        // Notify DrawingBoardController to reset position and sorting order for next game
+        drawingBoardControllerEvent?.Raise();
+        
         StartUIFlow();
     }
 

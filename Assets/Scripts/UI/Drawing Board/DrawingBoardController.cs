@@ -28,7 +28,7 @@ public class DrawingBoardController : MonoBehaviour
 
     private void OnEnable()
     {
-        compareStartedEvent.Register(SnapToOriginalWithSortingReset);
+        compareStartedEvent?.Register(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Register(SnapToOriginalPositionOnly);
         
         GameState.OnGameFinished += HandleGameFinished;
@@ -40,7 +40,7 @@ public class DrawingBoardController : MonoBehaviour
 
     private void OnDisable()
     {
-        compareStartedEvent.Unregister(SnapToOriginalWithSortingReset);
+        compareStartedEvent?.Unregister(SnapToOriginalWithSortingReset);
         resetDrawingBoardPositionEvent.Unregister(SnapToOriginalPositionOnly);
         
         GameState.OnGameFinished -= HandleGameFinished;
@@ -57,12 +57,18 @@ public class DrawingBoardController : MonoBehaviour
 
     private void InitializedCanvas()
     {
-        targetImageCanvas.overrideSorting = true;
-        targetImageCanvas.sortingOrder = InitialTargetImageSortingOrder;
-        
-        drawingCanvas.overrideSorting = true;
-        drawingCanvas.sortingOrder = InitialDrawingCanvasSortingOrder;
-        
+        if (targetImageCanvas)
+        {
+            targetImageCanvas.overrideSorting = true;
+            targetImageCanvas.sortingOrder = InitialTargetImageSortingOrder;
+        }
+
+        if (drawingCanvas)
+        {
+            drawingCanvas.overrideSorting = true;
+            drawingCanvas.sortingOrder = InitialDrawingCanvasSortingOrder;
+        }
+            
         _originalSize = drawingBoard.sizeDelta;
         _originalPosition = drawingBoard.anchoredPosition;
     }
@@ -98,8 +104,8 @@ public class DrawingBoardController : MonoBehaviour
     /// </summary>
     private void SnapToOriginalWithSortingReset()
     {
-        targetImageCanvas.overrideSorting = false;
-        drawingCanvas.overrideSorting = false;
+        if (targetImageCanvas) targetImageCanvas.overrideSorting = false;
+        if (drawingCanvas) drawingCanvas.overrideSorting = false;
         ResetToOriginalSize();
     }
 
