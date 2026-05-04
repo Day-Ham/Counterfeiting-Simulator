@@ -224,6 +224,10 @@ GameObject:
   - component: {fileID: 5039636973713071469}
   - component: {fileID: 1995369359432052165}
   - component: {fileID: 8364547578535531997}
+  - component: {fileID: 2298322066126353147}
+  - component: {fileID: 729733384611730120}
+  - component: {fileID: 557169847698411708}
+  - component: {fileID: 4972821108627449046}
   m_Layer: 5
   m_Name: CONTAINER DrawingBoard
   m_TagString: Untagged
@@ -322,6 +326,73 @@ MonoBehaviour:
   rectTransform: {fileID: 8017943212902261182}
   enterPosition: {x: 0, y: 0}
   exitPosition: {x: -380, y: 0}
+--- !u!114 &2298322066126353147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642467927215496040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad4eea6f0ac7a0f4e850abc2a87d3a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImageCanvas: {fileID: 0}
+  drawingCanvas: {fileID: 5039636973713071469}
+  inputHandler: {fileID: 11400000, guid: 558a38da574a0f0498c1451315653a40, type: 2}
+  compareStartedEvent: {fileID: 11400000, guid: c8bfd53951a0fbd4fbf969c116cd079d, type: 2}
+  resetDrawingBoardPositionEvent: {fileID: 11400000, guid: fcffd111151352b4782fae24695b83d4, type: 2}
+  drawingBoardZoom: {fileID: 729733384611730120}
+  drawingBoard: {fileID: 8017943212902261182}
+  snapSmoothness: 10
+--- !u!114 &729733384611730120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642467927215496040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4101ab675b007174483f7de5960cfa94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardController: {fileID: 2298322066126353147}
+  zoomSpeed: 0.1
+  zoomSmoothness: 10
+  minSize: {x: 750, y: 750}
+  maxSize: {x: 2295, y: 2295}
+--- !u!114 &557169847698411708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642467927215496040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d3d2ada722ca04098e29a23f83c0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardController: {fileID: 2298322066126353147}
+  boardSoftBounds: {fileID: 4972821108627449046}
+  dragSpeed: 1
+--- !u!114 &4972821108627449046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642467927215496040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34581953e1297bc4ab731a14a981fc59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outsideAllowance: 360
+  drawingBoardRectTransform: {fileID: 8017943212902261182}
+  canvasRect: {fileID: 2282027095632159789}
 --- !u!1 &2637768449395452482
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,8 +531,8 @@ MonoBehaviour:
   brushSizeEvent: {fileID: 11400000, guid: 9cc4289a5ee4f014aacd804b95be94de, type: 2}
   undoDrawEvent: {fileID: 11400000, guid: e4935bd6e59ff1e48a191306dd753a45, type: 2}
   _canvasDrawControllerValue: {fileID: 11400000, guid: f9bfa2559001d794194133b538706ec5, type: 2}
-  _drawingBoardZoom: {fileID: 0}
-  _drawingBoardController: {fileID: 0}
+  _drawingBoardZoom: {fileID: 729733384611730120}
+  _drawingBoardController: {fileID: 2298322066126353147}
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   RuntimeAsset: {fileID: 11400000, guid: 895fa90c69a75b2488d8e5ef41ef9f42, type: 2}
   _graphicRaycaster: {fileID: 1995369359432052165}
@@ -1004,6 +1075,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
+  tweenAnimation: {fileID: 0}
+  playAnimation: 0
   target: {fileID: 6959042927801947458}
 --- !u!1 &6892309561323068529
 GameObject:
