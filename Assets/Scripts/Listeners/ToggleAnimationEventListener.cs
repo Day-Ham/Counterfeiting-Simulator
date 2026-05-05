@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class ToggleAnimationEventListener : MonoBehaviour
@@ -5,11 +6,12 @@ public class ToggleAnimationEventListener : MonoBehaviour
     [SerializeField] private BoolEvent toggleEvent;
     [SerializeField] private RescaleTweenUnitScriptableObject tweenAnimation;
     [SerializeField] private GameObject target;
+    [SerializeField] private Vector3 startScale = Vector3.zero;
 
     private RectTransform _targetRect;
 
     private void Awake() => _targetRect = target.GetComponent<RectTransform>();
-    private void Start() => _targetRect.localScale = Vector3.zero;
+    private void Start() => _targetRect.localScale = startScale;
     private void OnEnable() => toggleEvent.Register(OnToggleEvent);
     private void OnDisable() => toggleEvent.Unregister(OnToggleEvent);
 
@@ -17,12 +19,11 @@ public class ToggleAnimationEventListener : MonoBehaviour
     {
         if (value)
         {
-            target.SetActive(true);
             tweenAnimation.Expand(_targetRect, null);
         }
         else
         {
-            tweenAnimation.Collapse(_targetRect, () => target.SetActive(false));
+            tweenAnimation.Collapse(_targetRect);
         }
     }
 }

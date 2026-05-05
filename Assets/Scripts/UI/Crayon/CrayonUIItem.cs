@@ -12,7 +12,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] private VoidEvent eraserSelectEvent;
     
     [Header("References")]
-    [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject selectedResizeTweenUnitScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject hoverResizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook setColorBlobLook;
     [SerializeField] private ConfigRuntime runtimeAsset;
     
@@ -78,8 +79,10 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             return;
         }
         
+        _currentSelectedColorIndex = -1;
         CollapseSize();
         setColorBlobLook.SetShadowColor(unSelectedColor);
+        toggleColorPickerUIEvent.Raise(false);
     }
         
     private void Awake()
@@ -122,12 +125,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     private void ExpandSize()
     {
-        resizeTweenUnitScriptableObject.Expand(rectTransform);
+        selectedResizeTweenUnitScriptableObject.Expand(rectTransform);
     }
 
     private void CollapseSize()
     {
-        resizeTweenUnitScriptableObject.Collapse(rectTransform);
+        selectedResizeTweenUnitScriptableObject.Collapse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -157,12 +160,14 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (_colorIndex == _currentSelectedColorIndex) return;
         
         setColorBlobLook.SetShadowColor(Color.Lerp(unSelectedColor, selectedColor, 0.5f));
+        hoverResizeTweenUnitScriptableObject.Expand(rectTransform);
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_colorIndex == _currentSelectedColorIndex) return;
         setColorBlobLook.SetShadowColor(unSelectedColor);
+        hoverResizeTweenUnitScriptableObject.Collapse(rectTransform);
     }
 
     private void TryExpandAndShowRGB()

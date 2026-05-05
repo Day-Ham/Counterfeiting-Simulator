@@ -3189,6 +3189,7 @@ MonoBehaviour:
   toggleEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
   tweenAnimation: {fileID: 11400000, guid: 628525e1dd4878e449d1d7a63f8c90ee, type: 2}
   target: {fileID: 3562053044706008062}
+  startScale: {x: 0, y: 0, z: 0}
 --- !u!1 &5086780015175411535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,6 +3591,7 @@ GameObject:
   - component: {fileID: 1321855719269800905}
   - component: {fileID: 3473417074998016473}
   - component: {fileID: 1433634628552995327}
+  - component: {fileID: 4155957407127806125}
   m_Layer: 5
   m_Name: BUTTON GraphShadow
   m_TagString: Untagged
@@ -3713,6 +3715,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggleButton: {fileID: 3473417074998016473}
   boolEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
+--- !u!114 &4155957407127806125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5640761261913580228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22d3aa321d1fbd4e99ab4859a33e3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
+  tweenAnimation: {fileID: 11400000, guid: 65306686a512c814484e96ecd0657e3e, type: 2}
+  target: {fileID: 5640761261913580228}
+  startScale: {x: 1, y: 1, z: 0}
 --- !u!1 &5682371855452517770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,6 +4933,7 @@ GameObject:
   - component: {fileID: 8708094694750858228}
   - component: {fileID: 5160996213936000636}
   - component: {fileID: 448570498690381573}
+  - component: {fileID: 963286768444254411}
   m_Layer: 5
   m_Name: BUTTON Close
   m_TagString: Untagged
@@ -4963,7 +4982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5038,6 +5057,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
   button: {fileID: 5160996213936000636}
+--- !u!114 &963286768444254411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295325613867482136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05426916b95b26d4db07b72803dfcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTween: {fileID: 11400000, guid: dcd375cf9eebaec49af955850c4c3389, type: 2}
+  pressTween: {fileID: 11400000, guid: 9b6c7eb7c99403e44814f464e0f111ff, type: 2}
+  target: {fileID: 485609929139050906}
 --- !u!1 &7749920935610635125
 GameObject:
   m_ObjectHideFlags: 0

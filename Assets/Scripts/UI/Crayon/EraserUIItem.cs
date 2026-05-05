@@ -44,7 +44,6 @@ public class EraserUIItem : MonoBehaviour
         if (GameState.IsGameFinished) return;
         
         eraserSelectEvent.Raise();
-        Debug.Log("Eraser clicked", this);
     }
     
     private void OnEraserSelected()
