@@ -125,12 +125,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     private void ExpandSize()
     {
-        selectedResizeTweenUnitScriptableObject.Expand(rectTransform);
+        selectedResizeTweenUnitScriptableObject.Play(rectTransform);
     }
 
     private void CollapseSize()
     {
-        selectedResizeTweenUnitScriptableObject.Collapse(rectTransform);
+        selectedResizeTweenUnitScriptableObject.PlayReverse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -160,14 +160,14 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (_colorIndex == _currentSelectedColorIndex) return;
         
         setColorBlobLook.SetShadowColor(Color.Lerp(unSelectedColor, selectedColor, 0.5f));
-        hoverResizeTweenUnitScriptableObject.Expand(rectTransform);
+        hoverResizeTweenUnitScriptableObject.Play(rectTransform);
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
         if (_colorIndex == _currentSelectedColorIndex) return;
         setColorBlobLook.SetShadowColor(unSelectedColor);
-        hoverResizeTweenUnitScriptableObject.Collapse(rectTransform);
+        hoverResizeTweenUnitScriptableObject.PlayReverse(rectTransform);
     }
 
     private void TryExpandAndShowRGB()

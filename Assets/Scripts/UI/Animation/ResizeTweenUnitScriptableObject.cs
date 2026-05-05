@@ -13,56 +13,19 @@ public class ResizeTweenUnitScriptableObject : TweenAnimationUnitScriptable
     public Vector2 expandedSize;
     public Vector2 collapsedSize;
 
-    private RectTransform _defaultTarget;
-    
-    public void Expand(RectTransform target = null)
+    private void Expand(RectTransform target, Action onComplete = null)
     {
-        RectTransform rectTransform = target ? target : _defaultTarget;
-
-        if (!rectTransform)
-        {
-            Debug.LogWarning("No RectTransform provided for Expand!");
-            return;
-        }
-
-        rectTransform.DOSizeDelta(expandedSize, duration).SetEase(easeIn);
+        if (!target) return;
+        target.DOSizeDelta(expandedSize, duration).SetEase(easeIn).OnComplete(() => onComplete?.Invoke());
     }
 
-    public void Collapse(RectTransform target = null)
+    private void Collapse(RectTransform target, Action onComplete = null)
     {
-        RectTransform rectTransform = target ? target : _defaultTarget;
-
-        if (!rectTransform)
-        {
-            Debug.LogWarning("No RectTransform provided for Collapse!");
-            return;
-        }
-
-        rectTransform.DOSizeDelta(collapsedSize, duration).SetEase(easeOut);
+        if (!target) return;
+        target.DOSizeDelta(collapsedSize, duration).SetEase(easeOut).OnComplete(() => onComplete?.Invoke());
     }
 
-    public void Collapse(RectTransform target, Action onComplete)
-    {
-        RectTransform rectTransform = target ? target : _defaultTarget;
-
-        if (!rectTransform)
-        {
-            Debug.LogWarning("No RectTransform provided for Collapse!");
-            return;
-        }
-
-        rectTransform.DOSizeDelta(collapsedSize, duration)
-            .SetEase(easeOut)
-            .OnComplete(() => onComplete?.Invoke());
-    }
-    
-    public override void Play(RectTransform rectTransform)
-    {
-        Expand(rectTransform);
-    }
-
-    public override void Stop(RectTransform rectTransform)
-    {
-        Collapse(rectTransform);
-    }
+    public override void Play(RectTransform rectTransform, Action onComplete = null) => Expand(rectTransform, onComplete);
+    public override void PlayReverse(RectTransform rectTransform, Action onComplete = null) => Collapse(rectTransform, onComplete);
+    public override void Stop(RectTransform rectTransform) => Collapse(rectTransform);
 }

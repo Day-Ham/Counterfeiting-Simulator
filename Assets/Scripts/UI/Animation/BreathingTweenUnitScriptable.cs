@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(fileName = "NewBreathingAnimation", menuName = "DOTween/Breath")]
 public class BreathingTweenUnitScriptable : TweenAnimationUnitScriptable
@@ -16,7 +17,7 @@ public class BreathingTweenUnitScriptable : TweenAnimationUnitScriptable
 
     private Tween _activeTween;
 
-    public override void Play(RectTransform rectTransform)
+    public override void Play(RectTransform rectTransform, Action onComplete = null)
     {
         if (!rectTransform) return;
 

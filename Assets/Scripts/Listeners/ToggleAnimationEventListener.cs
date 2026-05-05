@@ -4,7 +4,7 @@ using UnityEngine;
 public class ToggleAnimationEventListener : MonoBehaviour
 {
     [SerializeField] private BoolEvent toggleEvent;
-    [SerializeField] private RescaleTweenUnitScriptableObject tweenAnimation;
+    [SerializeField] private TweenAnimationUnitScriptable tweenAnimation;
     [SerializeField] private GameObject target;
     [SerializeField] private Vector3 startScale = Vector3.zero;
 
@@ -19,11 +19,11 @@ public class ToggleAnimationEventListener : MonoBehaviour
     {
         if (value)
         {
-            tweenAnimation.Expand(_targetRect, null);
+            tweenAnimation.Play(_targetRect, null);
         }
         else
         {
-            tweenAnimation.Collapse(_targetRect);
+            tweenAnimation.PlayReverse(_targetRect);
         }
     }
 }

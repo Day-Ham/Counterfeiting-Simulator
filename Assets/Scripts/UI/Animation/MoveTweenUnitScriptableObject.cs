@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 [CreateAssetMenu(fileName = "NewMoveAnimation", menuName = "DOTween/Move")]
 public class MoveTweenUnitScriptableObject : TweenAnimationUnitScriptable
@@ -11,20 +12,17 @@ public class MoveTweenUnitScriptableObject : TweenAnimationUnitScriptable
     public Vector2 fromPosition;
     public Vector2 toPosition;
 
-    public override void Play(RectTransform rectTransform)
+    public override void Play(RectTransform rectTransform, Action onComplete = null)
     {
         if (!rectTransform) return;
-        rectTransform.DOAnchorPos(toPosition, duration).SetEase(ease);
+        rectTransform.DOAnchorPos(toPosition, duration).SetEase(ease).OnComplete(() => onComplete?.Invoke());
     }
 
-    public void PlayReverse(RectTransform rectTransform)
+    public override void PlayReverse(RectTransform rectTransform, Action onComplete = null)
     {
         if (!rectTransform) return;
-        rectTransform.DOAnchorPos(fromPosition, duration).SetEase(ease);
+        rectTransform.DOAnchorPos(fromPosition, duration).SetEase(ease).OnComplete(() => onComplete?.Invoke());
     }
 
-    public override void Stop(RectTransform rectTransform)
-    {
-        rectTransform?.DOKill();
-    }
+    public override void Stop(RectTransform rectTransform) => rectTransform?.DOKill();
 }

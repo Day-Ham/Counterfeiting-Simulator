@@ -3189,7 +3189,7 @@ MonoBehaviour:
   toggleEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
   tweenAnimation: {fileID: 11400000, guid: 628525e1dd4878e449d1d7a63f8c90ee, type: 2}
   target: {fileID: 3562053044706008062}
-  startScale: {x: 0, y: 0, z: 0}
+  startScale: {x: 1, y: 1, z: 0}
 --- !u!1 &5086780015175411535
 GameObject:
   m_ObjectHideFlags: 0
