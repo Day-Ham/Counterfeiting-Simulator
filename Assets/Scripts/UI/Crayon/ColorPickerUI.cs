@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ColorPickerUI : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class ColorPickerUI : MonoBehaviour
     [Header("Scroll Settings")]
     [Range(0.01f, 1f)]
     [SerializeField] private float scrollSensitivity;
+    [SerializeField] private float sliderLerpDuration = 0.2f;
 
     [Header("Color Preview")]
     [SerializeField] private Image colorPreview;
@@ -184,8 +186,16 @@ public class ColorPickerUI : MonoBehaviour
 
         var channel = rgbChannels[index];
 
-        channel.slider.SetValueWithoutNotify(value);
-        channel.inputField.SetTextWithoutNotify(Mathf.RoundToInt(value).ToString());
+        channel.slider.DOKill();
+        DOTween.To(
+            () => channel.slider.value,
+            x => {
+                channel.slider.SetValueWithoutNotify(x);
+                channel.inputField.SetTextWithoutNotify(Mathf.RoundToInt(x).ToString());
+            },
+            value,
+            sliderLerpDuration
+        );
     }
 
     private void UpdateInputFields()
@@ -232,6 +242,6 @@ public class ColorPickerUI : MonoBehaviour
     private void SetColor(Color color)
     {
         SetSliderValues(color);
-        ApplyColor(GetCurrentColor());
+        UpdatePreview(color);
     }
 }

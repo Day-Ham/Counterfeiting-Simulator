@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7095370796664241514}
   - component: {fileID: 1012212455445980973}
+  - component: {fileID: 8272270045983003340}
   m_Layer: 5
   m_Name: SCRIPT ToggleContextMenu
   m_TagString: Untagged
@@ -43,14 +44,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428408288068260973}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcb89a3fc02a5fd45a0af599c53808c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: e6ae3baa2715846419f6b39daaf7f254, type: 2}
+  target: {fileID: 4296110548194594145}
+--- !u!114 &8272270045983003340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428408288068260973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22d3aa321d1fbd4e99ab4859a33e3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleEvent: {fileID: 11400000, guid: e6ae3baa2715846419f6b39daaf7f254, type: 2}
   tweenAnimation: {fileID: 11400000, guid: 49fbb058002304f4fb3a5a36f1b2f2d9, type: 2}
-  playAnimation: 1
   target: {fileID: 4296110548194594145}
 --- !u!1 &1644247011798887864
 GameObject:
@@ -426,7 +440,6 @@ GameObject:
   - component: {fileID: 5816912173816627304}
   - component: {fileID: 639833506215392586}
   - component: {fileID: 7898702329177378404}
-  - component: {fileID: 808143572115544751}
   m_Layer: 5
   m_Name: CONTAINER ContextMenu
   m_TagString: Untagged
@@ -533,21 +546,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &808143572115544751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4296110548194594145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b131aea1693bbf544bb4cd0833941194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 681159811426884940}
-  startingScaleX: 0
-  startingScaleY: 0
 --- !u!1 &4654150283286437847
 GameObject:
   m_ObjectHideFlags: 0

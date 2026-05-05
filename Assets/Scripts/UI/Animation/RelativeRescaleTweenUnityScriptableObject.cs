@@ -8,9 +8,6 @@ public class RelativeRescaleTweenUnitScriptableObject : TweenAnimationUnitScript
     public Ease easeOut = Ease.InBack;
     public float expandMultiplier = 1.2f;
 
-    public override void Play(RectTransform rectTransform) { }
-    public override void Stop(RectTransform rectTransform) { }
-
     public void Expand(RectTransform target, Vector3 originalScale)
     {
         if (!target) return;

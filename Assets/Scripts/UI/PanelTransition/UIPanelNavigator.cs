@@ -55,11 +55,11 @@ public class UIPanelNavigator : MonoBehaviour
     private void Transition(RectTransform from, RectTransform to)
     {
         _isTransitioning = true;
-        rescaleTween.Collapse(from, () =>
+        rescaleTween.PlayReverse(from, () =>
         {
             from.gameObject.SetActive(false);
             to.gameObject.SetActive(true);
-            rescaleTween.Expand(to, () => _isTransitioning = false);
+            rescaleTween.Play(to, () => _isTransitioning = false);
         });
     }
 

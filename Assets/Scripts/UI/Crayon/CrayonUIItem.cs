@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
+public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Events")]
     [SerializeField] private ColorEvent colorEvent;
@@ -12,7 +12,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     [SerializeField] private VoidEvent eraserSelectEvent;
     
     [Header("References")]
-    [SerializeField] private ResizeTweenUnitScriptableObject resizeTweenUnitScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject selectedResizeTweenUnitScriptableObject;
+    [SerializeField] private ResizeTweenUnitScriptableObject hoverResizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook setColorBlobLook;
     [SerializeField] private ConfigRuntime runtimeAsset;
     
@@ -28,6 +29,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     private Color _color;
     private int _colorIndex;
     private bool _isCollapsed = false;
+    private int _currentSelectedColorIndex = -1;
     
     private void OnEnable()
     {
@@ -55,6 +57,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             return;
         }
         
+        _currentSelectedColorIndex = selectedColorIndex;
+        
         if (selectedColorIndex == _colorIndex)
         {
             ExpandSize();
@@ -75,8 +79,10 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             return;
         }
         
+        _currentSelectedColorIndex = -1;
         CollapseSize();
         setColorBlobLook.SetShadowColor(unSelectedColor);
+        toggleColorPickerUIEvent.Raise(false);
     }
         
     private void Awake()
@@ -119,12 +125,12 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
 
     private void ExpandSize()
     {
-        resizeTweenUnitScriptableObject.Expand(rectTransform);
+        selectedResizeTweenUnitScriptableObject.Play(rectTransform);
     }
 
     private void CollapseSize()
     {
-        resizeTweenUnitScriptableObject.Collapse(rectTransform);
+        selectedResizeTweenUnitScriptableObject.PlayReverse(rectTransform);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -145,7 +151,25 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             CollapseRGBPicker();
         }
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // if game is finished, don't change shadow color on hover
+        if (GameState.IsGameFinished) return;
+        // Only change shadow color on hover if this crayon is not already selected
+        if (_colorIndex == _currentSelectedColorIndex) return;
+        
+        setColorBlobLook.SetShadowColor(Color.Lerp(unSelectedColor, selectedColor, 0.5f));
+        hoverResizeTweenUnitScriptableObject.Play(rectTransform);
+    }
     
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_colorIndex == _currentSelectedColorIndex) return;
+        setColorBlobLook.SetShadowColor(unSelectedColor);
+        hoverResizeTweenUnitScriptableObject.PlayReverse(rectTransform);
+    }
+
     private void TryExpandAndShowRGB()
     {
         if (GameState.IsGameFinished) return;

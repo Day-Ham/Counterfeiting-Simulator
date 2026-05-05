@@ -44,7 +44,6 @@ public class EraserUIItem : MonoBehaviour
         if (GameState.IsGameFinished) return;
         
         eraserSelectEvent.Raise();
-        Debug.Log("Eraser clicked", this);
     }
     
     private void OnEraserSelected()
@@ -59,12 +58,12 @@ public class EraserUIItem : MonoBehaviour
 
     private void Expand()
     {
-        eraserTweenUnitScriptableObject.Expand(rectTransform);
+        eraserTweenUnitScriptableObject.Play(rectTransform);
     }
 
     private void Collapse()
     {
-        eraserTweenUnitScriptableObject.Collapse(rectTransform);
+        eraserTweenUnitScriptableObject.PlayReverse(rectTransform);
     }
     
     private void CollapseAfterGameFinished()

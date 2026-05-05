@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acd7252bd6c996e47bfd000407d8ae57, type: 3}
-  m_Name: '[RESIZE TWEEN] ColorBlob'
+  m_Name: '[RESIZE TWEEN] selectedColorBlob'
   m_EditorClassIdentifier: 
   duration: 0.1
   easeIn: 2

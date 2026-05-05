@@ -63,7 +63,7 @@ public class HintView : MonoBehaviour
             StopCoroutine(_dismissCoroutine);
 
         hintParentRectTransform.anchoredPosition = hint.screenPosition != Vector2.zero ? hint.screenPosition : defaultScreenPosition;
-        hintBGRescaleTweenUnitScriptableObject.Expand(hintParentRectTransform, () =>
+        hintBGRescaleTweenUnitScriptableObject.Play(hintParentRectTransform, () =>
         {
             hintBGBreathingTweenUnitScriptableObject.Play(hintParentRectTransform);
         });
@@ -73,14 +73,14 @@ public class HintView : MonoBehaviour
         {
             arrowRectTransform.anchoredPosition = hint.arrowPosition;
             arrowRectTransform.localRotation = Quaternion.Euler(0, 0, hint.arrowRotation);
-            arrowRescaleTweenUnitScriptableObject.Expand(arrowRectTransform, () =>
+            arrowRescaleTweenUnitScriptableObject.Play(arrowRectTransform, () =>
             {
                 arrowBreathingTweenUnitScriptableObject.Play(arrowRectTransform);
             });
         }
         else
         {
-            arrowRescaleTweenUnitScriptableObject.Collapse(arrowRectTransform);
+            arrowRescaleTweenUnitScriptableObject.PlayReverse(arrowRectTransform);
         }
 
         _dismissCoroutine = StartCoroutine(DismissAfterDelay(hint.displayDuration));
@@ -89,11 +89,11 @@ public class HintView : MonoBehaviour
     private IEnumerator DismissAfterDelay(float duration)
     {
         yield return CoroutineUtility.PauseAwareWait(duration);
-        arrowRescaleTweenUnitScriptableObject.Collapse(arrowRectTransform, () =>
+        arrowRescaleTweenUnitScriptableObject.PlayReverse(arrowRectTransform, () =>
         {
             arrowBreathingTweenUnitScriptableObject.Stop(arrowRectTransform);
         });
-        hintBGRescaleTweenUnitScriptableObject.Collapse(hintParentRectTransform, () =>
+        hintBGRescaleTweenUnitScriptableObject.PlayReverse(hintParentRectTransform, () =>
         {
             hintBGBreathingTweenUnitScriptableObject.Stop(hintParentRectTransform);
             hintDismissedEvent.Raise();

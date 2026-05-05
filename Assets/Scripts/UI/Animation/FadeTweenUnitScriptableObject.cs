@@ -13,7 +13,7 @@ public class FadeTweenUnitScriptableObject : TweenAnimationUnitScriptable
     public float fadeInAlpha = 1f;
     public float fadeOutAlpha = 0f;
 
-    public void FadeIn(RectTransform target, Action onComplete)
+    private void FadeIn(RectTransform target, Action onComplete = null)
     {
         if (!target) return;
         CanvasGroup canvasGroup = target.GetComponent<CanvasGroup>();
@@ -23,30 +23,14 @@ public class FadeTweenUnitScriptableObject : TweenAnimationUnitScriptable
         canvasGroup.DOFade(fadeInAlpha, duration).SetEase(easeIn).OnComplete(() => onComplete?.Invoke());
     }
 
-    public void FadeOut(RectTransform target, Action onComplete)
+    private void FadeOut(RectTransform target, Action onComplete = null)
     {
         if (!target) return;
         CanvasGroup canvasGroup = target.GetComponent<CanvasGroup>();
-        if (!canvasGroup) 
-        {
-            Debug.LogWarning("Target does not have a CanvasGroup component.");
-            return;
-        }
+        if (!canvasGroup) return;
         canvasGroup.DOFade(fadeOutAlpha, duration).SetEase(easeOut).OnComplete(() => onComplete?.Invoke());
     }
 
-    public override void Play(RectTransform rectTransform)
-    {
-        FadeIn(rectTransform, null);
-    }
-
-    public override void Play(RectTransform rectTransform, Action onComplete)
-    {
-        FadeIn(rectTransform, onComplete);
-    }
-
-    public override void PlayReverse(RectTransform rectTransform, Action onComplete)
-    {
-        FadeOut(rectTransform, onComplete);
-    }
+    public override void Play(RectTransform rectTransform, Action onComplete = null) => FadeIn(rectTransform, onComplete);
+    public override void PlayReverse(RectTransform rectTransform, Action onComplete = null) => FadeOut(rectTransform, onComplete);
 }
