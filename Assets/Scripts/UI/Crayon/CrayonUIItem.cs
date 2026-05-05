@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
+public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Events")]
     [SerializeField] private ColorEvent colorEvent;
@@ -28,6 +28,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
     private Color _color;
     private int _colorIndex;
     private bool _isCollapsed = false;
+    private int _currentSelectedColorIndex = -1;
     
     private void OnEnable()
     {
@@ -54,6 +55,8 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             CollapseAfterGameFinished();
             return;
         }
+        
+        _currentSelectedColorIndex = selectedColorIndex;
         
         if (selectedColorIndex == _colorIndex)
         {
@@ -145,7 +148,23 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler
             CollapseRGBPicker();
         }
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // if game is finished, don't change shadow color on hover
+        if (GameState.IsGameFinished) return;
+        // Only change shadow color on hover if this crayon is not already selected
+        if (_colorIndex == _currentSelectedColorIndex) return;
+        
+        setColorBlobLook.SetShadowColor(Color.Lerp(unSelectedColor, selectedColor, 0.5f));
+    }
     
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (_colorIndex == _currentSelectedColorIndex) return;
+        setColorBlobLook.SetShadowColor(unSelectedColor);
+    }
+
     private void TryExpandAndShowRGB()
     {
         if (GameState.IsGameFinished) return;

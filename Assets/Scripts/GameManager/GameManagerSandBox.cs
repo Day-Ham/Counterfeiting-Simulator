@@ -8,6 +8,7 @@ public class GameManagerSandBox : GameManagerUnit
     [SerializeField] private VoidEvent spacePressedEvent;
     [SerializeField] private IntEvent startUIFlowEvent;
     [SerializeField] private VoidEvent drawingBoardControllerEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;
 
     
     [Header("Sandbox Settings")]
@@ -49,6 +50,7 @@ public class GameManagerSandBox : GameManagerUnit
         CanvasDraw.OnStart(sandboxCanvasSize);
         CanvasDraw.SetBrushColorIndex(0);
         CanvasDraw.IsCanDraw = true;
+        selectBrushColorEvent?.Raise(0);
     }
     
     private void StartUIFlow()

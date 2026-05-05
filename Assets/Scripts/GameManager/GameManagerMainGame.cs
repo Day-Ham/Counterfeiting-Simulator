@@ -8,6 +8,7 @@ public class GameManagerMainGame : GameManagerUnit
     [Header("Events")]
     [SerializeField] private VoidEvent finishGameRequestEvent;
     [SerializeField] private ComparisonResultEvent comparisonResultEvent;
+    [SerializeField] private IntEvent selectBrushColorEvent;
     
     [Header("Similarity System")]
     [SerializeField] private ComputeShader similarityComputeShader;
@@ -52,6 +53,8 @@ public class GameManagerMainGame : GameManagerUnit
         CanvasDraw.OnStart(new Vector2Int(goalTexture.width, goalTexture.height));
 
         CanvasDraw.SetBrushColorIndex(0);
+        
+        selectBrushColorEvent?.Raise(0);
         
         GameState.GameStart();
     }
