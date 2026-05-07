@@ -10,7 +10,6 @@ public class PersistentFloatValue : FloatValue
         base.OnEnable();
         var settings = new ES3Settings(SaveFileUtility.SAVE_FILE_NAME);
         Value = ES3.Load(saveKey, GetRawValue(), settings);
-        OnValueChanged += _ => Save();
     }
 
     public void Save()
