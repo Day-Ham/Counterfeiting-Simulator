@@ -20,6 +20,9 @@ public class MainGameModeConfig : ScriptableObject
 
     [Header("Universal Data")] 
     public GameObjectListValue ColorBlobs;
+
+    [Header("TimerThresholds")]
+    public TimerThresholdListValue TimerThresholds;
     
     private List<Color> _runtimeWhiteColors;
     

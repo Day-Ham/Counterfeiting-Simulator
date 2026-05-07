@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,9 +10,12 @@ public class TimerController : MonoBehaviour
     [SerializeField] private FloatEvent timerTickEvent;
     [SerializeField] private VoidEvent startInspectionEvent;
     [SerializeField] private FloatEvent timerStartEvent;
+    [SerializeField] private StringEvent onNotificationShowEvent;
+    [SerializeField] private VoidEvent onCountdownStartEvent;
+    [SerializeField] private VoidEvent onNotificationHideEvent;
 
     [Header("Settings")]
-    [SerializeField] private List<TimerThreshold> timerThresholds;
+    [SerializeField] private List<TimerThreshold> _timerThresholds;
 
     [Header("Runtime")]
     [SerializeField] private MainGameConfigRuntimeAsset runtimeAsset;
@@ -34,6 +38,14 @@ public class TimerController : MonoBehaviour
         GameState.OnGameResumed -= ResumeTimer;
     }
 
+    private void Awake()
+    {
+        if (runtimeAsset != null)
+        {
+            _timerThresholds = runtimeAsset.Value?.TimerThresholds?.Value;
+        }
+    }
+
     private void StartTimer()
     {
         if (runtimeAsset == null || !runtimeAsset.HasValue) return;
@@ -42,9 +54,14 @@ public class TimerController : MonoBehaviour
         _remainingTime = runtimeAsset.Value.TimeLimit.Value;
         _isRunning = true;
 
-        foreach (var threshold in timerThresholds)
+        if(_timerThresholds != null)
         {
-            threshold.hasFired = false;
+            foreach (var threshold in _timerThresholds)
+            {
+                threshold.hasFired = false;
+                threshold.hasNotified = false;
+                threshold.hasCountdown = false;
+            }
         }
 
         timerStartEvent.Raise(_remainingTime);
@@ -60,12 +77,27 @@ public class TimerController : MonoBehaviour
         _remainingTime = Mathf.Max(0f, _remainingTime - Time.deltaTime);
         timerTickEvent.Raise(_remainingTime);
 
-        foreach (var threshold in timerThresholds)
+        if(_timerThresholds != null)
         {
-            if (!threshold.hasFired && _remainingTime <= threshold.thresholdTime)
+            foreach (var threshold in _timerThresholds)
             {
-                threshold.hasFired = true;
-                threshold.onThresholdReachedEvent.Raise();
+                if (!threshold.hasNotified && _remainingTime <= threshold.NotificationTime)
+                {
+                    threshold.hasNotified = true;
+                    onNotificationShowEvent.Raise(threshold.notificationMessage);
+                }
+
+                 if (!threshold.hasCountdown && _remainingTime <= threshold.CountdownTime)
+                {
+                    threshold.hasCountdown = true;
+                    onCountdownStartEvent.Raise();
+                }
+                if (!threshold.hasFired && _remainingTime <= threshold.thresholdTime)
+                {
+                    threshold.hasFired = true;
+                    threshold.onThresholdReachedEvent.Raise();
+                    onNotificationHideEvent.Raise();
+                }
             }
         }
 
@@ -74,6 +106,11 @@ public class TimerController : MonoBehaviour
             _remainingTime = 0;
             _isRunning = false;
             startInspectionEvent.Raise();
+        }
+
+        if (Mathf.FloorToInt(_remainingTime) != Mathf.FloorToInt(_remainingTime + Time.deltaTime))
+        {
+            //Debug.Log($"[Timer] {_remainingTime:F1}s remaining");
         }
     }
 }

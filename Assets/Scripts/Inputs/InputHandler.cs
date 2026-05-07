@@ -104,7 +104,7 @@ public class InputHandler : ScriptableObject
     {
         _toolKeyActions[KeyCode.Space] = () => spacePressedEvent?.Raise();
         
-        _toolKeyActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
+        //_toolKeyActions[KeyCode.F] = () => _finishGameCallback?.Invoke();
         _toolKeyActions[KeyCode.Z] = () => undoDrawEvent?.Raise();
         _toolKeyActions[KeyCode.C] = () => _canvasDraw.ClearCurrentLayer();
         _toolKeyActions[KeyCode.D] = () => _canvasDraw.CurrentDrawMode = CanvasDrawController.DrawMode.Draw;

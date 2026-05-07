@@ -23,3 +23,4 @@ MonoBehaviour:
   SnapTolerance: {fileID: 11400000, guid: 2d983aeaf0e77994ca2f96f63164624f, type: 2}
   TimeLimit: {fileID: 11400000, guid: 596092e6558b7d6488dba48ef7c06a80, type: 2}
   ColorBlobs: {fileID: 11400000, guid: 958196b79b8f08c4b8a61c8ccc6ca7cb, type: 2}
+  TimerThresholds: {fileID: 11400000, guid: ca1ea2034380f1946918e602f54de14b, type: 2}

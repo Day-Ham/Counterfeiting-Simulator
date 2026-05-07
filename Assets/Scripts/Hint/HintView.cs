@@ -2,12 +2,14 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using DG.Tweening;
+using System;
 
 public class HintView : MonoBehaviour
 {
     [Header("Events")]
     [SerializeField] private HintDataEvent hintDataEvent;
     [SerializeField] private VoidEvent hintDismissedEvent;
+    [SerializeField] private VoidEvent onSpacebarPressedEvent;
 
     [Header("Tweens")]
     [SerializeField] private RescaleTweenUnitScriptableObject arrowRescaleTweenUnitScriptableObject;
@@ -28,6 +30,7 @@ public class HintView : MonoBehaviour
     private void OnEnable()
     {
         hintDataEvent.Register(ShowHint);
+        onSpacebarPressedEvent.Register(HideHint);
         GameState.OnGamePaused += PauseAnimations;
         GameState.OnGameResumed += ResumeAnimations;
     }
@@ -35,6 +38,7 @@ public class HintView : MonoBehaviour
     private void OnDisable()
     {
         hintDataEvent.Unregister(ShowHint);
+        onSpacebarPressedEvent.Unregister(HideHint);
         GameState.OnGamePaused -= PauseAnimations;
         GameState.OnGameResumed -= ResumeAnimations;
     }
@@ -84,6 +88,22 @@ public class HintView : MonoBehaviour
         }
 
         _dismissCoroutine = StartCoroutine(DismissAfterDelay(hint.displayDuration));
+    }
+
+    private void HideHint()
+    {
+        if (_dismissCoroutine != null)
+            StopCoroutine(_dismissCoroutine);
+
+        arrowRescaleTweenUnitScriptableObject.PlayReverse(arrowRectTransform, () =>
+        {
+            arrowBreathingTweenUnitScriptableObject.Stop(arrowRectTransform);
+        });
+        hintBGRescaleTweenUnitScriptableObject.PlayReverse(hintParentRectTransform, () =>
+        {
+            hintBGBreathingTweenUnitScriptableObject.Stop(hintParentRectTransform);
+            hintDismissedEvent.Raise();
+        });
     }
 
     private IEnumerator DismissAfterDelay(float duration)

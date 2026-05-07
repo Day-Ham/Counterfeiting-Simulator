@@ -247,6 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hintDataEvent: {fileID: 11400000, guid: 5a52a9c6754a96043bc08a711a25dc29, type: 2}
   hintDismissedEvent: {fileID: 11400000, guid: 8511562168b64d440a4bde8916fd0a06, type: 2}
+  onSpacebarPressedEvent: {fileID: 11400000, guid: db5b9c18e7dac8e4db26cbe34ec60068, type: 2}
   arrowRescaleTweenUnitScriptableObject: {fileID: 11400000, guid: 5d906d2697dbc334c9e17f8184f36c63, type: 2}
   hintBGRescaleTweenUnitScriptableObject: {fileID: 11400000, guid: 547a14be7ff180242aa013af8454f17b, type: 2}
   arrowBreathingTweenUnitScriptableObject: {fileID: 11400000, guid: f8a018733cb95dc4f93416f90a883223, type: 2}
