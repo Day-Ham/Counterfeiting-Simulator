@@ -1,9 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Random = UnityEngine.Random;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class AuctionMechanic : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private VoidEvent beginBidEvent;
     [SerializeField] private BidEvent onBidRaisedEvent;
     [SerializeField] private VoidEvent onAuctionEnd;
+    [SerializeField] private VoidEvent skipAuctionEvent;
+    [SerializeField] private AudioClipEvent audioClipEvent;
     
     [Header("Save System")]
     [SerializeField] private CanvasDrawControllerValue canvasDrawControllerValue;
@@ -22,7 +25,7 @@ public class AuctionMechanic : MonoBehaviour
     [SerializeField] private TextMeshProUGUI auctionText;
     [SerializeField] private TextMeshProUGUI increasedBidText;
     [SerializeField] private TextMeshProUGUI auctionPromptText;
-    [SerializeField] private TextMeshProUGUI bidderNameText;
+    [SerializeField] private RectTransform soldStamp;
 
     [Header("NPC Bidders")]
     [SerializeField] private List<NPCBidder> npcBidders;
@@ -31,26 +34,36 @@ public class AuctionMechanic : MonoBehaviour
     [Header("Auction State")]
     [SerializeField] private int price = 0;
     [SerializeField] private float noBidTimeout = 3f;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClipValue auctionEndSFX;
+
     
     private readonly List<NPCBidderRuntime> _activeBidders = new();
     private int _wantValue = 100;
     private bool _isAnimatingBid = false;
     private bool _isEnding = false;
     private float _timeSinceLastBid = 0f;
+    private Vector2 _bidTextOriginalPos;
+    private Image _soldStampImage;
 
     private void OnEnable()
     {
         beginBidEvent.Register(BeginBidding);
+        skipAuctionEvent.Register(DelaySkipAuction);
     }
 
     private void OnDisable()
     {
         beginBidEvent.Unregister(BeginBidding);
+        skipAuctionEvent.Unregister(DelaySkipAuction);
     }
 
     private void Start()
     {
         InitializeBidders();
+        _bidTextOriginalPos = increasedBidText.rectTransform.anchoredPosition;
+        _soldStampImage = soldStamp.GetComponent<Image>();
     }
 
     private void InitializeBidders()
@@ -99,13 +112,14 @@ public class AuctionMechanic : MonoBehaviour
     private void BeginBidding()
     {
         price = AuctionUtility.GenerateStartingPrice();
+        auctionText.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
         auctionText.SetText("$" + price.ToString("n0"));
 
         _wantValue = 100;
         _isEnding = false;
 
         StartCoroutine(Bidding());
-        StartCoroutine(DebugBidTimer());
+        //StartCoroutine(DebugBidTimer());
     }
 
     private IEnumerator Bidding()
@@ -160,10 +174,25 @@ public class AuctionMechanic : MonoBehaviour
     {
         _isAnimatingBid = true;
         
-        bidderNameText.SetText(result.Bidder.data.npcName);
-        increasedBidText.SetText("+$" + result.BidAmount.ToString("n0"));
+        RectTransform bidRect = (RectTransform)increasedBidText.transform;
+        bidRect.DOKill();  
+        bidRect.anchoredPosition = _bidTextOriginalPos;
+        increasedBidText.alpha = 1f;
+
+        increasedBidText.SetText($"{result.Bidder.data.npcName}\n+${result.BidAmount:n0}");
+        increasedBidText.transform.DOPunchScale(Vector3.one * 0.2f, 0.2f, vibrato: 3);
         
         onBidRaisedEvent?.Raise(result.Bidder);
+
+        yield return new WaitForSeconds(0.5f);
+
+        float animDuration = 0.5f;
+        bidRect.DOAnchorPos(auctionText.rectTransform.anchoredPosition, animDuration);
+        increasedBidText.DOFade(0f, 0.5f);
+
+        yield return new WaitForSeconds(animDuration);
+
+        increasedBidText.SetText("");
 
         yield return StartCoroutine(SmoothIncrease(price, result.NewPrice));
 
@@ -172,8 +201,6 @@ public class AuctionMechanic : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         
-        increasedBidText.SetText("");
-
         _wantValue = AuctionUtility.DecreaseWantValue(_wantValue);
         _isAnimatingBid = false;
     }
@@ -193,12 +220,16 @@ public class AuctionMechanic : MonoBehaviour
     {
         int priceValue = start;
         
-        Debug.Log($"[Auction] Counting up started: {start} → {end}");
+        //Debug.Log($"[Auction] Counting up started: {start} → {end}");
         
         if (priceValue % 1000 == 0)
         {
-            Debug.Log($"[Auction] Counting: {priceValue}");
+            //Debug.Log($"[Auction] Counting: {priceValue}");
         }
+        var originalColor = auctionText.color;
+
+        auctionText.transform.DOPunchScale(Vector3.one * 0.3f, 0.5f, vibrato: 5);
+        auctionText.color = Color.green;
 
         while (priceValue < end)
         {
@@ -209,25 +240,30 @@ public class AuctionMechanic : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
         
-        Debug.Log($"[Auction] Counting finished: {end}");
+        auctionText.color = originalColor;
         
+        //Debug.Log($"[Auction] Counting finished: {end}");
     }
 
     private IEnumerator FinalCountdown()
     {
-        auctionPromptText.SetText("GOING ONCE");
+        ShowPromptText("GOING ONCE");
         yield return new WaitForSeconds(2);
 
-        auctionPromptText.SetText("GOING TWICE");
+        ShowPromptText("GOING TWICE");
         yield return new WaitForSeconds(2);
+        ShowPromptText("SOLD");
+        PlaySoldStamp();   
 
-        auctionPromptText.SetText("SOLD!");
-        
+        audioClipEvent?.Raise(auctionEndSFX?.Value);
+
+        yield return new WaitForSeconds(0.5f);
+
         StoreAuctionResult();
         auctionSaveHandler.Save();
-        
-        yield return new WaitForSeconds(1);
-        
+
+        yield return new WaitForSeconds(1f);
+
         onAuctionEnd?.Raise();
     }
     
@@ -255,5 +291,39 @@ public class AuctionMechanic : MonoBehaviour
         Destroy(texture2D);
 
         return bytes;
+    }
+
+    private void DelaySkipAuction()
+    {
+        if (_isEnding || price == 0) return;
+        ShowPromptText("SOLD");
+        PlaySoldStamp();
+        audioClipEvent?.Raise(auctionEndSFX?.Value);
+        StopAllCoroutines();
+        StartCoroutine(SkipAuction());
+    }
+
+    private IEnumerator SkipAuction()
+    {
+        yield return new WaitForSeconds(1.5f);
+        _isEnding = true;
+        StoreAuctionResult();
+        auctionSaveHandler.Save();
+        onAuctionEnd?.Raise();
+    }
+
+    private void ShowPromptText(string text)
+    {
+        auctionPromptText.transform.localScale = Vector3.zero;
+        auctionPromptText.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+        auctionPromptText.SetText(text);
+    }
+
+    private void PlaySoldStamp()
+    {
+        _soldStampImage.color = new Color(1, 1, 1, 0);
+        soldStamp.localScale = Vector3.one * 4f;
+        soldStamp.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
+        _soldStampImage.DOFade(1f, 0.15f);
     }
 }
