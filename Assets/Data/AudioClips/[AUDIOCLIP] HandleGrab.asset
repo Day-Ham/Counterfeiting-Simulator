@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acd7252bd6c996e47bfd000407d8ae57, type: 3}
-  m_Name: '[RESIZE TWEEN] Eraser'
+  m_Script: {fileID: 11500000, guid: 7ee5874b0df09c249bfec3cc5af72791, type: 3}
+  m_Name: '[AUDIOCLIP] HandleGrab'
   m_EditorClassIdentifier: 
-  duration: 0.1
-  easeIn: 2
-  easeOut: 3
-  expandedSize: {x: 60, y: 80}
-  collapsedSize: {x: 40, y: 60}
+  value: {fileID: 8300000, guid: 0cbd29c063c93d444838c1c948d40843, type: 3}

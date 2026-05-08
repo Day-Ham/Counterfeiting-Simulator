@@ -191,10 +191,13 @@ MonoBehaviour:
   selectedColorEvent: {fileID: 11400000, guid: d0f192fee70b9bd4aaed1ba045f469d1, type: 2}
   selectBrushColorEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
   eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
   selectedResizeTweenUnitScriptableObject: {fileID: 11400000, guid: 9d72f66fd28e33942bd5d864fe856b85, type: 2}
   hoverResizeTweenUnitScriptableObject: {fileID: 11400000, guid: 8b4fcbfd0f0b46e4c9a1bf4366192030, type: 2}
   setColorBlobLook: {fileID: 1595530708759805303}
   runtimeAsset: {fileID: 11400000, guid: 3d933718de883804fa117e08a752b27f, type: 2}
+  colorSelectSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  colorHoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
   button: {fileID: 6619709584715426218}
   colorPreview: {fileID: 8705097553555431597}
   rectTransform: {fileID: 5603445176423182755}

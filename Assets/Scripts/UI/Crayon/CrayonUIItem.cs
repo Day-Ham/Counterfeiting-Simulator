@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,12 +11,15 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] private SelectedColorEvent selectedColorEvent;
     [SerializeField] private IntEvent selectBrushColorEvent;    
     [SerializeField] private VoidEvent eraserSelectEvent;
+    [SerializeField] private AudioClipEvent audioClipEvent;
     
     [Header("References")]
     [SerializeField] private ResizeTweenUnitScriptableObject selectedResizeTweenUnitScriptableObject;
     [SerializeField] private ResizeTweenUnitScriptableObject hoverResizeTweenUnitScriptableObject;
     [SerializeField] private SetColorBlobLook setColorBlobLook;
     [SerializeField] private ConfigRuntime runtimeAsset;
+    [SerializeField] private AudioClipValue colorSelectSFX;
+    [SerializeField] private AudioClipValue colorHoverSFX;
     
     [Header("UI")]
     [SerializeField] private Button button;
@@ -120,6 +124,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         if (GameState.IsGameFinished) return;
         
+        audioClipEvent.Raise(colorSelectSFX.Value);
         selectBrushColorEvent.Raise(_colorIndex);
     }
 
@@ -159,6 +164,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // Only change shadow color on hover if this crayon is not already selected
         if (_colorIndex == _currentSelectedColorIndex) return;
         
+        audioClipEvent.Raise(colorHoverSFX.Value);
         setColorBlobLook.SetShadowColor(Color.Lerp(unSelectedColor, selectedColor, 0.5f));
         hoverResizeTweenUnitScriptableObject.Play(rectTransform);
     }
@@ -203,6 +209,7 @@ public class CrayonUIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (_isCollapsed) return;
         CollapseSize();
         CollapseRGBPicker();
+        button.interactable = false;
         setColorBlobLook.SetShadowColor(unSelectedColor);
         _isCollapsed = true;
     }

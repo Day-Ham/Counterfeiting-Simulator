@@ -64,8 +64,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: e6ae3baa2715846419f6b39daaf7f254, type: 2}
-  tweenAnimation: {fileID: 11400000, guid: 49fbb058002304f4fb3a5a36f1b2f2d9, type: 2}
+  toggledAnimation: {fileID: 11400000, guid: 49fbb058002304f4fb3a5a36f1b2f2d9, type: 2}
+  hoverAnimation: {fileID: 0}
   target: {fileID: 4296110548194594145}
+  startScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1644247011798887864
 GameObject:
   m_ObjectHideFlags: 0

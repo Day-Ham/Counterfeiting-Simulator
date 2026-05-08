@@ -9,7 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9036dd1a5b4f948a99137e7c7ef4ac, type: 3}
-  m_Name: '[FLOAT] TimeLimit'
+  m_Script: {fileID: 11500000, guid: 583a5282674de154a94531d650d494f5, type: 3}
+  m_Name: '[RESCALE TWEEN] Notification'
   m_EditorClassIdentifier: 
-  value: 195
+  duration: 0.3
+  easeIn: 27
+  easeOut: 26
+  expandedScale: {x: 1, y: 1, z: 0}
+  collapsedScale: {x: 0, y: 0, z: 0}
