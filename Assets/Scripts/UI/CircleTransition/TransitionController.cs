@@ -7,6 +7,7 @@ public class TransitionController : MonoBehaviour
     [Header("Events")]
     [SerializeField] private VoidEvent playTransitionEvent;
     [SerializeField] private VoidEvent onTransitionFinished;
+    [SerializeField] private AudioClipEvent playSFXEvent;
     
     [Header("Transition")]
     [SerializeField] private GameObject circleUI;
@@ -14,6 +15,10 @@ public class TransitionController : MonoBehaviour
     [Header("Tween Settings")]
     [SerializeField] private float duration = 1f;
     [SerializeField] private Ease ease = Ease.OutQuad;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClipValue transitionStartClip;
+    [SerializeField] private AudioClipValue transitionEndClip;
 
     private void OnEnable()
     {
@@ -37,6 +42,8 @@ public class TransitionController : MonoBehaviour
 
         circleUI.transform.localScale = Vector3.one * 25f;
 
+        playSFXEvent.Raise(transitionStartClip.Value);
+
         circleUI.transform
             .DOScale(Vector3.zero, duration)
             .SetEase(ease);
@@ -49,6 +56,8 @@ public class TransitionController : MonoBehaviour
 
         circleUI.transform.localScale = Vector3.zero;
 
+        playSFXEvent.Raise(transitionStartClip.Value);
+        
         circleUI.transform
             .DOScale(Vector3.one * 25f, duration)
             .SetEase(ease)

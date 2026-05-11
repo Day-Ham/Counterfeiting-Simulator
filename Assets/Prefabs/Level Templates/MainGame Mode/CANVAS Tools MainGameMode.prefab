@@ -189,9 +189,14 @@ MonoBehaviour:
   onNotificationShowEvent: {fileID: 11400000, guid: 2a3b3c4a6113e0141b51a7384743c020, type: 2}
   onCountdownStartEvent: {fileID: 11400000, guid: 0b5eb12ca9f686f4393dff6594c2b5b4, type: 2}
   onNotificationHideEvent: {fileID: 11400000, guid: 196777c682bc0b148add5b516f9c1236, type: 2}
-  canvasGroup: {fileID: 344381178893665635}
+  playSFXEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  popUpTween: {fileID: 11400000, guid: 1ed42487e1cdd76418ea8506b8ad929c, type: 2}
+  target: {fileID: 5072196976443348094}
   messageText: {fileID: 4152299310437815763}
   countdownText: {fileID: 7594989051543633475}
+  notificationShowClip: {fileID: 11400000, guid: fbfc394eb7fb36443a079f754d5d5cac, type: 2}
+  notificationHideClip: {fileID: 11400000, guid: f3c9e34bd65901546bc130abcb37813f, type: 2}
+  countdownTickClip: {fileID: 11400000, guid: c4060391566d5ee45ac2387d125fe5a1, type: 2}
 --- !u!1 &3795568800817922395
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,9 +706,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5072196976443348094}
-  - component: {fileID: 344381178893665635}
   m_Layer: 0
-  m_Name: PARENT CanvasGroup
+  m_Name: EMPTY GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,18 +733,6 @@ RectTransform:
   m_AnchoredPosition: {x: 51, y: 0}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!225 &344381178893665635
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8512644734680151462}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1001 &7597601016284777213
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,11 +4,18 @@ using UnityEngine.UI;
 
 public class SFXSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [Header("Events")]
     [SerializeField] private AudioClipEvent sfxEvent;
-    [SerializeField] private AudioClip grabClip;
-    [SerializeField] private AudioClip releaseClip;
-    [SerializeField] private AudioClip tickClip;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClipValue grabClip;
+    [SerializeField] private AudioClipValue releaseClip;
+    [SerializeField] private AudioClipValue tickClip;
+
+    [Header("UI")]
     [SerializeField] private Slider slider;
+
+    [Header("Settings")]
     [SerializeField] private float tickInterval = 0.05f;
 
     private float _lastTickTime;
@@ -22,9 +29,9 @@ public class SFXSlider : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (Time.unscaledTime - _lastTickTime < tickInterval) return;
         _lastTickTime = Time.unscaledTime;
-        sfxEvent.Raise(tickClip);
+        sfxEvent.Raise(tickClip.Value);
     }
 
-    public void OnPointerDown(PointerEventData eventData) => sfxEvent.Raise(grabClip);
-    public void OnPointerUp(PointerEventData eventData) => sfxEvent.Raise(releaseClip);
+    public void OnPointerDown(PointerEventData eventData) => sfxEvent.Raise(grabClip.Value);
+    public void OnPointerUp(PointerEventData eventData) => sfxEvent.Raise(releaseClip.Value);
 }

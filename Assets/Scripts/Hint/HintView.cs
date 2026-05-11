@@ -10,6 +10,7 @@ public class HintView : MonoBehaviour
     [SerializeField] private HintDataEvent hintDataEvent;
     [SerializeField] private VoidEvent hintDismissedEvent;
     [SerializeField] private VoidEvent onSpacebarPressedEvent;
+    [SerializeField] private AudioClipEvent playSFXEvent;
 
     [Header("Tweens")]
     [SerializeField] private RescaleTweenUnitScriptableObject arrowRescaleTweenUnitScriptableObject;
@@ -24,6 +25,10 @@ public class HintView : MonoBehaviour
 
     [Header("UI Settings")]
     [SerializeField] private Vector2 defaultScreenPosition;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClipValue hintShowClip;
+    [SerializeField] private AudioClipValue hintHideClip;
 
     private Coroutine _dismissCoroutine;
 
@@ -87,6 +92,7 @@ public class HintView : MonoBehaviour
             arrowRescaleTweenUnitScriptableObject.PlayReverse(arrowRectTransform);
         }
 
+        playSFXEvent.Raise(hintShowClip.Value);
         _dismissCoroutine = StartCoroutine(DismissAfterDelay(hint.displayDuration));
     }
 
@@ -109,6 +115,7 @@ public class HintView : MonoBehaviour
     private IEnumerator DismissAfterDelay(float duration)
     {
         yield return CoroutineUtility.PauseAwareWait(duration);
+
         arrowRescaleTweenUnitScriptableObject.PlayReverse(arrowRectTransform, () =>
         {
             arrowBreathingTweenUnitScriptableObject.Stop(arrowRectTransform);
@@ -117,6 +124,7 @@ public class HintView : MonoBehaviour
         {
             hintBGBreathingTweenUnitScriptableObject.Stop(hintParentRectTransform);
             hintDismissedEvent.Raise();
+            playSFXEvent.Raise(hintHideClip.Value);
         });
     }
 }

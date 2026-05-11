@@ -9,11 +9,20 @@ public class ThresholdNotificationView : MonoBehaviour
     [SerializeField] private StringEvent onNotificationShowEvent;
     [SerializeField] private VoidEvent onCountdownStartEvent;
     [SerializeField] private VoidEvent onNotificationHideEvent;
+    [SerializeField] private AudioClipEvent playSFXEvent;
+
+    [Header("Tween")]
+    [SerializeField] private TweenAnimationUnitScriptable popUpTween;
 
     [Header("UI")]
-    [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private RectTransform target;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private TextMeshProUGUI countdownText;
+
+    [Header("SFX")]
+    [SerializeField] private AudioClipValue notificationShowClip;
+    [SerializeField] private AudioClipValue notificationHideClip;
+    [SerializeField] private AudioClipValue countdownTickClip;
 
     private Coroutine _countdownCoroutine;
 
@@ -33,7 +42,7 @@ public class ThresholdNotificationView : MonoBehaviour
 
     private void Awake()
     {
-        canvasGroup.alpha = 0f;
+        target.localScale = Vector3.zero;
         countdownText.SetText("");
         messageText.SetText("");
     }
@@ -42,13 +51,14 @@ public class ThresholdNotificationView : MonoBehaviour
     {
         messageText.SetText(message);
         countdownText.SetText("");
-        canvasGroup.alpha = 0f;
-        canvasGroup.DOFade(1f, 0.3f);
+        popUpTween.Play(target);
+        playSFXEvent.Raise(notificationShowClip.Value);
     }
 
     private void StartCountdown()
     {
         if (_countdownCoroutine != null) StopCoroutine(_countdownCoroutine);
+        playSFXEvent.Raise(countdownTickClip.Value);
         _countdownCoroutine = StartCoroutine(CountdownRoutine());
     }
 
@@ -65,6 +75,11 @@ public class ThresholdNotificationView : MonoBehaviour
     private void Hide()
     {
         if (_countdownCoroutine != null) StopCoroutine(_countdownCoroutine);
-        canvasGroup.DOFade(0f, 0.3f);
+        popUpTween.PlayReverse(target, () =>
+        {
+            messageText.SetText("");
+            countdownText.SetText("");
+        });
+        playSFXEvent.Raise(notificationHideClip.Value);
     }
 }

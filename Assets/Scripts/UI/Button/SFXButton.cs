@@ -16,5 +16,9 @@ public class SFXButton : MonoBehaviour, IPointerEnterHandler
 
     private void Awake() => button.onClick.AddListener(() => audioClipEvent.Raise(menuclickSFX.Value));
     
-    public void OnPointerEnter(PointerEventData eventData) => audioClipEvent.Raise(menuhoverSFX.Value);
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!button.interactable) return;
+        audioClipEvent.Raise(menuhoverSFX.Value);
+    }
 }

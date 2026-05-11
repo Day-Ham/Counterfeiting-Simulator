@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8589547464117299668}
   - component: {fileID: 5485613765731659918}
   - component: {fileID: 4580289708550403095}
+  - component: {fileID: 2222619538538178277}
+  - component: {fileID: 6073555663964359142}
   m_Layer: 5
   m_Name: BUTTON InspectShadow
   m_TagString: Untagged
@@ -136,6 +138,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   compareButton: {fileID: 5485613765731659918}
   startCompareEvent: {fileID: 11400000, guid: b22b2ce9eb6856f4c9159c5524fe674d, type: 2}
+--- !u!114 &2222619538538178277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67454303551450949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05426916b95b26d4db07b72803dfcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTween: {fileID: 11400000, guid: dcd375cf9eebaec49af955850c4c3389, type: 2}
+  pressTween: {fileID: 11400000, guid: 9b6c7eb7c99403e44814f464e0f111ff, type: 2}
+  target: {fileID: 7175316018829775432}
+--- !u!114 &6073555663964359142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67454303551450949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f22b786be341b43805c436ee6d42bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  menuhoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
+  menuclickSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  button: {fileID: 5485613765731659918}
 --- !u!1 &128996083472076220
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,6 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1329486006438440070}
   - component: {fileID: 5246270207813104317}
+  - component: {fileID: 2030199449880736943}
   m_Layer: 5
   m_Name: Slider Red
   m_TagString: Untagged
@@ -226,6 +260,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2030199449880736943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128996083472076220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cb52a33f78ca444bc4741fdc8f3a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  grabClip: {fileID: 11400000, guid: d7f596358d013bb41894788075a28940, type: 2}
+  releaseClip: {fileID: 11400000, guid: 47a3f7af275e1104ea1dc95f67d48371, type: 2}
+  tickClip: {fileID: 11400000, guid: 5df584c899f8e9d47a4d69cac49d2e3d, type: 2}
+  slider: {fileID: 5246270207813104317}
+  tickInterval: 0.05
 --- !u!1 &234089690810150349
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,9 +843,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorSelectedEvent: {fileID: 11400000, guid: 321c89b07a263794bb04f368882bc4e6, type: 2}
   eraserSelectEvent: {fileID: 11400000, guid: 37a0101b0f684424285c2e5ad009efa2, type: 2}
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
   rectTransform: {fileID: 1744130996101171144}
   button: {fileID: 5229175689826666223}
-  eraserTweenUnitScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
+  eraserSelectSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  eraserHoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
+  eraserSelectedTweenUnitScriptableObject: {fileID: 11400000, guid: 065f15a42959efa4eba4d7b5e7aadd98, type: 2}
+  eraserHoverTweenUnitScriptableObject: {fileID: 11400000, guid: e369d1ecab106e04095c9b42d1ef5b69, type: 2}
 --- !u!1 &1680296720183608354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,6 +1302,8 @@ GameObject:
   - component: {fileID: 5124206575937379532}
   - component: {fileID: 2134830996826367841}
   - component: {fileID: 1242919100097213512}
+  - component: {fileID: 1238854505534469536}
+  - component: {fileID: 1381901260243723154}
   m_Layer: 5
   m_Name: BUTTON RetryShadow
   m_TagString: Untagged
@@ -1384,6 +1442,37 @@ MonoBehaviour:
   triggerEvent: {fileID: 11400000, guid: 44e661d144c5a884c9d6b87ea80b7a86, type: 2}
   rectTransform: {fileID: 3733404438618090301}
   tweenAnimationUnitScriptable: {fileID: 11400000, guid: 12ea488fb24e9964f945e66fdf438f37, type: 2}
+--- !u!114 &1238854505534469536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630323068150873273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f22b786be341b43805c436ee6d42bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  menuhoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
+  menuclickSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  button: {fileID: 5124206575937379532}
+--- !u!114 &1381901260243723154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630323068150873273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05426916b95b26d4db07b72803dfcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTween: {fileID: 11400000, guid: dcd375cf9eebaec49af955850c4c3389, type: 2}
+  pressTween: {fileID: 11400000, guid: 9b6c7eb7c99403e44814f464e0f111ff, type: 2}
+  target: {fileID: 3733404438618090301}
 --- !u!1 &2668526498210363228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,6 +1544,7 @@ GameObject:
   - component: {fileID: 4160861038615991994}
   - component: {fileID: 180671405888314940}
   - component: {fileID: 8229957637387434983}
+  - component: {fileID: 3683814144643596666}
   m_Layer: 5
   m_Name: Handle
   m_TagString: Untagged
@@ -1519,6 +1609,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3683814144643596666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800214456262486067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05426916b95b26d4db07b72803dfcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTween: {fileID: 11400000, guid: dcd375cf9eebaec49af955850c4c3389, type: 2}
+  pressTween: {fileID: 11400000, guid: 9b6c7eb7c99403e44814f464e0f111ff, type: 2}
+  target: {fileID: 4160861038615991994}
 --- !u!1 &2956368941683941917
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,6 +2378,8 @@ GameObject:
   - component: {fileID: 4296859303231385625}
   - component: {fileID: 8445541178076839123}
   - component: {fileID: 5202834433761476605}
+  - component: {fileID: 2212324127984221117}
+  - component: {fileID: 7039440670653334580}
   m_Layer: 5
   m_Name: BUTTON PauseShadow
   m_TagString: Untagged
@@ -2395,6 +2502,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 8445541178076839123}
+--- !u!114 &2212324127984221117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4280582471768192644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f22b786be341b43805c436ee6d42bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  menuhoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
+  menuclickSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  button: {fileID: 8445541178076839123}
+--- !u!114 &7039440670653334580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4280582471768192644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05426916b95b26d4db07b72803dfcc7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverTween: {fileID: 11400000, guid: dcd375cf9eebaec49af955850c4c3389, type: 2}
+  pressTween: {fileID: 11400000, guid: 9b6c7eb7c99403e44814f464e0f111ff, type: 2}
+  target: {fileID: 1670566385317012965}
 --- !u!1 &4281317503756595747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,7 +3185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3187,7 +3325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: 123d0d58c0d24e2498a92913248934bc, type: 2}
-  tweenAnimation: {fileID: 11400000, guid: 628525e1dd4878e449d1d7a63f8c90ee, type: 2}
+  toggledAnimation: {fileID: 11400000, guid: 628525e1dd4878e449d1d7a63f8c90ee, type: 2}
+  hoverAnimation: {fileID: 0}
   target: {fileID: 3562053044706008062}
   startScale: {x: 0, y: 0, z: 0}
 --- !u!1 &5086780015175411535
@@ -3386,6 +3525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2126961576096275443}
   - component: {fileID: 7379389694745651282}
+  - component: {fileID: 800844610735775210}
   m_Layer: 5
   m_Name: Slider Green
   m_TagString: Untagged
@@ -3466,6 +3606,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &800844610735775210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5281793167666706850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cb52a33f78ca444bc4741fdc8f3a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  grabClip: {fileID: 11400000, guid: d7f596358d013bb41894788075a28940, type: 2}
+  releaseClip: {fileID: 11400000, guid: 47a3f7af275e1104ea1dc95f67d48371, type: 2}
+  tickClip: {fileID: 11400000, guid: 5df584c899f8e9d47a4d69cac49d2e3d, type: 2}
+  slider: {fileID: 7379389694745651282}
+  tickInterval: 0.05
 --- !u!1 &5456533019585795697
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3592,6 +3750,7 @@ GameObject:
   - component: {fileID: 3473417074998016473}
   - component: {fileID: 1433634628552995327}
   - component: {fileID: 4155957407127806125}
+  - component: {fileID: 2220109072101531709}
   m_Layer: 5
   m_Name: BUTTON GraphShadow
   m_TagString: Untagged
@@ -3728,9 +3887,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toggleEvent: {fileID: 11400000, guid: 47d401985bcdd3c4e8387b4c17dbcd41, type: 2}
-  tweenAnimation: {fileID: 11400000, guid: 65306686a512c814484e96ecd0657e3e, type: 2}
+  toggledAnimation: {fileID: 11400000, guid: 166f6a23e45a44c4f90eb2c0d87353fc, type: 2}
+  hoverAnimation: {fileID: 11400000, guid: 73c28478936acdd4bb2fbcfbb80bfde6, type: 2}
   target: {fileID: 5640761261913580228}
   startScale: {x: 1, y: 1, z: 0}
+--- !u!114 &2220109072101531709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5640761261913580228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f22b786be341b43805c436ee6d42bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  menuhoverSFX: {fileID: 11400000, guid: 35a9feadfbcfca14188142d3ad699f58, type: 2}
+  menuclickSFX: {fileID: 11400000, guid: b897f342b1da46a4fb2b930ef0ab27c3, type: 2}
+  button: {fileID: 3473417074998016473}
 --- !u!1 &5682371855452517770
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,7 +4434,7 @@ GameObject:
   - component: {fileID: 273773638423394556}
   - component: {fileID: 1142427376040131157}
   m_Layer: 5
-  m_Name: CONTIANER Sliders
+  m_Name: CONTAINER Sliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4510,7 +4686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5133,6 +5309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2932030441726549575}
   - component: {fileID: 7073391047523827013}
+  - component: {fileID: 6258066414518478983}
   m_Layer: 5
   m_Name: Slider Blue
   m_TagString: Untagged
@@ -5213,6 +5390,24 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6258066414518478983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7755079698402108883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cb52a33f78ca444bc4741fdc8f3a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  grabClip: {fileID: 11400000, guid: d7f596358d013bb41894788075a28940, type: 2}
+  releaseClip: {fileID: 11400000, guid: 47a3f7af275e1104ea1dc95f67d48371, type: 2}
+  tickClip: {fileID: 11400000, guid: 5df584c899f8e9d47a4d69cac49d2e3d, type: 2}
+  slider: {fileID: 7073391047523827013}
+  tickInterval: 0.05
 --- !u!1 &8067246681154453001
 GameObject:
   m_ObjectHideFlags: 0
@@ -5661,6 +5856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 671520487121705043}
   - component: {fileID: 5111421449432821805}
+  - component: {fileID: 6759286811394159352}
   m_Layer: 5
   m_Name: SLIDER BrushScale
   m_TagString: Untagged
@@ -5740,3 +5936,21 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6759286811394159352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025411339661050942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8cb52a33f78ca444bc4741fdc8f3a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxEvent: {fileID: 11400000, guid: c2e94a400d6db7c49b7470307cbdcfb5, type: 2}
+  grabClip: {fileID: 11400000, guid: d7f596358d013bb41894788075a28940, type: 2}
+  releaseClip: {fileID: 11400000, guid: 47a3f7af275e1104ea1dc95f67d48371, type: 2}
+  tickClip: {fileID: 11400000, guid: 5df584c899f8e9d47a4d69cac49d2e3d, type: 2}
+  slider: {fileID: 5111421449432821805}
+  tickInterval: 0.05
