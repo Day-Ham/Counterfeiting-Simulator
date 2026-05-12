@@ -17,6 +17,7 @@ public class MainGameModeConfig : ScriptableObject
     public IntValue UndoLimit;
     public IntValue SnapTolerance;
     public FloatValue TimeLimit;
+    public IntValue StrokeLimit;
 
     [Header("Universal Data")] 
     public GameObjectListValue ColorBlobs;

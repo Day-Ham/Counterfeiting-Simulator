@@ -32,4 +32,5 @@ public class SandboxConfigRuntimeAsset : ConfigRuntime
     }
     
     public override int UndoLimit => 0;
+    public override int StrokeLimit => 0;
 }

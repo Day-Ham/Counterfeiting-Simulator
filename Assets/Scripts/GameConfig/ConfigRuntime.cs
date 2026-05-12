@@ -7,6 +7,7 @@ public abstract class ConfigRuntime : ScriptableObject
     public abstract event Action OnValueChanged;
     public abstract List<Color> GetActiveColors();
     public abstract int UndoLimit { get; }
+    public abstract int StrokeLimit { get; }
     public abstract bool HasValue { get; }
     public virtual bool UseSnapping => true;
 }

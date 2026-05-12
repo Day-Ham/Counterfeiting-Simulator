@@ -57,9 +57,11 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
         CanvasOperation _queuedCanvasOperation;
         Vector2Int _canvasDimensions;
         int _remainingUndo;
+        int _remainingStroke;
 
         bool IsApplicationPlaying() => Application.IsPlaying(this);
         public int RemainingUndo => _remainingUndo;
+        public int RemainingStroke => _remainingStroke;
         
         private void OnEnable()
         {
@@ -136,6 +138,7 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             RefreshCurrentBrushSettings();
             InitializeUndoLimit();
+            InitializeStrokeLimit();
         }
 
         private void RefreshCurrentBrushSettings()
@@ -362,6 +365,13 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
 
             IsUpdating = false;
             _queuedCanvasOperation ??= new SnapshotCurrentCanvasOperation(this);
+
+            if (_remainingStroke > 0)
+            {
+                _remainingStroke--;
+                if (_remainingStroke == 0)
+                    IsCanDraw = false;
+            }
         }
 
         private void OnDestroy()
@@ -407,6 +417,17 @@ namespace DaeHanKim.ThisIsTotallyADollar.Drawing
             }
 
             _remainingUndo = RuntimeAsset.UndoLimit;
+        }
+
+        private void InitializeStrokeLimit()
+        {
+            if (RuntimeAsset == null || !RuntimeAsset.HasValue)
+            {
+                _remainingStroke = 0;
+                return;
+            }
+
+            _remainingStroke = RuntimeAsset.StrokeLimit;
         }
         
         private void HandleGameStart()
