@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dcb52bf9979c745b82eae53d9d348c, type: 3}
-  m_Name: '[LEVEL 6] TimerThresholdList'
+  m_Script: {fileID: 11500000, guid: 8536b72364d84d8429f7c1359b611a81, type: 3}
+  m_Name: '[DATA] DisturbMechanicEvent'
   m_EditorClassIdentifier: 
-  value:
-  - {fileID: 11400000, guid: 770c5c525b6ee5d44ab78f07399b6d1e, type: 2}
-  - {fileID: 11400000, guid: d7f230b1d70732845945c7c50fbd1153, type: 2}
+  onThresholdReachedEvent: {fileID: 11400000, guid: ea5b2e14a8ccb224d9df367f097423a2, type: 2}
+  notificationMessage: Something's coming...
+  interval: 60
+  nextFireTime: 240

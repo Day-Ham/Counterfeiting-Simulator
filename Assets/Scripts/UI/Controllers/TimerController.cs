@@ -58,9 +58,7 @@ public class TimerController : MonoBehaviour
         {
             foreach (var threshold in _timerThresholds)
             {
-                threshold.hasFired = false;
-                threshold.hasNotified = false;
-                threshold.hasCountdown = false;
+                threshold.Reset(_remainingTime);
             }
         }
 
@@ -81,20 +79,18 @@ public class TimerController : MonoBehaviour
         {
             foreach (var threshold in _timerThresholds)
             {
-                if (!threshold.hasNotified && _remainingTime <= threshold.NotificationTime)
+                if (threshold.ShouldNotify(_remainingTime))
                 {
-                    threshold.hasNotified = true;
+                    Debug.Log($"[Timer] Threshold reached: {threshold.notificationMessage}");
                     onNotificationShowEvent.Raise(threshold.notificationMessage);
                 }
-
-                 if (!threshold.hasCountdown && _remainingTime <= threshold.CountdownTime)
+                if (threshold.ShouldCountdown(_remainingTime))
                 {
-                    threshold.hasCountdown = true;
+                    Debug.Log($"[Timer] Countdown started: {threshold.notificationMessage}");
                     onCountdownStartEvent.Raise();
                 }
-                if (!threshold.hasFired && _remainingTime <= threshold.thresholdTime)
+                if (threshold.ShouldFire(_remainingTime))
                 {
-                    threshold.hasFired = true;
                     threshold.onThresholdReachedEvent.Raise();
                     onNotificationHideEvent.Raise();
                 }
