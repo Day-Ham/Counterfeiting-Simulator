@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onThresholdReachedEvent: {fileID: 11400000, guid: 7984f1a4561ce8b4093d8a76fd0ce8e6, type: 2}
   notificationMessage: target hiding soon!
-  thresholdTime: 280
-  hasFired: 1
-  hasNotified: 1
-  hasCountdown: 1
+  thresholdTime: 180
+  hasFired: 0
+  hasNotified: 0
+  hasCountdown: 0
