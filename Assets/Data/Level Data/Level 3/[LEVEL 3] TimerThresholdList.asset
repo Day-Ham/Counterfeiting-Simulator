@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: '[LEVEL 3] TimerThresholdList'
   m_EditorClassIdentifier: 
   value:
-  - {fileID: 11400000, guid: fda9b3ff3134d124b98cc6503a3788fb, type: 2}
+  - {fileID: 11400000, guid: 770c5c525b6ee5d44ab78f07399b6d1e, type: 2}
+  - {fileID: 11400000, guid: b2f3ae9768648a848a2516d36ea58cad, type: 2}

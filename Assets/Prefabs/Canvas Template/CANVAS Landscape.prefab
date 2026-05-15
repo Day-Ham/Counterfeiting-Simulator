@@ -619,6 +619,7 @@ GameObject:
   - component: {fileID: 8791108562884700898}
   - component: {fileID: 7103236292113755081}
   - component: {fileID: 2553720294941111108}
+  - component: {fileID: 226700451171804368}
   m_Layer: 5
   m_Name: Drawing
   m_TagString: Untagged
@@ -756,6 +757,25 @@ MonoBehaviour:
   outsideAllowance: 360
   drawingBoardRectTransform: {fileID: 7864948328430326532}
   canvasRect: {fileID: 760017119137188966}
+--- !u!114 &226700451171804368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248957169323806648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6645afc848acde849a544214a895b168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disturbMechanicEvent: {fileID: 11400000, guid: ea5b2e14a8ccb224d9df367f097423a2, type: 2}
+  canvasDrawController: {fileID: 48093491722432198}
+  canvasStamper: {fileID: 4348080728486212878}
+  mechanics:
+  - {fileID: 11400000, guid: a3234cb142f776149b8d2af138e2f2d8, type: 2}
+  - {fileID: 11400000, guid: 9e22542d7c887ff4a96a64da66bb5239, type: 2}
+  - {fileID: 11400000, guid: 2b0212625bb5a164fae482d1c7581ea9, type: 2}
 --- !u!1 &3487568899593019836
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dcb52bf9979c745b82eae53d9d348c, type: 3}
-  m_Name: '[LEVEL 6] TimerThresholdList'
+  m_Script: {fileID: 11500000, guid: 534ad4378f2a4647badd5ea570cbc640, type: 3}
+  m_Name: LargeBrushSettings
   m_EditorClassIdentifier: 
-  value:
-  - {fileID: 11400000, guid: 770c5c525b6ee5d44ab78f07399b6d1e, type: 2}
-  - {fileID: 11400000, guid: d7f230b1d70732845945c7c50fbd1153, type: 2}
+  <BrushTexture>k__BackingField: {fileID: 2800000, guid: df1836ec78b26f241a9c910eae8bb74f, type: 3}
+  <BrushSize>k__BackingField: 60
